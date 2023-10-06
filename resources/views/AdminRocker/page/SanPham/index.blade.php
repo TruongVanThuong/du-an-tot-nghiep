@@ -2,107 +2,119 @@
 
 @extends('AdminRocker.share.master')
 @section('noi_dung')
-
-
     <div class="row" id="app">
-        <div class="col-md-5">
-					<form id="validate" method="post" action="sanpham" enctype="multipart/form-data">
-						@csrf
-            <div class="card">
-          
-      					<div class="card-header text-center">
-                  <h3>Thêm Sản Phẩm</h3>
-      					</div>
-                <div class="card-body">
-                    <div class="form-group mt-3">
-                        <label>Tên Sản Phẩm</label>
-                        <input name="ten_san_pham" type="text" class="form-control" placeholder="Nhập vào Tên Sản Phẩm" required>
-												
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Mã Loại Sản Phẩm</label>
-                        <select name="ma_loai" class="form-control" required>
-														<option value=""> _ _ _ Chon Mã Loại Sản Phẩm _ _ _</option>
-													@foreach($data_Loaisanpham as $Loaisanpham)
-                            <option value="{{$Loaisanpham->id}}">{{$Loaisanpham->ten_loai}}</option>
-													@endforeach
-                        </select>
-                    </div>
-                    <div class="form-group mt-3 d-flex justify-content-between">
-                        <div class="col-md-5">
-                            <label>Giá Bán</label>
-                            <input name="gia_san_pham" type="number" class="form-control" placeholder="Nhập Giá Bán" required>
-														<span class="text-danger">
-															@error('gia_san_pham')
-																	{{$message}}
-															@enderror
-														</span>
-                        </div>  
-                        <div class="col-md-5">
-                            <label>Giảm giá</label>
-                            <input name="giam_gia_san_pham" type="number" class="form-control" placeholder="Nhập Giảm giá" required>
-														<span class="text-danger">
-															@error('giam_gia_san_pham')
-																	{{$message}}
-															@enderror
-														</span>
-                        </div>  
-                    </div>
-                    <div class="form-group mt-3">
-											<label>Ảnh Sản Phẩm</label>
-											<div class="input-group">
-												<input id="hinh_anh" class="form-control" type="file" accept="image/*" name="hinh_anh[]" multiple >
-											</div>
-											<span class="text-danger">
-												@error('hinh_anh')
-														{{$message}}
-												@enderror
-											</span>
-                    </div>
-										<div class="form-group mt-3">
-												<label>Số Lượng</label>
-												<input name="so_luong" type="number" class="form-control" placeholder="Nhập vào Giá Bán" required>
-												<span class="text-danger">
-													@error('so_luong')
-															{{$message}}
-													@enderror
-												</span>
-										</div>
-                    <div class="form-group mt-3">
-											<label>Lượt Xem</label>
-											<input name="luot_xem" type="number" class="form-control"	placeholder="Nhập vào Giá Bán" required>
-											<span class="text-danger">
-													@error('luot_xem')
-															{{$message}}
-													@enderror
-												</span>
-										</div>
-										<div class="form-group mt-3">
-											<label>Đặt Biệt</label>
-											<input name="dat_biet" type="number" class="form-control"	placeholder="Nhập vào Giá Bán" required>
-											<span class="text-danger">
-													@error('dat_biet')
-															{{$message}}
-													@enderror
-												</span>
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Mô Tả</label>
-                        <textarea name="mo_ta" id="mo_ta" class="form-control" cols="30" rows="10" required></textarea>
-												<span class="text-danger">
-													@error('mo_ta')
-															{{$message}}
-													@enderror
-												</span>
-                    </div>
+        <div class="col-md-12 mb-3">
+            <div class="modal-category">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              Thêm Sản Phẩm
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="container" role="document">
+                  <div class="modal-content">
+                    <form id="validate" method="post" action="sanpham" enctype="multipart/form-data">@csrf
+                      <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Thêm Sản Phẩm</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body">
+                        <div class="form-group mt-3 d-flex justify-content-between">
+                          <div class="col-md-5 p-1">
+                            <label>Tên Sản Phẩm</label>
+                            <input name="ten_san_pham" type="text" class="form-control" placeholder="Nhập vào Tên Sản Phẩm" required>
+                          </div>
+                          <div class="col-md-5 p-1">
+                            <label>Mã Loại Sản Phẩm</label>
+                            <select name="ma_loai" class="form-control" required>
+                                <option value=""> _ _ _ Chon Mã Loại Sản Phẩm _ _ _</option>
+                              @foreach($data_Loaisanpham as $Loaisanpham)
+                                <option value="{{$Loaisanpham->id}}">{{$Loaisanpham->ten_loai}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <div class="col-md-2 p-1">
+                            <label>Số Lượng</label>
+                            <input name="so_luong" type="number" class="form-control" placeholder="Nhập Số Lượng" required>
+                            <span class="text-danger">
+                              @error('so_luong')
+                                  {{$message}}
+                              @enderror
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="form-group mt-3 d-flex justify-content-between">
+                            <div class="col-md-4 p-1">
+                              <label>Giá Bán</label>
+                              <input name="gia_san_pham" type="number" class="form-control" placeholder="Nhập Giá Bán" required>
+                              <span class="text-danger">
+                                @error('gia_san_pham')
+                                  {{$message}}
+                                @enderror
+                              </span>
+                            </div>  
+                            <div class="col-md-4 p-1">
+                              <label>Giảm giá</label>
+                              <input name="giam_gia_san_pham" type="number" class="form-control" placeholder="Nhập Giảm giá" required>
+                              <span class="text-danger">
+                                @error('giam_gia_san_pham')
+                                  {{$message}}
+                                @enderror
+                              </span>
+                            </div>  
+                            <div class="col-md-4 p-1">
+                              <label>Đặt Biệt</label>
+                              <select name="dat_biet" class="form-control" required>
+                                <option value=""> _ _ _ Chon Loại Đặt Biệt _ _ _</option>
+                                <option value="0">Khong</option>
+                                <option value="1">Co</option>
+                              </select>
+                              <span class="text-danger">
+                                @error('dat_biet')
+                                  {{$message}}
+                                @enderror
+                              </span>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                          <label>Ảnh Sản Phẩm</label>
+                          <div class="input-group">
+                            <input id="hinh_anh" class="form-control" type="file" accept="image/*" name="hinh_anh[]" multiple >
+                          </div>
+                          <span class="text-danger">
+                            @error('hinh_anh')
+                                {{$message}}
+                            @enderror
+                          </span>
+                        </div>
+                        
+                        <div class="form-group mt-3">
+                            <label>Mô Tả</label>
+                            <textarea name="mo_ta" id="mo_ta" class="form-control" cols="30" rows="10" required></textarea>
+                            <span class="text-danger">
+                              @error('mo_ta')
+                                  {{$message}}
+                              @enderror
+                            </span>
+                        </div>            
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                        <button type="submit" class="btn btn-submit btn-primary">Thêm Sản Phẩm</button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
-                <div class="card-footer text-end">
-                    <button type="submit" class="btn btn-submit btn-primary">Thêm Sản Phẩm</button>
-                </div>
+              </div>
             </div>
-					</form>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header text-center">
                     <h3> Danh Sách Các Sản Phẩm</h3>
@@ -119,7 +131,6 @@
                                     <th class="text-center">Hình Ảnh</th>
                                     <th class="text-center">Số Lượng</th>
                                     <th class="text-center">Mô Tả</th>
-                                    <th class="text-center">Lượt Xem</th>
                                     <th class="text-center">Mã Loại</th>
                                     <th class="text-center">Đặt Biệt</th>
                                     <th class="text-center">Action</th>
@@ -150,18 +161,18 @@
 																		{{$sanpham->mo_ta}}
                                     </td>
 																		<td class="align-middle text-center">
-																		{{$sanpham->luot_xem}}
-                                    </td>
-																		<td class="align-middle text-center">
 																		{{$sanpham->ma_loai}}
                                     </td>
                                     <td class="align-middle" >
 																		{{$sanpham->dat_biet}}
 																		</td>
                                     <td class="align-middle text-center text-nowrap">
-																			<a class="btn btn-primary" name="btn_edit" href="capnhatsanpham/{{$sanpham->id}}">edit</a>			
+                                      <!-- Button trigger modal -->
+																			<a class="btn btn-primary" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$sanpham->id}}">edit</a>	
 																			<a class="btn btn-danger btn_delete" name="btn_delete" href="xoasanpham/{{$sanpham->id}}">delete</a>			
                                     </td>
+                                    <!-- Modal -->
+                                    @include('AdminRocker/page/SanPham/capnhat')
                                 </tr>
 															@endforeach
                             </tbody>
@@ -232,10 +243,10 @@
       });
     });
   </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('mo_ta')
-        CKEDITOR.replace('update_mo_ta'); // replace name mô tả
-    </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>
+  <script>
+    CKEDITOR.replace('mo_ta')
+    CKEDITOR.replace('update_mo_ta'); // replace name mô tả
+  </script>
 <!--  -->
 @endsection

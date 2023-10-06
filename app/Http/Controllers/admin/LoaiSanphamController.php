@@ -37,13 +37,13 @@ class LoaiSanphamController extends Controller
         return redirect('admin/theloai');
     }
 
-    public function cn_theloai($id)
-    {
-        $data_danhmuc = DanhmucModel::all();
+    // public function cn_theloai($id)
+    // {
+    //     $data_danhmuc = DanhmucModel::all();
 
-        $cn_theloai = LoaisanphamModel::find($id);
-        return view('AdminRocker.page.LoaiSanPham.capnhat', compact('cn_theloai', 'data_danhmuc'));
-    }
+    //     $cn_theloai = LoaisanphamModel::find($id);
+    //     return view('AdminRocker.page.LoaiSanPham.capnhat', compact('cn_theloai', 'data_danhmuc'));
+    // }
 
     public function cn_theloai_($id, LoaisanphamRequest $request)
     {

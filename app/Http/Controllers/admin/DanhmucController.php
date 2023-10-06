@@ -37,11 +37,11 @@ class DanhmucController extends Controller
         return redirect('admin/danhmuc');
     }
 
-    public function cn_danhmuc($id)
-    {
-        $cn_danhmuc = DanhmucModel::find($id);
-        return view('AdminRocker.page.DanhMuc.capnhat', compact('cn_danhmuc'));
-    }
+    // public function cn_danhmuc($id)
+    // {
+    //     $cn_danhmuc = DanhmucModel::find($id);
+    //     return view('AdminRocker.page.DanhMuc.capnhat', compact('cn_danhmuc'));
+    // }
 
     public function cn_danhmuc_($id, DanhmucRequests $request)
     {

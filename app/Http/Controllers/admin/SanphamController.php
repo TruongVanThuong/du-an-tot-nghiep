@@ -16,7 +16,8 @@ class SanphamController extends Controller
 	{
 		$data_Loaisanpham = LoaisanphamModel::all();
 		$data_sanpham = SanphamModel::all();
-		return view('AdminRocker.page.SanPham.index', compact('data_sanpham', 'data_Loaisanpham'));
+		$data_hinhanh = HinhanhModel::all();
+		return view('AdminRocker.page.SanPham.index', compact('data_sanpham', 'data_Loaisanpham', 'data_hinhanh'));
 	}
 
 	public function them_sanpham(Request $request)
@@ -58,16 +59,16 @@ class SanphamController extends Controller
 		return redirect('admin/sanpham');
 	}
 
-	public function cn_sanpham($id)
-	{
-		$data_Loaisanpham = LoaisanphamModel::all();
-		$cn_sanpham = SanphamModel::find($id);
-		$data_hinhanh = HinhanhModel::all();
+	// public function cn_sanpham($id)
+	// {
+	// 	$data_Loaisanpham = LoaisanphamModel::all();
+	// 	$cn_sanpham = SanphamModel::find($id);
+	// 	$data_hinhanh = HinhanhModel::all();
 
-		if ($cn_sanpham == null)
-			return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-		return view('AdminRocker.page.SanPham.capnhat', compact('cn_sanpham', 'data_Loaisanpham', 'data_hinhanh'));
-	}
+	// 	if ($cn_sanpham == null)
+	// 		return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+	// 	return view('AdminRocker.page.SanPham.capnhat', compact('cn_sanpham', 'data_Loaisanpham', 'data_hinhanh'));
+	// }
 
 	public function cn_sanpham_($id, Request $request)
 	{

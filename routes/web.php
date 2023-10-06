@@ -26,7 +26,7 @@ Route::group([
   Route::get('/sanpham', [SanphamController::class, 'sanpham']);
   Route::post('/sanpham', [SanphamController::class, 'them_sanpham']);
   Route::get('/xoasanpham/{id}', [SanphamController::class, 'xoa_sanpham']);
-  Route::get('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham']);
+  // Route::get('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham']);
   Route::post('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham_']);
 
 
@@ -37,14 +37,14 @@ Route::group([
   Route::get('/danhmuc', [DanhmucController::class, 'danhmuc']);
   Route::post('/danhmuc', [DanhmucController::class, 'them_danhmuc']);
   Route::get('/xoadanhmuc/{id}', [DanhmucController::class, 'xoa_danhmuc']);
-  Route::get('/capnhatdanhmuc/{id}', [DanhmucController::class, 'cn_danhmuc']);
+  // Route::get('/capnhatdanhmuc/{id}', [DanhmucController::class, 'cn_danhmuc']);
   Route::post('/capnhatdanhmuc/{id}', [DanhmucController::class, 'cn_danhmuc_']);
 
 
-  //danhmuc
+  //the loai
   Route::get('/theloai', [LoaiSanphamController::class, 'theloai']);
   Route::post('/theloai', [LoaiSanphamController::class, 'them_theloai']);
   Route::get('/xoatheloai/{id}', [LoaiSanphamController::class, 'xoa_theloai']);
-  Route::get('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai']);
+  // Route::get('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai']);
   Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
 });

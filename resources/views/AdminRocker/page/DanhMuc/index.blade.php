@@ -3,33 +3,44 @@
 @extends('AdminRocker.share.master')
 @section('noi_dung')
     <div class="row" id="app">
-        <div class="col-md-5">
-            <form method="post" action="danhmuc">
-              @csrf
-              <div class="card">
-                <div class="card-header text-center">
-                  <h3>Thêm Danh Mục</h3>
-                </div>
-                <div class="card-body">
-                  <div class="form-group mt-3">
-                        <label>Tên Danh Mục</label>
-                        <input type="text" class="form-control" name="ten_danh_muc" placeholder="Nhập vào Tên Danh Mục" required>
-                        <!-- <span class="text-danger">
-													@error('ten_danh_muc')
-															{{$message}}
-													@enderror
-												</span> -->
-                        
+        <div class="col-md-12 mb-3">
+            <div class="modal-category">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Thêm Danh Mục
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="container" role="document">
+                  <div class="modal-content">
+                    <form method="post" action="danhmuc" id="validate">@csrf
+                      <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Thêm Danh Mục</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body">
+                          <div class="form-group mt-3">
+                            <label>Tên Danh Mục</label>
+                            <input type="text" class="form-control" name="ten_danh_muc" placeholder="Nhập vào Tên Danh Mục" required>
+                          </div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                        <button type="submit" class="btn btn-submit btn-primary">Thêm Danh Mục</button>
+                      </div>
+                    </form>
                   </div>
-                  
-                </div>
-                <div class="card-footer text-end">
-                  <button type="submit" class="btn btn-submit btn-primary">Thêm Danh Mục</button>
                 </div>
               </div>
-            </form>
+            </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-12">
+            
             <div class="card">
                 <div class="card-header text-center">
                     <h3> Danh Sách Các Danh Mục</h3>
@@ -41,7 +52,6 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center">Tên Danh Mục</th>
-                                    
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -51,9 +61,12 @@
                                     <th class="align-middle text-center">{{$danhmuc->id}}</th>
                                     <td class="align-middle text-center">{{$danhmuc->ten_danh_muc}}</td>
                                     <td class="align-middle text-center text-nowrap">
-																			<a class="btn btn-primary" name="btn_edit" href="capnhatdanhmuc/{{$danhmuc->id}}">edit</a>			
+                                      <!-- Button trigger modal -->
+																			<a class="btn btn-primary" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$danhmuc->id}}">edit</a>	
 																			<a class="btn btn-danger btn_delete" name="btn_delete" href="xoadanhmuc/{{$danhmuc->id}}">delete</a>			
                                     </td>
+                                    <!-- Modal -->
+                                    @include('AdminRocker/page/DanhMuc/capnhat')
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -67,12 +80,12 @@
 @endsection
 @section('js')
 
+
 <script>
         $('#validate').validate({
             reles: {
-                'ten_danh_muc': {
-                    required: true,
-                },
+                'ten_danh_muc': {required: true,},
+                
             },
             messages: {
                 'ten_danh_muc' : "Vui lòng không được bỏ trống tên danh mục.",
@@ -91,6 +104,6 @@
       });
     });
   </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>
+  
 @endsection
