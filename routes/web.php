@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\DanhmucController;
 use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
 use App\Http\Controllers\admin\SanphamController;
+use App\Http\Controllers\TrangChuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,11 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
-  'namespace' => 'admin',
-  'prefix' => 'admin',
-  'name' => 'AdminRocker.'
-], function () {
+Route::group(['namespace' => 'admin','prefix' => 'admin','name' => 'AdminRocker.'], function () {
   //sanpham
   Route::get('/sanpham', [SanphamController::class, 'sanpham']);
   Route::post('/sanpham', [SanphamController::class, 'them_sanpham']);
@@ -48,3 +45,7 @@ Route::group([
   Route::get('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai']);
   Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
 });
+
+
+
+Route::get('/', [TrangChuController::class, 'TrangChu']);
