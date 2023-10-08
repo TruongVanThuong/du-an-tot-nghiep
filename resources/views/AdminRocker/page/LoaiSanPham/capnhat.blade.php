@@ -30,7 +30,7 @@
                         </div>
                       </div>
         <div class="modal-footer mt-3">
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Cập Nhật Thể Loại</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Cập Nhật Thể Loại 123</button>
         </div>
       </div>
     </form>
