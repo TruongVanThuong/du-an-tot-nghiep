@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\admin\LoaisanphamModel;
-use App\Models\admin\DanhmucModel;
+use App\Models\LoaisanphamModel;
+use App\Models\DanhmucModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\LoaisanphamRequest;

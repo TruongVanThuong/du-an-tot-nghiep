@@ -14,7 +14,7 @@
               <div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="container" role="document">
                   <div class="modal-content">
-                    <form id="validate" method="post" action="sanpham" enctype="multipart/form-data">@csrf
+                    <form id="sanphamForm" method="post" action="sanpham" enctype="multipart/form-data">@csrf
                       <div class="modal-header">
                         <h3 class="modal-title" id="exampleModalLabel">Thêm Sản Phẩm</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -24,11 +24,11 @@
 
                       <div class="modal-body">
                         <div class="form-group mt-3 d-flex justify-content-between">
-                          <div class="col-md-5 p-1">
+                          <div class="col-md-5 p-1 form-group-item">
                             <label>Tên Sản Phẩm</label>
                             <input name="ten_san_pham" type="text" class="form-control" placeholder="Nhập vào Tên Sản Phẩm" required>
                           </div>
-                          <div class="col-md-5 p-1">
+                          <div class="col-md-5 p-1 form-group-item">
                             <label>Mã Loại Sản Phẩm</label>
                             <select name="ma_loai" class="form-control" required>
                                 <option value=""> _ _ _ Chon Mã Loại Sản Phẩm _ _ _</option>
@@ -37,70 +37,42 @@
                               @endforeach
                             </select>
                           </div>
-                          <div class="col-md-2 p-1">
+                          <div class="col-md-2 p-1 form-group-item">
                             <label>Số Lượng</label>
                             <input name="so_luong" type="number" class="form-control" placeholder="Nhập Số Lượng" required>
-                            <span class="text-danger">
-                              @error('so_luong')
-                                  {{$message}}
-                              @enderror
-                            </span>
                           </div>
                         </div>
 
                         <div class="form-group mt-3 d-flex justify-content-between">
-                            <div class="col-md-4 p-1">
+                            <div class="col-md-4 p-1 form-group-item">
                               <label>Giá Bán</label>
                               <input name="gia_san_pham" type="number" class="form-control" placeholder="Nhập Giá Bán" required>
-                              <span class="text-danger">
-                                @error('gia_san_pham')
-                                  {{$message}}
-                                @enderror
-                              </span>
+                              
                             </div>  
-                            <div class="col-md-4 p-1">
+                            <div class="col-md-4 p-1 form-group-item">
                               <label>Giảm giá</label>
                               <input name="giam_gia_san_pham" type="number" class="form-control" placeholder="Nhập Giảm giá" required>
-                              <span class="text-danger">
-                                @error('giam_gia_san_pham')
-                                  {{$message}}
-                                @enderror
-                              </span>
                             </div>  
-                            <div class="col-md-4 p-1">
+                            <div class="col-md-4 p-1 form-group-item">
                               <label>Đặt Biệt</label>
                               <select name="dat_biet" class="form-control" required>
                                 <option value=""> _ _ _ Chon Loại Đặt Biệt _ _ _</option>
                                 <option value="0">Khong</option>
                                 <option value="1">Co</option>
                               </select>
-                              <span class="text-danger">
-                                @error('dat_biet')
-                                  {{$message}}
-                                @enderror
-                              </span>
                             </div>
                         </div>
                         <div class="form-group mt-3">
                           <label>Ảnh Sản Phẩm</label>
-                          <div class="input-group">
-                            <input id="hinh_anh" class="form-control" type="file" accept="image/*" name="hinh_anh[]" multiple >
+                          <div class="input-group form-group-item">
+                            <input id="hinh_anh" class="form-control" type="file" accept="image/*" name="hinh_anh[]" multiple required>
                           </div>
-                          <span class="text-danger">
-                            @error('hinh_anh')
-                                {{$message}}
-                            @enderror
-                          </span>
                         </div>
                         
-                        <div class="form-group mt-3">
+                        <div class="form-group mt-3 form-group-item">
                             <label>Mô Tả</label>
-                            <textarea name="mo_ta" id="mo_ta" class="form-control" cols="30" rows="10" required></textarea>
-                            <span class="text-danger">
-                              @error('mo_ta')
-                                  {{$message}}
-                              @enderror
-                            </span>
+                            <textarea name="mo_ta" id="mo_ta" class="form-control" cols="30" rows="10" required="required"></textarea>
+                            <!-- <textarea name="mo_ta" rows=11 cols=50 maxlength=250 required ></textarea> -->
                         </div>            
                       </div>
 
@@ -152,13 +124,13 @@
 																		{{$sanpham->giam_gia_san_pham}}
                                     </td>
                                     <td class="align-middle text-center">
-																		{{$sanpham->id}}
+																		{{$sanpham->hinhanh}}
                                     </td>
                                     <td class="align-middle text-center">
 																		{{$sanpham->so_luong}}
                                     </td>
 																		<td class="align-middle text-center">
-																		{{$sanpham->mo_ta}}
+																		{!!$sanpham->mo_ta!!}
                                     </td>
 																		<td class="align-middle text-center">
 																		{{$sanpham->ma_loai}}
@@ -185,9 +157,13 @@
     </div>
 @endsection
 @section('js')
-  <!-- validation jquery -->
+
+<!-- validation -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.js"></script>
   <script>
-        $('#validate').validate({
+    $(document).ready(function () {
+        $('#sanphamForm').validate({
             reles: {
                 'ten_san_pham': {
                     required: true,
@@ -228,7 +204,25 @@
                 'dat_biet' : "Vui lòng không được bỏ trống đặt biệt.",
                 'mo_ta' : "Vui lòng không được bỏ trống mô tả sản phẩm.",
             },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+              // Add the `help-block` class to the error element
+              error.addClass("help-block");
+
+              if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.parent("label"));
+              } else {
+                error.insertAfter(element);
+              }
+            },
+            highlight: function (element, errorClass, validClass) {
+              $(element).parents(".form-group-item").addClass("has-error").removeClass("has-success");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+              $(element).parents(".form-group-item").addClass("has-success").removeClass("has-error");
+            }
         });
+      });
   </script>
 
 
@@ -247,6 +241,6 @@
   <script>
     CKEDITOR.replace('mo_ta')
     CKEDITOR.replace('update_mo_ta'); // replace name mô tả
-  </script>
+    </script>
 <!--  -->
 @endsection

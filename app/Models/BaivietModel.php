@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Models\admin;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HinhanhModel extends Model
+class BaivietModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'hinh_anh';
+    protected $table = 'bai_viet';
     protected $primarykey = 'id';
-    protected $dates = ['created_at'];
     protected $fillable = [
+        "ma_khach_hang",
+        "noi_dung",
         "hinh_anh",
-        "ma_san_pham",
+        "rating",
         "created_at",
         "updated_at",
     ];

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SanphamRequest;
-use App\Models\admin\HinhanhModel;
-use App\Models\admin\LoaisanphamModel;
-use App\Models\admin\SanphamModel;
+use App\Models\HinhanhModel;
+use App\Models\LoaisanphamModel;
+use App\Models\SanphamModel;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
