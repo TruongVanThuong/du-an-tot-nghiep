@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\admin\HinhanhModel;
+use App\Models\HinhanhModel;
 use Illuminate\Http\Request;
-use App\Models\admin\SanphamModel;
-use App\Models\admin\LoaisanphamModel;
+use App\Models\SanphamModel;
+use App\Models\LoaisanphamModel;
 
 
 class hinhanhController extends Controller

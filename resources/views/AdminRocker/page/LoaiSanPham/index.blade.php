@@ -12,7 +12,7 @@
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="container" role="document">
                   <div class="modal-content">
-                    <form method="post" action="theloai">@csrf
+                    <form method="post" action="theloai" id="loaispForm">@csrf
                       <div class="modal-header">
                         <h3 class="modal-title" id="exampleModalLabel">Thêm Thể Loại</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -91,6 +91,84 @@
     </div>
 @endsection
 @section('js')
+  <!-- validation -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.js"></script>
+  <script>
+  // $.validator.setDefaults({
+  //     submitHandler: function () {
+  //       alert("submitted!");
+  //     }
+  //   });
+
+    $(document).ready(function () {
+      $("#loaispForm").validate({
+        rules: {
+          ten_loai: {
+            required: true,
+          },
+        },
+
+        messages: {
+          ten_loai: {
+            required: "Please provide a ten_loai",
+          },
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+          // Add the `help-block` class to the error element
+          error.addClass("help-block");
+
+          if (element.prop("type") === "checkbox") {
+            error.insertAfter(element.parent("label"));
+          } else {
+            error.insertAfter(element);
+          }
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+        }
+      });
+
+      $("#cndanhmucForm").validate({
+        rules: {
+          ten_danh_muc_: {
+            required: true,
+            minlength: 5
+          },
+        },
+
+        messages: {
+          ten_danh_muc_: {
+            required: "Please provide a ten_danh_muc",
+            minlength: "Your ten_danh_muc must be at least 5 characters long"
+          },
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+          // Add the `help-block` class to the error element
+          error.addClass("help-block");
+
+          if (element.prop("type") === "checkbox") {
+            error.insertAfter(element.parent("label"));
+          } else {
+            error.insertAfter(element);
+          }
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+        }
+      });
+    });
+    
+  </script>
+
 	<script>
     const delBtnEl = document.querySelectorAll(".btn_delete");
     delBtnEl.forEach(function(delBtn) {
