@@ -4,7 +4,7 @@ use App\Http\Controllers\admin\DanhmucController;
 use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
 use App\Http\Controllers\admin\SanphamController;
-use App\Http\Controllers\TrangChuController;
+use App\Http\Controllers\khachhang\TrangChuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,3 +49,17 @@ Route::group(['namespace' => 'admin','prefix' => 'admin','name' => 'AdminRocker.
 
 
 Route::get('/', [TrangChuController::class, 'TrangChu']);
+Route::get('/dang-nhap', [TrangChuController::class, 'DangNhap']);
+Route::get('/dang-ky', [TrangChuController::class, 'DangKy']);
+Route::get('/san-pham-tat-ca', [TrangChuController::class, 'SanPhamTatCa']);
+Route::get('/san-pham-nam', [TrangChuController::class, 'SanPhamNam']);
+Route::get('/san-pham-nu', [TrangChuController::class, 'SanPhamNu']);
+Route::get('/san-pham-tre-em', [TrangChuController::class, 'SanPhamTreEm']);
+Route::get('/san-pham-chi-tiet', [TrangChuController::class, 'SanPhamChiTiet']);
+Route::get('/gio-hang', [TrangChuController::class, 'GioHang']);
+Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
+Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
+Route::get('/tin-tuc', [TrangChuController::class, 'TinTuc']);
+Route::get('/tin-tuc-chi-tiet', [TrangChuController::class, 'TinTucChiTiet']);
+Route::get('/lien-he', [TrangChuController::class, 'LienHe']);
+Route::get('/gioi-thieu', [TrangChuController::class, 'GioiThieu']);

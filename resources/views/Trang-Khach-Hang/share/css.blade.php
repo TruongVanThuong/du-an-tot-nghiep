@@ -1,31 +1,65 @@
-  <!-- Basic Page Needs -->
+<head>
+  <title>Wed Bán Túi GUCCI</title>
+  <!-- meta tags -->
   <meta charset="utf-8">
-  <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-  <title>Modaz HTML Template</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="meta description">
+  <link rel="shortcut icon" href="/assets_client/img/bieu-tuong-logo-gucci.jpg" type="image/x-icon">
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- all css -->
+  <style>
+    :root {
+      --primary-color: #FFAE00;
+      --secondary-color: #efa608;
 
-  <meta name="author" content="themesflat.com">
+      --btn-primary-border-radius: 0.25rem;
+      --btn-primary-color: #000;
+      --btn-primary-background-color: #FFAE00;
+      --btn-primary-border-color: #FFAE00;
+      --btn-primary-hover-color: #000;
+      --btn-primary-background-hover-color: #efa608;
+      --btn-primary-border-hover-color: #efa608;
+      --btn-primary-font-weight: 500;
 
-  <!-- Mobile Specific Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      --btn-secondary-border-radius: 0.25rem;
+      --btn-secondary-color: #FFAE00;
+      --btn-secondary-background-color: transparent;
+      --btn-secondary-border-color: #FFAE00;
+      --btn-secondary-hover-color: #fff;
+      --btn-secondary-background-hover-color: #efa608;
+      --btn-secondary-border-hover-color: #efa608;
+      --btn-secondary-font-weight: 500;
 
-  <!-- Bootstrap  -->
-  <link rel="stylesheet" type="text/css" href="/assets_client/stylesheets/bootstrap.css" >
+      --heading-color: #000;
+      --heading-font-family: 'Poppins', sans-serif;
+      --heading-font-weight: 700;
 
-  <!-- Theme Style -->
-  <link rel="stylesheet" type="text/css" href="/assets_client/stylesheets/style.css">
-  <link rel="stylesheet" type="text/css" href="/assets_client/stylesheets/responsive.css">
+      --title-color: #000;
+      --title-font-family: 'Poppins', sans-serif;
+      --title-font-weight: 400;
 
-  <!-- Colors -->
-  <link rel="stylesheet" type="text/css" href="/assets_client/stylesheets/colors/color1.css" id="colors">
+      --body-color: #000;
+      --body-background-color: #fff;
+      --body-font-family: 'Poppins', sans-serif;
+      --body-font-size: 14px;
+      --body-font-weight: 300;
 
-  <!-- Animation Style -->
-  <link rel="stylesheet" type="text/css" href="/assets_client/stylesheets/animate.css">
+      --section-heading-color: #000;
+      --section-heading-font-family: 'Poppins', sans-serif;
+      --section-heading-font-size: 48px;
+      --section-heading-font-weight: 600;
 
+      --section-subheading-color: #000;
+      --section-subheading-font-family: 'Poppins', sans-serif;
+      --section-subheading-font-size: 16px;
+      --section-subheading-font-weight: 400;
+    }
+  </style>
 
-  <!-- Favicon and touch icons  -->
-  <link href="icon/favicon.png" rel="shortcut icon">
-
-  <!--[if lt IE 9]>
-      <script src="/assets_client/javascript/html5shiv.js"></script>
-      <script src="/assets_client/javascript/respond.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="/assets_client/css/vendor.css">
+  <link rel="stylesheet" href="/assets_client/css/style.css">
+</head>
