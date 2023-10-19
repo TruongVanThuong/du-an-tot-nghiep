@@ -1,45 +1,114 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
-<main id="MainContent" class="content-for-layout">
-    <div class="login-page mt-100" style="margin-bottom: 100px;">
-        <div class="container">
-            <form action="#" class="login-form common-form mx-auto">
-                <div class="section-header mb-3">
-                    <h2 class="section-heading text-center">Register</h2>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <fieldset>
-                            <label class="label">First name</label>
-                            <input type="text" />
-                        </fieldset>
+    <main id="app" class="content-for-layout">
+        <div class="login-page mt-100" style="margin-bottom: 100px;">
+            <div class="container">
+                <form action="#" class="login-form common-form mx-auto">
+                    <div class="section-header">
+                        <h2 class="section-heading text-center">Đăng Ký</h2>
                     </div>
-                    <div class="col-12">
-                        <fieldset>
-                            <label class="label">Last name</label>
-                            <input type="text" />
-                        </fieldset>
+                    <div class="row">
+                        <div class="col-12">
+                            <fieldset>
+                                <label class="label">Họ Và Tên</label>
+                                <input v-model="dang_ky.ho_va_ten" type="text" />
+                                <div v-if="errors.ho_va_ten" class="alert alert-danger">@{{ errors.ho_va_ten[0] }}</div>
+                            </fieldset>
+                        </div>
+                        <div class="col-12">
+                            <fieldset>
+                                <label class="label">Email</label>
+                                <input v-model="dang_ky.email" type="email" />
+                                <div v-if="errors.email" class="alert alert-danger">@{{ errors.email[0] }}</div>
+
+                            </fieldset>
+                        </div>
+                        <div class="col-12">
+                            <fieldset>
+                                <label class="label">Mật Khẩu</label>
+                                <input v-model="dang_ky.mat_khau" type="password" />
+                                <div v-if="errors.mat_khau" class="alert alert-danger">@{{ errors.mat_khau[0] }}</div>
+                            </fieldset>
+                        </div>
+                        <div class="col-12">
+                            <fieldset>
+                                <label class="label">Nhập lại Mật Khẩu</label>
+                                <input v-model="dang_ky.nhap_lai_mat_khau" type="password" />
+                                <div v-if="errors.nhap_lai_mat_khau" class="alert alert-danger">@{{ errors.nhap_lai_mat_khau[0] }}</div>
+                            </fieldset>
+                        </div>
+                        <div class="col-12">
+                            <fieldset>
+                                <label class="label">Số Điện Thoại</label>
+                                <input v-model="dang_ky.so_dien_thoai" type="number" />
+                                <div v-if="errors.nhap_lai_mat_khau" class="alert alert-danger">@{{ errors.nhap_lai_mat_khau[0] }}</div>
+                            </fieldset>
+                        </div>
+                        <div class="col-12">
+                            <fieldset>
+                                <label class="label">Địa Chỉ</label>
+                                <input v-model="dang_ky.dia_chi" type="text" />
+                                <div v-if="errors.dia_chi" class="alert alert-danger">@{{ errors.dia_chi[0] }}</div>
+
+                            </fieldset>
+                        </div>
+                        <div class="col-12">
+                            <fieldset>
+                                <label class="label">Ngày sinh</label>
+                                <input v-model="dang_ky.ngay_sinh" type="date" />
+                                <div v-if="errors.ngay_sinh" class="alert alert-danger">@{{ errors.ngay_sinh[0] }}</div>
+
+                            </fieldset>
+                        </div>
+                        <div class="col-12">
+                            <fieldset>
+                                <label class="label">Giới Tính</label>
+                                <select v-model="dang_ky.gioi_tinh">
+                                    <option value="1">Nam</option>
+                                    <option value="0">Nữ</option>
+                                </select>
+                                <div v-if="errors.gioi_tinh" class="alert alert-danger">@{{ errors.gioi_tinh[0] }}</div>
+                            </fieldset>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button type="submit" v-on:click="xac_thuc_dang_ky()"
+                                class="btn-primary d-block mt-3 btn-signin">Đăng Ký</button>
+                        </div>
                     </div>
-                    <div class="col-12">
-                        <fieldset>
-                            <label class="label">Email address</label>
-                            <input type="email" />
-                        </fieldset>
-                    </div>
-                    <div class="col-12">
-                        <fieldset>
-                            <label class="label">Password</label>
-                            <input type="password" />
-                        </fieldset>
-                    </div>
-                    <div class="col-12 mt-3">
-                        <button type="submit" class="btn-primary d-block mt-3 btn-signin">CREATE</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>            
-</main>
+    </main>
 @endsection
 @section('js')
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                dang_ky: {},
+                errors: {},
+            },
+            methods: {
+                xac_thuc_dang_ky() {
+                    axios
+                        .post('/xac-thuc-dang-ky', this.dang_ky)
+                        .then((res) => {
+                            if (res.data.status) {
+                                toastr.success(res.data.message);
+                                this.dang_ky = {};
+                            } else {
+                                toastr.error('Có lỗi không mong muốn!');
+                            }
+                        })
+                        .catch((error) => {
+                            if (error.response && error.response.data && error.response.data.errors) {
+                                this.errors = error.response.data.errors;
+                            } else {
+                                toastr.error('Có lỗi không mong muốn!');
+                            }
+                        })
+                },
+            }
+        });
+    </script>
 @endsection

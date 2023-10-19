@@ -1,5 +1,10 @@
 <script src="/assets_client/js/vendor.js"></script>
 <script src="/assets_client/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
 <!-- scrollup start -->
 <button id="scrollup">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff"
@@ -554,7 +559,7 @@
     </div>
 </div>
 <!-- drawer cart end -->
-<!-- product quickview start -->
+{{-- <!-- product quickview start -->
 <div class="modal fade" tabindex="-1" id="quickview-modal">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -1082,4 +1087,4 @@
         </div>
     </div>
 </div>
-<!-- newsletter subscribe modal end -->
+<!-- newsletter subscribe modal end --> --}}
