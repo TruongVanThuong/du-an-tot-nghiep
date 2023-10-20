@@ -11,14 +11,7 @@ class TrangChuController extends Controller
     {
         return view('Trang-Khach-Hang.page.TrangChu');
     }
-    public function DangNhap()
-    {
-        return view('Trang-Khach-Hang.page.DangNhap');
-    }
-    public function DangKy()
-    {
-        return view('Trang-Khach-Hang.page.DangKy');
-    }
+    
     public function SanPhamTatCa()
     {
         return view('Trang-Khach-Hang.page.SanPhamTatCa');
