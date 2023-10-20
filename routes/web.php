@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
 use App\Http\Controllers\admin\SanphamController;
 use App\Http\Controllers\khachhang\TrangChuController;
+use App\Http\Controllers\khachhang\KhachHangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'admin','prefix' => 'admin','name' => 'AdminRocker.'], function () {
+Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocker.'], function () {
   //sanpham
   Route::get('/sanpham', [SanphamController::class, 'sanpham']);
   Route::post('/sanpham', [SanphamController::class, 'them_sanpham']);
@@ -49,8 +50,12 @@ Route::group(['namespace' => 'admin','prefix' => 'admin','name' => 'AdminRocker.
 
 
 Route::get('/', [TrangChuController::class, 'TrangChu']);
-Route::get('/dang-nhap', [TrangChuController::class, 'DangNhap']);
-Route::get('/dang-ky', [TrangChuController::class, 'DangKy']);
+// 
+Route::get('/dang-nhap', [KhachHangController::class, 'DangNhap']);
+Route::get('/dang-ky',   [KhachHangController::class, 'DangKy']);
+Route::post('/xac-thuc-dang-ky', [KhachHangController::class, 'XacThucDangKy']);
+Route::get('/kich-hoat-tai-khoang/{hash}', [KhachHangController::class, 'KichHoatTaiKhoang']);
+// 
 Route::get('/san-pham-tat-ca', [TrangChuController::class, 'SanPhamTatCa']);
 Route::get('/san-pham-nam', [TrangChuController::class, 'SanPhamNam']);
 Route::get('/san-pham-nu', [TrangChuController::class, 'SanPhamNu']);
