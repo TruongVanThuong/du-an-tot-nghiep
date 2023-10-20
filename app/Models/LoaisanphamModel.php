@@ -10,8 +10,6 @@ class LoaisanphamModel extends Model
     use HasFactory;
 
     protected $table = 'loai_san_pham';
-    protected $primarykey = 'id';
-    protected $dates = ['created_at'];
     protected $fillable = [
         "ten_loai",
         "ten_loai_slug",

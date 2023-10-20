@@ -172,5 +172,4 @@
       });
     });
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>
 @endsection

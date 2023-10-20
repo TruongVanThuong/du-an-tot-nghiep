@@ -9,13 +9,14 @@ use App\Models\LoaisanphamModel;
 use App\Models\SanphamModel;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SanphamController extends Controller
 {
 	public function sanpham()
 	{
 		$data_Loaisanpham = LoaisanphamModel::all();
-		$data_sanpham = SanphamModel::all();
+		$data_sanpham = DB::table('san_pham')->orderBy('id', 'desc')->paginate(2);
 		$data_hinhanh = HinhanhModel::all();
 		return view('AdminRocker.page.SanPham.index', compact('data_sanpham', 'data_Loaisanpham', 'data_hinhanh'));
 	}
@@ -108,4 +109,19 @@ class SanphamController extends Controller
 		return redirect('admin/sanpham');
 	}
 
+	public function toggleStatus()
+	{
+		$id = $_GET['idsta'];
+		$trangthai_sanpham = SanphamModel::find($id);
+		$trangthai = $trangthai_sanpham->trang_thai;
+		if ($trangthai == 1) {
+			$trangthai = 0;
+		} else {
+			$trangthai = 1;
+		}
+
+		$trangthai_sanpham->trang_thai = $trangthai;
+		$trangthai_sanpham->save();
+		echo $trangthai;
+	}
 }

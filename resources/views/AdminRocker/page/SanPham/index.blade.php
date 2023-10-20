@@ -105,10 +105,12 @@
                                     <th class="text-center">Mô Tả</th>
                                     <th class="text-center">Mã Loại</th>
                                     <th class="text-center">Đặt Biệt</th>
+                                    <th class="text-center">Trạng Thái</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                              @if(!empty($data_sanpham) && $data_sanpham->count())
 															@foreach($data_sanpham as $sanpham)
                                 <tr>
                                     <th class="align-middle text-center">
@@ -124,7 +126,12 @@
 																		{{$sanpham->giam_gia_san_pham}}
                                     </td>
                                     <td class="align-middle text-center">
-																		{{$sanpham->hinhanh}}
+                                    @foreach ($data_hinhanh as $hinhanh)
+                                    @if ($hinhanh->ma_san_pham == $sanpham->id)
+                                    <!-- <img width="100" src="{{ asset('img/') }}/{{$hinhanh->hinh_anh}}" title="{{$hinhanh->hinh_anh}}"> -->
+                                    
+                                    @endif
+                                    @endforeach
                                     </td>
                                     <td class="align-middle text-center">
 																		{{$sanpham->so_luong}}
@@ -138,6 +145,11 @@
                                     <td class="align-middle" >
 																		{{$sanpham->dat_biet}}
 																		</td>
+                                    <td class="align-middle" >
+                                      <div class="form-check form-switch">
+                                        <input class="form-check-input" onclick="toggleStatus(<?php echo $sanpham->id; ?>)" type="checkbox" @if($sanpham->trang_thai == 1) checked @endif role="switch" id="flexSwitchCheckDefault">
+                                      </div>																		
+                                    </td>
                                     <td class="align-middle text-center text-nowrap">
                                       <!-- Button trigger modal -->
 																			<a class="btn btn-primary" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$sanpham->id}}">edit</a>	
@@ -147,16 +159,61 @@
                                     @include('AdminRocker/page/SanPham/capnhat')
                                 </tr>
 															@endforeach
+                              @else
+                              <tr>
+                                <td class="align-middle text-center text-nowrap" colspan="11">Không có dữ liệu</td>
+                              </tr>
+                                
+                              @endif
+
                             </tbody>
                             
-                        </table>
-                    </div>
+                          </table>
+                        </div>
+                        <div>{{$data_sanpham->links()}}</div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('js')
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- toggle status -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  function toggleStatus(id) {
+    var id = id;
+    $.ajax({
+      url: "/admin/toggleStatus",
+      type:"get",
+      data: {idsta:id},
+      success: function($trangthai){
+        if($trangthai == 1){
+          swal("Da bat trang thai!", "", "success");
+        } else {
+          swal("Da tat trang thai!", "", "success");
+        }
+      }
+    });
+  }
+
+  function deleteImg(id) {
+    var id = id;
+    $.ajax({
+      url: "/admin/xoahinhanh",
+      type:"get",
+      data: {idImg:id},
+      success: function(){
+        console.log("it Works");
+        fetchcategory();
+        // swal("Xoa hinh anh thanh cong!", "", "success");
+        // window.location.replace("./sanpham#");
+      }
+    });
+  }
+</script>
 
 <!-- validation -->
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
@@ -241,6 +298,6 @@
   <script>
     CKEDITOR.replace('mo_ta')
     CKEDITOR.replace('update_mo_ta'); // replace name mô tả
-    </script>
+  </script>
 <!--  -->
 @endsection

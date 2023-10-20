@@ -10,8 +10,6 @@ class SanphamModel extends Model
     use HasFactory;
 
     protected $table = 'san_pham';
-    protected $primarykey = 'id';
-    protected $dates = ['created_at'];
     protected $fillable = [
         "ten_san_pham",
         "ten_san_pham_slug",
@@ -22,7 +20,6 @@ class SanphamModel extends Model
         "luot_xem",
         "dat_biet",
         "mo_ta",
-        "created_at",
-        "updated_at",
+        "trang_thai",
     ];
 }

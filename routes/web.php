@@ -18,17 +18,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'admin','prefix' => 'admin','name' => 'AdminRocker.'], function () {
+Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocker.'], function () {
   //sanpham
   Route::get('/sanpham', [SanphamController::class, 'sanpham']);
   Route::post('/sanpham', [SanphamController::class, 'them_sanpham']);
   Route::get('/xoasanpham/{id}', [SanphamController::class, 'xoa_sanpham']);
   // Route::get('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham']);
   Route::post('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham_']);
+  Route::get('/toggleStatus', [SanphamController::class, 'toggleStatus']);
 
 
   // Hình Ảnh
-  Route::get('/xoahinhanh/{id}/{id_cn}', [hinhanhController::class, 'xoa_hinhanh']);
+  Route::get('/xoahinhanh', [hinhanhController::class, 'xoa_hinhanh']);
 
   //danhmuc
   Route::get('/danhmuc', [DanhmucController::class, 'danhmuc']);

@@ -62,7 +62,7 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center">Tên Thể Loại</th>
-                                    <th class="text-center">Mã Danh Mục</th>
+                                    <th class="text-center">Tên Danh Mục</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -71,7 +71,13 @@
                                 <tr>
                                     <th class="align-middle text-center">{{$theloai->id}}</th>
                                     <td class="align-middle text-center">{{$theloai->ten_loai}}</td>
-																		<td class="align-middle text-center">{{$theloai->ma_danh_muc}}</td>
+																		<td class="align-middle text-center">
+                                      @foreach ($data_danhmuc as $danhmuc)
+                                        @if($danhmuc->id == $theloai->ma_danh_muc)
+                                          {{$danhmuc->ten_danh_muc}}
+                                        @endif
+                                      @endforeach
+                                    </td>
                                     <td class="align-middle text-center text-nowrap">
                                       <!-- Button trigger modal -->
 																			<a class="btn btn-primary" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$theloai->id}}">edit</a>	
