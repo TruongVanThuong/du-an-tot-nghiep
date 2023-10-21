@@ -206,10 +206,10 @@
       type:"get",
       data: {idImg:id},
       success: function(){
-        console.log("it Works");
-        fetchcategory();
-        // swal("Xoa hinh anh thanh cong!", "", "success");
-        // window.location.replace("./sanpham#");
+        // console.log("it Works");
+        // fetchcategory();
+        swal("Xoa hinh anh thanh cong!", "", "success");
+        window.location.replace("./sanpham");
       }
     });
   }
