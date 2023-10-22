@@ -50,8 +50,11 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
 
 
 Route::get('/', [TrangChuController::class, 'TrangChu']);
-// 
+// ĐĂNG NHẬP
 Route::get('/dang-nhap', [KhachHangController::class, 'DangNhap']);
+Route::post('/xac-thuc-dang-nhap', [KhachHangController::class, 'XacThucDangNhap']);
+
+// ĐĂNG KÝ
 Route::get('/dang-ky',   [KhachHangController::class, 'DangKy']);
 Route::post('/xac-thuc-dang-ky', [KhachHangController::class, 'XacThucDangKy']);
 Route::get('/kich-hoat-tai-khoang/{hash}', [KhachHangController::class, 'KichHoatTaiKhoang']);
