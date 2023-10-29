@@ -52,13 +52,18 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
 Route::get('/', [TrangChuController::class, 'TrangChu']);
 // ĐĂNG NHẬP
 Route::get('/dang-nhap', [KhachHangController::class, 'DangNhap']);
-Route::post('/xac-thuc-dang-nhap', [KhachHangController::class, 'XacThucDangNhap']);
-
+Route::post('/kich-hoat-dang-nhap', [KhachHangController::class, 'KichHoatDangNhap']);
 // ĐĂNG KÝ
 Route::get('/dang-ky',   [KhachHangController::class, 'DangKy']);
-Route::post('/xac-thuc-dang-ky', [KhachHangController::class, 'XacThucDangKy']);
-Route::get('/kich-hoat-tai-khoang/{hash}', [KhachHangController::class, 'KichHoatTaiKhoang']);
-// 
+Route::post('/kich-hoat-dang-ky', [KhachHangController::class, 'KichHoatDangKy']);
+Route::get('/kich-hoat-mail-tai-khoang/{ma_bam}', [KhachHangController::class, 'KichHoatMailTaiKhoang']);
+// QUÊN MẠT KHẨU
+Route::get('/quen-mat-khau',   [KhachHangController::class, 'QuenMatKhau']);
+Route::post('/kich-hoat-quen-mat-khau', [KhachHangController::class, 'KichHoatQuenMatKhau']);
+Route::get('/kich-hoat-mail-doi-mat-khau/{ma_bam_quen_mat_khau}', [KhachHangController::class, 'KichHoatMailDoiMatKhau']);
+Route::post('/kich-hoat-doi-mat-khau', [KhachHangController::class, 'KichHoatDoiMatKhau']);
+//
+
 Route::get('/san-pham-tat-ca', [TrangChuController::class, 'SanPhamTatCa']);
 Route::get('/san-pham-nam', [TrangChuController::class, 'SanPhamNam']);
 Route::get('/san-pham-nu', [TrangChuController::class, 'SanPhamNu']);

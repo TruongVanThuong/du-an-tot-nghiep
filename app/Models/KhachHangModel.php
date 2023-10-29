@@ -21,6 +21,8 @@ class KhachHangModel extends Authenticatable
         'ma_bam_email',
         'ngay_sinh',
         'gioi_tinh',
-        'loai_tai_khoan'
+        'loai_tai_khoan',
+        'ma_bam_quen_mat_khau',
+
     ];
 }
