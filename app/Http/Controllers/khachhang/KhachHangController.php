@@ -4,8 +4,11 @@ namespace App\Http\Controllers\khachhang;
 
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\YeuCauDangKy;
-use App\Http\Requests\YeuCauDangNhap;
+use App\Http\Requests\CapNhatQuenMatKhau;
+use App\Http\Requests\DangKy;
+use App\Http\Requests\DangNhap;
+use App\Http\Requests\QuenMatKhau;
+use App\Jobs\GuiMailQuenMatKhau;
 use App\Jobs\GuiMailTaiKhoang;
 use App\Models\KhachHangModel;
 use Illuminate\Http\Request;
@@ -22,18 +25,18 @@ class KhachHangController extends Controller
         return view('Trang-Khach-Hang.page.DangKy');
     }
 
-    public function XacThucDangKy(YeuCauDangKy $request)
+    public function KichHoatDangKy(DangKy $request)
     {
         $du_lieu = $request->all();
-        $hash = Str::uuid(); // tạo ra 1 biến tên hash kiểu string có 36 ký tự không trùng với nhau
-        $du_lieu['ma_bam_email'] = $hash;
+        $ma_bam = Str::uuid(); // tạo ra 1 biến tên ma_bam kiểu string có 36 ký tự không trùng với nhau
+        $du_lieu['ma_bam_email'] = $ma_bam;
         $du_lieu['password']  = bcrypt($du_lieu['password']);
         KhachHangModel::create($du_lieu);
 
         // Phân cụm này qua JOB
         $du_lieu_Mail['ho_va_ten'] = $request->ho_va_ten;
         $du_lieu_Mail['email']     = $request->email;
-        $du_lieu_Mail['ma_bam_email'] = $hash;
+        $du_lieu_Mail['ma_bam_email'] = $ma_bam;
         GuiMailTaiKhoang::dispatch($du_lieu_Mail);
 
         // SendMailJob::dispatch($du_lieu_Mail);
@@ -44,9 +47,9 @@ class KhachHangController extends Controller
         ]);
     }
 
-    public function KichHoatTaiKhoang($hash)
+    public function KichHoatMailTaiKhoang($ma_bam)
     {
-        $tai_khoang = KhachHangModel::where('ma_bam_email', $hash)->first();
+        $tai_khoang = KhachHangModel::where('ma_bam_email', $ma_bam)->first();
         if ($tai_khoang && $tai_khoang->loai_tai_khoan == 0) {
             $tai_khoang->loai_tai_khoan = 1;
             $tai_khoang->ma_bam_email = '';
@@ -58,7 +61,7 @@ class KhachHangController extends Controller
         return redirect('/dang-nhap');
     }
 
-    public function XacThucDangNhap(YeuCauDangNhap $request)
+    public function KichHoatDangNhap(DangNhap $request)
     {
         $du_lieu['email']      = $request->email;
         $du_lieu['password']   = $request->password;
@@ -90,5 +93,59 @@ class KhachHangController extends Controller
                 'message' => 'Tài khoản hoặc mật khẩu không đúng',
             ]);
         }
+    }
+
+
+    // quen mat khau
+    public function QuenMatKhau()
+    {
+        return view('Trang-Khach-Hang.page.QuenMatKhau');
+    }
+
+    public function KichHoatQuenMatKhau(QuenMatKhau $request)
+    {
+        $khach_hang = KhachHangModel::where('email', $request->email)->first();
+        $ma_bam     = Str::uuid();
+
+        $khach_hang->ma_bam_quen_mat_khau = $ma_bam;
+        $khach_hang->save();
+
+        // Phân cụm này qua JOB
+        $du_lieu_Mail['ho_va_ten'] = $request->ho_va_ten;
+        $du_lieu_Mail['ma_bam_quen_mat_khau'] = $ma_bam;
+        $du_lieu_Mail['email']     = $request->email;
+        GuiMailQuenMatKhau::dispatch($du_lieu_Mail);
+
+        //  SendMailDoiMatKhau::dispatch($du_lieu_Mail);
+        // End Phân JOB
+        return response()->json([
+            'status' => true,
+            'message' => 'Vui Lòng Kiểm Tra Mail',
+        ]);
+    }
+
+
+    public function KichHoatMailDoiMatKhau($ma_bam_quen_mat_khau)
+    {
+        $khach_hang = KhachHangModel::where('ma_bam_quen_mat_khau', $ma_bam_quen_mat_khau)->first();
+
+        if ($khach_hang) {
+            return view('trang-khach-hang.page.CapNhatQuenMatKhau', compact('ma_bam_quen_mat_khau'));
+        } else {
+            toastr()->error('Liên kết không tồn tại!');
+            return redirect('/');
+        }
+    }
+    public function KichHoatDoiMatKhau(CapNhatQuenMatKhau $request)
+    {
+        $khach_hang = KhachHangModel::where('ma_bam_quen_mat_khau', $request->ma_bam_quen_mat_khau)->first();
+        $khach_hang->ma_bam_quen_mat_khau = '';
+        $khach_hang->password = bcrypt($request->password);
+        $khach_hang->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Cập Nhật Mật Khẩu Thành Công',
+        ]);
     }
 }

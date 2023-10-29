@@ -1,5 +1,9 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
+    @php
+        $check = Auth::guard('khach_hang')->check();
+        $user = Auth::guard('khach_hang')->user();
+    @endphp
     <main id="MainContent" class="content-for-layout">
         <!-- slideshow start -->
         <div class="slideshow-section position-relative">
@@ -1674,5 +1678,4 @@
         </div>
         <!-- video end -->
     </main>
-    
 @endsection

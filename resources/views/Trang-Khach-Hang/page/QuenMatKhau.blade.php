@@ -5,28 +5,20 @@
             <div class="container">
                 <div class="login-form common-form mx-auto">
                     <div class="section-header mb-3">
-                        <h2 class="section-heading text-center">Đăng Nhập</h2>
+                        <h2 class="section-heading text-center text-nowrap">Quên Mật Khẩu</h2>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <fieldset>
-                                <label class="label">Email address</label>
-                                <input v-model="dang_nhap.email" type="email" />
+                                <label class="label">Nhập Email Muốn Đổi Lại Mật Khẩu</label>
+                                <input v-model="quen_mat_khau.email" type="email" />
                                 <div v-if="errors.email" class="alert alert-warning">@{{ errors.email[0] }}</div>
                             </fieldset>
                         </div>
-                        <div class="col-12">
-                            <fieldset>
-                                <label class="label">Mật Khẩu</label>
-                                <input v-model="dang_nhap.password" type="password" />
-                                <div v-if="errors.password" class="alert alert-warning">@{{ errors.password[0] }}</div>
-                            </fieldset>
                         </div>
                         <div class="col-12 mt-3">
-                            <a href="/quen-mat-khau" class="text_14 d-block">Quên Mật Khẩu?</a>
-                            <button type="submit" v-on:click="kich_hoat_dang_nhap()"
-                                class="btn-primary d-block mt-4 btn-signin">Đăng Nhập</button>
-                            <a href="/dang-ky" class="btn-secondary mt-2 btn-signin">Tạo Tài Khoảng</a>
+                            <button type="submit" v-on:click="kich_hoat_quen_mat_khau()"
+                                class="btn-primary d-block mt-4 btn-signin">Gửi</button>
                         </div>
                     </div>
                 </div>
@@ -39,35 +31,26 @@
         new Vue({
             el: "#app",
             data: {
-                dang_nhap: {},
+                quen_mat_khau: {},
                 errors: {
                     email: '', // Thêm trường này để theo dõi lỗi email
-                    password: '' // Thêm trường này để theo dõi lỗi password
                 },
             },
             watch: {
-                'dang_nhap.email': function(newVal) {
+                'quen_mat_khau.email': function(newVal) {
                     if (newVal) {
                         this.errors.email = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
                     }
                 },
-                'dang_nhap.password': function(newVal) {
-                    if (newVal) {
-                        this.errors.password = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
-                    }
-                }
             },
             methods: {
-                kich_hoat_dang_nhap() {
+                kich_hoat_quen_mat_khau() {
                     axios
-                        .post('/kich-hoat-dang-nhap', this.dang_nhap)
+                        .post('/kich-hoat-quen-mat-khau', this.quen_mat_khau)
                         .then((res) => {
                             if (res.data.status) {
                                 toastr.success(res.data.message);
-                                this.dang_nhap = {};
-                                setTimeout(() => {
-                                    window.location.href = "/";
-                                }, 2000); // Delay for 2 seconds (2000 milliseconds)
+                                this.quen_mat_khau = {};
                             } else {
                                 toastr.warning(res.data.message);
                             }
@@ -80,6 +63,7 @@
                             }
                         })
                 },
+
             }
         });
     </script>
