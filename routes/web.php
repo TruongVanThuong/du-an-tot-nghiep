@@ -26,10 +26,11 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
   Route::get('/xoasanpham/{id}', [SanphamController::class, 'xoa_sanpham']);
   // Route::get('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham']);
   Route::post('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham_']);
+  Route::get('/toggleStatus', [SanphamController::class, 'toggleStatus']);
 
 
   // Hình Ảnh
-  Route::get('/xoahinhanh/{id}/{id_cn}', [hinhanhController::class, 'xoa_hinhanh']);
+  Route::get('/xoahinhanh', [hinhanhController::class, 'xoa_hinhanh']);
 
   //danhmuc
   Route::get('/danhmuc', [DanhmucController::class, 'danhmuc']);
@@ -47,6 +48,9 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
   Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
 });
 
+// Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+//   \vendor\UniSharp\LaravelFilemanager\Lfm::routes();
+// });
 
 
 Route::get('/', [TrangChuController::class, 'TrangChu']);

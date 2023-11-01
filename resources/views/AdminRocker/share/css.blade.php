@@ -31,3 +31,10 @@
 
 <!-- Style CSS -->
 <link rel="stylesheet" href="/css/style.css" />
+
+
+
+<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+
+
+

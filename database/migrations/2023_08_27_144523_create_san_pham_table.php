@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->integer('ma_loai');
             $table->integer('luot_xem')->nullable();
             $table->boolean('dat_biet')->default(false);
+            $table->boolean('trang_thai')->default(true);
             $table->timestamps();
         });
     }

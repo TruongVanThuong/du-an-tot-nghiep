@@ -24,7 +24,7 @@
                           <label>Mã Danh Mục : </label> <br>
                           <select name="ma_danh_muc" id="ma_danh_muc">
                             @foreach ($data_danhmuc as $danhmuc)
-                              <option value="{{$danhmuc->id}}" @if($theloai->ma_danh_muc == $danhmuc->id) selected="selected"; @endif >{{$danhmuc->ten_danh_muc}}</option>
+                              <option value="{{$danhmuc->id}}" @if($theloai->ma_danh_muc == $danhmuc->id) selected="selected" @endif >{{$danhmuc->ten_danh_muc}}</option>
                             @endforeach
                           </select>
                         </div>
