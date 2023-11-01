@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class YeuCauDangKy extends FormRequest
+class DangKy extends FormRequest
 {
     public function authorize(): bool
     {
@@ -38,7 +38,7 @@ class YeuCauDangKy extends FormRequest
             'password.required'             => 'Mật khẩu không được để trống',
             'password.min'                  => 'Mật khẩu phải từ 6 ký tự trở lên',
             'password.max'                  => 'Mật khẩu không được vượt quá 30 ký tự',
-            'nhap_lai_password.required'    => 'Vui lòng nhập lại mật khẩu',
+            'nhap_lai_password.required'    => 'Nhập lại mật khẩu không được để trống',
             'nhap_lai_password.same'        => 'Mật khẩu nhập lại không khớp',
             'so_dien_thoai.required'        => 'Số điện thoại không được để trống',
             'so_dien_thoai.digits'          => 'Số điện thoại phải có 10 chữ số',

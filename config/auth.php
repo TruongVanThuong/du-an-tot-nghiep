@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        
+        'khach_hang' => [
+            'driver' => 'session',
+            'provider' => 'khach_hangs',
+        ],
     ],
 
     /*
@@ -64,7 +69,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
+        'khach_hangs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\KhachHangModel::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
