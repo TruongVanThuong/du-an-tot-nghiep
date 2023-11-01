@@ -10,42 +10,69 @@ use App\Models\SanphamModel;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class SanphamController extends Controller
 {
 	public function sanpham()
 	{
 		$data_Loaisanpham = LoaisanphamModel::all();
-		$data_sanpham = DB::table('san_pham')->orderBy('id', 'desc')->paginate(2);
+		$data_sanpham = SanphamModel::orderBy('id', 'desc')->paginate(10);
 		$data_hinhanh = HinhanhModel::all();
-		return view('AdminRocker.page.SanPham.index', compact('data_sanpham', 'data_Loaisanpham', 'data_hinhanh'));
+		$SanphamModel = SanphamModel::with('HinhanhModel')->get();
+
+		// foreach ($SanphamModel as $sanphams) {
+		// 	foreach ($sanphams->HinhanhModel as $HinhanhModel) {
+		// 		$Hinhanh[] = $HinhanhModel;
+		// 	}
+		// }
+
+		foreach ($data_sanpham as $sanpham) {
+			$idsanpham[] = $sanpham->id;
+		}
+		$hinhanh = implode($idsanpham);
+
+		for ($i = 0; $i < strlen($hinhanh); $i++) {
+			$hinhAnh = HinhanhModel::where('ma_san_pham', $hinhanh[$i])->first();
+			$HinhAnh[] = $hinhAnh;
+		}
+		// dd($HinhAnh);
+
+		return view('AdminRocker.page.SanPham.index', compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh'));
+
+
 	}
 
-	public function them_sanpham(Request $request)
+	public function them_sanpham(SanphamRequest $request)
 	{
+		$data = $request->all();
+		$data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
+		SanphamModel::create($data);
 
 		$t_ = SanphamModel::where('id', '>', '0')->max('id');
 
-		$data = $request->all();
-		$data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
-
 		$get_image = $request->file('hinh_anh');
-		// var_dump($get_image);
+
 		if ($get_image) {
 			foreach ($get_image as $image) {
 				$get_name_image = $image->getClientOriginalName();
-				$image->move("img/", $get_name_image);
+				$images = Image::make($image->getRealPath());
+				$images->resize(300, 250);
+
+				$images->save(public_path('img/' . $get_name_image));
+
+				// $get_name_image = $image->getClientOriginalName();
+				// $image->move("img/", $get_name_image);
 				$x = new HinhanhModel;
 				$x->hinh_anh = $get_name_image;
-				$x->ma_san_pham = $t_ + 1;
+				$x->ma_san_pham = $t_;
 
 				$x->save();
-				// var_dump($get_name_image);
-				// dd($x);
+
 			}
 		}
 
-		SanphamModel::create($data);
 
 		return redirect('admin/sanpham');
 
@@ -60,36 +87,30 @@ class SanphamController extends Controller
 		return redirect('admin/sanpham');
 	}
 
-	// public function cn_sanpham($id)
-	// {
-	// 	$data_Loaisanpham = LoaisanphamModel::all();
-	// 	$cn_sanpham = SanphamModel::find($id);
-	// 	$data_hinhanh = HinhanhModel::all();
 
-	// 	if ($cn_sanpham == null)
-	// 		return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-	// 	return view('AdminRocker.page.SanPham.capnhat', compact('cn_sanpham', 'data_Loaisanpham', 'data_hinhanh'));
-	// }
 
-	public function cn_sanpham_($id, Request $request)
+	public function cn_sanpham_($id, SanphamRequest $request)
 	{
 		$sanpham = SanphamModel::find($id);
-		if ($sanpham == null)
-			return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+		if ($sanpham == null) {
+			return '<script type ="text/JavaScript">alert("loi roi, khong tim thay truong nay!");</script>';
+		}
 
-		$ma_san_pham = SanphamModel::where('id', '>', '0')->max('id');
 		$get_image = $request->file('hinh_anh');
 		if ($get_image) {
 			foreach ($get_image as $image) {
 				$get_name_image = $image->getClientOriginalName();
-				$image->move("img/", $get_name_image);
-				$hinhanh = new HinhanhModel;
-				$hinhanh->hinh_anh = $get_name_image;
-				$hinhanh->ma_san_pham = $ma_san_pham;
+				$images = Image::make($image->getRealPath());
+				$images->resize(300, 250);
 
-				$hinhanh->save();
+				$images->save(public_path('img/' . $get_name_image));
 
-				// var_dump($get_name_image);
+				$x = new HinhanhModel;
+				$x->hinh_anh = $get_name_image;
+				$x->ma_san_pham = $id;
+
+				$x->save();
+
 			}
 		}
 

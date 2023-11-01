@@ -13,12 +13,12 @@ class DanhmucController extends Controller
 {
     public function danhmuc()
     {
-        $data_danhmuc = DanhmucModel::all();
+        $data_danhmuc = DanhmucModel::orderBy('id', 'desc')->paginate(10);
 
         return view('AdminRocker.page.DanhMuc.index', compact('data_danhmuc'));
     }
 
-    public function them_danhmuc(Request $request)
+    public function them_danhmuc(DanhmucRequests $request)
     {
         $data = $request->all();
         $data['ten_danh_muc_slug'] = Str::slug($data['ten_danh_muc']);

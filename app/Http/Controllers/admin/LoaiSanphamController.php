@@ -13,7 +13,8 @@ class LoaiSanphamController extends Controller
 {
     public function theloai()
     {
-        $data_theloai = LoaisanphamModel::all();
+        // $data_theloai = LoaisanphamModel::all();
+        $data_theloai = LoaisanphamModel::orderBy('id', 'desc')->paginate(10);
         $data_danhmuc = DanhmucModel::all();
 
         return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));

@@ -1,0 +1,19 @@
+/*  --- dinh dang form hien thi danh sach admin */
+
+
+.page-link {
+  font-size: medium !important;
+}
+
+a.trigger-modal {
+  padding: 5px !important;
+}
+
+a.trigger-modal i {
+  display: contents !important;
+}
+
+.form-check.form-switch {
+  justify-content: center;
+  display: flex;
+}

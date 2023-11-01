@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\HinhanhModel;
 
 class SanphamModel extends Model
 {
     use HasFactory;
 
     protected $table = 'san_pham';
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         "ten_san_pham",
         "ten_san_pham_slug",
@@ -22,4 +25,12 @@ class SanphamModel extends Model
         "mo_ta",
         "trang_thai",
     ];
+
+    public function HinhanhModel()
+    {
+        return $this->hasMany(HinhanhModel::class, 'ma_san_pham', 'id');
+    }
+
+
+
 }

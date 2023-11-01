@@ -60,7 +60,7 @@
                         <table id="table" class="table table-bordered">
                             <thead clas="bg-primary">
                                 <tr>
-                                    <th class="text-center">#</th>
+                                    <th class="text-center">ID</th>
                                     <th class="text-center">Tên Thể Loại</th>
                                     <th class="text-center">Tên Danh Mục</th>
                                     <th class="text-center">Action</th>
@@ -80,8 +80,8 @@
                                     </td>
                                     <td class="align-middle text-center text-nowrap">
                                       <!-- Button trigger modal -->
-																			<a class="btn btn-primary" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$theloai->id}}">edit</a>	
-																			<a class="btn btn-danger btn_delete" name="btn_delete" href="xoatheloai/{{$theloai->id}}">delete</a>			
+																			<a class="btn btn-primary trigger-modal" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$theloai->id}}"><i class="bx bx-edit"></i></a>	
+																			<a class="btn btn-danger btn_delete trigger-modal" name="btn_delete" href="xoatheloai/{{$theloai->id}}"><i class="bx bx-trash"></i></a>			
                                     </td>
                                     <!-- Modal -->
                                     @include('AdminRocker/page/LoaiSanPham/capnhat')
@@ -91,6 +91,7 @@
                             
                         </table>
                     </div>
+                    <div>{{$data_theloai->links()}}</div>
                 </div>
             </div>
         </div>

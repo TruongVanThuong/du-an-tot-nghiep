@@ -48,12 +48,15 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
   Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
 });
 
+// Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+//   \vendor\UniSharp\LaravelFilemanager\Lfm::routes();
+// });
 
 
 Route::get('/', [TrangChuController::class, 'TrangChu']);
 // 
 Route::get('/dang-nhap', [KhachHangController::class, 'DangNhap']);
-Route::get('/dang-ky',   [KhachHangController::class, 'DangKy']);
+Route::get('/dang-ky', [KhachHangController::class, 'DangKy']);
 Route::post('/xac-thuc-dang-ky', [KhachHangController::class, 'XacThucDangKy']);
 Route::get('/kich-hoat-tai-khoang/{hash}', [KhachHangController::class, 'KichHoatTaiKhoang']);
 // 
