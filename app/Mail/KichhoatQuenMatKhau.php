@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class KichHoatTaiKhoang extends Mailable
+class KichhoatQuenMatKhau extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,8 +22,8 @@ class KichHoatTaiKhoang extends Mailable
 
     public function build()
     {
-        return $this->subject('Kích Hoạt Tài Khoản Tại Website....')
-            ->view('Trang-Khach-Hang.page.MailKichHoatTaiKhoang', [
+        return $this->subject('Đổi Mật Khẩu Tài Khoản Tại Website....')
+            ->view('Trang-Khach-Hang.page.MailKichhoatQuenMatKhau', [
                 'du_lieu'   => $this->du_lieu,
             ]);
     }
