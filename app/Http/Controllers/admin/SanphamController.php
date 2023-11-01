@@ -44,7 +44,7 @@ class SanphamController extends Controller
 
 	}
 
-	public function them_sanpham(SanphamRequest $request)
+	public function them_sanpham(Request $request)
 	{
 		$data = $request->all();
 		$data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
@@ -62,8 +62,6 @@ class SanphamController extends Controller
 
 				$images->save(public_path('img/' . $get_name_image));
 
-				// $get_name_image = $image->getClientOriginalName();
-				// $image->move("img/", $get_name_image);
 				$x = new HinhanhModel;
 				$x->hinh_anh = $get_name_image;
 				$x->ma_san_pham = $t_;
@@ -72,7 +70,6 @@ class SanphamController extends Controller
 
 			}
 		}
-
 
 		return redirect('admin/sanpham');
 
@@ -87,9 +84,7 @@ class SanphamController extends Controller
 		return redirect('admin/sanpham');
 	}
 
-
-
-	public function cn_sanpham_($id, SanphamRequest $request)
+	public function cn_sanpham_($id, Request $request)
 	{
 		$sanpham = SanphamModel::find($id);
 		if ($sanpham == null) {

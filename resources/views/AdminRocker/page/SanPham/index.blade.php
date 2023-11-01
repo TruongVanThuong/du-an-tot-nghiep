@@ -10,7 +10,7 @@
       <div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
         <div class="container" role="document"> 
           <div class="modal-content"> 
-            <form id="sanphamForm" method="post" action="sanpham" enctype="multipart/form-data">@csrf
+            <form id="sanphamForm" method="post" action="/admin/sanpham" enctype="multipart/form-data">@csrf
               <div class="modal-header">
                 <h3 class="modal-title" id="exampleModalLabel">Thêm Sản Phẩm</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
