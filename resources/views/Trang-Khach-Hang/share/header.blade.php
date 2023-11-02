@@ -1,8 +1,3 @@
-@php
-    $check = Auth::guard('khach_hang')->check();
-    $user = Auth::guard('khach_hang')->user();
-@endphp
-
 
 <!-- announcement bar start -->
 <div class="announcement-bar bg-4 py-1 py-lg-2">
@@ -23,20 +18,6 @@
             <div class="col-lg-3 d-lg-block d-none">
                 <div class="announcement-meta-wrapper d-flex align-items-center justify-content-end">
                     <div class="announcement-meta d-flex align-items-center">
-                      @if ($check)
-                        
-                      @else
-                      <a class="announcement-login announcement-text text-white" href="/dang-nhap">
-                        <svg class="icon icon-user" width="10" height="11" viewBox="0 0 10 11" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M5 0C3.07227 0 1.5 1.57227 1.5 3.5C1.5 4.70508 2.11523 5.77539 3.04688 6.40625C1.26367 7.17188 0 8.94141 0 11H1C1 8.78516 2.78516 7 5 7C7.21484 7 9 8.78516 9 11H10C10 8.94141 8.73633 7.17188 6.95312 6.40625C7.88477 5.77539 8.5 4.70508 8.5 3.5C8.5 1.57227 6.92773 0 5 0ZM5 1C6.38672 1 7.5 2.11328 7.5 3.5C7.5 4.88672 6.38672 6 5 6C3.61328 6 2.5 4.88672 2.5 3.5C2.5 2.11328 3.61328 1 5 1Z"
-                                fill="#fff" />
-                        </svg>
-                        <span>Login</span>
-                    </a>
-                      @endif
-                        
                         <span class="separator-login d-flex px-3">
                             <svg width="2" height="9" viewBox="0 0 2 9" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -141,31 +122,56 @@
                         </a>
 
                         @if ($check)
+                            <div class="header-action-item header-wishlist ms-4 d-none d-lg-block">
+                                <ul class="main-menu list-unstyled">
+                                    <li class="menu-list-item nav-item has-dropdown" style=" padding: 0 !important;">
+                                        <div class="mega-menu-header">
+                                            <a class="nav-link p-0" href="/"><i class="fa-regular fa-user "
+                                                    style="font-size: 23px; "></i></a>
+                                        </div>
+                                        <div class="submenu-transform submenu-transform-desktop">
+                                            <ul class="submenu list-unstyled">
+                                                <li class="menu-list-item nav-item-sub">
+                                                    <a class="nav-link-sub nav-text-sub" href="/khach-hang/ho-so">Trang Cá
+                                                        Nhân</a>
+                                                </li>
+                                                <li class="menu-list-item nav-item-sub">
+                                                    <a class="nav-link-sub nav-text-sub" href="/khach-hang/cap-nhap-mat-khau">Đổi Mật
+                                                        Khẩu</a>
+                                                </li>
+                                                <li class="menu-list-item nav-item-sub">
+                                                    <a class="nav-link-sub nav-text-sub" href="/dang-xuat">Đăng
+                                                        Xuất</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        @else
+                        <div class="header-action-item header-wishlist ms-4 d-none d-lg-block">
                             <ul class="main-menu list-unstyled">
                                 <li class="menu-list-item nav-item has-dropdown" style=" padding: 0 !important;">
                                     <div class="mega-menu-header">
-                                        <a class="nav-link p-0" href="/"><i class="fa-regular fa-user "
+                                        <a class="nav-link p-0" href="/dang-nhap"><i class="fa-regular fa-user "
                                                 style="font-size: 23px; "></i></a>
                                     </div>
                                     <div class="submenu-transform submenu-transform-desktop">
                                         <ul class="submenu list-unstyled">
                                             <li class="menu-list-item nav-item-sub">
-                                                <a class="nav-link-sub nav-text-sub" href="blog.html">Trang Cá
-                                                    Nhân</a>
+                                                <a class="nav-link-sub nav-text-sub" href="/dang-nhap">Đăng Nhập</a>
                                             </li>
                                             <li class="menu-list-item nav-item-sub">
-                                                <a class="nav-link-sub nav-text-sub" href="article.html">Đổi Mật
-                                                    Khẩu</a>
+                                                <a class="nav-link-sub nav-text-sub" href="/dang-ky">Đăng Ký</a>
                                             </li>
-                                            <li class="menu-list-item nav-item-sub">
-                                                <a class="nav-link-sub nav-text-sub" href="article.html">Đăng Xuất</a>
-                                            </li>
+                                        
                                         </ul>
                                     </div>
                                 </li>
                             </ul>
-                        @else
+                        </div>
                         @endif
+
                         <a class="header-action-item header-wishlist ms-4 d-none d-lg-block" href="wishlist.html">
                             <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -409,15 +415,6 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="menu-list-item nav-item has-dropdown">
-                                <div class="mega-menu-header">
-                                    <a class="nav-link" href="/gioi-thieu">
-                                        Giới Thiệu
-                                    </a>
-
-                                </div>
-
-                            </li>
                             <li class="menu-list-item nav-item">
                                 <a class="nav-link" href="/lien-he">Liên Hệ</a>
                             </li>
@@ -426,7 +423,7 @@
                 </div>
                 <div class="col-lg-2">
                     <div class="member-signup d-flex justify-content-end">
-                        <a href="about-us.html" class="btn-member text-white">Be a member</a>
+                        <a href="/gioi-thieu" class="btn-member text-white">Giới Thiệu</a>
                     </div>
                 </div>
             </div>
@@ -434,3 +431,4 @@
     </div>
 </header>
 <!-- header end -->
+
