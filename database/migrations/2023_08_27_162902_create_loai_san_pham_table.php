@@ -14,7 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('ten_loai');
             $table->string('ten_loai_slug');
-            $table->bigInteger('ma_danh_muc');
+            $table->unsignedBigInteger('ma_danh_muc');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

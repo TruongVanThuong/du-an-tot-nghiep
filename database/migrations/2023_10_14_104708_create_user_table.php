@@ -19,9 +19,10 @@ return new class extends Migration {
             $table->string('vai_tro');
             $table->string('email');
             $table->string('hinh_anh');
-            $table->string('phan_quyen');
+            $table->unsignedBigInteger('loai_tai_khoan');
             $table->integer('so_dien_thoai');
             $table->string('dia_chi');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

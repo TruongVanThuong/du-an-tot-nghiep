@@ -4,24 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BaivietModel extends Model
+class binh_luan_bai_viets extends Model
 {
     use HasFactory;
-    use SoftDeletes;
-    
-    protected $table = 'bai_viet';
+    protected $table = 'binh_luan_bai_viet';
     protected $primarykey = 'id';
     protected $fillable = [
-        "ten_bai_viet",
-        "ten_bai_viet_slug",
-        "mo_ta_ngan",
-        "ma_khach_hang",
         "noi_dung",
-        "hinh_anh",
+        "ma_bai_viet",
+        "ma_khach_hang",
         "rating",
-        "hien_thi",
         "created_at",
         "updated_at",
     ];

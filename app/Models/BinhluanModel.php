@@ -14,7 +14,6 @@ class BinhluanModel extends Model
     protected $fillable = [
         "noi_dung",
         "ma_san_pham",
-        "ma_bai_viet",
         "ma_khach_hang",
         "rating",
         "created_at",

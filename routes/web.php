@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\BaivietController;
 use App\Http\Controllers\admin\DanhmucController;
 use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
@@ -45,6 +46,8 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
   Route::get('/xoatheloai/{id}', [LoaiSanphamController::class, 'xoa_theloai']);
   // Route::get('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai']);
   Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
+  //bài viết
+  Route::get('/baiviet', [BaivietController::class, 'baiviet']);
 });
 
 

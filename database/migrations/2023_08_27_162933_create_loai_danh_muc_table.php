@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('ten_danh_muc');
             $table->string('ten_danh_muc_slug');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

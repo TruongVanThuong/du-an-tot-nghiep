@@ -18,9 +18,10 @@ return new class extends Migration {
             $table->integer('giam_gia_san_pham');
             $table->text('mo_ta');
             $table->integer('so_luong');
-            $table->integer('ma_loai');
+            $table->unsignedBigInteger('ma_loai');
             $table->integer('luot_xem')->nullable();
             $table->boolean('dat_biet')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
