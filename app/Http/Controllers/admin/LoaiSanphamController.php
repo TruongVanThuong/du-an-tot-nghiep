@@ -13,7 +13,8 @@ class LoaiSanphamController extends Controller
 {
     public function theloai()
     {
-        $data_theloai = LoaisanphamModel::all();
+        // $data_theloai = LoaisanphamModel::all();
+        $data_theloai = LoaisanphamModel::orderBy('id', 'desc')->paginate(10);
         $data_danhmuc = DanhmucModel::all();
 
         return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
@@ -36,14 +37,6 @@ class LoaiSanphamController extends Controller
         $xoa_theloai->delete();
         return redirect('admin/theloai');
     }
-
-    // public function cn_theloai($id)
-    // {
-    //     $data_danhmuc = DanhmucModel::all();
-
-    //     $cn_theloai = LoaisanphamModel::find($id);
-    //     return view('AdminRocker.page.LoaiSanPham.capnhat', compact('cn_theloai', 'data_danhmuc'));
-    // }
 
     public function cn_theloai_($id, LoaisanphamRequest $request)
     {

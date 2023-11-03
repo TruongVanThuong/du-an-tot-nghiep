@@ -13,7 +13,7 @@
         <ul class="navbar-nav justify-content-start flex-grow-1 gap-1">
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/sanpham')}}">
-                    <div class="parent-icon"><i class="bx bx-cookie"></i>
+                    <div class="parent-icon"><i class="bx bx-cart"></i>
                     </div>
                     <div class="menu-title">Sản Phẩm</div>
                 </a>
@@ -27,7 +27,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/theloai')}}">
-                    <div class="parent-icon"><i class="bx bx-cookie"></i>
+                    <div class="parent-icon"><i class="bx bx-tag"></i>
                     </div>
                     <div class="menu-title">Thể Loại</div>
                 </a>

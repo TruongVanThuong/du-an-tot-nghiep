@@ -27,7 +27,7 @@
                           <img src="{{asset('img')}}/{{$hinhanh->hinh_anh}}" width="100" title="image">
                         </div>
                         <div class="text-center">
-                          <a class="btn btn-danger btn_delete" name="btn_delete" href="/admin/xoahinhanh/{{$hinhanh->id}}/{{$sanpham->id}}">delete</a>			
+                          <a class="btn btn-danger btn_delete" onclick="deleteImg(<?php echo $hinhanh->id; ?>)">xoa</a>
                         </div>
                       </div>
                     @endif

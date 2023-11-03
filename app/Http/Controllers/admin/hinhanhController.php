@@ -11,18 +11,17 @@ use App\Models\LoaisanphamModel;
 
 class hinhanhController extends Controller
 {
-    public function xoa_hinhanh($id, $id_cn)
+    public function xoa_hinhanh()
     {
+        $id = $_GET['idImg'];
         $xoa = HinhanhModel::find($id);
         if ($xoa == null) {
             echo '<script type ="text/JavaScript">alert("loi roi!");</script>';
         } else {
             $xoa->delete();
-            $data_Loaisanpham = LoaisanphamModel::all();
-            $data_hinhanh = HinhanhModel::all();
-            $cn_sanpham = SanphamModel::find($id_cn);
-            return view('AdminRocker.page.SanPham.capnhat', compact('data_hinhanh', 'cn_sanpham', 'data_Loaisanpham'));
+            // return response()->json([
+            //     'success' => 'Record deleted successfully!'
+            // ]);
         }
-        // return redirect('admin/sanphamcapnhat/' . $id_cn);
     }
 }

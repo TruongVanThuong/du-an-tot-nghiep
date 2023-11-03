@@ -23,8 +23,8 @@
                             </fieldset>
                         </div>
                         <div class="col-12 mt-3">
-                            <a href="#" class="text_14 d-block">Quên Mật Khẩu?</a>
-                            <button type="submit" v-on:click="xac_thuc_dang_nhap()"
+                            <a href="/quen-mat-khau" class="text_14 d-block">Quên Mật Khẩu?</a>
+                            <button type="submit" v-on:click="kich_hoat_dang_nhap()"
                                 class="btn-primary d-block mt-4 btn-signin">Đăng Nhập</button>
                             <a href="/dang-ky" class="btn-secondary mt-2 btn-signin">Tạo Tài Khoảng</a>
                         </div>
@@ -40,17 +40,34 @@
             el: "#app",
             data: {
                 dang_nhap: {},
-                errors: {},
+                errors: {
+                    email: '', // Thêm trường này để theo dõi lỗi email
+                    password: '' // Thêm trường này để theo dõi lỗi password
+                },
+            },
+            watch: {
+                'dang_nhap.email': function(newVal) {
+                    if (newVal) {
+                        this.errors.email = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+                    }
+                },
+                'dang_nhap.password': function(newVal) {
+                    if (newVal) {
+                        this.errors.password = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+                    }
+                }
             },
             methods: {
-                xac_thuc_dang_nhap() {
-                    // console.log(this.dang_nhap);
+                kich_hoat_dang_nhap() {
                     axios
-                        .post('/xac-thuc-dang-nhap', this.dang_nhap)
+                        .post('/kich-hoat-dang-nhap', this.dang_nhap)
                         .then((res) => {
                             if (res.data.status) {
                                 toastr.success(res.data.message);
                                 this.dang_nhap = {};
+                                setTimeout(() => {
+                                    window.location.href = "/";
+                                }, 2000); // Delay for 2 seconds (2000 milliseconds)
                             } else {
                                 toastr.warning(res.data.message);
                             }

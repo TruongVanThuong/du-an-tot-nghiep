@@ -23,7 +23,7 @@ class KichHoatTaiKhoang extends Mailable
     public function build()
     {
         return $this->subject('Kích Hoạt Tài Khoản Tại Website....')
-            ->view('Trang-Khach-Hang.page.KichHoatTaiKhoang', [
+            ->view('Trang-Khach-Hang.page.MailKichHoatTaiKhoang', [
                 'du_lieu'   => $this->du_lieu,
             ]);
     }

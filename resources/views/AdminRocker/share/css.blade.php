@@ -33,3 +33,10 @@
 <link rel="stylesheet" href="/assets_admin_rocker/css/tailwind.output.css" />
 <!-- Style CSS -->
 <link rel="stylesheet" href="/css/style.css" />
+
+
+
+<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+
+
+

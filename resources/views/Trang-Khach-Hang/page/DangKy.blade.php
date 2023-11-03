@@ -71,7 +71,7 @@
                         </fieldset>
                     </div>
                     <div class="col-12 mt-3">
-                        <button type="submit" v-on:click="xac_thuc_dang_ky()"
+                        <button type="submit" v-on:click="kich_hoat_dang_ky()"
                             class="btn-primary d-block mt-3 btn-signin">Đăng Ký</button>
                     </div>
                 </div>
@@ -86,12 +86,63 @@
             el: "#app",
             data: {
                 dang_ky: {},
-                errors: {},
+                errors: {
+                    ho_va_ten: '',
+                    email: '',
+                    password: '',
+                    nhap_lai_password: '',
+                    so_dien_thoai: '',
+                    dia_chi: '',
+                    ngay_sinh: '',
+                    gioi_tinh: ''
+                },
+            },
+            watch: {
+                'dang_ky.ho_va_ten': function(newVal) {
+                    if (newVal) {
+                        this.errors.ho_va_ten = '';
+                    }
+                },
+                'dang_ky.email': function(newVal) {
+                    if (newVal) {
+                        this.errors.email = '';
+                    }
+                },
+                'dang_ky.password': function(newVal) {
+                    if (newVal) {
+                        this.errors.password = '';
+                    }
+                },
+                'dang_ky.nhap_lai_password': function(newVal) {
+                    if (newVal) {
+                        this.errors.nhap_lai_password = '';
+                    }
+                },
+                'dang_ky.so_dien_thoai': function(newVal) {
+                    if (newVal) {
+                        this.errors.so_dien_thoai = '';
+                    }
+                },
+                'dang_ky.dia_chi': function(newVal) {
+                    if (newVal) {
+                        this.errors.dia_chi = '';
+                    }
+                },
+                'dang_ky.ngay_sinh': function(newVal) {
+                    if (newVal) {
+                        this.errors.ngay_sinh = '';
+                    }
+                },
+                'dang_ky.gioi_tinh': function(newVal) {
+                    if (newVal) {
+                        this.errors.gioi_tinh = '';
+                    }
+                }
             },
             methods: {
-                xac_thuc_dang_ky() {
+                kich_hoat_dang_ky() {
                     axios
-                        .post('/xac-thuc-dang-ky', this.dang_ky)
+                        .post('/kich-hoat-dang-ky', this.dang_ky)
                         .then((res) => {
                             if (res.data.status) {
                                 this.dang_ky = {};
@@ -102,7 +153,6 @@
                             } else {
                                 toastr.error('Có lỗi không mong muốn!');
                             }
-
                         })
                         .catch((error) => {
                             if (error.response && error.response.data && error.response.data.errors) {

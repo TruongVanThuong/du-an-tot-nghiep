@@ -50,29 +50,30 @@
                         <table id="table" class="table table-bordered">
                             <thead clas="bg-primary">
                                 <tr>
-                                    <th class="text-center">#</th>
+                                    <th class="text-center">ID</th>
                                     <th class="text-center">Tên Danh Mục</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data_danhmuc as $danhmuc)
+                              @foreach ($data_danhmuc as $danhmuc)
                                 <tr>
-                                    <th class="align-middle text-center">{{$danhmuc->id}}</th>
-                                    <td class="align-middle text-center">{{$danhmuc->ten_danh_muc}}</td>
-                                    <td class="align-middle text-center text-nowrap">
-                                      <!-- Button trigger modal -->
-																			<a class="btn btn-primary" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$danhmuc->id}}">edit</a>	
-																			<a class="btn btn-danger btn_delete" name="btn_delete" href="xoadanhmuc/{{$danhmuc->id}}">delete</a>			
-                                    </td>
-                                    <!-- Modal -->
-                                    @include('AdminRocker/page/DanhMuc/capnhat')
+                                  <th class="align-middle text-center">{{$danhmuc->id}}</th>
+                                  <td class="align-middle text-center">{{$danhmuc->ten_danh_muc}}</td>
+                                  <td class="align-middle text-center text-nowrap">
+                                    <!-- Button trigger modal -->
+                                    <a class="btn btn-primary trigger-modal" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$danhmuc->id}}"><i class="bx bx-edit"></i></a>	
+                                    <a class="btn btn-danger btn_delete trigger-modal" name="btn_delete" href="xoadanhmuc/{{$danhmuc->id}}"><i class="bx bx-trash"></i></a>			
+                                  </td>
+                                  <!-- Modal -->
+                                  @include('AdminRocker/page/DanhMuc/capnhat')
                                 </tr>
-                                @endforeach
+                              @endforeach
                             </tbody>
                             
                         </table>
                     </div>
+                    <div>{{$data_danhmuc->links()}}</div>
                 </div>
             </div>
         </div>
@@ -172,5 +173,4 @@
       });
     });
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>
 @endsection
