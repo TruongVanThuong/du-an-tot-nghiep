@@ -15,7 +15,11 @@ class DanhmucController extends Controller
     {
         $data_danhmuc = DanhmucModel::orderBy('id', 'desc')->paginate(10);
 
-        return view('AdminRocker.page.DanhMuc.index', compact('data_danhmuc'));
+        if ($data_danhmuc->isEmpty()) {
+			return view('AdminRocker.page.DanhMuc.index', compact('data_danhmuc'));
+        } else {
+            return view('AdminRocker.page.DanhMuc.index', compact('data_danhmuc'));
+        }
     }
 
     public function them_danhmuc(DanhmucRequests $request)
@@ -40,14 +44,16 @@ class DanhmucController extends Controller
     public function cn_danhmuc_($id, DanhmucRequests $request)
     {
         $danhmuc = DanhmucModel::find($id);
-        if ($danhmuc == null)
+        if ($danhmuc == null){
             return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+        }
         $danhmuc->ten_danh_muc = $request->ten_danh_muc;
         $danhmuc->ten_danh_muc_slug = Str::slug($danhmuc->ten_danh_muc);
         $danhmuc->updated_at = date("Y-m-d h:i:s");
-        $danhmuc->save();
-
-        return redirect('admin/danhmuc');
+        // $danhmuc->save();
+        echo $request->ten_danh_muc;
+        dd($request);
+        // return redirect('admin/danhmuc');
     }
 
 
