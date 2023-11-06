@@ -17,7 +17,11 @@ class LoaiSanphamController extends Controller
         $data_theloai = LoaisanphamModel::orderBy('id', 'desc')->paginate(10);
         $data_danhmuc = DanhmucModel::all();
 
-        return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+        if ($data_theloai->isEmpty()) {
+			return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+        } else {
+            return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+        }
     }
 
     public function them_theloai(LoaisanphamRequest $request)
@@ -46,7 +50,6 @@ class LoaiSanphamController extends Controller
         $t->ten_loai = $request->ten_loai;
         $t->ten_loai_slug = Str::slug($t->ten_loai);
         $t->ma_danh_muc = $request->ma_danh_muc;
-        $t->updated_at = date("Y-m-d h:i:s");
         $t->save();
 
         return redirect('admin/theloai');

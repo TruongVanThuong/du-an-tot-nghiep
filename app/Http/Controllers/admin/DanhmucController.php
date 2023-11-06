@@ -43,19 +43,16 @@ class DanhmucController extends Controller
 
     public function cn_danhmuc_($id, DanhmucRequests $request)
     {
+        echo $request->ten_danh_muc;
         $danhmuc = DanhmucModel::find($id);
         if ($danhmuc == null){
             return '<script type ="text/JavaScript">alert("loi roi!");</script>';
         }
         $danhmuc->ten_danh_muc = $request->ten_danh_muc;
         $danhmuc->ten_danh_muc_slug = Str::slug($danhmuc->ten_danh_muc);
-        $danhmuc->updated_at = date("Y-m-d h:i:s");
-        // $danhmuc->save();
-        echo $request->ten_danh_muc;
-        dd($request);
-        // return redirect('admin/danhmuc');
+        $danhmuc->save();
+        // dd($request);
+        return redirect('admin/danhmuc');
     }
-
-
 
 }

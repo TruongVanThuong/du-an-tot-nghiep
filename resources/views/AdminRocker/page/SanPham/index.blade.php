@@ -38,7 +38,9 @@
                     <select name="ma_loai" class="form-control" required>
                       <option value=""> _ _ _ Chon Mã Loại Sản Phẩm _ _ _</option> 
                       @foreach($data_Loaisanpham as $Loaisanpham)
-                      <option value="{{$Loaisanpham->id}}">{{$Loaisanpham->ten_loai}}</option>
+                      <option value="{{$Loaisanpham->id}}">
+                        {{$Loaisanpham->ten_loai}} - (Danh muc : @foreach($data_danhmuc as $danhmuc) @if($danhmuc->id == $Loaisanpham->ma_danh_muc) {{$danhmuc->ten_danh_muc}} @endif @endforeach)
+                      </option>
                       @endforeach
                     </select>
                   </div>
@@ -110,13 +112,17 @@
                 <th class="text-center">Số Lượng</th>
                 <th class="text-center">Mô Tả</th>
                 <th class="text-center">Tên Loại</th>
-                <th class="text-center">Đặt Biệt</th>
+                <th class="text-center">Danh Muc</th>
                 <th class="text-center">Trạng Thái</th>
                 <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              @if(!empty($data_sanpham) && $data_sanpham->count())
+              @if($data_sanpham->isEmpty())
+              <tr>
+                <td class="align-middle text-center text-nowrap" colspan="11">Không có dữ liệu</td>
+              </tr>
+              @else
               @foreach($data_sanpham as $sanpham)
 
               <tr>
@@ -153,7 +159,7 @@
                   @endforeach
                 </td>
                 <td class="align-middle text-center">
-                  {{$sanpham->dat_biet}}
+                {{$danh_muc->ten_danh_muc}} 
                 </td>
                 <td class="align-middle text-center">
                   <div class="form-check form-switch">
@@ -172,10 +178,7 @@
                 @include('AdminRocker/page/SanPham/capnhat')
               </tr>
               @endforeach
-              @else
-              <tr>
-                <td class="align-middle text-center text-nowrap" colspan="11">Không có dữ liệu</td>
-              </tr>
+              
 
               @endif
 

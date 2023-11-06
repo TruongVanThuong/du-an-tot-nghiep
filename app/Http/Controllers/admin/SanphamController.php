@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SanphamRequest;
+use App\Models\DanhmucModel;
 use App\Models\HinhanhModel;
 use App\Models\LoaisanphamModel;
 use App\Models\SanphamModel;
@@ -21,26 +22,33 @@ class SanphamController extends Controller
 		$data_sanpham = SanphamModel::orderBy('id', 'desc')->paginate(10);
 		$data_hinhanh = HinhanhModel::all();
 		$SanphamModel = SanphamModel::with('HinhanhModel')->get();
+		$data_danhmuc = DanhmucModel::all();
 
-		// foreach ($SanphamModel as $sanphams) {
-		// 	foreach ($sanphams->HinhanhModel as $HinhanhModel) {
-		// 		$Hinhanh[] = $HinhanhModel;
-		// 	}
-		// }
+    $HinhAnh = [];
+		$danh_muc = [];
 
-		foreach ($data_sanpham as $sanpham) {
-			$idsanpham[] = $sanpham->id;
+    foreach ($data_sanpham as $sanpham) {
+      $hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
+      $HinhAnh[] = $hinhAnh;
+    }
+
+		foreach ($data_Loaisanpham as $Loaisanpham){
+				$danh_muc = DanhmucModel::where('id', $Loaisanpham->ma_danh_muc)->first();
+				// $danh_muc[] = $Danh_muc;
 		}
-		$hinhanh = implode($idsanpham);
 
-		for ($i = 0; $i < strlen($hinhanh); $i++) {
-			$hinhAnh = HinhanhModel::where('ma_san_pham', $hinhanh[$i])->first();
-			$HinhAnh[] = $hinhAnh;
-		}
-		// dd($HinhAnh);
 
-		return view('AdminRocker.page.SanPham.index', compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh'));
-
+    if ($data_sanpham->isEmpty()) {
+			return view(
+				'AdminRocker.page.SanPham.index', 
+				compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc','danh_muc')
+			);
+    } else {
+      return view(
+				'AdminRocker.page.SanPham.index', 
+				compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc','danh_muc')
+			);
+    }
 
 	}
 
@@ -118,7 +126,6 @@ class SanphamController extends Controller
 		$sanpham->luot_xem = $request->luot_xem;
 		$sanpham->dat_biet = $request->dat_biet;
 		$sanpham->mo_ta = $request->mo_ta;
-		$sanpham->updated_at = date("Y-m-d h:i:s");
 
 		$sanpham->save();
 
