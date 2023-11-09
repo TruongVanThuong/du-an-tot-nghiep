@@ -24,31 +24,35 @@ class SanphamController extends Controller
 		$SanphamModel = SanphamModel::with('HinhanhModel')->get();
 		$data_danhmuc = DanhmucModel::all();
 
-    $HinhAnh = [];
-		$danh_muc = [];
-
-    foreach ($data_sanpham as $sanpham) {
-      $hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
-      $HinhAnh[] = $hinhAnh;
-    }
-
-		foreach ($data_Loaisanpham as $Loaisanpham){
-				$danh_muc = DanhmucModel::where('id', $Loaisanpham->ma_danh_muc)->first();
-				// $danh_muc[] = $Danh_muc;
+		foreach ($data_sanpham as $sanpham) {
+			$sanpham->mo_ta = substr($sanpham->mo_ta, 0, 30);
 		}
 
+		$HinhAnh = [];
 
-    if ($data_sanpham->isEmpty()) {
+		foreach ($data_sanpham as $sanpham) {
+			$hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
+			$HinhAnh[] = $hinhAnh;
+		}
+
+		if ($data_sanpham->isEmpty()) {
 			return view(
-				'AdminRocker.page.SanPham.index', 
-				compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc','danh_muc')
+				'AdminRocker.page.SanPham.index',
+				compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc')
 			);
-    } else {
-      return view(
-				'AdminRocker.page.SanPham.index', 
-				compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc','danh_muc')
-			);
-    }
+		} else {
+			if (!empty($HinhAnh)) {
+				return view(
+					'AdminRocker.page.SanPham.index',
+					compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc')
+				);
+			} else {
+				return view(
+					'AdminRocker.page.SanPham.index',
+					compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc')
+				);
+			}
+		}
 
 	}
 
@@ -56,30 +60,47 @@ class SanphamController extends Controller
 	{
 		$data = $request->all();
 		$data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
-		SanphamModel::create($data);
 
-		$t_ = SanphamModel::where('id', '>', '0')->max('id');
+		try {
+			$sanpham = SanphamModel::create($data);
 
-		$get_image = $request->file('hinh_anh');
+			// Tạo danh sách lỗi
+			$errors = [];
 
-		if ($get_image) {
-			foreach ($get_image as $image) {
-				$get_name_image = $image->getClientOriginalName();
-				$images = Image::make($image->getRealPath());
-				$images->resize(300, 250);
+			$t_ = $sanpham->id;
 
-				$images->save(public_path('img/' . $get_name_image));
+			$get_image = $request->file('hinh_anh');
 
-				$x = new HinhanhModel;
-				$x->hinh_anh = $get_name_image;
-				$x->ma_san_pham = $t_;
+			if ($get_image) {
+				foreach ($get_image as $image) {
+					$get_name_image = $image->getClientOriginalName();
+					$images = Image::make($image->getRealPath());
+					$images->resize(300, 250);
 
-				$x->save();
+					$images->save(public_path('img/' . $get_name_image));
 
+					$x = new HinhanhModel;
+					$x->hinh_anh = $get_name_image;
+					$x->ma_san_pham = $t_;
+
+					$x->save();
+				}
 			}
+		} catch (\Exception $e) {
+			// Nếu có lỗi, thêm thông báo lỗi vào danh sách lỗi
+			$errors[] = 'Có lỗi xảy ra khi thêm sản phẩm.';
+
+			// Nếu bạn muốn log lỗi để theo dõi
+			// Log::error($e->getMessage());
 		}
 
-		return redirect('admin/sanpham');
+		if (empty($errors)) {
+			// Nếu không có lỗi, chuyển hướng với thông báo thành công
+			return redirect('admin/sanpham')->with('success', 'Sản phẩm đã được thêm thành công.');
+		} else {
+			// Nếu có lỗi, chuyển hướng với danh sách lỗi
+			return redirect('admin/sanpham')->withErrors($errors);
+		}
 
 	}
 
@@ -89,7 +110,7 @@ class SanphamController extends Controller
 		if ($xoa_sanpham == null)
 			return '<script type ="text/JavaScript">alert("loi roi!");</script>';
 		$xoa_sanpham->delete();
-		return redirect('admin/sanpham');
+		return redirect('admin/sanpham')->with('success', 'Sản phẩm đã được xoá thành công.');
 	}
 
 	public function cn_sanpham_($id, Request $request)
@@ -129,7 +150,8 @@ class SanphamController extends Controller
 
 		$sanpham->save();
 
-		return redirect('admin/sanpham');
+		return redirect('admin/sanpham')->with('success', 'Sản phẩm đã được cập nhật thành công.');
+		;
 	}
 
 	public function toggleStatus()

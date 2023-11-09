@@ -118,40 +118,7 @@
 
         messages: {
           ten_loai: {
-            required: "Please provide a ten_loai",
-          },
-        },
-        errorElement: "em",
-        errorPlacement: function (error, element) {
-          // Add the `help-block` class to the error element
-          error.addClass("help-block");
-
-          if (element.prop("type") === "checkbox") {
-            error.insertAfter(element.parent("label"));
-          } else {
-            error.insertAfter(element);
-          }
-        },
-        highlight: function (element, errorClass, validClass) {
-          $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-          $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
-        }
-      });
-
-      $("#cndanhmucForm").validate({
-        rules: {
-          ten_danh_muc_: {
-            required: true,
-            minlength: 5
-          },
-        },
-
-        messages: {
-          ten_danh_muc_: {
-            required: "Please provide a ten_danh_muc",
-            minlength: "Your ten_danh_muc must be at least 5 characters long"
+            required: "Tên loại sản phẩm không được để trống",
           },
         },
         errorElement: "em",

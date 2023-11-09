@@ -139,27 +139,39 @@
                   {{$sanpham->giam_gia_san_pham}}
                 </td>
                 <td class="align-middle text-center">
+                <!-- -- Kiểm tra xem sản phẩm có hình ảnh hay không -- -->
+                  @php
+                  $hasImages = false;
+                  @endphp
+
                   @foreach ($HinhAnh as $hinhanh)
-                  @if ($hinhanh->ma_san_pham == $sanpham->id)
-                  <img height="100" src="{{ asset('img/') }}/{{$hinhanh->hinh_anh}}" title="{{$hinhanh->hinh_anh}}">
-                  @endif
+                      @if ($hinhanh && $hinhanh->ma_san_pham == $sanpham->id)
+                          <img height="100" src="{{ asset('img/') }}/{{$hinhanh->hinh_anh}}" title="{{$hinhanh->hinh_anh}}">
+                          @php
+                          $hasImages = true;
+                          @endphp
+                      @endif
                   @endforeach
+
+                  @if (!$hasImages)
+                      <p>Không có hình ảnh cho sản phẩm này.</p>
+                  @endif
                 </td>
                 <td class="align-middle text-center">
                   {{$sanpham->so_luong}}
                 </td>
                 <td class="align-middle text-center">
-                  {!!$sanpham->mo_ta!!}
+                  {!!$sanpham->mo_ta .= '...'!!}
                 </td>
                 <td class="align-middle text-center">
                   @foreach ($data_Loaisanpham as $Loaisanpham)
                   @if ($Loaisanpham->id == $sanpham->ma_loai)
                   {{$Loaisanpham->ten_loai}}
                   @endif
-                  @endforeach
+                  @endforeach 
                 </td>
                 <td class="align-middle text-center">
-                {{$danh_muc->ten_danh_muc}} 
+                {{ $sanpham->LoaisanphamModel->DanhmucModel->ten_danh_muc }}
                 </td>
                 <td class="align-middle text-center">
                   <div class="form-check form-switch">
