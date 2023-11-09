@@ -1,3 +1,4 @@
+
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
 <main id="MainContent" class="content-for-layout">
@@ -8,24 +9,25 @@
                 <div class="col-lg-9 col-md-12 col-12">
                     <div class="filter-sort-wrapper d-flex justify-content-between flex-wrap">
                         <div class="collection-title-wrap d-flex align-items-end">
-                            <h2 class="collection-title heading_24 mb-0">All products</h2>
-                            <p class="collection-counter text_16 mb-0 ms-2">(237 items)</p>
+                            <h2 class="collection-title heading_24 mb-0">Sản Phẩm {{$data_danh_muc->ten_danh_muc}} -</h2>
+                            <p class="collection-counter text_16 mb-0 ms-2">
+                              (237 items)
+                            </p>
                         </div>
                      
                     </div>
                     <div class="collection-product-container">
                         <div class="row">
-													@foreach ($data_danh_muc as $danh_muc)
-													@foreach ($data_the_loai as $the_loai)
-													@if ($the_loai->ma_danh_muc == $danh_muc->id)
-													@foreach ($data_san_pham as $san_pham)
-													@if ($san_pham->ma_loai == $the_loai->id)
-													@if ($san_pham->trang_thai == 1)                            
-														<div class="col-lg-4 col-md-6 col-6" data-aos="fade-up" data-aos-duration="700">
+                          @foreach ($data_the_loai as $the_loai)
+                          @if ($the_loai->ma_danh_muc == $data_danh_muc->id)
+                          @foreach ($data_san_pham as $san_pham)
+                          @if ($san_pham->trang_thai == 1)
+                          @if($san_pham->ma_loai == $the_loai->id)
+                            <div class="col-lg-4 col-md-6 col-6" data-aos="fade-up" data-aos-duration="700">
                                 <div class="product-card">
                                     <div class="product-card-img">
-                                        <a class="hover-switch" href="/san-pham/{{$danh_muc->ten_danh_muc_slug}}/{{$the_loai->ten_loai_slug}}/{{$san_pham->ten_san_pham_slug}}">
-																				@foreach ($HinhAnh as $hinhanh)
+                                        <a class="hover-switch" href="/san-pham/{{$data_danh_muc->ten_danh_muc_slug}}/{{$the_loai->ten_loai_slug}}/{{$san_pham->ten_san_pham_slug}}">
+                                        @foreach ($HinhAnh as $hinhanh)
                                         @if ($hinhanh->ma_san_pham == $san_pham->id)
                                           <img class="secondary-img" src="/img/{{$hinhanh->hinh_anh}}"
                                             alt="{{$hinhanh->hinh_anh}}">
@@ -83,7 +85,7 @@
                                             </li>
                                         </ul>
                                         <h3 class="product-card-title">
-																				<a href="collection-left-sidebar.html">{{$san_pham->ten_san_pham}}</a>
+                                            <a href="collection-left-sidebar.html">{{$san_pham->ten_san_pham}}</a>
                                         </h3>
                                         <div class="product-card-price">
                                             <span class="card-price-regular">{{$san_pham->gia_san_pham ." " . "vnd"}}</span>
@@ -92,12 +94,11 @@
                                     </div>
                                 </div>
                             </div>
-													@endif
-													@endif
-													@endforeach
-													@endif
-													@endforeach
-													@endforeach
+                          @endif
+                          @endif
+                          @endforeach
+                          @endif
+                          @endforeach
                         </div>
                     </div>
                     <div class="pagination justify-content-center mt-100">
@@ -172,7 +173,7 @@
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
                                 data-bs-toggle="collapse" data-bs-target="#filter-collection">
-                                Categories
+                                Nam
                                 <span class="faq-heading-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
@@ -187,21 +188,28 @@
                                         <label class="filter-label">
                                             <input type="checkbox" />
                                             <span class="filter-checkbox rounded me-2"></span>
-                                            <span class="filter-text">Nam</span>
+                                            <span class="filter-text">Túi Xách</span>
                                         </label>
                                     </li>
                                     <li class="filter-item">
                                         <label class="filter-label">
                                             <input type="checkbox" />
                                             <span class="filter-checkbox rounded me-2"></span>
-                                            Nữ
+                                            Mũ
                                         </label>
                                     </li>
                                     <li class="filter-item">
                                         <label class="filter-label">
                                             <input type="checkbox" />
                                             <span class="filter-checkbox rounded me-2"></span>
-                                            Trẻ Em
+                                            Đồng Hồ
+                                        </label>
+                                    </li>
+                                    <li class="filter-item">
+                                        <label class="filter-label">
+                                            <input type="checkbox" />
+                                            <span class="filter-checkbox rounded me-2"></span>
+                                            Kính
                                         </label>
                                     </li>
                                 </ul>

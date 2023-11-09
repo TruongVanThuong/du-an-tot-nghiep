@@ -11,7 +11,7 @@
         <div class="modal-body">
           <div class="form-group mt-3">
             <label>Tên Danh Mục</label>
-            <input type="text" class="form-control" name="ten_danh_muc_" placeholder="Nhập vào Tên Danh Mục" value="{{$danhmuc->ten_danh_muc}}" required>
+            <input type="text" class="form-control" name="ten_danh_muc" placeholder="Nhập vào Tên Danh Mục" value="{{$danhmuc->ten_danh_muc}}" required>
           </div>
         </div>
 
