@@ -1,10 +1,3 @@
-<script src="/assets_client/js/vendor.js"></script>
-<script src="/assets_client/js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-
 <!-- scrollup start -->
 <button id="scrollup">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff"
@@ -330,32 +323,66 @@
                 </ul>
             </nav>
             <ul class="utility-menu list-unstyled">
-                <li class="utilty-menu-item">
-                    <a class="announcement-text" href="tel:+1-078-2376">
-                        <span class="utilty-icon-wrapper">
-                            <svg class="icon icon-phone" xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                                </path>
-                            </svg>
+                <li class="menu-list-item nav-item has-dropdown">
+                    <div class="mega-menu-header">
+
+                        <span class="open-submenu utilty-icon-wrapper">
+                            <i class="fa-regular fa-user " style="font-size: 20px;"></i>
                         </span>
-                        Call: +1 078 2376
-                    </a>
-                </li>
-                <li class="utilty-menu-item">
-                    <a class="announcement-login announcement-text" href="login.html">
-                        <span class="utilty-icon-wrapper">
-                            <svg class="icon icon-user" width="24" height="24" viewBox="0 0 10 11"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M5 0C3.07227 0 1.5 1.57227 1.5 3.5C1.5 4.70508 2.11523 5.77539 3.04688 6.40625C1.26367 7.17188 0 8.94141 0 11H1C1 8.78516 2.78516 7 5 7C7.21484 7 9 8.78516 9 11H10C10 8.94141 8.73633 7.17188 6.95312 6.40625C7.88477 5.77539 8.5 4.70508 8.5 3.5C8.5 1.57227 6.92773 0 5 0ZM5 1C6.38672 1 7.5 2.11328 7.5 3.5C7.5 4.88672 6.38672 6 5 6C3.61328 6 2.5 4.88672 2.5 3.5C2.5 2.11328 3.61328 1 5 1Z"
-                                    fill="#000" />
-                            </svg>
-                        </span>
-                        <span>Login</span>
-                    </a>
+                    </div>
+                    @if ($check)
+                        
+                        <div class="submenu-transform submenu-transform-desktop">
+                            <div class="offcanvas-header border-btm-black">
+                                <h5 class="drawer-heading btn-menu-back d-flex align-items-center">
+                                    <svg class="icon icon-menu-back" xmlns="http://www.w3.org/2000/svg"
+                                        width="40" height="40" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+
+                                </h5>
+                            </div>
+                            <ul class="submenu list-unstyled">
+                                <li class="menu-list-item nav-item-sub">
+                                    <a class="nav-link-sub nav-text-sub" href="/khach-hang/ho-so">Trang Cá
+                                        Nhân</a>
+                                </li>
+                                <li class="menu-list-item nav-item-sub">
+                                    <a class="nav-link-sub nav-text-sub" href="/khach-hang/cap-nhap-mat-khau">Đổi Mật
+                                        Khẩu</a>
+                                </li>
+                                <li class="menu-list-item nav-item-sub">
+                                    <a class="nav-link-sub nav-text-sub" href="/dang-xuat">Đăng
+                                        Xuất</a>
+                                </li>
+                            </ul>
+                        </div>
+                    @else
+                    <div class="submenu-transform submenu-transform-desktop">
+                        <div class="offcanvas-header border-btm-black">
+                            <h5 class="drawer-heading btn-menu-back d-flex align-items-center">
+                                <svg class="icon icon-menu-back" xmlns="http://www.w3.org/2000/svg"
+                                    width="40" height="40" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+
+                            </h5>
+                        </div>
+                        <ul class="submenu list-unstyled">
+                            <li class="menu-list-item nav-item-sub">
+                                <a class="nav-link-sub nav-text-sub" href="/dang-nhap">Đăng Nhập</a>
+                            </li>
+                            <li class="menu-list-item nav-item-sub">
+                                <a class="nav-link-sub nav-text-sub" href="/dang-ky">Đăng Ký</a>
+                            </li>
+                        </ul>
+                    </div>
+                    @endif
+
                 </li>
                 <li class="utilty-menu-item">
                     <a class="header-action-item header-wishlist" href="wishlist.html">
@@ -370,6 +397,21 @@
                         <span>My wishlist</span>
                     </a>
                 </li>
+                <li class="utilty-menu-item">
+                    <a class="announcement-text" href="tel:+1-078-2376">
+                        <span class="utilty-icon-wrapper">
+                            <svg class="icon icon-phone" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                </path>
+                            </svg>
+                        </span>
+                        Call: +1 078 2376
+                    </a>
+                </li>
+
                 <li class="utilty-menu-item">
                     <button type="button" class="currency-btn btn-reset" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -559,7 +601,7 @@
     </div>
 </div>
 <!-- drawer cart end -->
-{{-- <!-- product quickview start -->
+<!-- product quickview start -->
 <div class="modal fade" tabindex="-1" id="quickview-modal">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -1050,7 +1092,7 @@
 </div>
 <!-- product quickview end -->
 
-<!-- newsletter subscribe modal start -->
+{{-- <!-- newsletter subscribe modal start -->
 <div class="modal fade" tabindex="-1" id="modal-subscribe">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content newsletter-modal-content">
@@ -1088,3 +1130,12 @@
     </div>
 </div>
 <!-- newsletter subscribe modal end --> --}}
+
+
+
+<script src="/assets_client/js/vendor.js"></script>
+<script src="/assets_client/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>

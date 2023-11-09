@@ -44,13 +44,14 @@ class LoaiSanphamController extends Controller
 
     public function cn_theloai_($id, LoaisanphamRequest $request)
     {
-        $t = LoaisanphamModel::find($id);
-        if ($t == null)
+        $data = $request->all();
+        if ($data == null)
             return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        $t->ten_loai = $request->ten_loai;
-        $t->ten_loai_slug = Str::slug($t->ten_loai);
-        $t->ma_danh_muc = $request->ma_danh_muc;
-        $t->save();
+        $data = $request->except('_token');
+        $data['ten_loai_slug'] = Str::slug($data['ten_loai']);
+        LoaisanphamModel::where('id', $id)->update(
+            $data 
+        );        
 
         return redirect('admin/theloai')->with('success', 'Thể loại đã được cập nhật thành công.');
     }

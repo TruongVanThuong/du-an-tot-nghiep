@@ -14,42 +14,17 @@
                                 "dots": false,
                                 "arrows": false,
                                 "asNavFor": ".img-thumb-slider"
-                            }'>
+                            }'
+                            >
+                            @foreach ($data_hinh_anh as $hinh_anh)
+                            @if ($hinh_anh->ma_san_pham == $data_san_pham->id)
                                 <div class="img-large-wrapper">
-                                    <a href="/assets_client/img/products/bags/39.jpg" data-fancybox="gallery">
-                                        <img src="/assets_client/img/products/bags/39.jpg" alt="img">
+                                    <a href="/img/{{$hinh_anh->hinh_anh}}" data-fancybox="gallery">
+                                        <img src="/img/{{$hinh_anh->hinh_anh}}" alt="img">
                                     </a>
                                 </div>
-                                <div class="img-large-wrapper">
-                                    <a href="/assets_client/img/products/bags/38.jpg" data-fancybox="gallery">
-                                        <img src="/assets_client/img/products/bags/38.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="/assets_client/img/products/bags/37.jpg" data-fancybox="gallery">
-                                        <img src="/assets_client/img/products/bags/37.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="/assets_client/img/products/bags/36.jpg" data-fancybox="gallery">
-                                        <img src="/assets_client/img/products/bags/36.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="/assets_client/img/products/bags/34.jpg" data-fancybox="gallery">
-                                        <img src="/assets_client/img/products/bags/34.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="/assets_client/img/products/bags/30.jpg" data-fancybox="gallery">
-                                        <img src="/assets_client/img/products/bags/30.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="/assets_client/img/products/bags/32.jpg" data-fancybox="gallery">
-                                        <img src="/assets_client/img/products/bags/32.jpg" alt="img">
-                                    </a>
-                                </div>
+                            @endif
+                            @endforeach
                             </div>
                         </div>
                         <div class="product-img-thumb">
@@ -65,41 +40,15 @@
                                 "swipeToSlide": true,
                                 "asNavFor": ".img-large-slider"
                             }'>
+                            @foreach ($data_hinh_anh as $hinh_anh)
+                            @if ($hinh_anh->ma_san_pham == $data_san_pham->id)
                                 <div>
                                     <div class="img-thumb-wrapper">
-                                        <img src="/assets_client/img/products/bags/39.jpg" alt="img">
+                                        <img src="/img/{{$hinh_anh->hinh_anh}}" alt="img">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="/assets_client/img/products/bags/38.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="/assets_client/img/products/bags/37.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="/assets_client/img/products/bags/36.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="/assets_client/img/products/bags/34.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="/assets_client/img/products/bags/30.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="/assets_client/img/products/bags/32.jpg" alt="img">
-                                    </div>
-                                </div>
+                            @endif
+                            @endforeach
                             </div>
                             <div class="activate-arrows show-arrows-always arrows-white d-none d-lg-flex justify-content-between mt-3"></div>
                         </div>
@@ -107,9 +56,9 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="product-details ps-lg-4">
-                        <div class="mb-3"><span class="product-availability">In Stock</span></div>
-                        <h2 class="product-title mb-3">Accesories Lather bag</h2>
-                        <div class="product-rating d-flex align-items-center mb-3">
+                        <div class="mb-3"><span class="product-availability">{{$data_the_loai->ten_loai}}</span></div>
+                        <h2 class="product-title mb-3">{{$data_san_pham->ten_san_pham}}</h2>
+                        <!-- <div class="product-rating d-flex align-items-center mb-3">
                             <span class="star-rating">
                                 <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#FFAE00"/>
@@ -128,19 +77,19 @@
                                 </svg>                                            
                             </span>
                             <span class="rating-count ms-2">(22)</span>
-                        </div>
+                        </div> -->
                         <div class="product-price-wrapper mb-4">
-                            <span class="product-price regular-price">$24.00</span>
-                            <del class="product-price compare-price ms-2">$32.00</del>
+                            <span class="product-price regular-price">{{$data_san_pham->gia_san_pham . ' ' . 'vnd'}}</span>
+                            <!-- <del class="product-price compare-price ms-2">$32.00</del> -->
                         </div>
                         <div class="product-sku product-meta mb-1">
-                            <strong class="label">SKU:</strong> 401
+                            <strong class="label">SKU:</strong> {{$data_san_pham->id}}
                         </div>
-                        <div class="product-vendor product-meta mb-3">
+                        <!-- <div class="product-vendor product-meta mb-3">
                             <strong class="label">Vendor:</strong> leather
-                        </div>
+                        </div> -->
 
-                        <div class="product-variant-wrapper">
+                        <!-- <div class="product-variant-wrapper">
                             <div class="product-variant product-variant-color">
                                 <strong class="label mb-1 d-block">Color:</strong>
 
@@ -194,7 +143,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="misc d-flex align-items-end justify-content-between mt-4">
                             <div class="quantity d-flex align-items-center justify-content-between">
@@ -383,10 +332,10 @@
         <div class="container">
             <div class="tab-list product-tab-list">
                 <nav class="nav product-tab-nav">
-                    <a class="product-tab-link tab-link active" href="#pdescription" data-bs-toggle="tab">Description</a>
-                    <a class="product-tab-link tab-link" href="#pshipping" data-bs-toggle="tab">Shipping & Returns</a>
-                    <a class="product-tab-link tab-link" href="#pstyle" data-bs-toggle="tab">Style with</a>
-                    <a class="product-tab-link tab-link" href="#preview" data-bs-toggle="tab">Reviews</a>
+                    <a class="product-tab-link tab-link active" href="#pdescription" data-bs-toggle="tab">Miêu tả</a>
+                    <!-- <a class="product-tab-link tab-link" href="#pshipping" data-bs-toggle="tab">Shipping & Returns</a>
+                    <a class="product-tab-link tab-link" href="#pstyle" data-bs-toggle="tab">Style with</a> -->
+                    <a class="product-tab-link tab-link" href="#preview" data-bs-toggle="tab">Nhận xét</a>
                 </nav>
             </div>
             <div class="tab-content product-tab-content">
@@ -394,23 +343,23 @@
                     <div class="row">
                         <div class="col-lg-7 col-md-12 col-12">
                             <div class="desc-content">
-                                <h4 class="heading_18 mb-3">What is lorem ipsum?</h4>
-                                <p class="text_16 mb-4">Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <h4 class="heading_18 mb-3">{{$data_san_pham->ten_san_pham}}</h4>
+                                <p class="text_16 mb-4">{!!$data_san_pham->mo_ta!!}</p>
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-12 col-12">
                             <div class="desc-img">
-                                <img src="/assets_client/img/product.jpg" alt="img">
+                                <img src="/img/{{$HinhAnh->hinh_anh}}" alt="img">
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-12">
+                        <!-- <div class="col-lg-12 col-md-12 col-12">
                             <div class="desc-content mt-4">
-                                <p class="text_16">Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <p class="text_16"></p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
-                <div id="pshipping" class="tab-pane fade">
+                <!-- <div id="pshipping" class="tab-pane fade">
                     <div class="desc-content">
                         <h4 class="heading_18 mb-3">Returns within the European Union</h4>
                         <p class="text_16 mb-4">The European law states that when an order is being returned, it is mandatory for the company to refund the product price and shipping costs charged for the original shipment. Meaning: one shipping fee is paid by us.</p>
@@ -424,13 +373,15 @@
                         <p class="text_16 mb-4">Please also bear in mind that shipping goods back and forth generates greenhouse gases that are accelerating climate change. We encourage you to choose your items carefully to avoid unnecessary return shipments.</p>
                         <p class="text_16 mb-4">You have to pay for return shipping if you want to exchange your product for another size or the package is returned because it has not been picked up at the post office.</p>
                     </div>
-                </div>
+                </div> -->
                 <div id="preview" class="tab-pane fade">
                     <div class="review-area accordion-parent">
-                        <h4 class="heading_18 mb-3">Customer Reviews</h4>
+                        <h4 class="heading_18 mb-3">Phản hồi khách hàng</h4>
                         <div class="review-header d-flex justify-content-between align-items-center">
-                            <p class="text_16">No reviews yet.</p>
-                            <button class="text_14 bg-transparent text-decoration-underline write-btn" type="button">Write a review</button>
+                            <p class="text_16">Chưa có đánh giá nào.</p>
+                            <button class="text_14 bg-transparent text-decoration-underline write-btn" type="button">
+                                Viết đánh giá
+                            </button>
                         </div>
                         <div class="review-form-area accordion-child">
                             <form action="#">

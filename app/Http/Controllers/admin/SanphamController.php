@@ -149,6 +149,12 @@ class SanphamController extends Controller
 		$sanpham->mo_ta = $request->mo_ta;
 
 		$sanpham->save();
+		// $data = $request->all();
+    // if ($data == null)
+    //   return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+    // $data = $request->except('_token');
+    // $data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
+    // SanphamModel::where('id', $id)->update($data);   
 
 		return redirect('admin/sanpham')->with('success', 'Sản phẩm đã được cập nhật thành công.');
 		;

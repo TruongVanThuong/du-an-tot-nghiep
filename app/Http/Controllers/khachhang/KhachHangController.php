@@ -5,6 +5,7 @@ namespace App\Http\Controllers\khachhang;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CapNhatQuenMatKhau;
+use App\Http\Requests\CapNhatThongTin;
 use App\Http\Requests\DangKy;
 use App\Http\Requests\DangNhap;
 use App\Http\Requests\QuenMatKhau;
@@ -123,8 +124,6 @@ class KhachHangController extends Controller
             'message' => 'Vui Lòng Kiểm Tra Mail',
         ]);
     }
-
-
     public function KichHoatMailDoiMatKhau($ma_bam_quen_mat_khau)
     {
         $khach_hang = KhachHangModel::where('ma_bam_quen_mat_khau', $ma_bam_quen_mat_khau)->first();
@@ -147,5 +146,57 @@ class KhachHangController extends Controller
             'status' => true,
             'message' => 'Cập Nhật Mật Khẩu Thành Công',
         ]);
+    }
+// hồ sơ khách hàng 
+    public function HoSo(){
+        return view('Trang-Khach-Hang.page.HoSo');
+    }
+    public function ThongTinKhachHang()
+    {
+        $id = Auth::guard('khach_hang')->user()->id;
+        $khach_hang = KhachHangModel::find($id);
+
+        return response()->json([
+            'khach_hang'  => $khach_hang
+        ]);
+    }
+    public function KichHoatCapNhapThongTin(CapNhatThongTin $request)
+    {
+        // Dòng đầu tiên: Lấy "id" của người dùng đã xác thực từ guard "customer" (giả định là khách hàng) và gán vào biến $id.
+        // Dòng thứ hai: Sử dụng giá trị $id để tìm thông tin khách hàng tương ứng trong cơ sở dữ liệu và gán vào biến $user.
+        $du_lieu = $request->all();
+        $id = Auth::guard('khach_hang')->user()->id;
+        $khach_hang = KhachHangModel::find($id);
+        $khach_hang->update($du_lieu);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Đã cập nhật thông tin thành công!',
+        ]);
+    }
+
+    public function CapNhapMatKhau(){
+        return view('Trang-Khach-Hang.page.CapNhatMatKhau');
+    }
+    public function KichHoatCapNhapMatKhau( CapNhatQuenMatKhau $request)
+    {
+        $id = Auth::guard('khach_hang')->user()->id;
+        $khach_hang = KhachHangModel::find($id);
+        $khach_hang->password = bcrypt($request->password);
+        $khach_hang->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Đã cập nhật mật khẩu thành công!',
+        ]);
+    }
+
+
+    // logout
+    public function DangXuat()
+    {
+        Auth::guard('khach_hang')->logout();
+        toastr()->success('Đăng Xuất Thành Công');
+        return redirect('/');
     }
 }

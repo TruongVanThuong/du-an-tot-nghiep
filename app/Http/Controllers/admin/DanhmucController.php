@@ -43,16 +43,16 @@ class DanhmucController extends Controller
 
     public function cn_danhmuc_($id, DanhmucRequests $request)
     {
-        echo $request->ten_danh_muc;
-        $danhmuc = DanhmucModel::find($id);
-        if ($danhmuc == null){
+        $data = $request->all();
+        if ($data == null)
             return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        }
-        $danhmuc->ten_danh_muc = $request->ten_danh_muc;
-        $danhmuc->ten_danh_muc_slug = Str::slug($danhmuc->ten_danh_muc);
-        $danhmuc->save();
-        // dd($request);
-        return redirect('admin/danhmuc')->with('success', 'Danh mục đã được cập nhật thành công.');
+        $data = $request->except('_token');
+        $data['ten_danh_muc_slug'] = Str::slug($data['ten_danh_muc']);
+        DanhmucModel::where('id', $id)->update(
+            $data 
+        );        
+
+        return redirect('admin/danhmuc');
     }
 
 }
