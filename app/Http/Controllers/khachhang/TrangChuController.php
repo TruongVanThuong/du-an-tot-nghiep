@@ -70,7 +70,7 @@ class TrangChuController extends Controller
             $HinhAnh = HinhanhModel::where('ma_san_pham', $data_san_pham->id)->first();
             // $HinhAnh[] = $hinhAnh;
         // }
-
+ 
         return view('Trang-Khach-Hang.page.SanPhamChiTiet', compact('data_danh_muc','data_the_loai', 'data_san_pham', 'data_hinh_anh', 'HinhAnh'));
     }
     public function SanPhamNam()

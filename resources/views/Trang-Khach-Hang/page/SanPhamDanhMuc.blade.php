@@ -27,7 +27,7 @@
                                     <div class="product-card-img">
                                         <a class="hover-switch" href="/san-pham/{{$data_danh_muc->ten_danh_muc_slug}}/{{$the_loai->ten_loai_slug}}/{{$san_pham->ten_san_pham_slug}}">
                                         @foreach ($HinhAnh as $hinhanh)
-                                        @if ($hinhanh->ma_san_pham == $san_pham->id)
+                                        @if ($hinhanh && $hinhanh->ma_san_pham == $san_pham->id)
                                           <img class="secondary-img" src="/img/{{$hinhanh->hinh_anh}}"
                                             alt="{{$hinhanh->hinh_anh}}">
                                           <img class="primary-img" src="/img/{{$hinhanh->hinh_anh}}"
