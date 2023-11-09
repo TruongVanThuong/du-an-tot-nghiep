@@ -121,6 +121,12 @@ class SanphamController extends Controller
 		$sanpham->updated_at = date("Y-m-d h:i:s");
 
 		$sanpham->save();
+		// $data = $request->all();
+    // if ($data == null)
+    //   return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+    // $data = $request->except('_token');
+    // $data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
+    // SanphamModel::where('id', $id)->update($data);   
 
 		return redirect('admin/sanpham');
 	}
