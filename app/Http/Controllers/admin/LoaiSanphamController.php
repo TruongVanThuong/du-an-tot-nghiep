@@ -17,7 +17,11 @@ class LoaiSanphamController extends Controller
         $data_theloai = LoaisanphamModel::orderBy('id', 'desc')->paginate(10);
         $data_danhmuc = DanhmucModel::all();
 
-        return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+        if ($data_theloai->isEmpty()) {
+			return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+        } else {
+            return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+        }
     }
 
     public function them_theloai(LoaisanphamRequest $request)
@@ -26,7 +30,7 @@ class LoaiSanphamController extends Controller
         $data['ten_loai_slug'] = Str::slug($data['ten_loai']);
         LoaisanphamModel::create($data);
         // dd($data);
-        return redirect('admin/theloai');
+        return redirect('admin/theloai')->with('success', 'Thể loại đã được thêm thành công.');
     }
 
     public function xoa_theloai($id)
@@ -35,7 +39,7 @@ class LoaiSanphamController extends Controller
         if ($xoa_theloai == null)
             return '<script type ="text/JavaScript">alert("loi roi!");</script>';
         $xoa_theloai->delete();
-        return redirect('admin/theloai');
+        return redirect('admin/theloai')->with('success', 'Thể loại đã được xóa thành công.');
     }
 
     public function cn_theloai_($id, LoaisanphamRequest $request)
@@ -49,7 +53,7 @@ class LoaiSanphamController extends Controller
             $data 
         );        
 
-        return redirect('admin/theloai');
+        return redirect('admin/theloai')->with('success', 'Thể loại đã được cập nhật thành công.');
     }
 
 

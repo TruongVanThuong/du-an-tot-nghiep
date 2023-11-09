@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\DanhmucModel;
 
 class LoaisanphamModel extends Model
 {
@@ -17,4 +18,14 @@ class LoaisanphamModel extends Model
         "created_at",
         "updated_at",
     ];
+
+    public function SanphamModel()
+    {
+        return $this->hasMany(SanphamModel::class, 'ma_loai', 'id');
+    }
+
+    public function DanhmucModel()
+    {
+        return $this->belongsTo(DanhmucModel::class, 'ma_danh_muc', 'id');
+    }
 }
