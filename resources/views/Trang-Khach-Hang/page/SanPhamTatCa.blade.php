@@ -25,12 +25,24 @@
             <div class="product-card-img">
             <a class="hover-switch"
                 href="/san-pham/{{$danh_muc->ten_danh_muc_slug}}/{{$the_loai->ten_loai_slug}}/{{$san_pham->ten_san_pham_slug}}">
+                <!-- -- Kiểm tra xem sản phẩm có hình ảnh hay không -- -->
+                @php
+                  $hasImages = false;
+                @endphp
+
                 @foreach ($HinhAnh as $hinhanh)
                 @if ($hinhanh && $hinhanh->ma_san_pham == $san_pham->id)
-                <img class="secondary-img" src="/img/{{$hinhanh->hinh_anh}}" alt="{{$hinhanh->hinh_anh}}?" >img
-                    class="primary-img" src="/img/{{$hinhanh->hinh_anh}}" alt="{{$hinhanh->hinh_anh}}">
+                <img class="secondary-img" src="/img/{{$hinhanh->hinh_anh}}" alt="{{$hinhanh->hinh_anh}}" >
+                <img class="primary-img" src="/img/{{$hinhanh->hinh_anh}}" alt="{{$hinhanh->hinh_anh}}">
+                @php
+                    $hasImages = true;
+                @endphp
                 @endif
                 @endforeach
+
+                @if (!$hasImages)
+                    <br><br><p>Không có hình ảnh cho sản phẩm này.</p>
+                @endif
             </a>
 
             <div class="product-badge">
