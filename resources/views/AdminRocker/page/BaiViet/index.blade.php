@@ -10,55 +10,55 @@
 
   <!-- Modal -->
   <div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="container" role="document">
-                  <div class="modal-content">
-                    <form id="formbaiviet" method="post" action="baiviet" enctype="multipart/form-data">@csrf
-                      <div class="modal-header">
-                        <h3 class="modal-title" id="exampleModalLabel">Thêm bài viết</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
+    <div class="container" role="document">
+      <div class="modal-content">
+        <form id="formbaiviet" method="post" action="/admin/baiviet" enctype="multipart/form-data">@csrf
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Thêm bài viết</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
 
-                      <div class="modal-body">
-                        <div class="form-group mt-3 d-flex justify-content-between">
-                          <div class="col-md-6 p-1 form-group-item">
-                            <label>Tiêu đề</label>
-                            <input name="ten_bai_viet" type="text" class="form-control" placeholder="Nhập vào Tiêu đề" required>
-                          </div>
-                        
-                          
-                        </div>
-                        <div class="form-group mt-3">
-                          <label>Mô tả ngắn</label>
-                          <div class="input-group form-group-item">
-                            <textarea name="mo_ta_ngan" class="form-control" id="" cols="30" rows="5"></textarea>
-                          </div>
-                        </div>
-
-                        
-                        <div class="form-group mt-3">
-                          <label>Ảnh đại diện</label>
-                          <div class="input-group form-group-item">
-                            <input id="hinh_anh" class="form-control" type="file" accept="image/*" name="hinh_anh[]" multiple required>
-                          </div>
-                        </div>
-                        
-                        <div class="form-group mt-3 form-group-item">
-                            <label>Nội dung</label>
-                            <textarea name="noi_dung" id="noi_dung" class="form-control" cols="30" rows="10" required="required"></textarea>
-                            
-                        </div>            
-                      </div>
-
-                      <div class="modal-footer">
-                        <button type="button" class="px-4 py-2 text-1sm font-medium leading-5 rounded-full text-black transition-colors duration-150 bg-gray-100 border border-transparent rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-purple" data-dismiss="modal">Huỷ</button>
-                        <button type="submit" class="px-4 py-2 text-1sm font-medium leading-5 rounded-full text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Thêm Sản Phẩm</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+          <div class="modal-body">
+            <div class="form-group mt-3 d-flex justify-content-between">
+              <div class="col-md-6 p-1 form-group-item">
+                <label>Tiêu đề</label>
+                <input name="ten_bai_viet" type="text" class="form-control" placeholder="Nhập vào Tiêu đề" required>
               </div>
+
+
+            </div>
+            <div class="form-group mt-3">
+              <label>Mô tả ngắn</label>
+              <div class="input-group form-group-item">
+                <textarea name="mo_ta_ngan" class="form-control" id="" cols="20" rows="5"></textarea>
+              </div>
+            </div>
+
+
+            <div class="form-group mt-3">
+              <label>Ảnh đại diện</label>
+              <div class="input-group form-group-item">
+                <input id="hinh_anh" class="form-control" type="file" accept="image/*" name="hinh_anh" multiple required>
+              </div>
+            </div>
+
+            <div class="form-group mt-3 form-group-item">
+              <label>Nội dung</label>
+              <textarea name="noi_dung" id="noi_dung" class="form-control" cols="30" rows="10" required="required"></textarea>
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="px-4 py-2 text-1sm font-medium leading-5 rounded-full text-black transition-colors duration-150 bg-gray-100 border border-transparent rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-purple" data-dismiss="modal">Huỷ</button>
+            <button type="submit" class="px-4 py-2 text-1sm font-medium leading-5 rounded-full text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Thêm Sản Phẩm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -72,21 +72,22 @@
           <th class="px-4 py-3">Tiêu Đề</th>
           <th class="px-4 py-3">Ảnh đại diện</th>
           <th class="px-4 py-3">Mô tả ngắn</th>
+          <th class="px-4 py-3">Người đăng</th>
           <th class="px-4 py-3">Trạng thái</th>
           <th class="px-4 py-3">Ngày đăng</th>
           <th class="px-4 py-3">Thao tác</th>
         </tr>
       </thead>
       <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-      @foreach($data_baiviet as $baiviet)
+        @foreach($data_baiviet as $baiviet)
         <tr class="text-gray-700 dark:text-gray-400">
-        
+
           <td class="px-4 py-3 text-sm">
-          {{$baiviet->id}}
+            {{$baiviet->id}}
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center text-sm">
-              
+
               <div>
                 <p class="font-semibold">{{$baiviet->ten_bai_viet}}</p>
                 <!-- <p class="text-xs text-gray-600 dark:text-gray-400">
@@ -96,25 +97,28 @@
             </div>
           </td>
           <td class="px-4 py-3 text-sm">
-          {{$baiviet->hinh_anh}}
+            {{$baiviet->hinh_anh}}
           </td>
           <td class="px-4 py-3 text-sm">
-          {{$baiviet->mo_ta_ngan}}
+            {{$baiviet->mo_ta_ngan}}
+          </td>
+          <td class="px-4 py-3 text-sm">
+            {{$baiviet->ma_khach_hang}}
           </td>
           <td class="px-4 py-3 text-xs">
             @if($baiviet->hien_thi==1)
             <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-            hiện
+              hiện
             </span>
-         @else
+            @else
             <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
               Ẩn
             </span>
-         
-          @endif
+
+            @endif
           </td>
           <td class="px-4 py-3 text-sm">
-          {{$baiviet->created_at}}
+            {{$baiviet->created_at}}
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">
@@ -134,10 +138,10 @@
          
         </tr>
         @endforeach
-        
       </tbody>
     </table>
   </div>
+ <?php  ?> 
   <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
     <span class="flex items-center col-span-3">
       Hiện 21-30 of 100
