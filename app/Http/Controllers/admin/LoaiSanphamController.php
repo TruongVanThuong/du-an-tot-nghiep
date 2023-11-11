@@ -17,7 +17,11 @@ class LoaiSanphamController extends Controller
         $data_theloai = LoaisanphamModel::orderBy('id', 'desc')->paginate(10);
         $data_danhmuc = DanhmucModel::all();
 
-        return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+        if ($data_theloai->isEmpty()) {
+			return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+        } else {
+            return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+        }
     }
 
     public function them_theloai(LoaisanphamRequest $request)
@@ -26,7 +30,7 @@ class LoaiSanphamController extends Controller
         $data['ten_loai_slug'] = Str::slug($data['ten_loai']);
         LoaisanphamModel::create($data);
         // dd($data);
-        return redirect('admin/theloai');
+        return redirect('admin/theloai')->with('success', 'Thể loại đã được thêm thành công.');
     }
 
     public function xoa_theloai($id)
@@ -35,21 +39,21 @@ class LoaiSanphamController extends Controller
         if ($xoa_theloai == null)
             return '<script type ="text/JavaScript">alert("loi roi!");</script>';
         $xoa_theloai->delete();
-        return redirect('admin/theloai');
+        return redirect('admin/theloai')->with('success', 'Thể loại đã được xóa thành công.');
     }
 
     public function cn_theloai_($id, LoaisanphamRequest $request)
     {
-        $t = LoaisanphamModel::find($id);
-        if ($t == null)
+        $data = $request->all();
+        if ($data == null)
             return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        $t->ten_loai = $request->ten_loai;
-        $t->ten_loai_slug = Str::slug($t->ten_loai);
-        $t->ma_danh_muc = $request->ma_danh_muc;
-        $t->updated_at = date("Y-m-d h:i:s");
-        $t->save();
+        $data = $request->except('_token');
+        $data['ten_loai_slug'] = Str::slug($data['ten_loai']);
+        LoaisanphamModel::where('id', $id)->update(
+            $data 
+        );        
 
-        return redirect('admin/theloai');
+        return redirect('admin/theloai')->with('success', 'Thể loại đã được cập nhật thành công.');
     }
 
 

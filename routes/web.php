@@ -82,11 +82,15 @@ Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], f
 
 //
 
-Route::get('/san-pham-tat-ca', [TrangChuController::class, 'SanPhamTatCa']);
+Route::get('/san-pham', [TrangChuController::class, 'SanPhamTatCa']);
+
+Route::get('/san-pham/{ten_danh_muc}', [TrangChuController::class, 'SanPhamDanhMuc']);
+Route::get('/san-pham/{ten_danh_muc}/{ten_the_loai}', [TrangChuController::class, 'SanPhamTheLoai']);
+Route::get('/san-pham/{ten_danh_muc}/{ten_the_loai}/{ten_san_pham}', [TrangChuController::class, 'SanPhamChiTiet']);
+
 Route::get('/san-pham-nam', [TrangChuController::class, 'SanPhamNam']);
 Route::get('/san-pham-nu', [TrangChuController::class, 'SanPhamNu']);
 Route::get('/san-pham-tre-em', [TrangChuController::class, 'SanPhamTreEm']);
-Route::get('/san-pham-chi-tiet', [TrangChuController::class, 'SanPhamChiTiet']);
 Route::get('/gio-hang', [TrangChuController::class, 'GioHang']);
 Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
 Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);

@@ -38,7 +38,9 @@
                     <select name="ma_loai" class="form-control" required>
                       <option value=""> _ _ _ Chon Mã Loại Sản Phẩm _ _ _</option> 
                       @foreach($data_Loaisanpham as $Loaisanpham)
-                      <option value="{{$Loaisanpham->id}}">{{$Loaisanpham->ten_loai}}</option>
+                      <option value="{{$Loaisanpham->id}}">
+                        {{$Loaisanpham->ten_loai}} - (Danh muc : @foreach($data_danhmuc as $danhmuc) @if($danhmuc->id == $Loaisanpham->ma_danh_muc) {{$danhmuc->ten_danh_muc}} @endif @endforeach)
+                      </option>
                       @endforeach
                     </select>
                   </div>
@@ -110,13 +112,17 @@
                 <th class="text-center">Số Lượng</th>
                 <th class="text-center">Mô Tả</th>
                 <th class="text-center">Tên Loại</th>
-                <th class="text-center">Đặt Biệt</th>
+                <th class="text-center">Danh Muc</th>
                 <th class="text-center">Trạng Thái</th>
                 <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              @if(!empty($data_sanpham) && $data_sanpham->count())
+              @if($data_sanpham->isEmpty())
+              <tr>
+                <td class="align-middle text-center text-nowrap" colspan="11">Không có dữ liệu</td>
+              </tr>
+              @else
               @foreach($data_sanpham as $sanpham)
 
               <tr>
@@ -133,27 +139,39 @@
                   {{$sanpham->giam_gia_san_pham}}
                 </td>
                 <td class="align-middle text-center">
+                <!-- -- Kiểm tra xem sản phẩm có hình ảnh hay không -- -->
+                  @php
+                  $hasImages = false;
+                  @endphp
+
                   @foreach ($HinhAnh as $hinhanh)
-                  @if ($hinhanh->ma_san_pham == $sanpham->id)
-                  <img height="100" src="{{ asset('img/') }}/{{$hinhanh->hinh_anh}}" title="{{$hinhanh->hinh_anh}}">
-                  @endif
+                      @if ($hinhanh && $hinhanh->ma_san_pham == $sanpham->id)
+                          <img height="100" src="{{ asset('img/') }}/{{$hinhanh->hinh_anh}}" title="{{$hinhanh->hinh_anh}}">
+                          @php
+                          $hasImages = true;
+                          @endphp
+                      @endif
                   @endforeach
+
+                  @if (!$hasImages)
+                      <p>Không có hình ảnh cho sản phẩm này.</p>
+                  @endif
                 </td>
                 <td class="align-middle text-center">
                   {{$sanpham->so_luong}}
                 </td>
                 <td class="align-middle text-center">
-                  {!!$sanpham->mo_ta!!}
+                  {!!$sanpham->mo_ta .= '...'!!}
                 </td>
                 <td class="align-middle text-center">
                   @foreach ($data_Loaisanpham as $Loaisanpham)
                   @if ($Loaisanpham->id == $sanpham->ma_loai)
                   {{$Loaisanpham->ten_loai}}
                   @endif
-                  @endforeach
+                  @endforeach 
                 </td>
                 <td class="align-middle text-center">
-                  {{$sanpham->dat_biet}}
+                {{ $sanpham->LoaisanphamModel->DanhmucModel->ten_danh_muc }}
                 </td>
                 <td class="align-middle text-center">
                   <div class="form-check form-switch">
@@ -172,10 +190,7 @@
                 @include('AdminRocker/page/SanPham/capnhat')
               </tr>
               @endforeach
-              @else
-              <tr>
-                <td class="align-middle text-center text-nowrap" colspan="11">Không có dữ liệu</td>
-              </tr>
+              
 
               @endif
 

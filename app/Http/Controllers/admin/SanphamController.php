@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SanphamRequest;
+use App\Models\DanhmucModel;
 use App\Models\HinhanhModel;
 use App\Models\LoaisanphamModel;
 use App\Models\SanphamModel;
@@ -21,26 +22,37 @@ class SanphamController extends Controller
 		$data_sanpham = SanphamModel::orderBy('id', 'desc')->paginate(10);
 		$data_hinhanh = HinhanhModel::all();
 		$SanphamModel = SanphamModel::with('HinhanhModel')->get();
-
-		// foreach ($SanphamModel as $sanphams) {
-		// 	foreach ($sanphams->HinhanhModel as $HinhanhModel) {
-		// 		$Hinhanh[] = $HinhanhModel;
-		// 	}
-		// }
+		$data_danhmuc = DanhmucModel::all();
 
 		foreach ($data_sanpham as $sanpham) {
-			$idsanpham[] = $sanpham->id;
+			$sanpham->mo_ta = substr($sanpham->mo_ta, 0, 30);
 		}
-		$hinhanh = implode($idsanpham);
 
-		for ($i = 0; $i < strlen($hinhanh); $i++) {
-			$hinhAnh = HinhanhModel::where('ma_san_pham', $hinhanh[$i])->first();
+		$HinhAnh = [];
+
+		foreach ($data_sanpham as $sanpham) {
+			$hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
 			$HinhAnh[] = $hinhAnh;
 		}
-		// dd($HinhAnh);
 
-		return view('AdminRocker.page.SanPham.index', compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh'));
-
+		if ($data_sanpham->isEmpty()) {
+			return view(
+				'AdminRocker.page.SanPham.index',
+				compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc')
+			);
+		} else {
+			if (!empty($HinhAnh)) {
+				return view(
+					'AdminRocker.page.SanPham.index',
+					compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc')
+				);
+			} else {
+				return view(
+					'AdminRocker.page.SanPham.index',
+					compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc')
+				);
+			}
+		}
 
 	}
 
@@ -48,30 +60,47 @@ class SanphamController extends Controller
 	{
 		$data = $request->all();
 		$data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
-		SanphamModel::create($data);
 
-		$t_ = SanphamModel::where('id', '>', '0')->max('id');
+		try {
+			$sanpham = SanphamModel::create($data);
 
-		$get_image = $request->file('hinh_anh');
+			// Tạo danh sách lỗi
+			$errors = [];
 
-		if ($get_image) {
-			foreach ($get_image as $image) {
-				$get_name_image = $image->getClientOriginalName();
-				$images = Image::make($image->getRealPath());
-				$images->resize(300, 250);
+			$t_ = $sanpham->id;
 
-				$images->save(public_path('img/' . $get_name_image));
+			$get_image = $request->file('hinh_anh');
 
-				$x = new HinhanhModel;
-				$x->hinh_anh = $get_name_image;
-				$x->ma_san_pham = $t_;
+			if ($get_image) {
+				foreach ($get_image as $image) {
+					$get_name_image = $image->getClientOriginalName();
+					$images = Image::make($image->getRealPath());
+					$images->resize(300, 250);
 
-				$x->save();
+					$images->save(public_path('img/' . $get_name_image));
 
+					$x = new HinhanhModel;
+					$x->hinh_anh = $get_name_image;
+					$x->ma_san_pham = $t_;
+
+					$x->save();
+				}
 			}
+		} catch (\Exception $e) {
+			// Nếu có lỗi, thêm thông báo lỗi vào danh sách lỗi
+			$errors[] = 'Có lỗi xảy ra khi thêm sản phẩm.';
+
+			// Nếu bạn muốn log lỗi để theo dõi
+			// Log::error($e->getMessage());
 		}
 
-		return redirect('admin/sanpham');
+		if (empty($errors)) {
+			// Nếu không có lỗi, chuyển hướng với thông báo thành công
+			return redirect('admin/sanpham')->with('success', 'Sản phẩm đã được thêm thành công.');
+		} else {
+			// Nếu có lỗi, chuyển hướng với danh sách lỗi
+			return redirect('admin/sanpham')->withErrors($errors);
+		}
 
 	}
 
@@ -81,7 +110,7 @@ class SanphamController extends Controller
 		if ($xoa_sanpham == null)
 			return '<script type ="text/JavaScript">alert("loi roi!");</script>';
 		$xoa_sanpham->delete();
-		return redirect('admin/sanpham');
+		return redirect('admin/sanpham')->with('success', 'Sản phẩm đã được xoá thành công.');
 	}
 
 	public function cn_sanpham_($id, Request $request)
@@ -118,11 +147,17 @@ class SanphamController extends Controller
 		$sanpham->luot_xem = $request->luot_xem;
 		$sanpham->dat_biet = $request->dat_biet;
 		$sanpham->mo_ta = $request->mo_ta;
-		$sanpham->updated_at = date("Y-m-d h:i:s");
 
 		$sanpham->save();
+		// $data = $request->all();
+    // if ($data == null)
+    //   return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+    // $data = $request->except('_token');
+    // $data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
+    // SanphamModel::where('id', $id)->update($data);   
 
-		return redirect('admin/sanpham');
+		return redirect('admin/sanpham')->with('success', 'Sản phẩm đã được cập nhật thành công.');
+		;
 	}
 
 	public function toggleStatus()
