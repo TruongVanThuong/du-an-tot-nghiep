@@ -30,7 +30,8 @@ class LoaiSanphamController extends Controller
         $data['ten_loai_slug'] = Str::slug($data['ten_loai']);
         LoaisanphamModel::create($data);
         // dd($data);
-        return redirect('admin/theloai')->with('success', 'Thể loại đã được thêm thành công.');
+        toastr()->success('Thể loại đã được thêm thành công.');
+        return redirect('admin/theloai');
     }
 
     public function xoa_theloai($id)
@@ -39,7 +40,8 @@ class LoaiSanphamController extends Controller
         if ($xoa_theloai == null)
             return '<script type ="text/JavaScript">alert("loi roi!");</script>';
         $xoa_theloai->delete();
-        return redirect('admin/theloai')->with('success', 'Thể loại đã được xóa thành công.');
+        toastr()->success('Thể loại đã được xóa thành công.');
+        return redirect('admin/theloai');
     }
 
     public function cn_theloai_($id, LoaisanphamRequest $request)
@@ -52,8 +54,8 @@ class LoaiSanphamController extends Controller
         LoaisanphamModel::where('id', $id)->update(
             $data 
         );        
-
-        return redirect('admin/theloai')->with('success', 'Thể loại đã được cập nhật thành công.');
+        toastr()->success('Thể loại đã được cập nhật thành công');
+        return redirect('admin/theloai');
     }
 
 

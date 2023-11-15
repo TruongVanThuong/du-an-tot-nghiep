@@ -10,7 +10,7 @@
 
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="container" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                   <div class="modal-content">
                     <form method="post" action="theloai" id="loaispForm">@csrf
                       <div class="modal-header">

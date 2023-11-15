@@ -96,7 +96,8 @@ class SanphamController extends Controller
 
 		if (empty($errors)) {
 			// Nếu không có lỗi, chuyển hướng với thông báo thành công
-			return redirect('admin/sanpham')->with('success', 'Sản phẩm đã được thêm thành công.');
+			toastr()->success('Sản phẩm đã được thêm thành công.');
+			return redirect('admin/sanpham');
 		} else {
 			// Nếu có lỗi, chuyển hướng với danh sách lỗi
 			return redirect('admin/sanpham')->withErrors($errors);
@@ -110,7 +111,8 @@ class SanphamController extends Controller
 		if ($xoa_sanpham == null)
 			return '<script type ="text/JavaScript">alert("loi roi!");</script>';
 		$xoa_sanpham->delete();
-		return redirect('admin/sanpham')->with('success', 'Sản phẩm đã được xoá thành công.');
+		toastr()->success('Sản phẩm đã được xoá thành công.');
+		return redirect('admin/sanpham');
 	}
 
 	public function cn_sanpham_($id, Request $request)
@@ -156,8 +158,9 @@ class SanphamController extends Controller
     // $data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
     // SanphamModel::where('id', $id)->update($data);   
 
-		return redirect('admin/sanpham')->with('success', 'Sản phẩm đã được cập nhật thành công.');
-		;
+		toastr()->success('Sản phẩm đã được cập nhật thành công.');
+		return redirect('admin/sanpham');
+		
 	}
 
 	public function toggleStatus()
