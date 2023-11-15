@@ -48,10 +48,7 @@ class TrangChuController extends Controller
     {
         return view('Trang-Khach-Hang.page.TinTucChiTiet');
     }
-    public function LienHe()
-    {
-        return view('Trang-Khach-Hang.page.LienHe');
-    }
+   
     public function GioiThieu()
     {
         return view('Trang-Khach-Hang.page.GioiThieu');

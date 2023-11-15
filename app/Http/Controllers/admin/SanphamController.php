@@ -27,16 +27,18 @@ class SanphamController extends Controller
 		// 		$Hinhanh[] = $HinhanhModel;
 		// 	}
 		// }
-
+		$idsanpham = [];
 		foreach ($data_sanpham as $sanpham) {
 			$idsanpham[] = $sanpham->id;
 		}
 		$hinhanh = implode($idsanpham);
-
+		$HinhAnh = [] ;
 		for ($i = 0; $i < strlen($hinhanh); $i++) {
 			$hinhAnh = HinhanhModel::where('ma_san_pham', $hinhanh[$i])->first();
 			$HinhAnh[] = $hinhAnh;
 		}
+
+
 		// dd($HinhAnh);
 
 		return view('AdminRocker.page.SanPham.index', compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh'));
