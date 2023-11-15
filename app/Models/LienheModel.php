@@ -9,14 +9,14 @@ class LienheModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'lien_he';
-    protected $primarykey = 'id';
+    protected $table = 'lien_hes';
+
     protected $fillable = [
-        "noi_dung",
-        "ten_khach_hang",
-        "so_dien_thoai",
-        "email",
-        "created_at",
-        "updated_at",
+        'ho_va_ten',
+        'email',
+        'tieu_de',
+        'noi_dung',
+        'so_dien_thoai',
+        'xu_ly',
     ];
 }
