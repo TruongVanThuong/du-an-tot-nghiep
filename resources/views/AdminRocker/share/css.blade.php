@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 <link href="/assets_admin_rocker/css/app.css" rel="stylesheet">
 <link href="/assets_admin_rocker/css/icons.css" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 <!-- Theme Style CSS -->
 <link rel="stylesheet" href="/assets_admin_rocker/css/dark-theme.css" />
 <link rel="stylesheet" href="/assets_admin_rocker/css/semi-dark.css" />

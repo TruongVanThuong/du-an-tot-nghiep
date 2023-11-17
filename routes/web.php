@@ -49,6 +49,8 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
   //bài viết
   Route::get('/baiviet', [BaivietController::class, 'baiviet']);
   Route::post('/baiviet', [BaivietController::class, 'taobaiviet']);
+  Route::get('/baiviet/{id}', [BaivietController::class, 'xoa_baiviet']);
+  Route::post('/capnhat_baiviet/{id}', [BaivietController::class, 'capnhat_baiviet']);
 });
 
 // Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

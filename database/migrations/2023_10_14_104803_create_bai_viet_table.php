@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->text('noi_dung');
             $table->string('hinh_anh');
             $table->integer('rating')->default(0);
+            $table->integer('hien_thi')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
