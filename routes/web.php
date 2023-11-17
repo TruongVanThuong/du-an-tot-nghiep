@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\LoaiSanphamController;
 use App\Http\Controllers\admin\SanphamController;
 use App\Http\Controllers\khachhang\TrangChuController;
 use App\Http\Controllers\khachhang\KhachHangController;
+use App\Http\Controllers\khachhang\LienHeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,11 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
   Route::get('/baiviet/{id}', [BaivietController::class, 'xoa_baiviet']);
   Route::post('/capnhat_baiviet/{id}', [BaivietController::class, 'capnhat_baiviet']);
 });
+Route::group(['prefix' => '/lien-he'], function() {
+  Route::get('/', [LienHeController::class, 'QuanLyLienHe']);
+  Route::get('/du-lieu', [LienHeController::class, 'LayDuLieu']);
+  Route::post('/xoa-lien-he', [LienHeController::class, 'XoaLienHe']);
+});
 
 // Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
 //   \vendor\UniSharp\LaravelFilemanager\Lfm::routes();
@@ -72,6 +78,8 @@ Route::get('/kich-hoat-mail-doi-mat-khau/{ma_bam_quen_mat_khau}', [KhachHangCont
 Route::post('/doi-mat-khau', [KhachHangController::class, 'KichHoatDoiMatKhau']);
 //HỒ SƠ, ĐĂNG XUẤT, ĐỔI MẬT KHẨU 
 
+// Route::get('/lien-he', [LienHeController::class, 'LienHe']);
+
 Route::get('/dang-xuat', [KhachHangController::class, 'DangXuat']);
 Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], function () {
   Route::get('/ho-so', [KhachHangController::class, 'HoSo']);
@@ -79,7 +87,11 @@ Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], f
   Route::post('/kich-hoat-cap-nhap-thong-tin', [KhachHangController::class, 'KichHoatCapNhapThongTin']);
   Route::get('/cap-nhap-mat-khau', [KhachHangController::class, 'CapNhapMatKhau']);
   Route::post('/kich-hoat-cap-nhap-mat-khau', [KhachHangController::class, 'KichHoatCapNhapMatKhau']);
+
 });
+//Liên hệ
+Route::get('/lien-he', [LienHeController::class, 'LienHe']);
+Route::post('/gui-lien-he', [LienHeController::class, 'GuiLienHe']);
 
 
 //
@@ -98,5 +110,4 @@ Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
 Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
 Route::get('/tin-tuc', [TrangChuController::class, 'TinTuc']);
 Route::get('/tin-tuc-chi-tiet', [TrangChuController::class, 'TinTucChiTiet']);
-Route::get('/lien-he', [TrangChuController::class, 'LienHe']);
 Route::get('/gioi-thieu', [TrangChuController::class, 'GioiThieu']);
