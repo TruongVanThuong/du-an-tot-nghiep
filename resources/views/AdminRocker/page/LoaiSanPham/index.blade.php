@@ -4,7 +4,7 @@
         <div class="col-md-12 mb-3">
             <div class="modal-category">
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Thêm Thể Loại
               </button>
 
@@ -15,7 +15,7 @@
                     <form method="post" action="theloai" id="loaispForm">@csrf
                       <div class="modal-header">
                         <h3 class="modal-title" id="exampleModalLabel">Thêm Thể Loại</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -41,7 +41,7 @@
                       </div>
 
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
                         <button type="submit" class="btn btn-primary">Thêm Thể Loại</button>
                       </div>
                     </form>
@@ -80,7 +80,7 @@
                                     </td>
                                     <td class="align-middle text-center text-nowrap">
                                       <!-- Button trigger modal -->
-																			<a class="btn btn-primary trigger-modal" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$theloai->id}}"><i class="bx bx-edit"></i></a>	
+																			<a class="btn btn-primary trigger-modal" name="btn_edit" href="#" data-bs-toggle="modal" data-bs-target="#ModalEdit{{$theloai->id}}"><i class="bx bx-edit"></i></a>	
 																			<a class="btn btn-danger btn_delete trigger-modal" name="btn_delete" href="xoatheloai/{{$theloai->id}}"><i class="bx bx-trash"></i></a>			
                                     </td>
                                     <!-- Modal -->
