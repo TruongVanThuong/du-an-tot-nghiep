@@ -35,10 +35,15 @@ class DanhmucController extends Controller
 
     public function xoa_danhmuc($id)
     {
-        $xoa_danhmuc = DanhmucModel::find($id);
-        if ($xoa_danhmuc == null)
-            return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        $xoa_danhmuc->delete();
+        // $xoa_danhmuc = DanhmucModel::find($id);
+        // if ($xoa_danhmuc == null)
+        //     return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+        // $xoa_danhmuc->delete();
+        DanhmucModel::where('id', $id)->update(
+            [
+                'is_delete' => 1,
+            ]
+        );   
         toastr()->success('Xoá danh mục Thành Công');
         return redirect('admin/danhmuc');
     }

@@ -169,7 +169,15 @@
                   @endforeach 
                 </td>
                 <td class="align-middle text-center">
-                {{ $sanpham->LoaisanphamModel->DanhmucModel->ten_danh_muc }}
+                  @foreach ($data_Loaisanpham as $Loaisanpham)
+                  @if ($Loaisanpham->id == $sanpham->ma_loai)
+                  @foreach ($data_danhmuc as $danhmuc)
+                  @if ($Loaisanpham->ma_danh_muc == $danhmuc->id)
+                  {{$danhmuc->ten_danh_muc}}
+                  @endif
+                  @endforeach 
+                  @endif
+                  @endforeach 
                 </td>
                 <td class="align-middle text-center">
                   <div class="form-check form-switch">

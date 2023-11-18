@@ -36,10 +36,15 @@ class LoaiSanphamController extends Controller
 
     public function xoa_theloai($id)
     {
-        $xoa_theloai = LoaisanphamModel::find($id);
-        if ($xoa_theloai == null)
-            return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        $xoa_theloai->delete();
+        // $xoa_theloai = LoaisanphamModel::find($id);
+        // if ($xoa_theloai == null)
+        //     return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+        // $xoa_theloai->delete();
+        LoaisanphamModel::where('id', $id)->update(
+            [
+                'is_delete' => 1,
+            ]
+        ); 
         toastr()->success('Thể loại đã được xóa thành công.');
         return redirect('admin/theloai');
     }
