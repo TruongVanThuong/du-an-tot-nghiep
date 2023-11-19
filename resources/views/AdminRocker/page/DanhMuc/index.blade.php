@@ -6,18 +6,18 @@
         <div class="col-md-12 mb-3">
             <div class="modal-category">
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Thêm Danh Mục
               </button>
 
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="container" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                   <div class="modal-content">
                     <form method="post" action="danhmuc" id="danhmucForm">@csrf
                       <div class="modal-header">
                         <h3 class="modal-title" id="exampleModalLabel">Thêm Danh Mục</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -30,7 +30,7 @@
                       </div>
 
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
                         <button type="submit" class="btn btn-submit btn-primary">Thêm Danh Mục</button>
                       </div>
                     </form>
@@ -57,17 +57,19 @@
                             </thead>
                             <tbody>
                               @foreach ($data_danhmuc as $danhmuc)
+                              @if ($danhmuc->is_delete == 0)
                                 <tr>
                                   <th class="align-middle text-center">{{$danhmuc->id}}</th>
                                   <td class="align-middle text-center">{{$danhmuc->ten_danh_muc}}</td>
                                   <td class="align-middle text-center text-nowrap">
                                     <!-- Button trigger modal -->
-                                    <a class="btn btn-primary trigger-modal" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$danhmuc->id}}"><i class="bx bx-edit"></i></a>	
+                                    <a class="btn btn-primary trigger-modal" name="btn_edit" href="#" data-bs-toggle="modal" data-bs-target="#ModalEdit{{$danhmuc->id}}"><i class="bx bx-edit"></i></a>	
                                     <a class="btn btn-danger btn_delete trigger-modal" name="btn_delete" href="xoadanhmuc/{{$danhmuc->id}}"><i class="bx bx-trash"></i></a>			
                                   </td>
                                   <!-- Modal -->
                                   @include('AdminRocker/page/DanhMuc/capnhat')
                                 </tr>
+                              @endif
                               @endforeach
                             </tbody>
                             

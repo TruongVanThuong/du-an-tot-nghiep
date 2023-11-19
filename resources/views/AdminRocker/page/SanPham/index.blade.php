@@ -82,7 +82,7 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
                 <button type="submit" class="btn btn-submit btn-primary">Thêm Sản Phẩm</button>
               </div>
             </form>
@@ -98,9 +98,7 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <!-- <input class="btn btn-primary" type="checkbox" id="btn1" value="Chọn tất cả">
-                          <input class="btn btn-primary" type="button" id="btn2" value="Bỏ chọn tất cả">
-                          <button class="btn btn-primary" type="submit" name="btn_deletenhieu">Xóa mục đã chọn</button> -->
+          
           <table id="table" class="table table-bordered">
             <thead clas="bg-primary">
               <tr>
@@ -161,7 +159,7 @@
                   {{$sanpham->so_luong}}
                 </td>
                 <td class="align-middle text-center">
-                  {!!$sanpham->mo_ta .= '...'!!}
+                  {!!$sanpham->mo_ta!!}
                 </td>
                 <td class="align-middle text-center">
                   @foreach ($data_Loaisanpham as $Loaisanpham)
@@ -171,7 +169,7 @@
                   @endforeach 
                 </td>
                 <td class="align-middle text-center">
-                
+                  {{$sanpham->ten_danh_muc}} 
                 </td>
                 <td class="align-middle text-center">
                   <div class="form-check form-switch">
@@ -197,9 +195,7 @@
             </tbody>
 
           </table>
-          <!-- <input class="btn btn-primary" type="button" id="btn1.1" value="Chọn tất cả">
-                            <input class="btn btn-primary" type="button" id="btn2.2" value="Bỏ chọn tất cả">
-                            <button class="btn btn-primary" type="submit" name="btn_deletenhieu">Xóa mục đã chọn</button> -->
+          
         </div>
         <div>{{$data_sanpham->links()}}</div>
       </div>
@@ -245,51 +241,6 @@
     });
   }
 </script>
-
-
-
-<!-- chuc nang checkbox lay danh sach -->
-
-<!-- <script>
-  document.getElementById("btn1").onclick = function() {
-    // Lấy danh sách checkbox
-    var checkboxes = document.getElementsByName('cat[]');
-
-    // Lặp và thiết lập checked
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = true;
-    }
-  };
-  document.getElementById("btn1.1").onclick = function() {
-    // Lấy danh sách checkbox
-    var checkboxes = document.getElementsByName('cat[]');
-
-    // Lặp và thiết lập checked
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = true;
-    }
-  };
-
-  // Chức năng bỏ chọn hết
-  document.getElementById("btn2").onclick = function() {
-    // Lấy danh sách checkbox
-    var checkboxes = document.getElementsByName('cat[]');
-
-    // Lặp và thiết lập Uncheck
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = false;
-    }
-  };
-  document.getElementById("btn2.2").onclick = function() {
-    // Lấy danh sách checkbox
-    var checkboxes = document.getElementsByName('cat[]');
-
-    // Lặp và thiết lập Uncheck
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = false;
-    }
-  };
-</script> -->
 
 
 

@@ -29,16 +29,23 @@ class DanhmucController extends Controller
         DanhmucModel::create($data);
 
         // dd($data);
-        return redirect('/admin/danhmuc')->with('success', 'Danh mục đã được thêm thành công.');
+        toastr()->success('Thêm danh mục Thành Công');
+        return redirect('/admin/danhmuc');
     }
 
     public function xoa_danhmuc($id)
     {
-        $xoa_danhmuc = DanhmucModel::find($id);
-        if ($xoa_danhmuc == null)
-            return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        $xoa_danhmuc->delete();
-        return redirect('admin/danhmuc')->with('success', 'Danh mục đã được xoá thành công.');
+        // $xoa_danhmuc = DanhmucModel::find($id);
+        // if ($xoa_danhmuc == null)
+        //     return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+        // $xoa_danhmuc->delete();
+        DanhmucModel::where('id', $id)->update(
+            [
+                'is_delete' => 1,
+            ]
+        );   
+        toastr()->success('Xoá danh mục Thành Công');
+        return redirect('admin/danhmuc');
     }
 
     public function cn_danhmuc_($id, DanhmucRequests $request)
@@ -51,7 +58,7 @@ class DanhmucController extends Controller
         DanhmucModel::where('id', $id)->update(
             $data 
         );        
-
+        toastr()->success('Cập nhật danh mục Thành Công');
         return redirect('admin/danhmuc');
     }
 
