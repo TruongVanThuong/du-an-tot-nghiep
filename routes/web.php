@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\DanhmucController;
 use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
+use App\Http\Controllers\admin\QLTaiKhoanController;
 use App\Http\Controllers\admin\SanphamController;
 use App\Http\Controllers\khachhang\TrangChuController;
 use App\Http\Controllers\khachhang\KhachHangController;
@@ -25,7 +26,6 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
   Route::get('/sanpham', [SanphamController::class, 'sanpham']);
   Route::post('/sanpham', [SanphamController::class, 'them_sanpham']);
   Route::get('/xoasanpham/{id}', [SanphamController::class, 'xoa_sanpham']);
-  // Route::get('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham']);
   Route::post('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham_']);
   Route::get('/toggleStatus', [SanphamController::class, 'toggleStatus']);
 
@@ -37,21 +37,29 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
   Route::get('/danhmuc', [DanhmucController::class, 'danhmuc']);
   Route::post('/danhmuc', [DanhmucController::class, 'them_danhmuc']);
   Route::get('/xoadanhmuc/{id}', [DanhmucController::class, 'xoa_danhmuc']);
-  // Route::get('/capnhatdanhmuc/{id}', [DanhmucController::class, 'cn_danhmuc']);
   Route::post('/capnhatdanhmuc/{id}', [DanhmucController::class, 'cn_danhmuc_']);
 
   //the loai
   Route::get('/theloai', [LoaiSanphamController::class, 'theloai']);
   Route::post('/theloai', [LoaiSanphamController::class, 'them_theloai']);
   Route::get('/xoatheloai/{id}', [LoaiSanphamController::class, 'xoa_theloai']);
-  // Route::get('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai']);
   Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
 
+  // Lien He
   Route::group(['prefix' => '/lien-he'], function() {
     Route::get('/', [LienHeController::class, 'QuanLyLienHe']);
     Route::get('/du-lieu', [LienHeController::class, 'LayDuLieu']);
     Route::post('/xoa-lien-he', [LienHeController::class, 'XoaLienHe']);
-});
+  });
+
+  // Quan Ly Tai Khoan
+  Route::group(['prefix' => '/quan-ly-tai-khoan'], function() {
+    Route::get('/', [QLTaiKhoanController::class, 'QuanLyTaiKhoan']);
+    Route::get('/du-lieu', [QLTaiKhoanController::class, 'DuLieuTaiKhoan']);
+    Route::post('/them-tai-khoan', [QLTaiKhoanController::class, 'ThemTaiKhoan']);
+
+  });
+
 });
 
 // Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

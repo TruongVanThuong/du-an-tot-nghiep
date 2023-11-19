@@ -15,8 +15,16 @@ class LoaiSanphamController extends Controller
     {
         // $data_theloai = LoaisanphamModel::all();
         $data_theloai = LoaisanphamModel::orderBy('id', 'desc')->paginate(10);
-        $data_danhmuc = DanhmucModel::all();
-
+        $data_danhmuc = DanhmucModel::where('is_delete', 0)->get();
+        // $data_danhmuc = [];
+        // foreach ($check_danhmuc as $checkDM) {
+        //     if ($checkDM->is_delete == 0) {
+        //         $danhmuc = DanhmucModel::where('is_delete', 0)->get();
+        //         $data_danhmuc[]= $danhmuc;
+        //         echo $danhmuc;
+        //     }
+        // }
+        // dd($data_danhmuc);
         if ($data_theloai->isEmpty()) {
 			return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
         } else {
@@ -30,16 +38,23 @@ class LoaiSanphamController extends Controller
         $data['ten_loai_slug'] = Str::slug($data['ten_loai']);
         LoaisanphamModel::create($data);
         // dd($data);
-        return redirect('admin/theloai')->with('success', 'Thể loại đã được thêm thành công.');
+        toastr()->success('Thể loại đã được thêm thành công.');
+        return redirect('admin/theloai');
     }
 
     public function xoa_theloai($id)
     {
-        $xoa_theloai = LoaisanphamModel::find($id);
-        if ($xoa_theloai == null)
-            return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        $xoa_theloai->delete();
-        return redirect('admin/theloai')->with('success', 'Thể loại đã được xóa thành công.');
+        // $xoa_theloai = LoaisanphamModel::find($id);
+        // if ($xoa_theloai == null)
+        //     return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+        // $xoa_theloai->delete();
+        LoaisanphamModel::where('id', $id)->update(
+            [
+                'is_delete' => 1,
+            ]
+        ); 
+        toastr()->success('Thể loại đã được xóa thành công.');
+        return redirect('admin/theloai');
     }
 
     public function cn_theloai_($id, LoaisanphamRequest $request)
@@ -52,8 +67,8 @@ class LoaiSanphamController extends Controller
         LoaisanphamModel::where('id', $id)->update(
             $data 
         );        
-
-        return redirect('admin/theloai')->with('success', 'Thể loại đã được cập nhật thành công.');
+        toastr()->success('Thể loại đã được cập nhật thành công');
+        return redirect('admin/theloai');
     }
 
 

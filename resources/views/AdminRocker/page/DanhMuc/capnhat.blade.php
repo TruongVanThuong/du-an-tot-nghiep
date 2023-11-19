@@ -1,7 +1,7 @@
 
 
 <div class="modal fade" id="ModalEdit{{$danhmuc->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalEditLabel" aria-hidden="true">
-  <div class="container" role="document">
+  <div class="modal-dialog modal-xl" role="document">
     <form class="alert alert-secondary" enctype="multipart/form-data" method="post" action="capnhatdanhmuc/{{$danhmuc->id}}">@csrf                                  
       <div class="modal-content">
         <div class="modal-header">

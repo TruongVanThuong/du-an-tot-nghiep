@@ -32,6 +32,20 @@
                     <div class="menu-title">Thể Loại</div>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{asset('admin/lien-he')}}">
+                    <div class="parent-icon"><i class="bx bx-phone"></i>
+                    </div>
+                    <div class="menu-title">Liên Hệ</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{asset('admin/quan-ly-tai-khoan')}}">
+                    <div class="parent-icon"><i class="bx bx-user"></i>
+                    </div>
+                    <div class="menu-title">Thành Viên</div>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

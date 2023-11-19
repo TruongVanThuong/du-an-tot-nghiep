@@ -4,18 +4,18 @@
         <div class="col-md-12 mb-3">
             <div class="modal-category">
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Thêm Thể Loại
               </button>
 
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="container" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                   <div class="modal-content">
                     <form method="post" action="theloai" id="loaispForm">@csrf
                       <div class="modal-header">
                         <h3 class="modal-title" id="exampleModalLabel">Thêm Thể Loại</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -41,7 +41,7 @@
                       </div>
 
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
                         <button type="submit" class="btn btn-primary">Thêm Thể Loại</button>
                       </div>
                     </form>
@@ -68,6 +68,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($data_theloai as $theloai)
+                                @if ($theloai->is_delete == 0)
                                 <tr>
                                     <th class="align-middle text-center">{{$theloai->id}}</th>
                                     <td class="align-middle text-center">{{$theloai->ten_loai}}</td>
@@ -80,12 +81,13 @@
                                     </td>
                                     <td class="align-middle text-center text-nowrap">
                                       <!-- Button trigger modal -->
-																			<a class="btn btn-primary trigger-modal" name="btn_edit" href="#" data-toggle="modal" data-target="#ModalEdit{{$theloai->id}}"><i class="bx bx-edit"></i></a>	
+																			<a class="btn btn-primary trigger-modal" name="btn_edit" href="#" data-bs-toggle="modal" data-bs-target="#ModalEdit{{$theloai->id}}"><i class="bx bx-edit"></i></a>	
 																			<a class="btn btn-danger btn_delete trigger-modal" name="btn_delete" href="xoatheloai/{{$theloai->id}}"><i class="bx bx-trash"></i></a>			
                                     </td>
                                     <!-- Modal -->
                                     @include('AdminRocker/page/LoaiSanPham/capnhat')
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                             
