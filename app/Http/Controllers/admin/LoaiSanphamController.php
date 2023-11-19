@@ -15,8 +15,16 @@ class LoaiSanphamController extends Controller
     {
         // $data_theloai = LoaisanphamModel::all();
         $data_theloai = LoaisanphamModel::orderBy('id', 'desc')->paginate(10);
-        $data_danhmuc = DanhmucModel::all();
-
+        $data_danhmuc = DanhmucModel::where('is_delete', 0)->get();
+        // $data_danhmuc = [];
+        // foreach ($check_danhmuc as $checkDM) {
+        //     if ($checkDM->is_delete == 0) {
+        //         $danhmuc = DanhmucModel::where('is_delete', 0)->get();
+        //         $data_danhmuc[]= $danhmuc;
+        //         echo $danhmuc;
+        //     }
+        // }
+        // dd($data_danhmuc);
         if ($data_theloai->isEmpty()) {
 			return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
         } else {

@@ -159,7 +159,7 @@
                   {{$sanpham->so_luong}}
                 </td>
                 <td class="align-middle text-center">
-                  {!!$sanpham->mo_ta .= '...'!!}
+                  {!!$sanpham->mo_ta!!}
                 </td>
                 <td class="align-middle text-center">
                   @foreach ($data_Loaisanpham as $Loaisanpham)
@@ -169,15 +169,7 @@
                   @endforeach 
                 </td>
                 <td class="align-middle text-center">
-                  @foreach ($data_Loaisanpham as $Loaisanpham)
-                  @if ($Loaisanpham->id == $sanpham->ma_loai)
-                  @foreach ($data_danhmuc as $danhmuc)
-                  @if ($Loaisanpham->ma_danh_muc == $danhmuc->id)
-                  {{$danhmuc->ten_danh_muc}}
-                  @endif
-                  @endforeach 
-                  @endif
-                  @endforeach 
+                  {{$sanpham->ten_danh_muc}} 
                 </td>
                 <td class="align-middle text-center">
                   <div class="form-check form-switch">
