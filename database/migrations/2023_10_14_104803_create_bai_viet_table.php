@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('ten_bai_viet');
             $table->string('ten_bai_viet_slug')->nullable();
+            $table->unsignedBigInteger('loai_tin');
             $table->string('mo_ta_ngan');
             $table->unsignedBigInteger('ma_khach_hang');
             $table->text('noi_dung');

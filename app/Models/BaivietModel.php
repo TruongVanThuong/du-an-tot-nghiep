@@ -16,6 +16,7 @@ class BaivietModel extends Model
     protected $fillable = [
         "ten_bai_viet",
         "ten_bai_viet_slug",
+        "loai_tin",
         "mo_ta_ngan",
         "ma_khach_hang",
         "noi_dung",

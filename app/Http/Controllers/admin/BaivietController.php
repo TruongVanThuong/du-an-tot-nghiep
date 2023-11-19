@@ -15,13 +15,12 @@ class BaivietController extends Controller
 {
     public function baiviet(Request $request)
     {
-        $data_baiviet = BaivietModel::orderBy('created_at','desc')->paginate(2);
+        $data_baiviet = BaivietModel::orderBy('created_at','desc')->paginate(5);
 
         foreach ($data_baiviet as $baiviet) {
             $user = KhachHangModel::find($baiviet->ma_khach_hang);
             $baiviet->ma_khach_hang = $user->ho_va_ten;
-            $baiviet->mo_ta_ngan = substr($baiviet->mo_ta_ngan, 0, 30);
-            $baiviet->ten_bai_viet = substr($baiviet->ten_bai_viet, 0, 30);
+            
         }
 
         return view('AdminRocker.page.BaiViet.index', compact('data_baiviet'));
@@ -34,7 +33,7 @@ class BaivietController extends Controller
         $data_form = $request->all();
         $data_form['ten_bai_viet_slug'] = Str::slug($data_form['ten_bai_viet']);
         $data_form['ma_khach_hang']  = $khach_hang->id;
-
+        $data_form['hien_thi']  = 1;
         $get_image = $request->file('hinh_anh');
         $get_name_image = $get_image->getClientOriginalName();
         $images = Image::make($get_image->getRealPath());
@@ -52,7 +51,7 @@ class BaivietController extends Controller
 	{
 		$xoa_baiviet = BaivietModel::find($id);
 		if ($xoa_baiviet == null)
-			return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+			return '<script type ="text/JavaScript">alert("Lỗi!");</script>';
 		$xoa_baiviet->delete();
         toastr()->success('Xoá bài viết Thành Công');
         return redirect('admin/baiviet');
@@ -71,6 +70,7 @@ class BaivietController extends Controller
         $capnhat->ten_bai_viet_slug=$data_capnhat['ten_bai_viet_slug'];
         $capnhat->mo_ta_ngan=$data_capnhat['mo_ta_ngan'];
         $capnhat->noi_dung=$data_capnhat['noi_dung'];
+        $capnhat->loai_tin=$data_capnhat['loai_tin'];
 
         $get_image = $request->file('hinh_anh');
         $get_name_image = $get_image->getClientOriginalName();
@@ -86,4 +86,31 @@ class BaivietController extends Controller
         return redirect('admin/baiviet');
 		
     }
+    public function doitrangthai()
+	{
+		$id = $_GET['idsta'];
+		$baiviet = BaivietModel::find($id);
+		$hienthi = $baiviet->hien_thi;
+		if ($hienthi == 1) {
+			$hienthi = 0;
+		} else {
+			$hienthi = 1;
+		}
+
+		$$baiviet->hien_thi = $hienthi;
+		$baiviet->save();
+		echo $hienthi;
+	}
+    public function restore()
+	{
+		$khoiphuc=BaivietModel::onlyTrashed()->get();
+        foreach ($khoiphuc as $baiviet) {
+            $id=$baiviet->id;
+            // BaivietModel::withTrashed()->find($id)->restore();
+            BaivietModel::onlyTrashed()->where('id', $id)->restore();
+        }
+        toastr()->success('cập nhật bài viết Thành Công');
+        return redirect('admin/baiviet');
+	}
+
 }

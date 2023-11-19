@@ -9,56 +9,7 @@
   </button>
 
   <!-- Modal -->
-  <div class="modal fade bd-example-modal-xl" id="themModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <form id="formbaiviet" method="post" action="/admin/baiviet" enctype="multipart/form-data">@csrf
-          <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLabel">Thêm bài viết</h3>
-            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
-          <div class="modal-body">
-            <div class="form-group mt-3 d-flex justify-content-between">
-              <div class="col-md-6 p-1 form-group-item">
-                <label>Tiêu đề</label>
-                <input name="ten_bai_viet" type="text" class="form-control" placeholder="Nhập vào Tiêu đề" required>
-              </div>
-
-
-            </div>
-            <div class="form-group mt-3">
-              <label>Mô tả ngắn</label>
-              <div class="input-group form-group-item">
-                <textarea name="mo_ta_ngan" class="form-control" id="" cols="20" rows="5"></textarea>
-              </div>
-            </div>
-
-
-            <div class="form-group mt-3">
-              <label>Ảnh đại diện</label>
-              <div class="input-group form-group-item">
-                <input id="hinh_anh" class="form-control" type="file" accept="image/*" name="hinh_anh" multiple required>
-              </div>
-            </div>
-
-            <div class="form-group mt-3 form-group-item">
-              <label>Nội dung</label>
-              <textarea name="noi_dung" id="noi_dung" class="form-control ckeditor" cols="30" rows="10" required="required"></textarea>
-
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="px-4 py-2 text-1sm font-medium leading-5 rounded-full text-black transition-colors duration-150 bg-gray-100 border border-transparent rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-purple" data-bs-dismiss="modal">Huỷ</button>
-            <button type="submit" class="px-4 py-2 text-1sm font-medium leading-5 rounded-full text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Thêm Bài Viết</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+  @include('AdminRocker/page/BaiViet/thembaiviet')
 </div>
 
 
@@ -89,10 +40,16 @@
             <div class="flex items-center text-sm">
 
               <div>
-                <p class="font-semibold">{{$baiviet->ten_bai_viet}}</p>
-                <!-- <p class="text-xs text-gray-600 dark:text-gray-400">
-                  10x Developer
-                </p> -->
+                <p class="font-semibold">{{substr($baiviet->ten_bai_viet, 0, 30)}}</p>
+                @if($baiviet->loai_tin==1)
+                <p class="text-xs text-gray-600 dark:text-gray-400">
+                  Tin Khuyến Mãi
+                </p>
+                @else
+                <p class="text-xs text-gray-600 dark:text-gray-400">
+                  Tin Mới
+                </p>
+                @endif
               </div>
             </div>
           </td>
@@ -102,22 +59,25 @@
           </td>
           <td class="px-4 py-3 text-sm">
 
-            {!!$baiviet->mo_ta_ngan .= '...'!!}
+            {{substr($baiviet->mo_ta_ngan, 0, 30) }}
           </td>
           <td class="px-4 py-3 text-sm">
             {{$baiviet->ma_khach_hang}}
           </td>
           <td class="px-4 py-3 text-xs">
-            @if($baiviet->hien_thi==1)
-            <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-              hiện
-            </span>
+            <div class="form-check form-switch">
+              <input class="form-check-input" onclick="doitrangthai(<?php echo $baiviet->id; ?>)" type="checkbox" @if($baiviet->hien_thi == 1) checked @endif role="switch" id="flexSwitchCheckDefault">
+            </div>
+            <!-- @if($baiviet->hien_thi==1)
+            <button class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+              Hiện
+            </button>
             @else
-            <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
+            <button class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
               Ẩn
-            </span>
+            </button>
 
-            @endif
+            @endif -->
           </td>
           <td class="px-4 py-3 text-sm">
             {{$baiviet->created_at}}
@@ -136,7 +96,7 @@
                   </path>
                 </svg>
               </a>
-              <a class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" href="baiviet/{{$baiviet->id}}" aria-label="Delete">
+              <a id="btn_delete" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" href="baiviet/{{$baiviet->id}}" aria-label="Delete">
                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                 </svg>
@@ -145,73 +105,20 @@
           </td>
         </tr>
         <!-- Modal cập nhật-->
-        <div class="modal fade bd-example-modal-xl" id="capnhatModal{{$baiviet->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-              <form id="formbaiviet" method="post" action="/admin/capnhat_baiviet/{{$baiviet->id}}" enctype="multipart/form-data">@csrf
-                <div class="modal-header">
-                  <h3 class="modal-title" id="exampleModalLabel">Cập nhật bài viết</h3>
-                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="form-group mt-3 d-flex justify-content-between">
-                    <div class="col-md-6 p-1 form-group-item">
-                      <label>Tiêu đề</label>
-                      <input name="ten_bai_viet" type="text" class="form-control" value="{{$baiviet->ten_bai_viet}}" placeholder="Nhập vào Tiêu đề" required>
-                    </div>
-                  </div>
-                  <div class="form-group mt-3">
-                    <label>Mô tả ngắn</label>
-                    <p></p>
-                    <div class="input-group form-group-item">
-                      <textarea name="mo_ta_ngan" class="form-control" id="" cols="20" rows="5"> {{$baiviet->mo_ta_ngan}}</textarea>
-                    </div>
-                  </div>
-                  <div class="form-group mt-3">
-                    <label>Ảnh đại diện</label>
-                    <img height="50px" max-width="100px" src="{{ asset('img/') }}/{{$baiviet->hinh_anh}}" title="{{$baiviet->hinh_anh}}">
-                    <div class="input-group form-group-item">
-                      <input id="hinh_anh" class="form-control" type="file" accept="image/*" name="hinh_anh" multiple required>
-                    </div>
-                  </div>
-                  <div class="form-group mt-3 form-group-item">
-                    <label>Nội dung</label>
-                    <textarea name="noi_dung" id="noi_dung_cap_nhat" class="form-control ckeditor" cols="30" rows="10" required="required"> {!! $baiviet->noi_dung !!}</textarea>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="px-4 py-2 text-1sm font-medium leading-5 rounded-full text-black transition-colors duration-150 bg-gray-100 border border-transparent rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-purple" data-bs-dismiss="modal">Huỷ</button>
-                  <button type="submit" class="px-4 py-2 text-1sm font-medium leading-5 rounded-full text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Cập nhật Bài Viết</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        @include('AdminRocker/page/BaiViet/capnhat')
         <!-- modal show -->
-        <div class="modal fade bd-example-modal-xl" id="show{{$baiviet->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                  <h3 class="modal-title" id="exampleModalLabel">Xem bài viết</h3>
-                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-              <div class="modal-body">
-                <h1>{{$baiviet->ten_bai_viet}}</h1>
-                {!! html_entity_decode($baiviet->noi_dung) !!}
-              </div>
-            </div>
-          </div>
-        </div>
+        @include('AdminRocker/page/BaiViet/show')
         @endforeach
       </tbody>
     </table>
+    <!-- <a  class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" href="baiviet/khoiphuc" aria-label="">
+      <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+        xoá
+      </svg>
+    </a> -->
   </div>
   <div>{{$data_baiviet->links('AdminRocker.page.BaiViet.custom')}}</div>
-  
+
 </div>
 
 <!-- end table -->
@@ -219,7 +126,36 @@
 
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  function doitrangthai(id) {
+    var id = id;
+    $.ajax({
+      url: "/admin/baiviet/doitrangthai",
+      type: "get",
+      data: {
+        idsta: id
+      },
+      success: function($hienthi) {
+        if ($hienthi == 1) {
+          swal("Thay đổi trạng thái thành công!", "", "success");
+        } else {
+          swal("Thay đổi trạng thái thành công!", "", "success");
+        }
+      }
+    });
+  }
+  const delBtnEl = document.querySelectorAll("#btn_delete");
+  delBtnEl.forEach(function(delBtn) {
+    delBtn.addEventListener("click", function(event) {
+      const message = confirm("Bạn có chắc muốn xoá dữ liệu này không?");
+      if (message == false) {
+        event.preventDefault();
+      }
+    });
+  });
+
   CKEDITOR.replace('noi_dung')
 
   CKEDITOR.replace('noi_dung_cap_nhat');

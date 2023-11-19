@@ -171,7 +171,7 @@
                   @endforeach 
                 </td>
                 <td class="align-middle text-center">
-                {{ $sanpham->LoaisanphamModel->DanhmucModel->ten_danh_muc }}
+                
                 </td>
                 <td class="align-middle text-center">
                   <div class="form-check form-switch">

@@ -52,6 +52,9 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
   Route::post('/baiviet', [BaivietController::class, 'taobaiviet']);
   Route::get('/baiviet/{id}', [BaivietController::class, 'xoa_baiviet']);
   Route::post('/capnhat_baiviet/{id}', [BaivietController::class, 'capnhat_baiviet']);
+  Route::get('/baiviet/doitrangthai', [BaivietController::class, 'doitrangthai']);
+  Route::post('/baiviet/khoiphuc', [BaivietController::class, 'restore']);
+
 });
 Route::group(['prefix' => '/lien-he'], function() {
   Route::get('/', [LienHeController::class, 'QuanLyLienHe']);
