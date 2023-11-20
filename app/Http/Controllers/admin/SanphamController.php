@@ -107,10 +107,15 @@ class SanphamController extends Controller
 
 	public function xoa_sanpham($id)
 	{
-		$xoa_sanpham = SanphamModel::find($id);
-		if ($xoa_sanpham == null)
-			return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-		$xoa_sanpham->delete();
+		// $xoa_sanpham = SanphamModel::find($id);
+		// if ($xoa_sanpham == null)
+		// 	return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+		// $xoa_sanpham->delete();
+		SanphamModel::where('id', $id)->update(
+			[
+					'is_delete' => 1,
+			]
+	);
 		toastr()->success('Sản phẩm đã được xoá thành công.');
 		return redirect('admin/sanpham');
 	}
