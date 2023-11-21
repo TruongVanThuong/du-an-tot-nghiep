@@ -315,11 +315,10 @@
 								<div class="submenu-transform submenu-transform-desktop">
 									<ul class="submenu list-unstyled">
 										<li class="menu-list-item nav-item-sub">
-											<a class="nav-link-sub nav-text-sub" href="blog.html">Blog</a>
+											<a class="nav-link-sub nav-text-sub" href="/tin-tuc/1">Tin khuyến mãi</a>
 										</li>
 										<li class="menu-list-item nav-item-sub">
-											<a class="nav-link-sub nav-text-sub" href="article.html">Blog
-												Details</a>
+											<a class="nav-link-sub nav-text-sub" href="/tin-tuc/2">Tin tức mới</a>
 										</li>
 									</ul>
 								</div>

@@ -113,4 +113,18 @@ class BaivietController extends Controller
         return redirect('admin/baiviet');
 	}
 
+public function showbaiviet($id)
+    {
+        $data_baiviet = BaivietModel::where('loai_tin','=',$id)
+        ->orderBy('created_at','desc')->paginate(5);
+
+        foreach ($data_baiviet as $baiviet) {
+            $user = KhachHangModel::find($baiviet->ma_khach_hang);
+            $baiviet->ma_khach_hang = $user->ho_va_ten;
+            
+        }
+
+        return view('Trang-Khach-Hang.page.TinTuc', compact('data_baiviet'));
+        //    var_dump($data_baiviet);
+    }
 }
