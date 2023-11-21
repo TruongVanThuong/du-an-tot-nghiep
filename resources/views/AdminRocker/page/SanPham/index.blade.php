@@ -122,7 +122,7 @@
               </tr>
               @else
               @foreach($data_sanpham as $sanpham)
-
+              @if ($sanpham->is_delete == 0)
               <tr>
                 <td class="align-middle text-center">
                   {{$sanpham->id}}
@@ -187,6 +187,7 @@
                 <!-- Modal -->
                 @include('AdminRocker/page/SanPham/capnhat')
               </tr>
+              @endif
               @endforeach
               
 
