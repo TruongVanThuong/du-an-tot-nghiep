@@ -124,6 +124,8 @@ class KhachHangController extends Controller
             'message' => 'Vui Lòng Kiểm Tra Mail',
         ]);
     }
+
+    
     public function KichHoatMailDoiMatKhau($ma_bam_quen_mat_khau)
     {
         $khach_hang = KhachHangModel::where('ma_bam_quen_mat_khau', $ma_bam_quen_mat_khau)->first();
@@ -199,4 +201,6 @@ class KhachHangController extends Controller
         toastr()->success('Đăng Xuất Thành Công');
         return redirect('/');
     }
+
+
 }

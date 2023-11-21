@@ -15,7 +15,11 @@ class DanhmucController extends Controller
     {
         $data_danhmuc = DanhmucModel::orderBy('id', 'desc')->paginate(10);
 
-        return view('AdminRocker.page.DanhMuc.index', compact('data_danhmuc'));
+        if ($data_danhmuc->isEmpty()) {
+			return view('AdminRocker.page.DanhMuc.index', compact('data_danhmuc'));
+        } else {
+            return view('AdminRocker.page.DanhMuc.index', compact('data_danhmuc'));
+        }
     }
 
     public function them_danhmuc(DanhmucRequests $request)
@@ -25,31 +29,37 @@ class DanhmucController extends Controller
         DanhmucModel::create($data);
 
         // dd($data);
+        toastr()->success('Thêm danh mục Thành Công');
         return redirect('/admin/danhmuc');
     }
 
     public function xoa_danhmuc($id)
     {
-        $xoa_danhmuc = DanhmucModel::find($id);
-        if ($xoa_danhmuc == null)
-            return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        $xoa_danhmuc->delete();
+        // $xoa_danhmuc = DanhmucModel::find($id);
+        // if ($xoa_danhmuc == null)
+        //     return '<script type ="text/JavaScript">alert("loi roi!");</script>';
+        // $xoa_danhmuc->delete();
+        DanhmucModel::where('id', $id)->update(
+            [
+                'is_delete' => 1,
+            ]
+        );   
+        toastr()->success('Xoá danh mục Thành Công');
         return redirect('admin/danhmuc');
     }
 
     public function cn_danhmuc_($id, DanhmucRequests $request)
     {
-        $danhmuc = DanhmucModel::find($id);
-        if ($danhmuc == null)
+        $data = $request->all();
+        if ($data == null)
             return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        $danhmuc->ten_danh_muc = $request->ten_danh_muc;
-        $danhmuc->ten_danh_muc_slug = Str::slug($danhmuc->ten_danh_muc);
-        $danhmuc->updated_at = date("Y-m-d h:i:s");
-        $danhmuc->save();
-
+        $data = $request->except('_token');
+        $data['ten_danh_muc_slug'] = Str::slug($data['ten_danh_muc']);
+        DanhmucModel::where('id', $id)->update(
+            $data 
+        );        
+        toastr()->success('Cập nhật danh mục Thành Công');
         return redirect('admin/danhmuc');
     }
-
-
 
 }

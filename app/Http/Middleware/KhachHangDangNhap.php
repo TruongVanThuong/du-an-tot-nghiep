@@ -20,7 +20,7 @@ class KhachHangDangNhap
             }
             return $next($request);
         } else {
-            toastr()->error('Chức năng này yêu cầu phải đăng nhập!');
+            toastr()->warning('Chức năng này yêu cầu phải đăng nhập!');
             return redirect('/dang-nhap');
         }
     }

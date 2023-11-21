@@ -4,16 +4,16 @@
   <div class="col-md-12 mb-3"> 
     <div class="modal-category"> 
       <!-- Button trigger modal --> 
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Thêm Sản Phẩm </button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> Thêm Sản Phẩm </button>
 
       <!-- Modal -->
       <div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
-        <div class="container" role="document"> 
+        <div class="modal-dialog modal-xl" role="document"> 
           <div class="modal-content"> 
             <form id="sanphamForm" method="post" action="/admin/sanpham" enctype="multipart/form-data">@csrf
               <div class="modal-header">
                 <h3 class="modal-title" id="exampleModalLabel">Thêm Sản Phẩm</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -38,7 +38,9 @@
                     <select name="ma_loai" class="form-control" required>
                       <option value=""> _ _ _ Chon Mã Loại Sản Phẩm _ _ _</option> 
                       @foreach($data_Loaisanpham as $Loaisanpham)
-                      <option value="{{$Loaisanpham->id}}">{{$Loaisanpham->ten_loai}}</option>
+                      <option value="{{$Loaisanpham->id}}">
+                        {{$Loaisanpham->ten_loai}} - (Danh muc : @foreach($data_danhmuc as $danhmuc) @if($danhmuc->id == $Loaisanpham->ma_danh_muc) {{$danhmuc->ten_danh_muc}} @endif @endforeach)
+                      </option>
                       @endforeach
                     </select>
                   </div>
@@ -80,7 +82,7 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
                 <button type="submit" class="btn btn-submit btn-primary">Thêm Sản Phẩm</button>
               </div>
             </form>
@@ -96,9 +98,7 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <!-- <input class="btn btn-primary" type="checkbox" id="btn1" value="Chọn tất cả">
-                          <input class="btn btn-primary" type="button" id="btn2" value="Bỏ chọn tất cả">
-                          <button class="btn btn-primary" type="submit" name="btn_deletenhieu">Xóa mục đã chọn</button> -->
+          
           <table id="table" class="table table-bordered">
             <thead clas="bg-primary">
               <tr>
@@ -110,15 +110,19 @@
                 <th class="text-center">Số Lượng</th>
                 <th class="text-center">Mô Tả</th>
                 <th class="text-center">Tên Loại</th>
-                <th class="text-center">Đặt Biệt</th>
+                <th class="text-center">Danh Muc</th>
                 <th class="text-center">Trạng Thái</th>
                 <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              @if(!empty($data_sanpham) && $data_sanpham->count())
+              @if($data_sanpham->isEmpty())
+              <tr>
+                <td class="align-middle text-center text-nowrap" colspan="11">Không có dữ liệu</td>
+              </tr>
+              @else
               @foreach($data_sanpham as $sanpham)
-
+              @if ($sanpham->is_delete == 0)
               <tr>
                 <td class="align-middle text-center">
                   {{$sanpham->id}}
@@ -133,11 +137,23 @@
                   {{$sanpham->giam_gia_san_pham}}
                 </td>
                 <td class="align-middle text-center">
+                <!-- -- Kiểm tra xem sản phẩm có hình ảnh hay không -- -->
+                  @php
+                  $hasImages = false;
+                  @endphp
+
                   @foreach ($HinhAnh as $hinhanh)
-                  @if ($hinhanh->ma_san_pham == $sanpham->id)
-                  <img height="100" src="{{ asset('img/') }}/{{$hinhanh->hinh_anh}}" title="{{$hinhanh->hinh_anh}}">
-                  @endif
+                      @if ($hinhanh && $hinhanh->ma_san_pham == $sanpham->id)
+                          <img height="100" src="{{ asset('img/') }}/{{$hinhanh->hinh_anh}}" title="{{$hinhanh->hinh_anh}}">
+                          @php
+                          $hasImages = true;
+                          @endphp
+                      @endif
                   @endforeach
+
+                  @if (!$hasImages)
+                      <p>Không có hình ảnh cho sản phẩm này.</p>
+                  @endif
                 </td>
                 <td class="align-middle text-center">
                   {{$sanpham->so_luong}}
@@ -150,10 +166,10 @@
                   @if ($Loaisanpham->id == $sanpham->ma_loai)
                   {{$Loaisanpham->ten_loai}}
                   @endif
-                  @endforeach
+                  @endforeach 
                 </td>
                 <td class="align-middle text-center">
-                  {{$sanpham->dat_biet}}
+                  {{$sanpham->ten_danh_muc}} 
                 </td>
                 <td class="align-middle text-center">
                   <div class="form-check form-switch">
@@ -163,28 +179,24 @@
                 </td>
                 <td class="align-middle text-center text-nowrap">
                   <!-- Button trigger modal -->
-                  <a class="btn btn-primary trigger-modal" name="btn_edit" href="#" data-toggle="modal"
-                    data-target="#ModalEdit{{$sanpham->id}}"><i class="bx bx-edit"></i></a>
+                  <a class="btn btn-primary trigger-modal" name="btn_edit" href="#" data-bs-toggle="modal"
+                    data-bs-target="#ModalEdit{{$sanpham->id}}"><i class="bx bx-edit"></i></a>
                   <a class="btn btn-danger btn_delete trigger-modal" name="btn_delete"
                     href="xoasanpham/{{$sanpham->id}}"><i class="bx bx-trash"></i></a>
                 </td>
                 <!-- Modal -->
                 @include('AdminRocker/page/SanPham/capnhat')
               </tr>
+              @endif
               @endforeach
-              @else
-              <tr>
-                <td class="align-middle text-center text-nowrap" colspan="11">Không có dữ liệu</td>
-              </tr>
+              
 
               @endif
 
             </tbody>
 
           </table>
-          <!-- <input class="btn btn-primary" type="button" id="btn1.1" value="Chọn tất cả">
-                            <input class="btn btn-primary" type="button" id="btn2.2" value="Bỏ chọn tất cả">
-                            <button class="btn btn-primary" type="submit" name="btn_deletenhieu">Xóa mục đã chọn</button> -->
+          
         </div>
         <div>{{$data_sanpham->links()}}</div>
       </div>
@@ -230,51 +242,6 @@
     });
   }
 </script>
-
-
-
-<!-- chuc nang checkbox lay danh sach -->
-
-<!-- <script>
-  document.getElementById("btn1").onclick = function() {
-    // Lấy danh sách checkbox
-    var checkboxes = document.getElementsByName('cat[]');
-
-    // Lặp và thiết lập checked
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = true;
-    }
-  };
-  document.getElementById("btn1.1").onclick = function() {
-    // Lấy danh sách checkbox
-    var checkboxes = document.getElementsByName('cat[]');
-
-    // Lặp và thiết lập checked
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = true;
-    }
-  };
-
-  // Chức năng bỏ chọn hết
-  document.getElementById("btn2").onclick = function() {
-    // Lấy danh sách checkbox
-    var checkboxes = document.getElementsByName('cat[]');
-
-    // Lặp và thiết lập Uncheck
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = false;
-    }
-  };
-  document.getElementById("btn2.2").onclick = function() {
-    // Lấy danh sách checkbox
-    var checkboxes = document.getElementsByName('cat[]');
-
-    // Lặp và thiết lập Uncheck
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = false;
-    }
-  };
-</script> -->
 
 
 
