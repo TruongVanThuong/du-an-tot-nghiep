@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaikhoanRequest extends FormRequest
+class CapNhatTaikhoanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,9 +18,7 @@ class TaikhoanRequest extends FormRequest
     {
         return [
             'ho_va_ten'             =>  'required|min:6|max:50',
-            'email'                 =>  'required|email|unique:khach_hangs,email',
-            'password'              =>  'required|min:6|max:30',
-            'nhap_lai_password'     =>  'required|same:password',
+            'email'                 =>  'required|email',
             'so_dien_thoai'         =>  'required|digits:10',
             'dia_chi'               =>  'required|min:6|max:50',
             'gioi_tinh'             =>  'required|numeric|min:0|max:1',
@@ -37,12 +35,6 @@ class TaikhoanRequest extends FormRequest
             'ho_va_ten.max'                 => 'Họ và tên không được vượt quá 50 ký tự',
             'email.required'                => 'Email không được để trống',
             'email.email'                   => 'Email không đúng định dạng',
-            'email.unique'                  => 'Email đã tồn tại',
-            'password.required'             => 'Mật khẩu không được để trống',
-            'password.min'                  => 'Mật khẩu phải từ 6 ký tự trở lên',
-            'password.max'                  => 'Mật khẩu không được vượt quá 30 ký tự',
-            'nhap_lai_password.required'    => 'Nhập lại mật khẩu không được để trống',
-            'nhap_lai_password.same'        => 'Mật khẩu nhập lại không khớp',
             'so_dien_thoai.required'        => 'Số điện thoại không được để trống',
             'so_dien_thoai.digits'          => 'Số điện thoại phải có 10 chữ số',
             'dia_chi.required'              => 'Địa chỉ không được để trống',

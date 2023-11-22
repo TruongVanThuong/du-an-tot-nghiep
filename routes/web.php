@@ -59,6 +59,8 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
       Route::get('/', [QLTaiKhoanController::class, 'QuanLyTaiKhoan']);
       Route::get('/du-lieu', [QLTaiKhoanController::class, 'DuLieuTaiKhoan']);
       Route::post('/them-tai-khoan', [QLTaiKhoanController::class, 'ThemTaiKhoan']);
+      Route::post('/xoa-tai-khoan', [QLTaiKhoanController::class, 'XoaTaiKhoan']);
+      Route::post('/cap-nhat-tai-khoan', [QLTaiKhoanController::class, 'CapNhatTaiKhoan']);
 
     });
     
