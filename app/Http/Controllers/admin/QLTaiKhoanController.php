@@ -49,10 +49,8 @@ class QLTaiKhoanController extends Controller
 
     public function CapNhatTaiKhoan(CapNhatTaikhoanRequest $request) {
         $data =  $request->all();
-        // $data = $request->except('_token');
-        KhachHangModel::where('id', $request->id)->update(
-            $data 
-        );  
+        $khach_hang = KhachHangModel::where('id', $request->id)->first();
+        $khach_hang->update($data); 
         return response()->json([
             'status'    =>  true,
             'message'   =>  'Cap nhat thành công'

@@ -368,9 +368,9 @@
             }
           })
       },
-      format_date(value){
-                if (value) {
-                return moment(String(value)).format('DD/MM/YYYY')
+      format_date(taikhoan){
+                if (taikhoan) {
+                return moment(String(taikhoan)).format('DD/MM/YYYY')
                 }
             },
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
 use App\Http\Controllers\admin\QLTaiKhoanController;
 use App\Http\Controllers\admin\SanphamController;
+use App\Http\Controllers\admin\ThongKeController;
 use App\Http\Controllers\khachhang\TrangChuController;
 use App\Http\Controllers\khachhang\KhachHangController;
 use App\Http\Controllers\khachhang\LienHeController;
@@ -23,6 +24,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocker'], function () {
   Route::middleware(['checkAdminAccess'])->group(function () {
+
+    // thong ke
+    Route::get('/thong-ke', [ThongKeController::class, 'index']);
 
     //sanpham
     Route::get('/sanpham', [SanphamController::class, 'sanpham']);
