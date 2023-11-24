@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
 use App\Http\Controllers\admin\QLTaiKhoanController;
 use App\Http\Controllers\admin\SanphamController;
+use App\Http\Controllers\admin\ThongKeController;
 use App\Http\Controllers\khachhang\TrangChuController;
 use App\Http\Controllers\khachhang\KhachHangController;
 use App\Http\Controllers\khachhang\LienHeController;
@@ -23,52 +24,61 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocker.'], function () {
-  //sanpham
-  Route::get('/sanpham', [SanphamController::class, 'sanpham']);
-  Route::post('/sanpham', [SanphamController::class, 'them_sanpham']);
-  Route::get('/xoasanpham/{id}', [SanphamController::class, 'xoa_sanpham']);
-  Route::post('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham_']);
-  Route::get('/toggleStatus', [SanphamController::class, 'toggleStatus']);
+Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocker'], function () {
+  Route::middleware(['checkAdminAccess'])->group(function () {
+
+    // thong ke
+    Route::get('/thong-ke', [ThongKeController::class, 'index']);
+
+    //sanpham
+    Route::get('/sanpham', [SanphamController::class, 'sanpham']);
+    Route::post('/sanpham', [SanphamController::class, 'them_sanpham']);
+    Route::get('/xoasanpham/{id}', [SanphamController::class, 'xoa_sanpham']);
+    Route::post('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham_']);
+    Route::get('/toggleStatus', [SanphamController::class, 'toggleStatus']);
 
 
-  // Hình Ảnh
-  Route::get('/xoahinhanh', [hinhanhController::class, 'xoa_hinhanh']);
+    // Hình Ảnh
+    Route::get('/xoahinhanh', [hinhanhController::class, 'xoa_hinhanh']);
 
-  //danhmuc
-  Route::get('/danhmuc', [DanhmucController::class, 'danhmuc']);
-  Route::post('/danhmuc', [DanhmucController::class, 'them_danhmuc']);
-  Route::get('/xoadanhmuc/{id}', [DanhmucController::class, 'xoa_danhmuc']);
-  Route::post('/capnhatdanhmuc/{id}', [DanhmucController::class, 'cn_danhmuc_']);
+    //danhmuc
+    Route::get('/danhmuc', [DanhmucController::class, 'danhmuc']);
+    Route::post('/danhmuc', [DanhmucController::class, 'them_danhmuc']);
+    Route::get('/xoadanhmuc/{id}', [DanhmucController::class, 'xoa_danhmuc']);
+    Route::post('/capnhatdanhmuc/{id}', [DanhmucController::class, 'cn_danhmuc_']);
 
-  //the loai
-  Route::get('/theloai', [LoaiSanphamController::class, 'theloai']);
-  Route::post('/theloai', [LoaiSanphamController::class, 'them_theloai']);
-  Route::get('/xoatheloai/{id}', [LoaiSanphamController::class, 'xoa_theloai']);
-  Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
-  //bài viết
-  Route::get('/baiviet', [BaivietController::class, 'baiviet']);
-  Route::post('/baiviet', [BaivietController::class, 'taobaiviet']);
-  Route::get('/baiviet/{id}', [BaivietController::class, 'xoa_baiviet']);
-  Route::post('/capnhat_baiviet/{id}', [BaivietController::class, 'capnhat_baiviet']);
-  Route::get('/baiviet/doitrangthai', [BaivietController::class, 'doitrangthai']);
-  Route::post('/baiviet/khoiphuc', [BaivietController::class, 'restore']);
+    //the loai
+    Route::get('/theloai', [LoaiSanphamController::class, 'theloai']);
+    Route::post('/theloai', [LoaiSanphamController::class, 'them_theloai']);
+    Route::get('/xoatheloai/{id}', [LoaiSanphamController::class, 'xoa_theloai']);
+    Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
+    
+    //bài viết
+    Route::get('/baiviet', [BaivietController::class, 'baiviet']);
+    Route::post('/baiviet', [BaivietController::class, 'taobaiviet']);
+    Route::get('/baiviet/{id}', [BaivietController::class, 'xoa_baiviet']);
+    Route::post('/capnhat_baiviet/{id}', [BaivietController::class, 'capnhat_baiviet']);
+    Route::get('/baiviet/doitrangthai', [BaivietController::class, 'doitrangthai']);
+    Route::post('/baiviet/khoiphuc', [BaivietController::class, 'restore']);
 
-  // Lien He
-  Route::group(['prefix' => '/lien-he'], function() {
-    Route::get('/', [LienHeController::class, 'QuanLyLienHe']);
-    Route::get('/du-lieu', [LienHeController::class, 'LayDuLieu']);
-    Route::post('/xoa-lien-he', [LienHeController::class, 'XoaLienHe']);
+    // Lien He
+    Route::group(['prefix' => '/lien-he'], function() {
+      Route::get('/', [LienHeController::class, 'QuanLyLienHe']);
+      Route::get('/du-lieu', [LienHeController::class, 'LayDuLieu']);
+      Route::post('/xoa-lien-he', [LienHeController::class, 'XoaLienHe']);
+    });
+
+    // Quan Ly Tai Khoan
+    Route::group(['prefix' => '/quan-ly-tai-khoan'], function() {
+      Route::get('/', [QLTaiKhoanController::class, 'QuanLyTaiKhoan']);
+      Route::get('/du-lieu', [QLTaiKhoanController::class, 'DuLieuTaiKhoan']);
+      Route::post('/them-tai-khoan', [QLTaiKhoanController::class, 'ThemTaiKhoan']);
+      Route::post('/xoa-tai-khoan', [QLTaiKhoanController::class, 'XoaTaiKhoan']);
+      Route::post('/cap-nhat-tai-khoan', [QLTaiKhoanController::class, 'CapNhatTaiKhoan']);
+
+    });
+    
   });
-
-  // Quan Ly Tai Khoan
-  Route::group(['prefix' => '/quan-ly-tai-khoan'], function() {
-    Route::get('/', [QLTaiKhoanController::class, 'QuanLyTaiKhoan']);
-    Route::get('/du-lieu', [QLTaiKhoanController::class, 'DuLieuTaiKhoan']);
-    Route::post('/them-tai-khoan', [QLTaiKhoanController::class, 'ThemTaiKhoan']);
-
-  });
-
 });
 
 // Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

@@ -65,5 +65,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'KhachHangDangNhap' => \App\Http\Middleware\KhachHangDangNhap::class,
+        // 'checkAdminAccess' => \App\Http\Middleware\CheckAdminAccess::class,
+    ];
+    protected $routeMiddleware = [
+        // ...
+        'checkAdminAccess' => \App\Http\Middleware\CheckAdminAccess::class,
     ];
 }
