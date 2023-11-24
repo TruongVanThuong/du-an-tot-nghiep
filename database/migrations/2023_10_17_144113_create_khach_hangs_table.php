@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('so_dien_thoai');
             $table->string('dia_chi');
             $table->string('ma_bam_email')->nullable();
-            $table->date('ngay_sinh');
+            $table->string('ngay_sinh');
             $table->integer('gioi_tinh');
-            $table->integer('loai_tai_khoan')->default(0);
+            $table->unsignedBigInteger('loai_tai_khoan')->default(0);
             $table->string('ma_bam_quen_mat_khau')->nullable(); // Cho phép giá trị null
+            $table->softDeletes();
             $table->timestamps();
         });
     }
