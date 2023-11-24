@@ -25,10 +25,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocker'], function () {
-  Route::middleware(['checkAdminAccess'])->group(function () {
+  Route::middleware(['NhanVienMiddleware'])->group(function () {
 
-    // thong ke
-    Route::get('/thong-ke', [ThongKeController::class, 'index']);
+    Route::middleware(['CheckAdminAccess'])->group(function () {
+      // thong ke
+      Route::get('/thong-ke', [ThongKeController::class, 'index']);
+
+      // Lien He
+      Route::group(['prefix' => '/lien-he'], function () {
+        Route::get('/', [LienHeController::class, 'QuanLyLienHe']);
+        Route::get('/du-lieu', [LienHeController::class, 'LayDuLieu']);
+        Route::post('/xoa-lien-he', [LienHeController::class, 'XoaLienHe']);
+      });
+
+      // Quan Ly Tai Khoan
+      Route::group(['prefix' => '/quan-ly-tai-khoan'], function () {
+        Route::get('/', [QLTaiKhoanController::class, 'QuanLyTaiKhoan']);
+        Route::get('/du-lieu', [QLTaiKhoanController::class, 'DuLieuTaiKhoan']);
+        Route::post('/them-tai-khoan', [QLTaiKhoanController::class, 'ThemTaiKhoan']);
+        Route::post('/xoa-tai-khoan', [QLTaiKhoanController::class, 'XoaTaiKhoan']);
+        Route::post('/cap-nhat-tai-khoan', [QLTaiKhoanController::class, 'CapNhatTaiKhoan']);
+
+      });
+
+    });
 
     //sanpham
     Route::get('/sanpham', [SanphamController::class, 'sanpham']);
@@ -52,7 +72,7 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::post('/theloai', [LoaiSanphamController::class, 'them_theloai']);
     Route::get('/xoatheloai/{id}', [LoaiSanphamController::class, 'xoa_theloai']);
     Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
-    
+
     //bài viết
     Route::get('/baiviet', [BaivietController::class, 'baiviet']);
     Route::post('/baiviet', [BaivietController::class, 'taobaiviet']);
@@ -61,23 +81,7 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::get('/baiviet/doitrangthai', [BaivietController::class, 'doitrangthai']);
     Route::post('/baiviet/khoiphuc', [BaivietController::class, 'restore']);
 
-    // Lien He
-    Route::group(['prefix' => '/lien-he'], function() {
-      Route::get('/', [LienHeController::class, 'QuanLyLienHe']);
-      Route::get('/du-lieu', [LienHeController::class, 'LayDuLieu']);
-      Route::post('/xoa-lien-he', [LienHeController::class, 'XoaLienHe']);
-    });
 
-    // Quan Ly Tai Khoan
-    Route::group(['prefix' => '/quan-ly-tai-khoan'], function() {
-      Route::get('/', [QLTaiKhoanController::class, 'QuanLyTaiKhoan']);
-      Route::get('/du-lieu', [QLTaiKhoanController::class, 'DuLieuTaiKhoan']);
-      Route::post('/them-tai-khoan', [QLTaiKhoanController::class, 'ThemTaiKhoan']);
-      Route::post('/xoa-tai-khoan', [QLTaiKhoanController::class, 'XoaTaiKhoan']);
-      Route::post('/cap-nhat-tai-khoan', [QLTaiKhoanController::class, 'CapNhatTaiKhoan']);
-
-    });
-    
   });
 });
 
@@ -90,11 +94,11 @@ Route::get('/', [TrangChuController::class, 'TrangChu']);
 Route::get('/dang-nhap', [KhachHangController::class, 'DangNhap']);
 Route::post('/kich-hoat-dang-nhap', [KhachHangController::class, 'KichHoatDangNhap']);
 // ĐĂNG KÝ
-Route::get('/dang-ky',   [KhachHangController::class, 'DangKy']);
+Route::get('/dang-ky', [KhachHangController::class, 'DangKy']);
 Route::post('/kich-hoat-dang-ky', [KhachHangController::class, 'KichHoatDangKy']);
 Route::get('/kich-hoat-mail-tai-khoang/{ma_bam}', [KhachHangController::class, 'KichHoatMailTaiKhoang']);
 // QUÊN MẠT KHẨU
-Route::get('/quen-mat-khau',   [KhachHangController::class, 'QuenMatKhau']);
+Route::get('/quen-mat-khau', [KhachHangController::class, 'QuenMatKhau']);
 Route::post('/kich-hoat-quen-mat-khau', [KhachHangController::class, 'KichHoatQuenMatKhau']);
 Route::get('/kich-hoat-mail-doi-mat-khau/{ma_bam_quen_mat_khau}', [KhachHangController::class, 'KichHoatMailDoiMatKhau']);
 Route::post('/doi-mat-khau', [KhachHangController::class, 'KichHoatDoiMatKhau']);
