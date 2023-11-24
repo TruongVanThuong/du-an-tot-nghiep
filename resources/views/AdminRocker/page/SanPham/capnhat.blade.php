@@ -112,7 +112,7 @@
                         
                         <div class="form-group mt-3">
                             <label>Mô Tả</label>
-                            <textarea name="mo_ta" id="update_mo_ta" class="form-control" cols="30" rows="10" required>{{$sanpham->mo_ta}}</textarea>
+                            <textarea name="mo_ta" id="update_mo_ta" class="form-control ckeditor" cols="30" rows="10" required>{{$sanpham->mo_ta}}</textarea>
                             <span class="text-danger">
                               @error('mo_ta')
                                   {{$message}}
@@ -123,7 +123,7 @@
 
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                        <button type="submit" class="btn btn-submit btn-primary">Cap Nhat Sản Phẩm</button>
+                        <button type="submit" class="btn btn-submit btn-primary">Cập nhập Sản Phẩm</button>
                       </div>
           </div>
         </form>

@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('ten_danh_muc');
             $table->string('ten_danh_muc_slug');
             $table->boolean('is_delete')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

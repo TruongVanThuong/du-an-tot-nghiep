@@ -18,21 +18,34 @@ class SanphamController extends Controller
 {
 	public function sanpham()
 	{
-		$data_Loaisanpham = LoaisanphamModel::all();
+		$data_Loaisanpham = LoaisanphamModel::where('is_delete', 0)->get();
 		$data_sanpham = SanphamModel::orderBy('id', 'desc')->paginate(10);
 		$data_hinhanh = HinhanhModel::all();
 		$SanphamModel = SanphamModel::with('HinhanhModel')->get();
-		$data_danhmuc = DanhmucModel::all();
-
-		foreach ($data_sanpham as $sanpham) {
-			$sanpham->mo_ta = substr($sanpham->mo_ta, 0, 30);
-		}
+		$data_danhmuc = DanhmucModel::where('is_delete', 0)->get();
 
 		$HinhAnh = [];
-
 		foreach ($data_sanpham as $sanpham) {
+			$sanpham->mo_ta = Str::limit($sanpham->mo_ta, $limit = 30, $end = '...');
+			// $sanpham->LoaisanphamModel->DanhmucModel->ten_danh_muc; // used eloquent HasMany & BelongTo
+			
 			$hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
 			$HinhAnh[] = $hinhAnh;
+			
+			// Kiểm tra điều kiện is_delete trong $data_danhmuc
+			$ten_danh_muc = '';
+			foreach ($data_danhmuc as $danhmuc) {
+				if ($danhmuc->id == $sanpham->LoaisanphamModel->DanhmucModel->id && $danhmuc->is_delete == 0) {
+					$ten_danh_muc = $danhmuc->ten_danh_muc;
+					break; // Kết thúc vòng lặp khi tìm thấy danh mục không bị xóa
+				}
+			}
+			$sanpham->ten_danh_muc = $ten_danh_muc;
+		} 
+
+
+		foreach ($data_sanpham as $sanpham) {
+			
 		}
 
 		if ($data_sanpham->isEmpty()) {
@@ -115,7 +128,7 @@ class SanphamController extends Controller
 			[
 					'is_delete' => 1,
 			]
-	);
+		);
 		toastr()->success('Sản phẩm đã được xoá thành công.');
 		return redirect('admin/sanpham');
 	}

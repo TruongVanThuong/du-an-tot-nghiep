@@ -59,6 +59,13 @@
                 </a>
             </li>
             @endif
+            <li class="nav-item">
+                <a class="nav-link" href="{{asset('admin/baiviet')}}">
+                    <div class="parent-icon"><i class="bx bx-cookie"></i>
+                    </div>
+                    <div class="menu-title">Bài viết</div>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

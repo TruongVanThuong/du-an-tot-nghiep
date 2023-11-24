@@ -68,6 +68,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($data_theloai as $theloai)
+                                @if ($theloai->is_delete == 0)
                                 <tr>
                                     <th class="align-middle text-center">{{$theloai->id}}</th>
                                     <td class="align-middle text-center">{{$theloai->ten_loai}}</td>
@@ -86,6 +87,7 @@
                                     <!-- Modal -->
                                     @include('AdminRocker/page/LoaiSanPham/capnhat')
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                             

@@ -110,7 +110,7 @@
                 <th class="text-center">Số Lượng</th>
                 <th class="text-center">Mô Tả</th>
                 <th class="text-center">Tên Loại</th>
-                <th class="text-center">Danh Muc</th>
+                <th class="text-center">Danh Mục</th>
                 <th class="text-center">Trạng Thái</th>
                 <th class="text-center">Action</th>
               </tr>
@@ -122,7 +122,7 @@
               </tr>
               @else
               @foreach($data_sanpham as $sanpham)
-
+              @if ($sanpham->is_delete == 0)
               <tr>
                 <td class="align-middle text-center">
                   {{$sanpham->id}}
@@ -159,7 +159,7 @@
                   {{$sanpham->so_luong}}
                 </td>
                 <td class="align-middle text-center">
-                  {!!$sanpham->mo_ta .= '...'!!}
+                  {!!$sanpham->mo_ta!!}
                 </td>
                 <td class="align-middle text-center">
                   @foreach ($data_Loaisanpham as $Loaisanpham)
@@ -169,15 +169,7 @@
                   @endforeach 
                 </td>
                 <td class="align-middle text-center">
-                  @foreach ($data_Loaisanpham as $Loaisanpham)
-                  @if ($Loaisanpham->id == $sanpham->ma_loai)
-                  @foreach ($data_danhmuc as $danhmuc)
-                  @if ($Loaisanpham->ma_danh_muc == $danhmuc->id)
-                  {{$danhmuc->ten_danh_muc}}
-                  @endif
-                  @endforeach 
-                  @endif
-                  @endforeach 
+                  {{$sanpham->ten_danh_muc}} 
                 </td>
                 <td class="align-middle text-center">
                   <div class="form-check form-switch">
@@ -195,6 +187,7 @@
                 <!-- Modal -->
                 @include('AdminRocker/page/SanPham/capnhat')
               </tr>
+              @endif
               @endforeach
               
 

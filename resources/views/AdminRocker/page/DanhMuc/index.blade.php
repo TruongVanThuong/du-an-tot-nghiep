@@ -57,6 +57,7 @@
                             </thead>
                             <tbody>
                               @foreach ($data_danhmuc as $danhmuc)
+                              @if ($danhmuc->is_delete == 0)
                                 <tr>
                                   <th class="align-middle text-center">{{$danhmuc->id}}</th>
                                   <td class="align-middle text-center">{{$danhmuc->ten_danh_muc}}</td>
@@ -68,6 +69,7 @@
                                   <!-- Modal -->
                                   @include('AdminRocker/page/DanhMuc/capnhat')
                                 </tr>
+                              @endif
                               @endforeach
                             </tbody>
                             

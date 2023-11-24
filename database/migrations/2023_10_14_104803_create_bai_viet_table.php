@@ -12,10 +12,16 @@ return new class extends Migration {
     {
         Schema::create('bai_viet', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('ma_khach_hang');
+            $table->string('ten_bai_viet');
+            $table->string('ten_bai_viet_slug')->nullable();
+            $table->unsignedBigInteger('loai_tin');
+            $table->string('mo_ta_ngan');
+            $table->unsignedBigInteger('ma_khach_hang');
             $table->text('noi_dung');
             $table->string('hinh_anh');
-            $table->string('rating');
+            $table->integer('rating')->default(0);
+            $table->integer('hien_thi')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

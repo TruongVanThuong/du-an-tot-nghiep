@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\BaivietController;
 use App\Http\Controllers\admin\DanhmucController;
 use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\admin\ThongKeController;
 use App\Http\Controllers\khachhang\TrangChuController;
 use App\Http\Controllers\khachhang\KhachHangController;
 use App\Http\Controllers\khachhang\LienHeController;
+use App\Http\Controllers\khachhang\TinTucController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +52,14 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::post('/theloai', [LoaiSanphamController::class, 'them_theloai']);
     Route::get('/xoatheloai/{id}', [LoaiSanphamController::class, 'xoa_theloai']);
     Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
+    
+    //bài viết
+    Route::get('/baiviet', [BaivietController::class, 'baiviet']);
+    Route::post('/baiviet', [BaivietController::class, 'taobaiviet']);
+    Route::get('/baiviet/{id}', [BaivietController::class, 'xoa_baiviet']);
+    Route::post('/capnhat_baiviet/{id}', [BaivietController::class, 'capnhat_baiviet']);
+    Route::get('/baiviet/doitrangthai', [BaivietController::class, 'doitrangthai']);
+    Route::post('/baiviet/khoiphuc', [BaivietController::class, 'restore']);
 
     // Lien He
     Route::group(['prefix' => '/lien-he'], function() {
@@ -120,6 +130,11 @@ Route::get('/san-pham-tre-em', [TrangChuController::class, 'SanPhamTreEm']);
 Route::get('/gio-hang', [TrangChuController::class, 'GioHang']);
 Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
 Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
-Route::get('/tin-tuc', [TrangChuController::class, 'TinTuc']);
-Route::get('/tin-tuc-chi-tiet', [TrangChuController::class, 'TinTucChiTiet']);
+Route::get('/tin-tuc', [TinTucController::class, 'TinTuc']);
+Route::get('/tin-tuc/{id}', [TinTucController::class, 'TinTuc_theoloai']);
+Route::get('/tin-tuc-chi-tiet/{id}', [TinTucController::class, 'TinTucChiTiet']);
 Route::get('/gioi-thieu', [TrangChuController::class, 'GioiThieu']);
+
+
+Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemGet']);
+Route::post('/tim-kiem', [TrangChuController::class, 'TimKiemPost']);

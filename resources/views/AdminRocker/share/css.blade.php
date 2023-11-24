@@ -17,6 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 <link href="/assets_admin_rocker/css/app.css" rel="stylesheet">
 <link href="/assets_admin_rocker/css/icons.css" rel="stylesheet">
+
 <!-- Theme Style CSS -->
 <link rel="stylesheet" href="/assets_admin_rocker/css/dark-theme.css" />
 <link rel="stylesheet" href="/assets_admin_rocker/css/semi-dark.css" />
@@ -33,3 +34,15 @@
     display: none;
   }
 </style>
+<!-- theme css -->
+<link rel="stylesheet" href="/assets_admin_rocker/css/tailwind.css" />
+<link rel="stylesheet" href="/assets_admin_rocker/css/tailwind.output.css" />
+<!-- Style CSS -->
+<link rel="stylesheet" href="/css/style.css" />
+
+
+
+<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+
+
+
