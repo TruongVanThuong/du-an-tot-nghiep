@@ -114,3 +114,7 @@ Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
 Route::get('/tin-tuc', [TrangChuController::class, 'TinTuc']);
 Route::get('/tin-tuc-chi-tiet', [TrangChuController::class, 'TinTucChiTiet']);
 Route::get('/gioi-thieu', [TrangChuController::class, 'GioiThieu']);
+
+
+Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemGet']);
+Route::post('/tim-kiem', [TrangChuController::class, 'TimKiemPost']);
