@@ -43,11 +43,6 @@ class SanphamController extends Controller
 			$sanpham->ten_danh_muc = $ten_danh_muc;
 		} 
 
-
-		foreach ($data_sanpham as $sanpham) {
-			
-		}
-
 		if ($data_sanpham->isEmpty()) {
 			return view(
 				'AdminRocker.page.SanPham.index',
