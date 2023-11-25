@@ -13,7 +13,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class BaivietController extends Controller
 {
-    public function baiviet(Request $request)
+    public function baiviet()
     {
         $data_baiviet = BaivietModel::orderBy('created_at','desc')->paginate(5);
 
@@ -24,7 +24,7 @@ class BaivietController extends Controller
         }
 
         return view('AdminRocker.page.BaiViet.index', compact('data_baiviet'));
-        //    var_dump($data_baiviet);
+        
     }
     public function taobaiviet(Request $request)
     {
@@ -44,7 +44,7 @@ class BaivietController extends Controller
         BaivietModel::create($data_form);
         toastr()->success('Tạo bài viết Thành Công');
         return redirect('admin/baiviet');
-        // var_dump($data_form);
+        
         
     }
     public function xoa_baiviet($id)
@@ -62,7 +62,7 @@ class BaivietController extends Controller
     {
         $capnhat = BaivietModel::find($id);
         
-        // var_dump($capnhat);
+        
         $data_capnhat= $request->all();
         $data_capnhat['ten_bai_viet_slug'] = Str::slug($data_capnhat['ten_bai_viet']);
 
@@ -86,20 +86,30 @@ class BaivietController extends Controller
         return redirect('admin/baiviet');
 		
     }
-    public function doitrangthai()
+    public function doitrangthai($id)
 	{
-		$id = $_GET['idsta'];
-		$baiviet = BaivietModel::find($id);
-		$hienthi = $baiviet->hien_thi;
-		if ($hienthi == 1) {
-			$hienthi = 0;
-		} else {
-			$hienthi = 1;
-		}
+		
+		$baiviet = BaivietModel::where('id',$id)->first();
+        if($baiviet){
+            if($baiviet->hien_thi==1){
+                $baiviet->hien_thi==0;
+            }else{
+                $baiviet->hien_thi==1;
+            };
+        };
+        toastr()->success('cập nhật bài viết Thành Công');
+        
+        return redirect('admin/baiviet');
+		// $hienthi = $baiviet->hien_thi;
+		// if ($hienthi == 1) {
+		// 	$hienthi = 0;
+		// } else {
+		// 	$hienthi = 1;
+		// }
 
-		$$baiviet->hien_thi = $hienthi;
-		$baiviet->save();
-		echo $hienthi;
+		// $$baiviet->hien_thi = $hienthi;
+		// $baiviet->save();
+		
 	}
     public function restore()
 	{

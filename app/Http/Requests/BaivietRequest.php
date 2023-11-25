@@ -22,13 +22,10 @@ class BaivietRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ten_bai_viet' => 'required|string|max:255',
+            'ten_bai_viet' => 'required|string|max:500',
             'mo_ta_ngan' => 'required|string|max:500',
-            'ma_khach_hang' => 'required',
             'hinh_anh' => 'required',
             'noi_dung' => 'required',
-            'rating' => 'required',
-            'hien_thi' => 'required',
 
         ];
     }
@@ -36,7 +33,10 @@ class BaivietRequest extends FormRequest
     {
         return[
             'ten_bai_viet.required'    => 'Tiêu đề không được bỏ trống',
-            'mo_ta_ngan.email'       => 'Mô tả ngắn không đúng định dạng',
+            'ten_bai_viet.max'    => 'Tiêu đề không được quá 500 kí tự',
+            'mo_ta_ngan.required'    => 'Mô tả ngắn không được bỏ trống',
+            'mo_ta_ngan.max'       => 'Mô tả ngắn không quá 500 kí tự',
+            'hinh_anh.required'    => 'Hình ảnh không được bỏ trống',
             'noi_dung.required' => 'Nội dung không được bỏ trống',
             
         ];

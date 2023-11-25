@@ -16,6 +16,7 @@ class BinhluanModel extends Model
         "ma_san_pham",
         "ma_khach_hang",
         "rating",
+        "hien_thi",
         "created_at",
         "updated_at",
     ];
