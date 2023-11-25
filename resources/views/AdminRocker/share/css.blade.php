@@ -17,6 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 <link href="/assets_admin_rocker/css/app.css" rel="stylesheet">
 <link href="/assets_admin_rocker/css/icons.css" rel="stylesheet">
+
 <!-- Theme Style CSS -->
 <link rel="stylesheet" href="/assets_admin_rocker/css/dark-theme.css" />
 <link rel="stylesheet" href="/assets_admin_rocker/css/semi-dark.css" />
@@ -27,3 +28,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
+
+<style>
+  [v-cloak] {
+    display: none;
+  }
+</style>
+<!-- theme css -->
+<link rel="stylesheet" href="/assets_admin_rocker/css/tailwind.css" />
+<link rel="stylesheet" href="/assets_admin_rocker/css/tailwind.output.css" />
+<!-- Style CSS -->
+<link rel="stylesheet" href="/css/style.css" />
+
+
+
+
+
+

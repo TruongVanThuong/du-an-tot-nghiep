@@ -32,7 +32,7 @@
                                     <button class="btn btn-warning">Chờ xử lý</button>
                                 </td>
                                 <td class="text-center">
-                                    <button  v-on:click="xoa_lien_he = value" class="btn btn-danger" data-bs-toggle="modal"
+                                    <button  v-on:click="xoa_lien_he = value.id" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal">Xóa</button>
                                 </td>
                             </tr>

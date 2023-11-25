@@ -13,7 +13,8 @@ return new class extends Migration {
         Schema::create('hinh_anh', function (Blueprint $table) {
             $table->id();
             $table->string('hinh_anh');
-            $table->bigInteger('ma_san_pham');
+            $table->unsignedBigInteger('ma_san_pham');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

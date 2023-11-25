@@ -110,7 +110,7 @@
                 <th class="text-center">Số Lượng</th>
                 <th class="text-center">Mô Tả</th>
                 <th class="text-center">Tên Loại</th>
-                <th class="text-center">Danh Muc</th>
+                <th class="text-center">Danh Mục</th>
                 <th class="text-center">Trạng Thái</th>
                 <th class="text-center">Action</th>
               </tr>
@@ -206,7 +206,6 @@
 @endsection
 @section('js')
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- toggle status -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -219,9 +218,9 @@
       data: { idsta: id },
       success: function ($trangthai) {
         if ($trangthai == 1) {
-          swal("Da bat trang thai!", "", "success");
+          swal("Đã bật trạng thái sản phẩm!", "", "success");
         } else {
-          swal("Da tat trang thai!", "", "success");
+          swal("Đã tắt trạng thái sản phẩm!", "", "success");
         }
       }
     });

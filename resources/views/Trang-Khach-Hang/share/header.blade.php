@@ -92,9 +92,10 @@
 				</div>
 				<div class="col-lg-6 d-lg-block d-none">
 					<div class="header-search">
-						<form action="#" method="get" role="search" class="search-form d-flex justify-content-center">
+						<form action="/tim-kiem" method="post" role="search" class="search-form d-flex justify-content-center">
+							@csrf
 							<div class="field field-search">
-								<input class="field-input input-reset" type="search" name="q" value="" placeholder="Search here"
+								<input class="field-input input-reset" type="text" name="search" value="" placeholder="Tìm kiếm sản phẩm"
 									autocomplete="off">
 								<button class="search-button btn-reset" type="submit">
 									<svg class="icon icon-search" width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -315,11 +316,10 @@
 								<div class="submenu-transform submenu-transform-desktop">
 									<ul class="submenu list-unstyled">
 										<li class="menu-list-item nav-item-sub">
-											<a class="nav-link-sub nav-text-sub" href="blog.html">Blog</a>
+											<a class="nav-link-sub nav-text-sub" href="/tin-tuc/1">Tin khuyến mãi</a>
 										</li>
 										<li class="menu-list-item nav-item-sub">
-											<a class="nav-link-sub nav-text-sub" href="article.html">Blog
-												Details</a>
+											<a class="nav-link-sub nav-text-sub" href="/tin-tuc/2">Tin tức mới</a>
 										</li>
 									</ul>
 								</div>

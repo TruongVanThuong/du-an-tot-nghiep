@@ -197,10 +197,8 @@ class KhachHangController extends Controller
     // logout
     public function DangXuat()
     {
-        Auth::guard('khach_hang')->logout();
+        Auth::guard('khach_hang')->logout();  //nếu đăng nhập mới đăng xuất đc
         toastr()->success('Đăng Xuất Thành Công');
         return redirect('/');
     }
-
-
 }
