@@ -123,7 +123,7 @@
 
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                        <button type="submit" class="btn btn-submit btn-primary">Cap Nhat Sản Phẩm</button>
+                        <button type="submit" class="btn btn-submit btn-primary">Cập nhập Sản Phẩm</button>
                       </div>
           </div>
         </form>
