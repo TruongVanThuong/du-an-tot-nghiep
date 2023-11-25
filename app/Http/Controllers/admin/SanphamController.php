@@ -26,8 +26,6 @@ class SanphamController extends Controller
 
 		$HinhAnh = [];
 		foreach ($data_sanpham as $sanpham) {
-			$sanpham->mo_ta = Str::limit($sanpham->mo_ta, $limit = 30, $end = '...');
-			// $sanpham->LoaisanphamModel->DanhmucModel->ten_danh_muc; // used eloquent HasMany & BelongTo
 			
 			$hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
 			$HinhAnh[] = $hinhAnh;

@@ -159,7 +159,7 @@
                   {{$sanpham->so_luong}}
                 </td>
                 <td class="align-middle text-center">
-                  {!!$sanpham->mo_ta!!}
+                  {!!Str::limit($sanpham->mo_ta, $limit = 30, $end = '...')!!}
                 </td>
                 <td class="align-middle text-center">
                   @foreach ($data_Loaisanpham as $Loaisanpham)
