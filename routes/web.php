@@ -10,6 +10,7 @@ use App\Http\Controllers\khachhang\TrangChuController;
 use App\Http\Controllers\khachhang\KhachHangController;
 use App\Http\Controllers\khachhang\LienHeController;
 use App\Http\Controllers\khachhang\TinTucController;
+use App\Http\Controllers\khachhang\BinhluanTintucController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -124,3 +125,16 @@ Route::get('/tin-tuc', [TinTucController::class, 'TinTuc']);
 Route::get('/tin-tuc/{id}', [TinTucController::class, 'TinTuc_theoloai']);
 Route::get('/tin-tuc-chi-tiet/{id}', [TinTucController::class, 'TinTucChiTiet']);
 Route::get('/gioi-thieu', [TrangChuController::class, 'GioiThieu']);
+Route::get('/binh-luan-tin-tuc', [BinhluanTintucController::class, 'binhluan_baiviet']);
+
+// tét
+// Route::group(['prefix' => '/admin'], function () {
+//   Route::group(['prefix' => '/san-pham'], function () {
+//       Route::get('/index', [SanphamController::class, 'index']);
+//       Route::post('/index', [SanphamController::class, 'store']);
+//       Route::get('/data', [SanphamController::class, 'getData']);
+//       Route::post('/update', [SanphamController::class, 'update']);
+//       Route::post('/delete', [SanphamController::class, 'destroy']);
+//       Route::get('/change-status/{id}', [SanphamController::class, 'changeStatus']);
+//   });
+// });
