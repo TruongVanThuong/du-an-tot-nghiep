@@ -12,9 +12,10 @@ return new class extends Migration {
     {
         Schema::create('gio_hang', function (Blueprint $table) {
             $table->id();
-            $table->integer('so_luong');
             $table->bigInteger('ma_san_pham');
             $table->bigInteger('ma_khach_hang');
+            $table->integer('tong_tien');
+            $table->integer('tong_so_luong');
             $table->timestamps();
         });
     }

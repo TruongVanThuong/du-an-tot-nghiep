@@ -1,6 +1,6 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
-    <main id="app" class="content-for-layout" v-cloak>
+    <main  class="content-for-layout" v-cloak>
         <div class="login-page mt-100" style="margin-bottom: 100px;">
             <div class="container">
                 <div class="login-form common-form mx-auto">

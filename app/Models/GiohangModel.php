@@ -14,8 +14,7 @@ class GiohangModel extends Model
     protected $fillable = [
         "ma_san_pham",
         "ma_khach_hang",
-        "so_luong",
-        "created_at",
-        "updated_at",
+        "tong_tien",
+        "tong_so_luong",
     ];
 }

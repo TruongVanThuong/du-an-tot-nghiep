@@ -15,6 +15,6 @@ class headerComposer
         $theLoai = LoaisanphamModel::all();
         $view->with('danhMuc', $danhMuc);
         $view->with('theLoai', $theLoai);
-        // return $view->with('Trang-Khach-Hang.share.header', compact('danhMuc','theLoai'));
+        return $view->with('Trang-Khach-Hang.share.header', compact('danhMuc','theLoai'));
     }
 }

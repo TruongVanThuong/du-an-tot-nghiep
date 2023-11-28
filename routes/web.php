@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
 use App\Http\Controllers\admin\QLTaiKhoanController;
 use App\Http\Controllers\admin\SanphamController;
+use App\Http\Controllers\khachhang\GioHangController;
 use App\Http\Controllers\khachhang\TrangChuController;
 use App\Http\Controllers\khachhang\KhachHangController;
 use App\Http\Controllers\khachhang\LienHeController;
@@ -57,7 +58,6 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::get('/', [QLTaiKhoanController::class, 'QuanLyTaiKhoan']);
     Route::get('/du-lieu', [QLTaiKhoanController::class, 'DuLieuTaiKhoan']);
     Route::post('/them-tai-khoan', [QLTaiKhoanController::class, 'ThemTaiKhoan']);
-
   });
 
 });
@@ -91,6 +91,14 @@ Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], f
   Route::get('/cap-nhap-mat-khau', [KhachHangController::class, 'CapNhapMatKhau']);
   Route::post('/kich-hoat-cap-nhap-mat-khau', [KhachHangController::class, 'KichHoatCapNhapMatKhau']);
 
+
+  // giỏ hàng 
+  Route::get('/hien-thi-ds-gio-hang', [GioHangController::class, 'HienThiDsGioHang']);
+  Route::post('/them-so-luong/{id}', [GioHangController::class, 'ThemSoLuong']);
+  Route::post('/tru-so-luong/{id}', [GioHangController::class, 'TruSoLuong']);
+  Route::post('/xoa-san-pham-gio-hang/{id}', [GioHangController::class, 'XoaSanPhamGioHang']);
+
+
 });
 //Liên hệ
 Route::get('/lien-he', [LienHeController::class, 'LienHe']);
@@ -100,17 +108,18 @@ Route::post('/gui-lien-he', [LienHeController::class, 'GuiLienHe']);
 //
 
 Route::get('/san-pham', [TrangChuController::class, 'SanPhamTatCa']);
-
-Route::get('/san-pham/{ten_danh_muc}', [TrangChuController::class, 'SanPhamDanhMuc']);
-Route::get('/san-pham/{ten_danh_muc}/{ten_the_loai}', [TrangChuController::class, 'SanPhamTheLoai']);
-Route::get('/san-pham/{ten_danh_muc}/{ten_the_loai}/{ten_san_pham}', [TrangChuController::class, 'SanPhamChiTiet']);
+Route::get('/san-pham/{ten_danh_muc_slug}', [TrangChuController::class, 'SanPhamDanhMuc']);
+Route::get('/san-pham/{ten_danh_muc_slug}/{ten_loai_slug}', [TrangChuController::class, 'SanPhamTheLoai']);
+Route::get('/san-pham/{ten_danh_muc_slug}/{ten_loai_slug}/{ten_san_pham_slug}', [TrangChuController::class, 'SanPhamChiTiet']);
 
 Route::get('/san-pham-nam', [TrangChuController::class, 'SanPhamNam']);
 Route::get('/san-pham-nu', [TrangChuController::class, 'SanPhamNu']);
 Route::get('/san-pham-tre-em', [TrangChuController::class, 'SanPhamTreEm']);
 Route::get('/gio-hang', [TrangChuController::class, 'GioHang']);
 Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
-Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
 Route::get('/tin-tuc', [TrangChuController::class, 'TinTuc']);
 Route::get('/tin-tuc-chi-tiet', [TrangChuController::class, 'TinTucChiTiet']);
 Route::get('/gioi-thieu', [TrangChuController::class, 'GioiThieu']);
+
+
+

@@ -387,5 +387,18 @@
 
 @endsection
 @section('js')
-    
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                @include('Trang-Khach-Hang.share.datavue')
+            },
+            created() {
+                this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
+            },
+            methods: {
+                @include('Trang-Khach-Hang.share.vue')
+            },
+        });
+    </script>
 @endsection
