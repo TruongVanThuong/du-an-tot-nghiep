@@ -18,77 +18,69 @@ class TrangChuController extends Controller
     {
         return view('Trang-Khach-Hang.page.TrangChu');
     }
-    
+
     public function SanPhamTatCa()
     {
-        $data_san_pham = SanphamModel::all();
-        $data_danh_muc = DanhmucModel::all();
-        $data_the_loai = LoaisanphamModel::all();
+        $san_pham_tat_ca = DanhmucModel::join('loai_san_pham', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
+            ->join('san_pham', 'loai_san_pham.id', '=', 'san_pham.ma_loai')
+            ->join('hinh_anh', function ($join) {
+                $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
+                    ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
+            })
+            ->select('san_pham.*', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
+            ->get();
 
-        $HinhAnh = [];
-        foreach ($data_san_pham as $sanpham) {
-            $hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
-            $HinhAnh[] = $hinhAnh;
-        }
-        return view('Trang-Khach-Hang.page.SanPhamTatCa', compact('data_danh_muc','data_the_loai','data_san_pham', 'HinhAnh'));
+        return view('Trang-Khach-Hang.page.SanPhamTatCa', compact('san_pham_tat_ca'));
     }
-    public function SanPhamDanhMuc($ten_danh_muc)
+
+    public function SanPhamDanhMuc($ten_danh_muc_slug)
     {
-        $data_san_pham = SanphamModel::all();
-        $data_danh_muc = DanhmucModel::where('ten_danh_muc_slug', $ten_danh_muc)->first();
-        $data_the_loai = LoaisanphamModel::where('ma_danh_muc', $data_danh_muc->id)->get();
+        $san_pham_danh_muc = DanhmucModel::where('ten_danh_muc_slug', $ten_danh_muc_slug)
+            ->join('loai_san_pham', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
+            ->join('san_pham', 'loai_san_pham.id', '=', 'san_pham.ma_loai')
+            ->join('hinh_anh', function ($join) {
+                $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
+                    ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
+            })
+            ->select('san_pham.*', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
+            ->get();
 
-        $HinhAnh = [];
-        foreach ($data_san_pham as $sanpham) {
-            $hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
-            $HinhAnh[] = $hinhAnh;
-        }
-
-        return view('Trang-Khach-Hang.page.SanPhamDanhMuc', compact('data_danh_muc','data_the_loai', 'data_san_pham', 'HinhAnh'));
+        return view("Trang-Khach-Hang.page.SanPhamDanhMuc", compact('san_pham_danh_muc'));
     }
-    public function SanPhamTheLoai($ten_danh_muc,$ten_the_loai)
-    {
-        $data_danh_muc = DanhmucModel::where('ten_danh_muc_slug', $ten_danh_muc)->first();
-        $data_the_loai = LoaisanphamModel::where('ten_loai_slug', $ten_the_loai)->get();
-        $data_san_pham = SanphamModel::all();
 
-        $HinhAnh = [];
-        foreach ($data_san_pham as $sanpham) {
-            $hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
-            $HinhAnh[] = $hinhAnh;
-        }
+    public function SanPhamTheLoai($ten_danh_muc_slug, $ten_loai_slug)
+    {
+        $san_pham_the_loai = LoaisanphamModel::where('ten_loai_slug', $ten_loai_slug)
+            ->join('san_pham', 'loai_san_pham.id', '=', 'san_pham.ma_loai')
+            ->join('hinh_anh', function ($join) {
+                $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
+                    ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
+            })
+            ->join('danh_muc', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
+            ->where('danh_muc.ten_danh_muc_slug', $ten_danh_muc_slug)
+            ->select('san_pham.*', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
+            ->get();
+
+        return view('Trang-Khach-Hang.page.SanPhamTheLoai', compact('san_pham_the_loai'));
+    }
+
+
+    public function SanPhamChiTiet($ten_danh_muc_slug, $ten_loai_slug, $ten_san_pham_slug)
+    {
+        $san_pham_chi_tiet = DanhmucModel::where('ten_danh_muc_slug', $ten_danh_muc_slug)
+            ->join('loai_san_pham', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
+            ->where('loai_san_pham.ten_loai_slug', $ten_loai_slug)
+            ->join('san_pham', 'loai_san_pham.id', '=', 'san_pham.ma_loai')
+            ->where('san_pham.ten_san_pham_slug', $ten_san_pham_slug)
+            ->first();
     
-        return view('Trang-Khach-Hang.page.SanPhamTheLoai', compact('data_danh_muc','data_the_loai', 'data_san_pham', 'HinhAnh'));
-        
-        
+            // dd($$san_pham_chi_tiet->id);
+        $hinh_anh_san_pham = HinhAnhModel::where('ma_san_pham', $san_pham_chi_tiet->id)->get();
+    
+        return view('Trang-Khach-Hang.page.SanPhamChiTiet', compact('san_pham_chi_tiet', 'hinh_anh_san_pham'));
     }
-    public function SanPhamChiTiet($ten_danh_muc,$ten_the_loai,$ten_san_pham)
-    {
-        $data_danh_muc = DanhmucModel::where('ten_danh_muc_slug', $ten_danh_muc)->first();
-        $data_the_loai = LoaisanphamModel::where('ten_loai_slug', $ten_the_loai)->first();
-        $data_san_pham = SanphamModel::where('ten_san_pham_slug', $ten_san_pham)->first();
-        $data_hinh_anh = HinhanhModel::all();
+    
 
-        // $HinhAnh = [];
-        // foreach ($data_san_pham as $sanpham) {
-            $HinhAnh = HinhanhModel::where('ma_san_pham', $data_san_pham->id)->first();
-            // $HinhAnh[] = $hinhAnh;
-        // }
- 
-        return view('Trang-Khach-Hang.page.SanPhamChiTiet', compact('data_danh_muc','data_the_loai', 'data_san_pham', 'data_hinh_anh', 'HinhAnh'));
-    }
-    public function SanPhamNam()
-    {
-        return view('Trang-Khach-Hang.page.SanPhamNam');
-    }
-    public function SanPhamNu()
-    {
-        return view('Trang-Khach-Hang.page.SanPhamNu');
-    }
-    public function SanPhamTreEm()
-    {
-        return view('Trang-Khach-Hang.page.SanPhamTreEm');
-    }
     public function GioHang()
     {
         return view('Trang-Khach-Hang.page.GioHang');
@@ -105,11 +97,12 @@ class TrangChuController extends Controller
     {
         return view('Trang-Khach-Hang.page.TinTucChiTiet');
     }
-   
+
     public function GioiThieu()
     {
         return view('Trang-Khach-Hang.page.GioiThieu');
     }
+    
     public function TimKiemGet()
     {
         

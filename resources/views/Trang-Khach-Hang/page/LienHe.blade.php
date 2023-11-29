@@ -1,6 +1,6 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
-    <main id="app" class="content-for-layout" style="margin-bottom: 100px"  v-cloak>
+    <main class="content-for-layout" style="margin-bottom: 100px"  v-cloak>
         <div class="contact-page">
             <!-- contact box start -->
             <div class="contact-box mt-100">
@@ -128,6 +128,7 @@
         new Vue({
             el: "#app",
             data: {
+                @include('Trang-Khach-Hang.share.datavue')
                 lien_he: {},
                 errors:{},
             },
@@ -158,6 +159,9 @@
                     }
                 },
             },
+            created() {
+                this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
+            },
             methods:{
                 gui_lien_he() {
                     axios
@@ -181,6 +185,7 @@
                             }
                         })
                 },
+                @include('Trang-Khach-Hang.share.vue')
             }
         });
     </script>

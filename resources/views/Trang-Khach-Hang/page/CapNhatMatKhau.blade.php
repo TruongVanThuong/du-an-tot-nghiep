@@ -1,6 +1,6 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
-    <main id="app" class="content-for-layout" style="margin-bottom: 100px;" v-cloak>
+    <main  class="content-for-layout" style="margin-bottom: 100px;" v-cloak>
         <div class="login-page mt-100">
             <div class="container">
                 <div class="login-form common-form mx-auto">
@@ -39,14 +39,18 @@
         new Vue({
             el: "#app",
             data: {
+                @include('Trang-Khach-Hang.share.datavue')
                 cap_nhat_mat_khau:{},
                 errors: {
                     password: '',// Thêm trường này để theo dõi lỗi password
                     nhap_lai_password:''
                 },
+                
+            },
+            created() {
+                this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
             },
             watch: {
-                
                 'cap_nhat_mat_khau.password': function(newVal) {
                     if (newVal) {
                         this.errors.password = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
@@ -58,6 +62,7 @@
                     }
                 },
             },
+            
             methods: {
                 kich_hoat_cap_nhat_mat_khau(){
                     axios
@@ -78,6 +83,7 @@
                             }
                         })
                 },
+                @include('Trang-Khach-Hang.share.vue')
             }
         });
     </script>
