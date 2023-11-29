@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('ten_phan_quyen');
             $table->string('role_phan_quyen');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

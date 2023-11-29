@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\DanhmucModel;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class LoaisanphamModel extends Model
 {
     use HasFactory;
-
+    use SoftDeletes;
     protected $table = 'loai_san_pham';
     protected $fillable = [
         "ten_loai",

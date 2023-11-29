@@ -95,8 +95,6 @@
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
         @yield('js')
-      
-
         <script src="/assets_client/js/vendor.js"></script>
         <script src="/assets_client/js/main.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

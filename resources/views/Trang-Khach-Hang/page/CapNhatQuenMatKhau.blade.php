@@ -66,7 +66,7 @@
             methods: {
                 KichHoatDoiMatKhau(){
                     axios
-                        .post('/kich-hoat-doi-mat-khau', this.quen_mat_khau)
+                        .post('/doi-mat-khau', this.quen_mat_khau)
                         .then((res) => {
                             if (res.data.status) {
                                 this.quen_mat_khau = {};

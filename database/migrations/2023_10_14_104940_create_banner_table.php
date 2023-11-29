@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('ten_anh_banner');
             $table->string('link_anh_banner');
+            $table->integer('hien_thi');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
