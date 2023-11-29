@@ -16,6 +16,7 @@ class binh_luan_bai_viets extends Model
         "ma_bai_viet",
         "ma_khach_hang",
         "rating",
+        "hien_thi",
         "created_at",
         "updated_at",
     ];
