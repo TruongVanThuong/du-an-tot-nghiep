@@ -54,25 +54,45 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     //sanpham
     Route::get('/sanpham', [SanphamController::class, 'sanpham']);
     Route::post('/sanpham', [SanphamController::class, 'them_sanpham']);
-    Route::get('/xoasanpham/{id}', [SanphamController::class, 'xoa_sanpham']);
+    Route::get('/xoasanpham', [SanphamController::class, 'xoa_sanpham']);
     Route::post('/capnhatsanpham/{id}', [SanphamController::class, 'cn_sanpham_']);
     Route::get('/toggleStatus', [SanphamController::class, 'toggleStatus']);
-
+    // trash
+    Route::get('/sanpham/phuc-hoi', [SanphamController::class,'PhucHoiSanPham']); 
+    Route::get('/sanpham/xoa-cung', [SanphamController::class,'XoaSanPhamVinhVien']); 
 
     // Hình Ảnh
     Route::get('/xoahinhanh', [hinhanhController::class, 'xoa_hinhanh']);
 
     //danhmuc
-    Route::get('/danhmuc', [DanhmucController::class, 'danhmuc']);
-    Route::post('/danhmuc', [DanhmucController::class, 'them_danhmuc']);
-    Route::get('/xoadanhmuc/{id}', [DanhmucController::class, 'xoa_danhmuc']);
-    Route::post('/capnhatdanhmuc/{id}', [DanhmucController::class, 'cn_danhmuc_']);
+    Route::group(['prefix' => '/danhmuc'], function () {
+      Route::get('/', [DanhmucController::class,'index']); 
+      Route::get('/du-lieu', [DanhmucController::class,'HienThiDanhMuc']); // url/admin/danh-muc/du-lieu
+      Route::post('/', [DanhmucController::class,'ThemDanhMuc']); 
+      Route::post('/xoa', [DanhmucController::class,'XoaDanhMuc']); 
+      Route::post('/cap-nhat', [DanhmucController::class,'CapNhatDanhMuc']); 
+
+      // trash
+      Route::get('/thung-rac', [DanhmucController::class,'trash']); 
+      Route::get('/du-lieu-trash', [DanhmucController::class,'HienThiDanhMucXoa']); // url/admin/danh-muc/du-lieu
+      Route::post('/phuc-hoi', [DanhmucController::class,'PhucHoiDanhMuc']); 
+      Route::post('/phuc-hoi-all', [DanhmucController::class,'PhucHoiTatCaDanhMuc']); 
+      Route::post('/xoa-cung', [DanhmucController::class,'XoaDanhMucVinhVien']); 
+    });
 
     //the loai
-    Route::get('/theloai', [LoaiSanphamController::class, 'theloai']);
-    Route::post('/theloai', [LoaiSanphamController::class, 'them_theloai']);
-    Route::get('/xoatheloai/{id}', [LoaiSanphamController::class, 'xoa_theloai']);
-    Route::post('/capnhattheloai/{id}', [LoaiSanphamController::class, 'cn_theloai_']);
+    Route::group(['prefix' => '/theloai'], function () {
+      Route::get('/', [LoaiSanphamController::class,'index']); 
+      Route::get('/du-lieu', [LoaiSanphamController::class,'HienThiTheLoai']); // url/admin/the-loa/du-lieu
+      Route::post('/', [LoaiSanphamController::class,'ThemTheLoai']); 
+      Route::post('/xoa', [LoaiSanphamController::class,'XoaTheLoai']); 
+      Route::post('/cap-nhat', [LoaiSanphamController::class,'CapNhatTheLoai']); 
+
+      // trash
+      
+      Route::post('/phuc-hoi', [LoaiSanphamController::class,'PhucHoiTheLoai']); 
+      Route::post('/xoa-cung', [LoaiSanphamController::class,'XoaTheLoaiVinhVien']);
+    });
 
     //bài viết
     Route::get('/baiviet', [BaivietController::class, 'baiviet']);

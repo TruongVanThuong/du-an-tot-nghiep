@@ -15,8 +15,6 @@ class LoaisanphamModel extends Model
         "ten_loai",
         "ten_loai_slug",
         "ma_danh_muc",
-        "created_at",
-        "updated_at",
     ];
 
     public function SanphamModel()

@@ -11,66 +11,89 @@ use App\Http\Requests\LoaisanphamRequest;
 
 class LoaiSanphamController extends Controller
 {
-    public function theloai()
+    public function index()
     {
-        // $data_theloai = LoaisanphamModel::all();
-        $data_theloai = LoaisanphamModel::orderBy('id', 'desc')->paginate(10);
-        $data_danhmuc = DanhmucModel::where('is_delete', 0)->get();
-        // $data_danhmuc = [];
-        // foreach ($check_danhmuc as $checkDM) {
-        //     if ($checkDM->is_delete == 0) {
-        //         $danhmuc = DanhmucModel::where('is_delete', 0)->get();
-        //         $data_danhmuc[]= $danhmuc;
-        //         echo $danhmuc;
-        //     }
-        // }
-        // dd($data_danhmuc);
+        return view('AdminRocker.page.TheLoai.QuanLyTheLoai');
+    }
+
+    public function HienThiTheLoai() {
+        $data_theloai = LoaisanphamModel::get();
+        $data_danhmuc = DanhmucModel::get();
+        $TrashTheLoai = LoaisanphamModel::onlyTrashed()->get();
+
+        $compact = compact('data_danhmuc', 'data_theloai', 'TrashTheLoai');
+
         if ($data_theloai->isEmpty()) {
-			return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+			return response()->json( $compact );
         } else {
-            return view('AdminRocker.page.LoaiSanPham.index', compact('data_theloai', 'data_danhmuc'));
+            return response()->json( $compact );
         }
     }
 
-    public function them_theloai(LoaisanphamRequest $request)
-    {
-        $data = $request->all();
+    public function ThemTheLoai(LoaisanphamRequest $request) {
+        $data =  $request->all();
         $data['ten_loai_slug'] = Str::slug($data['ten_loai']);
         LoaisanphamModel::create($data);
-        // dd($data);
-        toastr()->success('Thể loại đã được thêm thành công.');
-        return redirect('admin/theloai');
+        return response()->json([
+            'status'    =>  true,
+            'message'   =>  'Thêm thể loại thành công'
+        ]);
+        
     }
 
-    public function xoa_theloai($id)
-    {
-        // $xoa_theloai = LoaisanphamModel::find($id);
-        // if ($xoa_theloai == null)
-        //     return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        // $xoa_theloai->delete();
-        LoaisanphamModel::where('id', $id)->update(
-            [
-                'is_delete' => 1,
-            ]
-        ); 
-        toastr()->success('Thể loại đã được xóa thành công.');
-        return redirect('admin/theloai');
+    public function XoaTheLoai(Request $request) {
+        
+		$xoa = LoaisanphamModel::find($request->id);
+		$xoa->delete();
+
+        return response()->json([
+            'status'    =>      true,
+            'message'   =>      'Đã xóa thể loại thành công !'
+        ]);
     }
 
-    public function cn_theloai_($id, LoaisanphamRequest $request)
-    {
+    public function CapNhatTheLoai(Request $request) {
         $data = $request->all();
-        if ($data == null)
-            return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-        $data = $request->except('_token');
         $data['ten_loai_slug'] = Str::slug($data['ten_loai']);
-        LoaisanphamModel::where('id', $id)->update(
-            $data 
-        );        
-        toastr()->success('Thể loại đã được cập nhật thành công');
-        return redirect('admin/theloai');
+
+        $TheLoai = LoaisanphamModel::where('id', $request->id)->first();
+        $TheLoai->update($data);
+
+        return response()->json([
+            'status'    =>  true,
+            'message'   =>  'Cap nhật thể loại thành công'
+        ]);       
     }
 
+
+    // ===================================================================================
+    // =============================== TRASH =============================================
+    // ===================================================================================
+
+
+
+
+    public function PhucHoiTheLoai(Request $request) {
+         
+        $PhucHoi = LoaisanphamModel::withTrashed()->where('id', $request->id);
+		$PhucHoi->restore();  
+        return response()->json([
+            'status'    =>      true,
+            'message'   =>      'Phục hồi thể loại thành công !!'
+        ]);
+        
+    }// Phuc hoi
+
+    public function XoaTheLoaiVinhVien(Request $request) {
+         
+        $XoaCung = LoaisanphamModel::withTrashed()->where('id', $request->id);
+		$XoaCung->forceDelete();  
+        return response()->json([
+            'status'    =>      true,
+            'message'   =>      'Đã xóa thể loại thành công !'
+        ]);
+        
+    }// Xoa cung
 
 
 }
