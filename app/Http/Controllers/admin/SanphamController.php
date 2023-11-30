@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SanphamRequest;
 use App\Models\DanhmucModel;
 use App\Models\HinhanhModel;
+use App\Models\HoadonchitietModel;
 use App\Models\LoaisanphamModel;
 use App\Models\SanphamModel;
 use Illuminate\Support\Str;
@@ -18,30 +19,35 @@ class SanphamController extends Controller
 {
 	public function sanpham()
 	{
+		$data_HDCT = HoadonchitietModel::withTrashed()->get();
 		$data_hinhanh = HinhanhModel::all();
 		$data_Loaisanpham = LoaisanphamModel::get();
 		$data_danhmuc = DanhmucModel::get();
 
 		$sanPhamsWithInfo = SanphamModel::orderBy('id', 'desc')->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
-			->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
-			->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
-			->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
-			->paginate(10);
+		->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+		->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
+		->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
+		->paginate(10);
 
 		$TrashSanPhamsWithInfo = SanphamModel::orderBy('id', 'desc')->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
-			->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
-			->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
-			->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
-			->onlyTrashed()
-			->paginate(10);
+		->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+		->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
+		->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
+		->onlyTrashed()
+		->paginate(10);
 
 		$StatusSanPhamsWithInfo = SanphamModel::orderBy('id', 'desc')->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
-			->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
-			->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
-			->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
-			->where('trang_thai', 0)
-			->paginate(10);
+		->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+		->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
+		->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
+		->where('trang_thai', 0)
+		->paginate(10);
 
+		foreach ($TrashSanPhamsWithInfo as $san_pham) {
+			$san_pham->disabled = $data_HDCT->where('ma_san_pham', $san_pham->id)->isNotEmpty();
+		}
+		
 		if ($sanPhamsWithInfo->isEmpty()) {
 			return view(
 				'AdminRocker.page.SanPham.QuanLySanPham',
@@ -158,13 +164,19 @@ class SanphamController extends Controller
 	public function PhucHoiSanPham()
 	{
 		$id = $_GET['idrestore'];
-		$PhucHoi = SanphamModel::withTrashed()->where('id', $id);
+		$PhucHoi = SanphamModel::onlyTrashed()->where('id', $id);
 		$PhucHoi->restore();
+	}// Phuc hoi
+
+	public function PhucHoiTatCaSanPham()
+	{
+		SanphamModel::onlyTrashed()->restore();
+		// return redirect('admin/sanpham');
 	}// Phuc hoi
 
 	public function XoaSanPhamVinhVien() {
 		$id = $_GET['idtrashsp'];
-		$XoaCung = SanphamModel::withTrashed()->where('id', $id);
+		$XoaCung = SanphamModel::onlyTrashed()->where('id', $id);
 		$XoaCung->forceDelete();  
 	}// Xoa cung
 }

@@ -179,7 +179,7 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <button class="btn btn-danger" data-bs-toggle="modal"
+            <button class="btn btn-info mb-3" style="float: right;" data-bs-toggle="modal"
               data-bs-target="#onlyTrashedModal">Phục hồi tất cả</button>
             <table class="table table-bordered">
               <thead clas="bg-primary">
@@ -206,11 +206,14 @@
                     <button v-on:click="phuc_hoi = TrashDanhMuc" class="btn btn-primary" data-bs-toggle="modal"
                       data-bs-target="#ModalRecover">Phục Hồi</button>
                     <button v-on:click="xoa_cung = TrashDanhMuc" class="btn btn-danger" data-bs-toggle="modal"
-                      data-bs-target="#forceDeleteModal">Xóa</button>
+                      data-bs-target="#forceDeleteModal" :disabled="TrashDanhMuc.disabled">Xóa</button>
                   </td>
                 </tr>
               </tbody>
             </table>
+
+            <span class="text-danger">* Không thể xoá danh mục khi có dữ liệu liên quan tới thể loại</span>
+
           </div>
         </div>
       </div>
@@ -316,7 +319,7 @@
           .then((res) => {
             this.data_danhmuc = res.data.data_danhmuc;
             this.TrashDanhMuc  = res.data.TrashDanhMuc;
-
+// console.log(this.data_danhmuc);
           });
       },
       cap_nhat(value) {
@@ -412,7 +415,7 @@
 
       kich_hoat_phuc_hoi_tat_ca() {
         axios
-          .post('admin/danhmuc/phuc-hoi-all')
+          .post('/admin/danhmuc/phuc-hoi-all')
           .then((res) => {
             if (res.data.status) {
               toastr.success(res.data.message);
@@ -422,6 +425,7 @@
             }
           })
       }
+
     },
 
   });

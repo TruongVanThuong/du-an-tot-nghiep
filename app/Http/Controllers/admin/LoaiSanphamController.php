@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\LoaisanphamModel;
 use App\Models\DanhmucModel;
+use App\Models\SanphamModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\LoaisanphamRequest;
@@ -17,9 +18,27 @@ class LoaiSanphamController extends Controller
     }
 
     public function HienThiTheLoai() {
-        $data_theloai = LoaisanphamModel::get();
+        $data_sanpham = SanphamModel::withTrashed()->get();
         $data_danhmuc = DanhmucModel::get();
-        $TrashTheLoai = LoaisanphamModel::onlyTrashed()->get();
+        // $data_theloai = LoaisanphamModel::when($data_danhmuc->isNotEmpty(), function ($query) use ($data_danhmuc) {
+        //     $query->whereIn('id', $data_danhmuc->pluck('id'));
+        // })
+        // ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+        // ->select('loai_san_pham.*', 'danh_muc.ten_danh_muc')
+        // ->get();
+        $data_theloai = LoaisanphamModel::orderBy('id', 'desc')
+        ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+        ->select('loai_san_pham.*', 'danh_muc.ten_danh_muc')
+        ->get();
+        $TrashTheLoai = LoaisanphamModel::onlyTrashed()
+        ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+        ->select('loai_san_pham.*', 'danh_muc.ten_danh_muc')
+        ->get();
+
+        foreach ($TrashTheLoai as $TheLoai) {
+            $TheLoai->disabled = $data_sanpham->where('ma_loai', $TheLoai->id)->isNotEmpty();
+        }
+
 
         $compact = compact('data_danhmuc', 'data_theloai', 'TrashTheLoai');
 
@@ -75,7 +94,7 @@ class LoaiSanphamController extends Controller
 
     public function PhucHoiTheLoai(Request $request) {
          
-        $PhucHoi = LoaisanphamModel::withTrashed()->where('id', $request->id);
+        $PhucHoi = LoaisanphamModel::onlyTrashed()->where('id', $request->id);
 		$PhucHoi->restore();  
         return response()->json([
             'status'    =>      true,
@@ -84,9 +103,18 @@ class LoaiSanphamController extends Controller
         
     }// Phuc hoi
 
+    public function PhucHoiTatCaTheLoai()
+    {
+        LoaisanphamModel::onlyTrashed()->restore();
+        return response()->json([
+            'status'    =>      true,
+            'message'   =>      'Phục hồi danh mục thành công !!'
+        ]);
+    }
+
     public function XoaTheLoaiVinhVien(Request $request) {
          
-        $XoaCung = LoaisanphamModel::withTrashed()->where('id', $request->id);
+        $XoaCung = LoaisanphamModel::onlyTrashed()->where('id', $request->id);
 		$XoaCung->forceDelete();  
         return response()->json([
             'status'    =>      true,
