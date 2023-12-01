@@ -21,4 +21,17 @@ class DanhmucModel extends Model
     {
         return $this->hasMany(LoaisanphamModel::class, 'ma_danh_muc', 'id');
     }
+
+
+    protected static function booted()
+    {
+        static::deleting(function ($danhMuc) {
+            $danhMuc->LoaisanphamModel()->withTrashed()->delete();
+        });
+        
+        // static::restoring(function ($danhMuc) {
+        //     $danhMuc->LoaisanphamModel()->restore();
+        // });
+    }
+
 }

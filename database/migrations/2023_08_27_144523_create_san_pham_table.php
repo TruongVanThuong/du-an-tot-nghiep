@@ -23,7 +23,6 @@ return new class extends Migration {
             $table->boolean('dat_biet')->default(false);
             $table->softDeletes();
             $table->boolean('trang_thai')->default(true);
-            $table->boolean('is_delete')->default(false);
             $table->timestamps();
         });
     }

@@ -397,142 +397,18 @@
 </main>
 @endsection
 @section('js')
-<script>
-    new Vue({
-        el: "#binh_luan_bai_viet",
-        data: {
-            binh_luan: [],
-            tao_binh_luan: {},
-            errors: {
-                // ho_va_ten: '',
-                // email: '',
-                noi_dung: '',
-
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                @include('Trang-Khach-Hang.share.datavue')
             },
-        },
-        loadSp() {
-            axios
-                .get('/binh-luan-tin-tuc')
-                .then((res) => {
-                    this.data_binhluan_baiviet = res.data.list;
-                    // console.log(this.ds_sanpham);
-                });
-        },
-
-
-
-    });
-</script>
-<script>
-    new Vue({
-        el: "#app",
-        data: {
-            them_moi: {},
-            ds_sanpham: [],
-            update_sanpham: {},
-            delete_sanpham: {},
-            slug: '',
-            anh_sanpham: {},
-        },
-        created() {
-            this.loadSp();
-        },
-        methods: {
-            showUpdate(value) {
-                $("#hinh_anh_update").val(value.hinh_anh);
-                var text = '<img src="' + value.hinh_anh + '" style="margin-top:15px;max-height:100px;">'
-                $("#holder_update").html(text);
-                CKEDITOR.instances['update_mo_ta'].setData(value.mo_ta);
-                this.update_sanpham = value;
+            created() {
+                this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
             },
-            createSp() {
-                this.them_moi.hinh_anh = $("#hinh_anh").val();
-                this.them_moi.slug_san_pham = this.slug;
-                this.them_moi.mo_ta = CKEDITOR.instances['mo_ta'].getData();
-                axios
-                    .post('/admin/san-pham/index', this.them_moi)
-                    .then((res) => {
-                        if (res.data.status) {
-                            toastr.success(res.data.message);
-                            this.loadSp();
-                            this.slug = '';
-                            this.them_moi = {};
-                            $("#hinh_anh").val("");
-                            CKEDITOR.instances['mo_ta'].setData('');
-                        } else {
-                            toastr.error('Có lỗi không mong muốn!');
-                        }
-                    })
-                    .catch((res) => {
-                        $.each(res.response.data.errors, function(k, v) {
-                            toastr.error(v[0]);
-                        });
-                    });
+            methods: {
+                @include('Trang-Khach-Hang.share.vue')
             },
-            loadSp() {
-                axios
-                    .get('/admin/san-pham/data')
-                    .then((res) => {
-                        this.ds_sanpham = res.data.list;
-                        // console.log(this.ds_sanpham);
-                    });
-            },
-            capNhatSpServer() {
-                this.update_sanpham.mo_ta = CKEDITOR.instances['update_mo_ta'].getData();
-                this.update_sanpham.hinh_anh = $("#hinh_anh_update").val();
-                axios
-                    .post('/admin/san-pham/update', this.update_sanpham)
-                    .then((res) => {
-                        if (res.data.status) {
-                            toastr.success(res.data.message);
-                            this.loadSp();
-
-                        } else {
-                            toastr.error('Có lỗi không mong muốn!');
-                        }
-                    })
-            },
-
-            xoaSpTrenServer() {
-                axios
-                    .post('/admin/san-pham/delete', this.delete_sanpham)
-                    .then((res) => {
-                        if (res.data.status) {
-                            toastr.success(res.data.message);
-                            this.loadSp();
-                        } else {
-                            toastr.error('Có lỗi không mong muốn!');
-                        }
-                    })
-            },
-            toSlug(str) {
-                str = str.toLowerCase();
-                str = str
-                    .normalize('NFD')
-                    .replace(/[\u0300-\u036f]/g, '');
-                str = str.replace(/[đĐ]/g, 'd');
-                str = str.replace(/([^0-9a-z-\s])/g, '');
-                str = str.replace(/(\s+)/g, '-');
-                str = str.replace(/-+/g, '-');
-                str = str.replace(/^-+|-+$/g, '');
-
-                return str;
-            },
-            chuyenTenSpSangSlug() {
-                this.slug = this.toSlug(this.them_moi.ten_san_pham);
-            },
-
-            changeStatus(id) {
-                axios
-                    .get('/admin/san-pham/change-status/' + id)
-                    .then((res) => {
-                        this.loadSp();
-                        toastr.success('Đã đổi trạng thái thành công!');
-                    });
-            }
-
-        }
-    });
-</script>
-
+        });
+    </script>
 @endsection

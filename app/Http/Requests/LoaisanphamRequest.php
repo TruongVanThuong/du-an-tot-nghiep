@@ -17,19 +17,22 @@ class LoaisanphamRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'ten_loai' => 'required',
+            "ten_loai"=> "required|unique:loai_san_pham,ten_loai",
+            "ma_danh_muc"=> "required",
         ];
     }
 
-    public function message()
+    public function messages(): array
     {
         return [
-            "ten_loai.required" => "ten loai không được bỏ trống",
+            "ten_loai.required"  =>   "Tên thể loại không được để trống",
+            "ten_loai.unique"    =>   "Tên thể loại đã được tồn tại",
+            "ma_danh_muc.required"   =>   "Mã danh mục không được để trống",
         ];
     }
 }
