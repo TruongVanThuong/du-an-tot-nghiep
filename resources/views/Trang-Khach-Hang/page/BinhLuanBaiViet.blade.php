@@ -10,6 +10,7 @@
                                         <img src="/assets_client/img/people/1.jpg" alt="img">
                                     </div>
                                     <div class="comments-main">
+                                        <!-- comment -->
                                         <div class="comments-main-content">
                                             <div class="comments-meta">
                                                 <h4 class="commentator-name">Ralph Edwards</h4>
@@ -32,6 +33,7 @@
                                                 <span class="btn-reply-text">Reply</span>
                                             </button>
                                         </div>
+                                        <!-- reply -->
                                         <div class="comments-replied">
                                             <div class="d-flex comments-item">
                                                 <div class="comments-img">
@@ -140,10 +142,15 @@
 
 
 @section('js')
-
 <script>
     new Vue({
-        el: "#binh_luan_bai_viet",
+        el:"#binh_luan_bai_viet",
+        
+    });
+</script>
+<script>
+    new Vue({
+        el: "#binh_luan",
         data: {
             them_moi: {},
             ds_binhluan: [],
@@ -163,12 +170,12 @@
                 CKEDITOR.instances['update_mo_ta'].setData(value.mo_ta);
                 this.update_sanpham = value;
             },
-            createSp() {
+            createBL() {
                 this.them_moi.hinh_anh = $("#hinh_anh").val();
                 this.them_moi.slug_san_pham = this.slug;
                 this.them_moi.mo_ta = CKEDITOR.instances['mo_ta'].getData();
                 axios
-                    .post('/admin/san-pham/index', this.them_moi)
+                    .post('', this.them_moi)
                     .then((res) => {
                         if (res.data.status) {
                             toastr.success(res.data.message);
