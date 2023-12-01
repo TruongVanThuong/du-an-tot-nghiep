@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SanphamRequest;
 use App\Models\DanhmucModel;
 use App\Models\HinhanhModel;
+use App\Models\HoadonchitietModel;
 use App\Models\LoaisanphamModel;
 use App\Models\SanphamModel;
 use Illuminate\Support\Str;
@@ -18,51 +19,45 @@ class SanphamController extends Controller
 {
 	public function sanpham()
 	{
-		$data_Loaisanpham = LoaisanphamModel::where('is_delete', 0)->get();
-		$data_sanpham = SanphamModel::orderBy('id', 'desc')->paginate(10);
+		$data_HDCT = HoadonchitietModel::withTrashed()->get();
 		$data_hinhanh = HinhanhModel::all();
-		$SanphamModel = SanphamModel::with('HinhanhModel')->get();
-		$data_danhmuc = DanhmucModel::where('is_delete', 0)->get();
+		$data_Loaisanpham = LoaisanphamModel::get();
+		$data_danhmuc = DanhmucModel::get();
 
-		$HinhAnh = [];
-		foreach ($data_sanpham as $sanpham) {
-			
-			$hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
-			$HinhAnh[] = $hinhAnh;
-			
-			// Kiểm tra điều kiện is_delete trong $data_danhmuc
-			$ten_danh_muc = '';
-			foreach ($data_danhmuc as $danhmuc) {
-				if ($danhmuc->id == $sanpham->LoaisanphamModel->DanhmucModel->id && $danhmuc->is_delete == 0) {
-					$ten_danh_muc = $danhmuc->ten_danh_muc;
-					break; // Kết thúc vòng lặp khi tìm thấy danh mục không bị xóa
-				}
-			}
-			$sanpham->ten_danh_muc = $ten_danh_muc;
-		} 
+		$sanPhamsWithInfo = SanphamModel::orderBy('id', 'desc')->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
+		->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+		->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
+		->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
+		->paginate(10);
 
+		$TrashSanPhamsWithInfo = SanphamModel::orderBy('id', 'desc')->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
+		->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+		->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
+		->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
+		->onlyTrashed()
+		->paginate(10);
 
-		foreach ($data_sanpham as $sanpham) {
-			
+		$StatusSanPhamsWithInfo = SanphamModel::orderBy('id', 'desc')->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
+		->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+		->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
+		->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
+		->where('trang_thai', 0)
+		->paginate(10);
+
+		foreach ($TrashSanPhamsWithInfo as $san_pham) {
+			$san_pham->disabled = $data_HDCT->where('ma_san_pham', $san_pham->id)->isNotEmpty();
 		}
-
-		if ($data_sanpham->isEmpty()) {
+		
+		if ($sanPhamsWithInfo->isEmpty()) {
 			return view(
-				'AdminRocker.page.SanPham.index',
-				compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc')
+				'AdminRocker.page.SanPham.QuanLySanPham',
+				compact('sanPhamsWithInfo', 'TrashSanPhamsWithInfo', 'StatusSanPhamsWithInfo', 'data_hinhanh', 'data_Loaisanpham', 'data_danhmuc')
 			);
 		} else {
-			if (!empty($HinhAnh)) {
-				return view(
-					'AdminRocker.page.SanPham.index',
-					compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc')
-				);
-			} else {
-				return view(
-					'AdminRocker.page.SanPham.index',
-					compact('data_sanpham', 'data_Loaisanpham', 'HinhAnh', 'data_hinhanh', 'data_danhmuc')
-				);
-			}
+			return view(
+				'AdminRocker.page.SanPham.QuanLySanPham',
+				compact('sanPhamsWithInfo', 'TrashSanPhamsWithInfo', 'StatusSanPhamsWithInfo', 'data_hinhanh', 'data_Loaisanpham', 'data_danhmuc')
+			);
 		}
 
 	}
@@ -72,71 +67,42 @@ class SanphamController extends Controller
 		$data = $request->all();
 		$data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
 
-		try {
-			$sanpham = SanphamModel::create($data);
+		$sanpham = SanphamModel::create($data);
 
-			// Tạo danh sách lỗi
-			$errors = [];
+		$t_ = $sanpham->id;
+		$get_image = $request->file('hinh_anh');
 
-			$t_ = $sanpham->id;
+		if ($get_image) {
+			foreach ($get_image as $image) {
+				$get_name_image = $image->getClientOriginalName();
+				$images = Image::make($image->getRealPath());
+				$images->resize(300, 250);
 
-			$get_image = $request->file('hinh_anh');
+				$images->save(public_path('img/' . $get_name_image));
 
-			if ($get_image) {
-				foreach ($get_image as $image) {
-					$get_name_image = $image->getClientOriginalName();
-					$images = Image::make($image->getRealPath());
-					$images->resize(300, 250);
+				$x = new HinhanhModel;
+				$x->hinh_anh = $get_name_image;
+				$x->ma_san_pham = $t_;
 
-					$images->save(public_path('img/' . $get_name_image));
-
-					$x = new HinhanhModel;
-					$x->hinh_anh = $get_name_image;
-					$x->ma_san_pham = $t_;
-
-					$x->save();
-				}
+				$x->save();
 			}
-		} catch (\Exception $e) {
-			// Nếu có lỗi, thêm thông báo lỗi vào danh sách lỗi
-			$errors[] = 'Có lỗi xảy ra khi thêm sản phẩm.';
-
-			// Nếu bạn muốn log lỗi để theo dõi
-			// Log::error($e->getMessage());
 		}
 
-		if (empty($errors)) {
-			// Nếu không có lỗi, chuyển hướng với thông báo thành công
-			toastr()->success('Sản phẩm đã được thêm thành công.');
-			return redirect('admin/sanpham');
-		} else {
-			// Nếu có lỗi, chuyển hướng với danh sách lỗi
-			return redirect('admin/sanpham')->withErrors($errors);
-		}
+		toastr()->success('Sản phẩm đã được thêm thành công.');
+		return redirect('admin/sanpham');
 
 	}
 
-	public function xoa_sanpham($id)
+	public function xoa_sanpham()
 	{
-		// $xoa_sanpham = SanphamModel::find($id);
-		// if ($xoa_sanpham == null)
-		// 	return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-		// $xoa_sanpham->delete();
-		SanphamModel::where('id', $id)->update(
-			[
-					'is_delete' => 1,
-			]
-		);
-		toastr()->success('Sản phẩm đã được xoá thành công.');
-		return redirect('admin/sanpham');
+		$id = $_GET['idsp'];
+		$xoa = SanphamModel::find($id);
+		$xoa->delete();
 	}
 
 	public function cn_sanpham_($id, Request $request)
 	{
 		$sanpham = SanphamModel::find($id);
-		if ($sanpham == null) {
-			return '<script type ="text/JavaScript">alert("loi roi, khong tim thay truong nay!");</script>';
-		}
 
 		$get_image = $request->file('hinh_anh');
 		if ($get_image) {
@@ -167,16 +133,10 @@ class SanphamController extends Controller
 		$sanpham->mo_ta = $request->mo_ta;
 
 		$sanpham->save();
-		// $data = $request->all();
-    // if ($data == null)
-    //   return '<script type ="text/JavaScript">alert("loi roi!");</script>';
-    // $data = $request->except('_token');
-    // $data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
-    // SanphamModel::where('id', $id)->update($data);   
 
 		toastr()->success('Sản phẩm đã được cập nhật thành công.');
 		return redirect('admin/sanpham');
-		
+
 	}
 
 	public function toggleStatus()
@@ -194,4 +154,29 @@ class SanphamController extends Controller
 		$trangthai_sanpham->save();
 		echo $trangthai;
 	}
+
+
+	// ===================================================================================
+	// =============================== TRASH =============================================
+	// ===================================================================================
+	
+
+	public function PhucHoiSanPham()
+	{
+		$id = $_GET['idrestore'];
+		$PhucHoi = SanphamModel::onlyTrashed()->where('id', $id);
+		$PhucHoi->restore();
+	}// Phuc hoi
+
+	public function PhucHoiTatCaSanPham()
+	{
+		SanphamModel::onlyTrashed()->restore();
+		// return redirect('admin/sanpham');
+	}// Phuc hoi
+
+	public function XoaSanPhamVinhVien() {
+		$id = $_GET['idtrashsp'];
+		$XoaCung = SanphamModel::onlyTrashed()->where('id', $id);
+		$XoaCung->forceDelete();  
+	}// Xoa cung
 }

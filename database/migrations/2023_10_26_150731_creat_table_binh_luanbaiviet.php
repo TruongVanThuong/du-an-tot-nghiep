@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('noi_dung');
             $table->unsignedBigInteger('ma_khach_hang');
             $table->unsignedBigInteger('ma_bai_viet');
-            $table->integer('rating')->default(0);
+            $table->integer('rating')->default(1);
+            $table->integer('hien_thi')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

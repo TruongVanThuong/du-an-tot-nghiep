@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="article-content">
-                        {!! html_entity_decode($baiviet->noi_dung) !!}
+                            {!! html_entity_decode($baiviet->noi_dung) !!}
                             <!-- <p>These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice hand, organizations have the need for integrating in IT departments new technologies.</p>
 
                             <p>A wonderful serenity has taken possssion of my entire souing like these sweet mornng spring with my whole heart I am alone, and feel the charm of existenceths spot whch was create of souls like mineing am so happy my dear frend so absori bed in the exquste sens of mere.</p>
@@ -115,9 +115,11 @@
                             <a href="article.html" class="article-btn next-article-btn active mt-2">NEXT ARTICLE</a>
                         </div>
 
-                        <div class="comments-section mt-100 home-section overflow-hidden">
+                        <div id="binh_luan_bai_viet" class="comments-section mt-100 home-section overflow-hidden">
                             <div class="section-header">
                                 <h2 class="section-heading">Comments - 03</h2>
+
+
                             </div>
                             <div class="comments-area">
                                 <div class="d-flex comments-item">
@@ -317,33 +319,20 @@
                             <div class="accordion-collapse">
                                 <ul class="filter-lists list-unstyled mb-0">
                                     <li class="filter-item">
-                                        <a class="filter-label" href="collection-left-sidebar.html">
+                                        <a class="filter-label" href="/tin-tuc/1">
                                             <input type="checkbox" />
                                             <span class="filter-checkbox rounded me-2"></span>
-                                            <span class="filter-text">Womens Bag</span>
+                                            <span class="filter-text">Tin khuyến mãi</span>
                                         </a>
                                     </li>
                                     <li class="filter-item">
-                                        <a class="filter-label" href="collection-left-sidebar.html">
+                                        <a class="filter-label" href="/tin-tuc/2">
                                             <input type="checkbox" />
                                             <span class="filter-checkbox rounded me-2"></span>
-                                            Bottles
+                                            <span class="filter-text">Tin tức mới</span>
                                         </a>
                                     </li>
-                                    <li class="filter-item">
-                                        <a class="filter-label" href="collection-left-sidebar.html">
-                                            <input type="checkbox" />
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            Men's Shoe
-                                        </a>
-                                    </li>
-                                    <li class="filter-item">
-                                        <a class="filter-label" href="collection-left-sidebar.html">
-                                            <input type="checkbox" />
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            Toddler Dress
-                                        </a>
-                                    </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -355,7 +344,7 @@
                                 @foreach($data_lastpost as $lastpost)
                                 <div class="related-item related-item-article d-flex">
                                     <div class="related-img-wrapper">
-                                        <img width="80px" height="66px" class="related-img" src="{{ asset('img/') }}/{{$lastpost->hinh_anh}}"" alt="img">
+                                        <img width="80px" height="66px" class="related-img" src="{{ asset('img/') }}/{{$lastpost->hinh_anh}}"" alt=" img">
                                     </div>
                                     <div class="related-product-info">
                                         <h2 class="related-heading text_14">
@@ -374,7 +363,7 @@
                                     </div>
                                 </div>
                                 @endforeach
-                                
+
                             </div>
                         </div>
                         <div class="filter-widget">
@@ -384,7 +373,7 @@
                             <ul class="filter-tags list-unstyled">
                                 <li class="tag-item"><a href="#">Popular</a></li>
                                 <li class="tag-item"><a href="#">Agency</a></li>
-                                <li class="tag-item"><a href="collection-left-sidebar.html">Furniture</a></li>
+                                <li class="tag-item"><a href="#">Furniture</a></li>
                                 <li class="tag-item"><a href="#">creative</a></li>
                                 <li class="tag-item"><a href="#">design</a></li>
                                 <li class="tag-item"><a href="#">modern</a></li>
@@ -407,5 +396,142 @@
 </main>
 @endsection
 @section('js')
+<script>
+    new Vue({
+        el: "#binh_luan_bai_viet",
+        data: {
+            binh_luan: [],
+            tao_binh_luan: {},
+            errors: {
+                // ho_va_ten: '',
+                // email: '',
+                noi_dung: '',
+
+            },
+        },
+        loadSp() {
+            axios
+                .get('/binh-luan-tin-tuc')
+                .then((res) => {
+                    this.data_binhluan_baiviet = res.data.list;
+                    // console.log(this.ds_sanpham);
+                });
+        },
+
+
+
+    });
+</script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            them_moi: {},
+            ds_sanpham: [],
+            update_sanpham: {},
+            delete_sanpham: {},
+            slug: '',
+            anh_sanpham: {},
+        },
+        created() {
+            this.loadSp();
+        },
+        methods: {
+            showUpdate(value) {
+                $("#hinh_anh_update").val(value.hinh_anh);
+                var text = '<img src="' + value.hinh_anh + '" style="margin-top:15px;max-height:100px;">'
+                $("#holder_update").html(text);
+                CKEDITOR.instances['update_mo_ta'].setData(value.mo_ta);
+                this.update_sanpham = value;
+            },
+            createSp() {
+                this.them_moi.hinh_anh = $("#hinh_anh").val();
+                this.them_moi.slug_san_pham = this.slug;
+                this.them_moi.mo_ta = CKEDITOR.instances['mo_ta'].getData();
+                axios
+                    .post('/admin/san-pham/index', this.them_moi)
+                    .then((res) => {
+                        if (res.data.status) {
+                            toastr.success(res.data.message);
+                            this.loadSp();
+                            this.slug = '';
+                            this.them_moi = {};
+                            $("#hinh_anh").val("");
+                            CKEDITOR.instances['mo_ta'].setData('');
+                        } else {
+                            toastr.error('Có lỗi không mong muốn!');
+                        }
+                    })
+                    .catch((res) => {
+                        $.each(res.response.data.errors, function(k, v) {
+                            toastr.error(v[0]);
+                        });
+                    });
+            },
+            loadSp() {
+                axios
+                    .get('/admin/san-pham/data')
+                    .then((res) => {
+                        this.ds_sanpham = res.data.list;
+                        // console.log(this.ds_sanpham);
+                    });
+            },
+            capNhatSpServer() {
+                this.update_sanpham.mo_ta = CKEDITOR.instances['update_mo_ta'].getData();
+                this.update_sanpham.hinh_anh = $("#hinh_anh_update").val();
+                axios
+                    .post('/admin/san-pham/update', this.update_sanpham)
+                    .then((res) => {
+                        if (res.data.status) {
+                            toastr.success(res.data.message);
+                            this.loadSp();
+
+                        } else {
+                            toastr.error('Có lỗi không mong muốn!');
+                        }
+                    })
+            },
+
+            xoaSpTrenServer() {
+                axios
+                    .post('/admin/san-pham/delete', this.delete_sanpham)
+                    .then((res) => {
+                        if (res.data.status) {
+                            toastr.success(res.data.message);
+                            this.loadSp();
+                        } else {
+                            toastr.error('Có lỗi không mong muốn!');
+                        }
+                    })
+            },
+            toSlug(str) {
+                str = str.toLowerCase();
+                str = str
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '');
+                str = str.replace(/[đĐ]/g, 'd');
+                str = str.replace(/([^0-9a-z-\s])/g, '');
+                str = str.replace(/(\s+)/g, '-');
+                str = str.replace(/-+/g, '-');
+                str = str.replace(/^-+|-+$/g, '');
+
+                return str;
+            },
+            chuyenTenSpSangSlug() {
+                this.slug = this.toSlug(this.them_moi.ten_san_pham);
+            },
+
+            changeStatus(id) {
+                axios
+                    .get('/admin/san-pham/change-status/' + id)
+                    .then((res) => {
+                        this.loadSp();
+                        toastr.success('Đã đổi trạng thái thành công!');
+                    });
+            }
+
+        }
+    });
+</script>
 
 @endsection

@@ -8,23 +8,27 @@ class DanhmucRequests extends FormRequest
 {
 
 
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-
-    public function rules()
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
     {
         return [
-            'ten_danh_muc' => 'required',
+            "ten_danh_muc" => "required|unique:danh_muc,ten_danh_muc",
         ];
     }
-
-    public function message()
+    public function messages(): array
     {
         return [
-            "ten_danh_muc.required" => "ten danh mục không được bỏ trống",
+            "ten_danh_muc.required"  =>   "Tên danh mục không được để trống",
+            "ten_danh_muc.unique"    =>   "Tên danh mục đã tồn tại",
         ];
     }
 
