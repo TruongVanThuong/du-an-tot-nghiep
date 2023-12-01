@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\SanphamModel;
 use App\Models\DanhmucModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class LoaisanphamModel extends Model
@@ -15,17 +16,26 @@ class LoaisanphamModel extends Model
         "ten_loai",
         "ten_loai_slug",
         "ma_danh_muc",
-        "created_at",
-        "updated_at",
     ];
+
+    public function DanhmucModel()
+    {
+        return $this->belongsTo(DanhmucModel::class, 'ma_danh_muc', 'id');
+    }
 
     public function SanphamModel()
     {
         return $this->hasMany(SanphamModel::class, 'ma_loai', 'id');
     }
 
-    public function DanhmucModel()
+    protected static function booted()
     {
-        return $this->belongsTo(DanhmucModel::class, 'ma_danh_muc', 'id');
+        static::deleting(function ($theloai) {
+            $theloai->SanphamModel()->withTrashed()->delete();
+        });
+        
+        // static::restoring(function ($danhMuc) {
+        //     $danhMuc->SanphamModel()->restore();
+        // });
     }
 }
