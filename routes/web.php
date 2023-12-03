@@ -13,6 +13,8 @@ use App\Http\Controllers\khachhang\KhachHangController;
 use App\Http\Controllers\khachhang\LienHeController;
 use App\Http\Controllers\khachhang\TinTucController;
 use App\Http\Controllers\khachhang\BinhluanTintucController;
+use App\Http\Controllers\khachhang\SanPhamYeuThichController;
+use App\Models\SanPhamYeuThich;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -108,6 +110,7 @@ Route::post('/doi-mat-khau', [KhachHangController::class, 'KichHoatDoiMatKhau'])
 // Route::get('/lien-he', [LienHeController::class, 'LienHe']);
 
 Route::get('/dang-xuat', [KhachHangController::class, 'DangXuat']);
+
 Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], function () {
   Route::get('/ho-so', [KhachHangController::class, 'HoSo']);
   Route::get('/thong-tin-khach-hang', [KhachHangController::class, 'ThongTinKhachHang']);
@@ -121,8 +124,12 @@ Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], f
   Route::post('/them-so-luong/{id}', [GioHangController::class, 'ThemSoLuong']);
   Route::post('/tru-so-luong/{id}', [GioHangController::class, 'TruSoLuong']);
   Route::post('/xoa-san-pham-gio-hang/{id}', [GioHangController::class, 'XoaSanPhamGioHang']);
-
+// sản phẩm yêu thích
+  Route::post('/quan-ly-san-pham-yeu-thich/{id}', [SanPhamYeuThichController::class, 'QuanLySanPhamYeuThich']);
 });
+
+Route::get('/hien-thi-san-pham-yeu-thich', [SanPhamYeuThichController::class, 'HienThiSanPhamYeuThich']);
+Route::get('/san-pham-yeu-thich', [SanPhamYeuThichController::class, 'SanPhamYeuThich']);
 //Liên hệ
 Route::get('/lien-he', [LienHeController::class, 'LienHe']);
 Route::post('/gui-lien-he', [LienHeController::class, 'GuiLienHe']);
