@@ -165,7 +165,7 @@
                         <nav class="nav justify-content-center">
 
                             @foreach ($danhMuc as $danhmuc)
-                                @if ($danhmuc->is_delete == 0)
+                                @if ($danhmuc->deleted_at == null)
                                     <a class="tab-link" href="#{{ $danhmuc->ten_danh_muc_slug }}"
                                         data-bs-toggle="tab">{{ $danhmuc->ten_danh_muc }}</a>
                                 @endif
@@ -178,7 +178,7 @@
                             <div class="row">
 
                                 @foreach ($san_pham_yeu_thich as $key => $value)
-                                    @if ($value->is_delete == 0)
+                                    @if ($value->deleted_at == null)
                                         <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up" data-aos-duration="700">
                                             <div class="product-card">
                                                 <div class="product-card-img">
@@ -278,7 +278,7 @@
                             </div>
                         </div>
                         @foreach ($danhMuc as $danhmuc)
-                            @if ($danhmuc->is_delete == 0)
+                            @if ($danhmuc->deleted_at == null)
                                 <div id="{{ $danhmuc->ten_danh_muc_slug }}" class="tab-pane fade">
                                     <div class="row">
                                         @foreach ($san_pham_danh_muc[$danhmuc->id] as $sp)

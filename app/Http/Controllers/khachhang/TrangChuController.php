@@ -23,14 +23,14 @@ class TrangChuController extends Controller
             })
             ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id') // Nối bảng loai_san_pham
             ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id') // Nối bảng danh_muc
-            ->select('san_pham.id as ma_san_pham', 'san_pham.is_delete', 'san_pham.ten_san_pham', 'san_pham.ten_san_pham_slug', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', DB::raw('COUNT(san_pham_yeu_thichs.ma_san_pham) AS so_lan_xuat_hien'))
-            ->groupBy('san_pham.id', 'san_pham.ten_san_pham', 'san_pham.is_delete', 'san_pham.gia_san_pham', 'san_pham.ten_san_pham_slug', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug')
+            ->select('san_pham.id as ma_san_pham', 'san_pham.deleted_at', 'san_pham.ten_san_pham', 'san_pham.ten_san_pham_slug', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', DB::raw('COUNT(san_pham_yeu_thichs.ma_san_pham) AS so_lan_xuat_hien'))
+            ->groupBy('san_pham.id', 'san_pham.ten_san_pham', 'san_pham.deleted_at', 'san_pham.gia_san_pham', 'san_pham.ten_san_pham_slug', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug')
             ->orderByDesc('so_lan_xuat_hien')
             ->limit(8)
             ->get();
         // dd($san_pham_yeu_thich);
         // Lấy danh mục
-        $danhMuc = DanhmucModel::where('is_delete', 0)->get();
+        $danhMuc = DanhmucModel::where('deleted_at', null)->get();
         // Lấy 8 sản phẩm yêu thích xuất hiện nhiều nhất cho mỗi danh mục
         $san_pham_danh_muc = [];
         foreach ($danhMuc as $danhmuc) {
