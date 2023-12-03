@@ -102,9 +102,7 @@
                       @{{ theloai ? theloai.ten_loai : 'Không có tên danh mục' }}
                     </td>
                     <td class="text-center text-sm">
-                      <span v-for="(danhmuc, index) in data_danhmuc" v-if="theloai.ma_danh_muc === danhmuc.id">
-                        @{{ danhmuc.ten_danh_muc }}
-                      </span>
+                        @{{ theloai.ten_danh_muc }}
                     </td>
                     <td class="text-center text-xs">
                       <button v-on:click="cap_nhat(theloai)" class="btn btn-primary" data-bs-toggle="modal"
@@ -211,12 +209,14 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
+              <button class="btn btn-info mb-3" style="float: right;" data-bs-toggle="modal"
+              data-bs-target="#onlyTrashedModal">Phục hồi tất cả</button>
               <table class="table table-bordered">
                 <thead clas="bg-primary">
                   <tr>
                     <th class="px-4 py-3">#</th>
                     <th class="px-4 py-3">Tên Thể Loại</th>
-                    <th class="px-4 py-3">Tên Thể Loại</th>
+                    <th class="px-4 py-3">Tên Danh Mục</th>
                     <th class="px-4 py-3">Thao tác</th>
                   </tr>
                 </thead>
@@ -230,21 +230,20 @@
                       @{{ TrashTheLoai ? TrashTheLoai.ten_loai : 'Không có tên Thể Loại' }}
                     </td>
                     <td class="px-4 py-3 text-sm">
-                      <span v-for="(danhmuc, index) in data_danhmuc" v-if="TrashTheLoai.ma_danh_muc === danhmuc.id">
-                        @{{ danhmuc.ten_danh_muc }}
-                      </span>
+                      @{{ TrashTheLoai.ten_danh_muc }}
                     </td>
                     <td class="px-4 py-3 text-xs">
                       <button v-on:click="phuc_hoi = TrashTheLoai" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#ModalRecover">Phục Hồi</button>
                       <button v-on:click="xoa_cung = TrashTheLoai" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#forceDeleteModal">Xóa</button>
+                        data-bs-target="#forceDeleteModal" :disabled="TrashTheLoai.disabled">Xóa</button>
                     </td>
                   </tr>
 
                 </tbody>
-
               </table>
+
+              <span class="text-danger">* Không thể xoá thể loại Khi có dữ liệu liên quan tới sản phẩm</span>
 
             </div>
           </div>
@@ -268,6 +267,29 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
               <button type="button" class="btn btn-primary" v-on:click="kich_hoat_phuc_hoi()"
+                data-bs-dismiss="modal">Phục Hồi</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL PHUC HOI TAT CA DU LIEU DA XOA-->
+      <div class="modal fade" id="onlyTrashedModal" tabindex="-1" role="dialog" aria-labelledby="RecoverModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="RecoverModalLabel">Xác Nhận Phục Hồi Tất Cả Dữ Liệu</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Bạn có chắc muốn phục hồi tất cả dữ liệu này không?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+              <button type="button" class="btn btn-primary" v-on:click="kich_hoat_phuc_hoi_tat_ca()"
                 data-bs-dismiss="modal">Phục Hồi</button>
             </div>
           </div>
@@ -420,6 +442,23 @@
             }
           })
       },
+
+      kich_hoat_phuc_hoi_tat_ca() {
+        axios
+          .post('/admin/theloai/phuc-hoi-all')
+          .then((res) => {
+            if (res.data.status) {
+              toastr.success(res.data.message);
+              this.GetData();
+            } else {
+              toastr.error('Có lỗi không mong muốn!');
+            }
+          })
+      }
+
+
+
+
     },
 
   });

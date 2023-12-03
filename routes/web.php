@@ -52,7 +52,7 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
 
     });
 
-    //sanpham
+    //sanpham --------------
     Route::get('/sanpham', [SanphamController::class, 'sanpham']);
     Route::post('/sanpham', [SanphamController::class, 'them_sanpham']);
     Route::get('/xoasanpham', [SanphamController::class, 'xoa_sanpham']);
@@ -60,12 +60,13 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::get('/toggleStatus', [SanphamController::class, 'toggleStatus']);
     // trash
     Route::get('/sanpham/phuc-hoi', [SanphamController::class,'PhucHoiSanPham']); 
+    Route::get('/sanpham/phuc-hoi-all', [SanphamController::class,'PhucHoiTatCaSanPham']); 
     Route::get('/sanpham/xoa-cung', [SanphamController::class,'XoaSanPhamVinhVien']); 
 
-    // Hình Ảnh
+    // Hình Ảnh --------------
     Route::get('/xoahinhanh', [hinhanhController::class, 'xoa_hinhanh']);
 
-    //danhmuc
+    //danhmuc --------------
     Route::group(['prefix' => '/danhmuc'], function () {
       Route::get('/', [DanhmucController::class,'index']); 
       Route::get('/du-lieu', [DanhmucController::class,'HienThiDanhMuc']); // url/admin/danh-muc/du-lieu
@@ -74,14 +75,13 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
       Route::post('/cap-nhat', [DanhmucController::class,'CapNhatDanhMuc']); 
 
       // trash
-      Route::get('/thung-rac', [DanhmucController::class,'trash']); 
-      Route::get('/du-lieu-trash', [DanhmucController::class,'HienThiDanhMucXoa']); // url/admin/danh-muc/du-lieu
+      
       Route::post('/phuc-hoi', [DanhmucController::class,'PhucHoiDanhMuc']); 
       Route::post('/phuc-hoi-all', [DanhmucController::class,'PhucHoiTatCaDanhMuc']); 
       Route::post('/xoa-cung', [DanhmucController::class,'XoaDanhMucVinhVien']); 
     });
 
-    //the loai
+    //the loai --------------
     Route::group(['prefix' => '/theloai'], function () {
       Route::get('/', [LoaiSanphamController::class,'index']); 
       Route::get('/du-lieu', [LoaiSanphamController::class,'HienThiTheLoai']); // url/admin/the-loa/du-lieu
@@ -92,6 +92,7 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
       // trash
       
       Route::post('/phuc-hoi', [LoaiSanphamController::class,'PhucHoiTheLoai']); 
+      Route::post('/phuc-hoi-all', [LoaiSanphamController::class,'PhucHoiTatCaTheLoai']); 
       Route::post('/xoa-cung', [LoaiSanphamController::class,'XoaTheLoaiVinhVien']);
     });
 

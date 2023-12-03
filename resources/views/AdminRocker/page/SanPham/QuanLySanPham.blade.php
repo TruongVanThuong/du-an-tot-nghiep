@@ -6,7 +6,7 @@
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <button class="nav-link active" id="DanhSachTong" data-bs-toggle="tab" data-bs-target="#nav-DanhSachTong" type="button" role="tab" aria-controls="nav-DanhSachTong" aria-selected="true">Danh sách sản phẩm</button>
       <button class="nav-link" id="TrangThai" data-bs-toggle="tab" data-bs-target="#nav-TrangThai" type="button" role="tab" aria-controls="nav-TrangThai" aria-selected="false">Trạng thái</button>
-      <button class="nav-link" id="DanhMuc" data-bs-toggle="tab" data-bs-target="#nav-DanhMuc" type="button" role="tab" aria-controls="nav-DanhMuc" aria-selected="false">Danh mục</button>
+      <!-- <button class="nav-link" id="DanhMuc" data-bs-toggle="tab" data-bs-target="#nav-DanhMuc" type="button" role="tab" aria-controls="nav-DanhMuc" aria-selected="false">Danh mục</button> -->
       <button class="nav-link" id="ThungRac" data-bs-toggle="tab" data-bs-target="#nav-ThungRac" type="button" role="tab" aria-controls="nav-ThungRac" aria-selected="false">Thùng rác</button>
     </div>
   </nav>
@@ -386,7 +386,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header text-center">
-            <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300"> Danh Sách Các Sản Phẩm Đã Xoá</h3>
+            <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300"> Danh Sách Các Trạng Thái Sản Phẩm Đã Tắt</h3>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -650,7 +650,7 @@
     ///  =================================================================================== -->
 
   
-    <div class="tab-pane fade" id="nav-DanhMuc" role="tabpanel" aria-labelledby="DanhMuc" tabindex="0">3</div>
+    <!-- <div class="tab-pane fade" id="nav-DanhMuc" role="tabpanel" aria-labelledby="DanhMuc" tabindex="0">3</div> -->
     
 
     <!-- ===================================================================================
@@ -668,7 +668,8 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-
+              <button class="btn btn-info mb-3" style="float: right;" data-bs-toggle="modal"
+              data-bs-target="#onlyTrashedModal">Phục hồi tất cả</button>
               <table id="table" class="table table-bordered">
                 <thead clas="bg-primary">
                   <tr>
@@ -742,7 +743,7 @@
                       <button class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#ModalRecover{{$sanpham->id}}">Phục Hồi</button>
                       <button class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#DeleteTrashModal{{$sanpham->id}}">Xóa</button>
+                        data-bs-target="#DeleteTrashModal{{$sanpham->id}}" @if ($sanpham->disabled) disabled @endif ">Xóa</button>
                     </td>
 
                     <!-- MODAL DELETE -->
@@ -790,6 +791,30 @@
                         </div>
                       </div>
                     </div>
+
+
+                    <!-- MODAL PHUC HOI TAT CA DU LIEU DA XOA-->
+                    <div class="modal fade" id="onlyTrashedModal" tabindex="-1" role="dialog" aria-labelledby="RecoverModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="RecoverModalLabel">Xác Nhận Phục Hồi Tất Cả Dữ Liệu</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Bạn có chắc muốn phục hồi tất cả dữ liệu này không?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                            <button type="button" class="btn btn-primary" onclick="kich_hoat_phuc_hoi_tat_ca()"
+                              data-bs-dismiss="modal">Phục Hồi</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </tr>
 
                   @php
@@ -802,6 +827,8 @@
                 </tbody>
 
               </table>
+
+              <span class="text-danger">* Không thể xoá sản phẩm khi có dữ liệu liên quan tới hoá đơn</span>
 
             </div>
             <div>{{$TrashSanPhamsWithInfo->links('AdminRocker.share.custom')}}</div>
@@ -900,6 +927,19 @@
     });
   }
 
+  // kich_hoat_phuc_hoi_san_pham
+  function kich_hoat_phuc_hoi_tat_ca() {
+    $.ajax({
+      url: "{{asset('admin/sanpham/phuc-hoi-all')}}",
+      type: "get",
+      data: {},
+      success: function () {
+        toastr.success("Tất cả sản phẩm đã được phục hồi thành công!");
+        window.location.replace("./sanpham");
+      }
+    });
+  }
+
   // deleteImg
   function deleteImg(id) {
     var id = id;
@@ -908,7 +948,7 @@
       type: "get",
       data: { idImg: id },
       success: function () {
-        swal("Xoa hinh anh thanh cong!", "", "success");
+        toastr.success("Xoá hình ảnh sản phẩm thành công!");
         window.location.replace("./sanpham");
       }
     });
@@ -955,7 +995,7 @@
       errorElement: "em",
       errorPlacement: function (error, element) {
         // Add the `help-block` class to the error element
-        error.addClass("help-block");
+        error.addClass("alert alert-warning");
 
         if (element.prop("type") === "checkbox") {
           error.insertAfter(element.parent("label"));
@@ -972,6 +1012,12 @@
     });
   });
 </script>
+<style>
+  .alert.alert-warning {
+    display: block;
+    width: 100%;
+  }
+</style>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>

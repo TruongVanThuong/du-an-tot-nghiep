@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DanhmucModel;
+use App\Models\LoaisanphamModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\Danh;
@@ -18,7 +19,12 @@ class DanhmucController extends Controller
 
     public function HienThiDanhMuc() {
         $data_danhmuc = DanhmucModel::orderBy('id', 'desc')->get();
+        $data_theloai = LoaisanphamModel::withTrashed()->get();
         $TrashDanhMuc = DanhmucModel::onlyTrashed()->get(); // du lieu dax soft delete
+        
+        foreach ($TrashDanhMuc as $danhmuc) {
+            $danhmuc->disabled = $data_theloai->where('ma_danh_muc', $danhmuc->id)->isNotEmpty();
+        }
 
         $compact = compact('data_danhmuc', 'TrashDanhMuc');
 
@@ -82,7 +88,7 @@ class DanhmucController extends Controller
 
     public function PhucHoiTatCaDanhMuc()
     {
-        DanhmucModel::onlyTrashed()->restore();
+        DanhmucModel::withTrashed()->restore();
         return response()->json([
             'status'    =>      true,
             'message'   =>      'Phục hồi danh mục thành công !!'
@@ -91,7 +97,7 @@ class DanhmucController extends Controller
 
     public function XoaDanhMucVinhVien(Request $request) {
          
-        $XoaCung = DanhmucModel::withTrashed()->where('id', $request->id);
+        $XoaCung = DanhmucModel::onlyTrashed()->where('id', $request->id);
 		$XoaCung->forceDelete();  
         return response()->json([
             'status'    =>      true,
