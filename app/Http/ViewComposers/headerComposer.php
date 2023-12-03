@@ -34,5 +34,6 @@ class headerComposer
         $view->with('danhMuc', $danhMuc);
         $view->with('theLoai', $theLoai);
         $view->with('isAdmin', $isAdmin);
+       
     }
 }
