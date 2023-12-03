@@ -43,6 +43,8 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
         Route::get('/', [LienHeController::class, 'QuanLyLienHe']);
         Route::get('/du-lieu', [LienHeController::class, 'LayDuLieu']);
         Route::post('/xoa-lien-he', [LienHeController::class, 'XoaLienHe']);
+        Route::post('/xem-lien-he', [LienHeController::class, 'XemLienHe']);
+        Route::post('/xem-lien-he-header', [LienHeController::class, 'XemLienHeHeader']);
       });
 
       // Quan Ly Tai Khoan --------------

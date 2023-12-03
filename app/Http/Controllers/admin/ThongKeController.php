@@ -11,6 +11,7 @@ use App\Models\SanphamModel;
 use App\Models\LoaisanphamModel;
 use App\Models\DanhmucModel;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class ThongKeController extends Controller
@@ -30,6 +31,9 @@ class ThongKeController extends Controller
         $DauTuanTruoc = Carbon::now()->subWeek()->startOfWeek();
         $CuoiTuanTruoc = Carbon::now()->subWeek()->endOfWeek();
 
+        // ============================================================================================
+        // ================================ TAI KHOAN =================================================
+        // ============================================================================================
         // Lấy tổng số tài khoản tuần này
         $tongSoTaiKhoanTuanNay = KhachHangModel::whereBetween('created_at', [$BatDauTruocTuan, $BatDauSauTuan])->count();
         // Lấy tổng số tài khoản tuần trước
@@ -49,9 +53,34 @@ class ThongKeController extends Controller
                 $phanTramTaiKhoan = 100;
             }
         }  
-        $data_taikhoan = KhachHangModel::all();
-        $tongSoTaiKhoan = $data_taikhoan->count();
 
+        $topKhachHangs = HoadonModel::select('ma_khach_hang', DB::raw('SUM(tong_tien) as tong_tien_mua'))
+        ->groupBy('ma_khach_hang')
+        ->orderBy('tong_tien_mua', 'desc')
+        ->limit(5)
+        ->get();
+        $data_TaiKhoan = KhachHangModel::get();
+        // Kết hợp dữ liệu từ hai bảng
+        $result = $topKhachHangs->map(function ($topKhachHang) use ($data_TaiKhoan) {
+            $khachHang = $data_TaiKhoan->where('id', $topKhachHang->ma_khach_hang)->first();
+            if ($khachHang) {
+                // Thêm thông tin từ bảng KhachHangModel vào đối tượng HoadonModel
+                $topKhachHang->ho_va_ten = $khachHang->ho_va_ten ;
+                $topKhachHang->email = $khachHang->email ;
+                $topKhachHang->loai_tai_khoan = $khachHang->loai_tai_khoan ;
+                $topKhachHang->created_at_KH = Carbon::parse($khachHang->created_at)->format('d/m/Y');
+            }
+        });
+        $tongSoTaiKhoan = KhachHangModel::count();
+        $TaiKhoanHuy = KhachHangModel::where('loai_tai_khoan', -1)->count();
+        $TaiKhoanChuaKH = KhachHangModel::where('loai_tai_khoan', 0)->count();
+        $TaiKhoanKhachHang = KhachHangModel::where('loai_tai_khoan', 1)->count();
+        $TaiKhoanNhanVien = KhachHangModel::where('loai_tai_khoan', 2)->count();
+        $TaiKhoanAdmin = KhachHangModel::where('loai_tai_khoan', 3)->count();
+
+        // ============================================================================================
+        // ================================ HOA DON =================================================
+        // ============================================================================================
         // Lấy tổng số hoa don tuần này
         $tongSoDonHangTuanNay = HoadonModel::whereBetween('created_at', [$BatDauTruocTuan, $BatDauSauTuan])->count();
         // Lấy tổng số hoa don tuần trước
@@ -72,6 +101,7 @@ class ThongKeController extends Controller
                 $phanTramDonHang = 100;
             }    
         } 
+        
         
         // Lấy tổng số doanh thu tuần này
         $tongSoDoanhThuTuanNay = HoadonModel::whereBetween('created_at', [$BatDauTruocTuan, $BatDauSauTuan])->sum('tong_tien');
@@ -94,8 +124,7 @@ class ThongKeController extends Controller
             }
         } 
         
-        $data_giohang = HoadonModel::all();
-        $tongSoDonHang = $data_giohang->count();
+        $tongSoDonHang = HoadonModel::count();
         $TongDoanhThu = HoadonModel::sum('tong_tien');
 
         $compact = compact(
@@ -104,7 +133,15 @@ class ThongKeController extends Controller
             'TongDoanhThu', 
             'phanTramTaiKhoan', 
             'phanTramDonHang',
-            'phanTramDoanhThu'
+            'phanTramDoanhThu',
+            'TaiKhoanHuy',
+            'TaiKhoanChuaKH',
+            'TaiKhoanKhachHang',
+            'TaiKhoanNhanVien',
+            'TaiKhoanAdmin',
+            'topKhachHangs',
+            'data_TaiKhoan',
+
         );
 
         return response()->json($compact);
