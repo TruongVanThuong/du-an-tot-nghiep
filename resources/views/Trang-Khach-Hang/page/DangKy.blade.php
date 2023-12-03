@@ -1,6 +1,6 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
-    <main id="app" class="content-for-layout" v-cloak>
+    <main  class="content-for-layout" v-cloak>
         <div class="login-page mt-100" style="margin-bottom: 100px;">
             <div class="container">
                 <div class="login-form common-form mx-auto">
@@ -149,7 +149,7 @@
                                 toastr.success(res.data.message);
                                 setTimeout(() => {
                                     window.location.href = "/dang-nhap";
-                                }, 2000); // Delay for 2 seconds (2000 milliseconds)
+                                }, 1000); // Delay for 2 seconds (2000 milliseconds)
                             } else {
                                 toastr.error('Có lỗi không mong muốn!');
                             }

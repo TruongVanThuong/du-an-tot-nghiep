@@ -1,8 +1,7 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
-
 <main id="MainContent" class="content-for-layout">
-    <div class="product-page mt-100" style="margin-bottom: 100px;">
+    <div class="product-page mt-100">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-12">
@@ -15,15 +14,14 @@
                                 "arrows": false,
                                 "asNavFor": ".img-thumb-slider"
                             }'>
-                                @foreach ($data_hinh_anh as $hinh_anh)
-                                @if ($hinh_anh->ma_san_pham == $data_san_pham->id)
+                            @foreach ($hinh_anh_san_pham as $key => $value)
                                 <div class="img-large-wrapper">
-                                    <a href="/img/{{$hinh_anh->hinh_anh}}" data-fancybox="gallery">
-                                        <img src="/img/{{$hinh_anh->hinh_anh}}" alt="img">
+                                    <a href="/img/{{ $value->hinh_anh }}" data-fancybox="gallery">
+                                        <img src="/img/{{ $value->hinh_anh }}" alt="/img/{{ $value->hinh_anh }}">
                                     </a>
                                 </div>
-                                @endif
-                                @endforeach
+                            @endforeach
+
                             </div>
                         </div>
                         <div class="product-img-thumb">
@@ -39,15 +37,13 @@
                                 "swipeToSlide": true,
                                 "asNavFor": ".img-large-slider"
                             }'>
-                                @foreach ($data_hinh_anh as $hinh_anh)
-                                @if ($hinh_anh->ma_san_pham == $data_san_pham->id)
+                            @foreach ($hinh_anh_san_pham as $key => $value)
                                 <div>
                                     <div class="img-thumb-wrapper">
-                                        <img src="/img/{{$hinh_anh->hinh_anh}}" alt="img">
+                                        <img src="/img/{{ $value->hinh_anh }}" alt="/img/{{ $value->hinh_anh }}">
                                     </div>
                                 </div>
-                                @endif
-                                @endforeach
+                            @endforeach
                             </div>
                             <div class="activate-arrows show-arrows-always arrows-white d-none d-lg-flex justify-content-between mt-3"></div>
                         </div>
@@ -55,9 +51,14 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="product-details ps-lg-4">
-                        <div class="mb-3"><span class="product-availability">{{$data_the_loai->ten_loai}}</span></div>
-                        <h2 class="product-title mb-3">{{$data_san_pham->ten_san_pham}}</h2>
-                        <!-- <div class="product-rating d-flex align-items-center mb-3">
+                        @if ($san_pham_chi_tiet->so_luong > 0)
+                        <div class="mb-3"><span class="product-availability">Còn Hàng</span></div>
+                        @else
+                        <div class="mb-3"><span class="product-availability">Hết Hàng</span></div>
+                            
+                        @endif
+                        <h2 class="product-title mb-3">{{$san_pham_chi_tiet->ten_san_pham}}</h2>
+                        <div class="product-rating d-flex align-items-center mb-3">
                             <span class="star-rating">
                                 <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#FFAE00"/>
@@ -76,73 +77,16 @@
                                 </svg>                                            
                             </span>
                             <span class="rating-count ms-2">(22)</span>
-                        </div> -->
+                        </div>
                         <div class="product-price-wrapper mb-4">
-                            <span class="product-price regular-price">{{$data_san_pham->gia_san_pham . ' ' . 'vnd'}}</span>
-                            <!-- <del class="product-price compare-price ms-2">$32.00</del> -->
+                            <span class="product-price regular-price">{{$san_pham_chi_tiet->gia_san_pham}}</span>
+                            <del class="product-price compare-price ms-2">{{$san_pham_chi_tiet->giam_gia_san_pham}}</del>
                         </div>
                         <div class="product-sku product-meta mb-1">
-                            <strong class="label">SKU:</strong> {{$data_san_pham->id}}
+                            <strong class="label">Mã Sản Phẩm:</strong> {{$san_pham_chi_tiet->id}}
                         </div>
-                        <!-- <div class="product-vendor product-meta mb-3">
-                            <strong class="label">Vendor:</strong> leather
-                        </div> -->
-
-                        <!-- <div class="product-variant-wrapper">
-                            <div class="product-variant product-variant-color">
-                                <strong class="label mb-1 d-block">Color:</strong>
-
-                                <ul class="variant-list list-unstyled d-flex align-items-center flex-wrap">
-                                    <li class="variant-item">
-                                        <input type="radio" value="cyan" checked>
-                                        <label class="variant-label swatch-cyan"></label>
-                                    </li>
-                                    <li class="variant-item">
-                                        <input type="radio" value="black">
-                                        <label class="variant-label swatch-black"></label>
-                                    </li>
-                                    <li class="variant-item">
-                                        <input type="radio" value="purple">
-                                        <label class="variant-label swatch-purple"></label>
-                                    </li>
-                                    <li class="variant-item">
-                                        <input type="radio" value="blue">
-                                        <label class="variant-label swatch-blue"></label>
-                                    </li>
-                                    <li class="variant-item">
-                                        <input type="radio" value="orange">
-                                        <label class="variant-label swatch-orange"></label>
-                                    </li>
-                                    <li class="variant-item">
-                                        <input type="radio" value="teal">
-                                        <label class="variant-label swatch-teal"></label>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="product-variant product-variant-other">
-                                <strong class="label mb-1 d-block">Size:</strong>
-
-                                <ul class="variant-list list-unstyled d-flex align-items-center flex-wrap">
-                                    <li class="variant-item">
-                                        <input type="radio" value="34" checked>
-                                        <label class="variant-label">34</label>
-                                    </li>
-                                    <li class="variant-item">
-                                        <input type="radio" value="36">
-                                        <label class="variant-label">36</label>
-                                    </li>
-                                    <li class="variant-item">
-                                        <input type="radio" value="38">
-                                        <label class="variant-label">38</label>
-                                    </li>
-                                    <li class="variant-item">
-                                        <input type="radio" value="40">
-                                        <label class="variant-label">40</label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> -->
+                   
+                      
 
                         <div class="misc d-flex align-items-end justify-content-between mt-4">
                             <div class="quantity d-flex align-items-center justify-content-between">
@@ -331,10 +275,10 @@
         <div class="container">
             <div class="tab-list product-tab-list">
                 <nav class="nav product-tab-nav">
-                    <a class="product-tab-link tab-link active" href="#pdescription" data-bs-toggle="tab">Miêu tả</a>
-                    <!-- <a class="product-tab-link tab-link" href="#pshipping" data-bs-toggle="tab">Shipping & Returns</a>
-                    <a class="product-tab-link tab-link" href="#pstyle" data-bs-toggle="tab">Style with</a> -->
-                    <a class="product-tab-link tab-link" href="#preview" data-bs-toggle="tab">Nhận xét</a>
+                    <a class="product-tab-link tab-link active" href="#pdescription" data-bs-toggle="tab">Description</a>
+                    <a class="product-tab-link tab-link" href="#pshipping" data-bs-toggle="tab">Shipping & Returns</a>
+                    <a class="product-tab-link tab-link" href="#pstyle" data-bs-toggle="tab">Style with</a>
+                    <a class="product-tab-link tab-link" href="#preview" data-bs-toggle="tab">Reviews</a>
                 </nav>
             </div>
             <div class="tab-content product-tab-content">
@@ -342,23 +286,23 @@
                     <div class="row">
                         <div class="col-lg-7 col-md-12 col-12">
                             <div class="desc-content">
-                                <h4 class="heading_18 mb-3">{{$data_san_pham->ten_san_pham}}</h4>
-                                <p class="text_16 mb-4">{!!$data_san_pham->mo_ta!!}</p>
+                                <h4 class="heading_18 mb-3">What is lorem ipsum?</h4>
+                                <p class="text_16 mb-4">Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-12 col-12">
                             <div class="desc-img">
-                                <img src="/img/{{$HinhAnh->hinh_anh}}" alt="img">
+                                <img src="assets/img/product.jpg" alt="img">
                             </div>
                         </div>
-                        <!-- <div class="col-lg-12 col-md-12 col-12">
+                        <div class="col-lg-12 col-md-12 col-12">
                             <div class="desc-content mt-4">
-                                <p class="text_16"></p>
+                                <p class="text_16">Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
-                <!-- <div id="pshipping" class="tab-pane fade">
+                <div id="pshipping" class="tab-pane fade">
                     <div class="desc-content">
                         <h4 class="heading_18 mb-3">Returns within the European Union</h4>
                         <p class="text_16 mb-4">The European law states that when an order is being returned, it is mandatory for the company to refund the product price and shipping costs charged for the original shipment. Meaning: one shipping fee is paid by us.</p>
@@ -372,167 +316,13 @@
                         <p class="text_16 mb-4">Please also bear in mind that shipping goods back and forth generates greenhouse gases that are accelerating climate change. We encourage you to choose your items carefully to avoid unnecessary return shipments.</p>
                         <p class="text_16 mb-4">You have to pay for return shipping if you want to exchange your product for another size or the package is returned because it has not been picked up at the post office.</p>
                     </div>
-                </div> -->
+                </div>
                 <div id="preview" class="tab-pane fade">
                     <div class="review-area accordion-parent">
-
-                        <h4 class="heading_18 mb-3">Phản hồi khách hàng</h4>
-
-                        <div class="comments-area">
-                            <div class="d-flex comments-item">
-                                <div class="comments-img">
-                                    <img src="/assets_client/img/people/1.jpg" alt="img">
-                                </div>
-                                <div class="comments-main">
-                                    <div class="comments-main-content">
-                                        <div class="comments-meta">
-                                            <h4 class="commentator-name">Ralph Edwards</h4>
-                                            <div class="comments-date article-date d-flex align-items-center">
-                                                <span class="icon-publish">
-                                                    <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M3.46875 0.875V1.59375H0.59375V17.4063H16.4063V1.59375H13.5313V0.875H12.0938V1.59375H4.90625V0.875H3.46875ZM2.03125 3.03125H3.46875V3.75H4.90625V3.03125H12.0938V3.75H13.5313V3.03125H14.9688V4.46875H2.03125V3.03125ZM2.03125 5.90625H14.9688V15.9688H2.03125V5.90625ZM6.34375 7.34375V8.78125H7.78125V7.34375H6.34375ZM9.21875 7.34375V8.78125H10.6563V7.34375H9.21875ZM12.0938 7.34375V8.78125H13.5313V7.34375H12.0938ZM3.46875 10.2188V11.6563H4.90625V10.2188H3.46875ZM6.34375 10.2188V11.6563H7.78125V10.2188H6.34375ZM9.21875 10.2188V11.6563H10.6563V10.2188H9.21875ZM12.0938 10.2188V11.6563H13.5313V10.2188H12.0938ZM3.46875 13.0938V14.5313H4.90625V13.0938H3.46875ZM6.34375 13.0938V14.5313H7.78125V13.0938H6.34375ZM9.21875 13.0938V14.5313H10.6563V13.0938H9.21875Z" fill="#00234D" />
-                                                    </svg>
-                                                </span>
-                                                <span class="ms-2">30 December, 2022</span>
-                                            </div>
-                                            <fieldset>                                              
-                                                <div class="star-rating">
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                </div>
-                                            </fieldset>
-                                            <p class="comments">The second Bag is a corner room with double windows. The Bag has fabulous spa new appliances, and a laundry area. Other features include rich herringbone floors.</p>
-                                        </div>
-                                        <button type="button" class="btn-reply bg-transparent d-flex align-items-center">
-                                            <span class="btn-reply-icon me-2">
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5.14062 2.64062L1.14062 6.64062L0.796875 7L1.14062 7.35938L5.14062 11.3594L5.85938 10.6406L2.21875 7L5.85938 3.35938L5.14062 2.64062ZM7.64062 2.64062L3.64062 6.64062L3.29688 7L3.64062 7.35938L7.64062 11.3594L8.35938 10.6406L5.21875 7.5H11.5C12.8867 7.5 14 8.61328 14 10C14 11.3867 12.8867 12.5 11.5 12.5V13.5C13.4277 13.5 15 11.9277 15 10C15 8.07227 13.4277 6.5 11.5 6.5H5.21875L8.35938 3.35938L7.64062 2.64062Z" fill="black" />
-                                                </svg>
-                                            </span>
-                                            <span class="btn-reply-text">Reply</span>
-                                        </button>
-                                    </div>
-                                    <!-- <div class="comments-replied">
-                                        <div class="d-flex comments-item">
-                                            <div class="comments-img">
-                                                <img src="/assets_client/img/people/2.jpg" alt="img">
-                                            </div>
-                                            <div class="comments-main">
-                                                <div class="comments-meta">
-                                                    <h4 class="commentator-name">Marvin McKinney</h4>
-                                                    <div class="comments-date article-date d-flex align-items-center">
-                                                        <span class="icon-publish">
-                                                            <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M3.46875 0.875V1.59375H0.59375V17.4063H16.4063V1.59375H13.5313V0.875H12.0938V1.59375H4.90625V0.875H3.46875ZM2.03125 3.03125H3.46875V3.75H4.90625V3.03125H12.0938V3.75H13.5313V3.03125H14.9688V4.46875H2.03125V3.03125ZM2.03125 5.90625H14.9688V15.9688H2.03125V5.90625ZM6.34375 7.34375V8.78125H7.78125V7.34375H6.34375ZM9.21875 7.34375V8.78125H10.6563V7.34375H9.21875ZM12.0938 7.34375V8.78125H13.5313V7.34375H12.0938ZM3.46875 10.2188V11.6563H4.90625V10.2188H3.46875ZM6.34375 10.2188V11.6563H7.78125V10.2188H6.34375ZM9.21875 10.2188V11.6563H10.6563V10.2188H9.21875ZM12.0938 10.2188V11.6563H13.5313V10.2188H12.0938ZM3.46875 13.0938V14.5313H4.90625V13.0938H3.46875ZM6.34375 13.0938V14.5313H7.78125V13.0938H6.34375ZM9.21875 13.0938V14.5313H10.6563V13.0938H9.21875Z" fill="#00234D" />
-                                                            </svg>
-                                                        </span>
-                                                        <span class="ms-2">30 December, 2022</span>
-                                                    </div>
-                                                    <fieldset>                                              
-                                                <div class="star-rating">
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                </div>
-                                            </fieldset>
-                                                    <p class="comments">The second Bag is a corner room with double windows. The Bag has fabulous spa new appliances, and a laundry area. Other features include rich herringbone floors.</p>
-                                                </div>
-                                                <button type="button" class="btn-reply bg-transparent d-flex align-items-center">
-                                                    <span class="btn-reply-icon me-2">
-                                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M5.14062 2.64062L1.14062 6.64062L0.796875 7L1.14062 7.35938L5.14062 11.3594L5.85938 10.6406L2.21875 7L5.85938 3.35938L5.14062 2.64062ZM7.64062 2.64062L3.64062 6.64062L3.29688 7L3.64062 7.35938L7.64062 11.3594L8.35938 10.6406L5.21875 7.5H11.5C12.8867 7.5 14 8.61328 14 10C14 11.3867 12.8867 12.5 11.5 12.5V13.5C13.4277 13.5 15 11.9277 15 10C15 8.07227 13.4277 6.5 11.5 6.5H5.21875L8.35938 3.35938L7.64062 2.64062Z" fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <span class="btn-reply-text">Reply</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div class="d-flex comments-item">
-                                <div class="comments-img">
-                                    <img src="/assets_client/img/people/3.jpg" alt="img">
-                                </div>
-                                <div class="comments-main">
-                                    <div class="comments-main-content">
-                                        <div class="comments-meta">
-                                            <h4 class="commentator-name">Albert Flores</h4>
-                                            <div class="comments-date article-date d-flex align-items-center">
-                                                <span class="icon-publish">
-                                                    <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M3.46875 0.875V1.59375H0.59375V17.4063H16.4063V1.59375H13.5313V0.875H12.0938V1.59375H4.90625V0.875H3.46875ZM2.03125 3.03125H3.46875V3.75H4.90625V3.03125H12.0938V3.75H13.5313V3.03125H14.9688V4.46875H2.03125V3.03125ZM2.03125 5.90625H14.9688V15.9688H2.03125V5.90625ZM6.34375 7.34375V8.78125H7.78125V7.34375H6.34375ZM9.21875 7.34375V8.78125H10.6563V7.34375H9.21875ZM12.0938 7.34375V8.78125H13.5313V7.34375H12.0938ZM3.46875 10.2188V11.6563H4.90625V10.2188H3.46875ZM6.34375 10.2188V11.6563H7.78125V10.2188H6.34375ZM9.21875 10.2188V11.6563H10.6563V10.2188H9.21875ZM12.0938 10.2188V11.6563H13.5313V10.2188H12.0938ZM3.46875 13.0938V14.5313H4.90625V13.0938H3.46875ZM6.34375 13.0938V14.5313H7.78125V13.0938H6.34375ZM9.21875 13.0938V14.5313H10.6563V13.0938H9.21875Z" fill="#00234D" />
-                                                    </svg>
-                                                </span>
-                                                <span class="ms-2">30 December, 2022</span>
-                                            </div>
-                                            <fieldset>                                              
-                                                <div class="star-rating">
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2" />
-                                                    </svg>
-                                                </div>
-                                            </fieldset>
-                                            <p class="comments">The second Bag is a corner room with double windows. The Bag has fabulous spa new appliances, and a laundry area. Other features include rich herringbone floors.</p>
-                                        </div>
-                                        <button type="button" class="btn-reply bg-transparent d-flex align-items-center">
-                                            <span class="btn-reply-icon me-2">
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5.14062 2.64062L1.14062 6.64062L0.796875 7L1.14062 7.35938L5.14062 11.3594L5.85938 10.6406L2.21875 7L5.85938 3.35938L5.14062 2.64062ZM7.64062 2.64062L3.64062 6.64062L3.29688 7L3.64062 7.35938L7.64062 11.3594L8.35938 10.6406L5.21875 7.5H11.5C12.8867 7.5 14 8.61328 14 10C14 11.3867 12.8867 12.5 11.5 12.5V13.5C13.4277 13.5 15 11.9277 15 10C15 8.07227 13.4277 6.5 11.5 6.5H5.21875L8.35938 3.35938L7.64062 2.64062Z" fill="black" />
-                                                </svg>
-                                            </span>
-                                            <span class="btn-reply-text">Reply</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h4 class="heading_18 mb-3">Customer Reviews</h4>
                         <div class="review-header d-flex justify-content-between align-items-center">
-                            <p class="text_16">Chưa có đánh giá nào.</p> -->
-
-
-
-
-                            <button class="text_14 bg-transparent text-decoration-underline write-btn" type="button">
-                                Viết đánh giá
-                            </button>
+                            <p class="text_16">No reviews yet.</p>
+                            <button class="text_14 bg-transparent text-decoration-underline write-btn" type="button">Write a review</button>
                         </div>
                         <div class="review-form-area accordion-child">
 
@@ -613,216 +403,253 @@
                 ]
             }'>
 
-                    <div class="new-item" data-aos="fade-up" data-aos-duration="300">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="collection-left-sidebar.html">
-                                    <img class="secondary-img" src="/assets_client/img/products/bags/11.jpg" alt="product-img">
-                                    <img class="primary-img" src="/assets_client/img/products/bags/1.jpg" alt="product-img">
-                                </a>
+            <div class="new-item" data-aos="fade-up" data-aos-duration="300">
+                <div class="product-card">
+                    <div class="product-card-img">
+                        <a class="hover-switch" href="collection-left-sidebar.html">
+                            <img class="secondary-img" src="assets/img/products/bags/11.jpg"
+                                alt="product-img">
+                            <img class="primary-img" src="assets/img/products/bags/1.jpg"
+                                alt="product-img">
+                        </a>
 
                                 <div class="product-card-action product-card-action-2">
                                     <a href="#quickview-modal" class="quickview-btn btn-primary" data-bs-toggle="modal">QUICKVIEW</a>
                                     <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                 </div>
 
-                                <a href="wishlist.html" class="wishlist-btn card-wishlist">
-                                    <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z" fill="black" />
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="collection-left-sidebar.html">black backpack</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">$1529</span>
-                                    <span class="card-price-compare text-decoration-line-through">$1759</span>
-                                </div>
-                            </div>
+                        <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                            <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                    fill="black" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="product-card-details text-center">
+                        <h3 class="product-card-title"><a href="collection-left-sidebar.html">black backpack</a>
+                        </h3>
+                        <div class="product-card-price">
+                            <span class="card-price-regular">$1529</span>
+                            <span class="card-price-compare text-decoration-line-through">$1759</span>
                         </div>
                     </div>
-                    <div class="new-item" data-aos="fade-up" data-aos-duration="300">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="collection-left-sidebar.html">
-                                    <img class="secondary-img" src="/assets_client/img/products/bags/22.jpg" alt="product-img">
-                                    <img class="primary-img" src="/assets_client/img/products/bags/2.jpg" alt="product-img">
-                                </a>
+                </div>
+            </div>
+            <div class="new-item" data-aos="fade-up" data-aos-duration="300">
+                <div class="product-card">
+                    <div class="product-card-img">
+                        <a class="hover-switch" href="collection-left-sidebar.html">
+                            <img class="secondary-img" src="assets/img/products/bags/22.jpg"
+                                alt="product-img">
+                            <img class="primary-img" src="assets/img/products/bags/2.jpg"
+                                alt="product-img">
+                        </a>
 
                                 <div class="product-card-action product-card-action-2">
                                     <a href="#quickview-modal" class="quickview-btn btn-primary" data-bs-toggle="modal">QUICKVIEW</a>
                                     <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                 </div>
 
-                                <a href="wishlist.html" class="wishlist-btn card-wishlist">
-                                    <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z" fill="black" />
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="collection-left-sidebar.html">lady handbag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">$529</span>
-                                    <span class="card-price-compare text-decoration-line-through">$759</span>
-                                </div>
-                            </div>
+                        <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                            <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                    fill="black" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="product-card-details text-center">
+                        <h3 class="product-card-title"><a href="collection-left-sidebar.html">lady handbag</a>
+                        </h3>
+                        <div class="product-card-price">
+                            <span class="card-price-regular">$529</span>
+                            <span class="card-price-compare text-decoration-line-through">$759</span>
                         </div>
                     </div>
-                    <div class="new-item" data-aos="fade-up" data-aos-duration="300">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="collection-left-sidebar.html">
-                                    <img class="secondary-img" src="/assets_client/img/products/bags/23.jpg" alt="product-img">
-                                    <img class="primary-img" src="/assets_client/img/products/bags/3.jpg" alt="product-img">
-                                </a>
+                </div>
+            </div>
+            <div class="new-item" data-aos="fade-up" data-aos-duration="300">
+                <div class="product-card">
+                    <div class="product-card-img">
+                        <a class="hover-switch" href="collection-left-sidebar.html">
+                            <img class="secondary-img" src="assets/img/products/bags/23.jpg"
+                                alt="product-img">
+                            <img class="primary-img" src="assets/img/products/bags/3.jpg"
+                                alt="product-img">
+                        </a>
 
                                 <div class="product-card-action product-card-action-2">
                                     <a href="#quickview-modal" class="quickview-btn btn-primary" data-bs-toggle="modal">QUICKVIEW</a>
                                     <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                 </div>
 
-                                <a href="wishlist.html" class="wishlist-btn card-wishlist">
-                                    <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z" fill="black" />
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="collection-left-sidebar.html">men travel bag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">$529</span>
-                                    <span class="card-price-compare text-decoration-line-through">$759</span>
-                                </div>
-                            </div>
+                        <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                            <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                    fill="black" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="product-card-details text-center">
+                        <h3 class="product-card-title"><a href="collection-left-sidebar.html">men travel bag</a>
+                        </h3>
+                        <div class="product-card-price">
+                            <span class="card-price-regular">$529</span>
+                            <span class="card-price-compare text-decoration-line-through">$759</span>
                         </div>
                     </div>
-                    <div class="new-item" data-aos="fade-up" data-aos-duration="300">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="collection-left-sidebar.html">
-                                    <img class="secondary-img" src="/assets_client/img/products/bags/26.jpg" alt="product-img">
-                                    <img class="primary-img" src="/assets_client/img/products/bags/4.jpg" alt="product-img">
-                                </a>
+                </div>
+            </div>
+            <div class="new-item" data-aos="fade-up" data-aos-duration="300">
+                <div class="product-card">
+                    <div class="product-card-img">
+                        <a class="hover-switch" href="collection-left-sidebar.html">
+                            <img class="secondary-img" src="assets/img/products/bags/26.jpg"
+                                alt="product-img">
+                            <img class="primary-img" src="assets/img/products/bags/4.jpg"
+                                alt="product-img">
+                        </a>
 
                                 <div class="product-card-action product-card-action-2">
                                     <a href="#quickview-modal" class="quickview-btn btn-primary" data-bs-toggle="modal">QUICKVIEW</a>
                                     <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                 </div>
 
-                                <a href="wishlist.html" class="wishlist-btn card-wishlist">
-                                    <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z" fill="black" />
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="collection-left-sidebar.html">nike legend
-                                        stripe</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">$529</span>
-                                </div>
-                            </div>
+                        <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                            <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                    fill="black" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="product-card-details text-center">
+                        <h3 class="product-card-title"><a href="collection-left-sidebar.html">nike legend
+                                stripe</a>
+                        </h3>
+                        <div class="product-card-price">
+                            <span class="card-price-regular">$529</span>
                         </div>
                     </div>
-                    <div class="new-item" data-aos="fade-up" data-aos-duration="300">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="collection-left-sidebar.html">
-                                    <img class="secondary-img" src="/assets_client/img/products/bags/27.jpg" alt="product-img">
-                                    <img class="primary-img" src="/assets_client/img/products/bags/5.jpg" alt="product-img">
-                                </a>
+                </div>
+            </div>
+            <div class="new-item" data-aos="fade-up" data-aos-duration="300">
+                <div class="product-card">
+                    <div class="product-card-img">
+                        <a class="hover-switch" href="collection-left-sidebar.html">
+                            <img class="secondary-img" src="assets/img/products/bags/27.jpg"
+                                alt="product-img">
+                            <img class="primary-img" src="assets/img/products/bags/5.jpg"
+                                alt="product-img">
+                        </a>
 
                                 <div class="product-card-action product-card-action-2">
                                     <a href="#quickview-modal" class="quickview-btn btn-primary" data-bs-toggle="modal">QUICKVIEW</a>
                                     <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                 </div>
 
-                                <a href="wishlist.html" class="wishlist-btn card-wishlist">
-                                    <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z" fill="black" />
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="collection-left-sidebar.html">nike legend
-                                        stripe</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">$529</span>
-                                </div>
-                            </div>
+                        <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                            <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                    fill="black" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="product-card-details text-center">
+                        <h3 class="product-card-title"><a href="collection-left-sidebar.html">nike legend
+                                stripe</a>
+                        </h3>
+                        <div class="product-card-price">
+                            <span class="card-price-regular">$529</span>
                         </div>
                     </div>
-                    <div class="new-item" data-aos="fade-up" data-aos-duration="300">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="collection-left-sidebar.html">
-                                    <img class="secondary-img" src="/assets_client/img/products/bags/29.jpg" alt="product-img">
-                                    <img class="primary-img" src="/assets_client/img/products/bags/6.jpg" alt="product-img">
-                                </a>
+                </div>
+            </div>
+            <div class="new-item" data-aos="fade-up" data-aos-duration="300">
+                <div class="product-card">
+                    <div class="product-card-img">
+                        <a class="hover-switch" href="collection-left-sidebar.html">
+                            <img class="secondary-img" src="assets/img/products/bags/29.jpg"
+                                alt="product-img">
+                            <img class="primary-img" src="assets/img/products/bags/6.jpg"
+                                alt="product-img">
+                        </a>
 
                                 <div class="product-card-action product-card-action-2">
                                     <a href="#quickview-modal" class="quickview-btn btn-primary" data-bs-toggle="modal">QUICKVIEW</a>
                                     <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                 </div>
 
-                                <a href="wishlist.html" class="wishlist-btn card-wishlist">
-                                    <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z" fill="black" />
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="collection-left-sidebar.html">nike legend
-                                        stripe</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">$529</span>
-                                </div>
-                            </div>
+                        <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                            <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                    fill="black" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="product-card-details text-center">
+                        <h3 class="product-card-title"><a href="collection-left-sidebar.html">nike legend
+                                stripe</a>
+                        </h3>
+                        <div class="product-card-price">
+                            <span class="card-price-regular">$529</span>
                         </div>
                     </div>
-                    <div class="new-item" data-aos="fade-up" data-aos-duration="300">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="collection-left-sidebar.html">
-                                    <img class="secondary-img" src="/assets_client/img/products/bags/17.jpg" alt="product-img">
-                                    <img class="primary-img" src="/assets_client/img/products/bags/7.jpg" alt="product-img">
-                                </a>
+                </div>
+            </div>
+            <div class="new-item" data-aos="fade-up" data-aos-duration="300">
+                <div class="product-card">
+                    <div class="product-card-img">
+                        <a class="hover-switch" href="collection-left-sidebar.html">
+                            <img class="secondary-img" src="assets/img/products/bags/17.jpg"
+                                alt="product-img">
+                            <img class="primary-img" src="assets/img/products/bags/7.jpg"
+                                alt="product-img">
+                        </a>
 
                                 <div class="product-card-action product-card-action-2">
                                     <a href="#quickview-modal" class="quickview-btn btn-primary" data-bs-toggle="modal">QUICKVIEW</a>
                                     <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                 </div>
 
-                                <a href="wishlist.html" class="wishlist-btn card-wishlist">
-                                    <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z" fill="black" />
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="collection-left-sidebar.html">women vanity
-                                        bag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">$529</span>
-                                </div>
-                            </div>
+                        <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                            <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                    fill="black" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="product-card-details text-center">
+                        <h3 class="product-card-title"><a href="collection-left-sidebar.html">women vanity
+                                bag</a>
+                        </h3>
+                        <div class="product-card-price">
+                            <span class="card-price-regular">$529</span>
                         </div>
                     </div>
-                    <div class="new-item" data-aos="fade-up" data-aos-duration="300">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="collection-left-sidebar.html">
-                                    <img class="secondary-img" src="/assets_client/img/products/bags/18.jpg" alt="product-img">
-                                    <img class="primary-img" src="/assets_client/img/products/bags/8.jpg" alt="product-img">
-                                </a>
+                </div>
+            </div>
+            <div class="new-item" data-aos="fade-up" data-aos-duration="300">
+                <div class="product-card">
+                    <div class="product-card-img">
+                        <a class="hover-switch" href="collection-left-sidebar.html">
+                            <img class="secondary-img" src="assets/img/products/bags/18.jpg"
+                                alt="product-img">
+                            <img class="primary-img" src="assets/img/products/bags/8.jpg"
+                                alt="product-img">
+                        </a>
 
                                 <div class="product-card-action product-card-action-2">
                                     <a href="#quickview-modal" class="quickview-btn btn-primary" data-bs-toggle="modal">QUICKVIEW</a>
@@ -854,5 +681,18 @@
 </main>
 @endsection
 @section('js')
-
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            @include('Trang-Khach-Hang.share.datavue')
+        },
+        created() {
+            this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
+        },
+        methods: {
+          @include('Trang-Khach-Hang.share.vue')
+        },
+    });
+</script>
 @endsection

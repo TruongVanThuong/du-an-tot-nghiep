@@ -1,6 +1,6 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
-    <main id="app" class="content-for-layout" style="margin-bottom: 100px;" v-cloak>
+    <main  class="content-for-layout" style="margin-bottom: 100px;" v-cloak>
         <div class="login-page mt-100">
             <div class="container">
                 <div class="login-form common-form mx-auto">
@@ -35,52 +35,52 @@
     </main>
 @endsection
 @section('js')
-    <script>
-        new Vue({
-            el: "#app",
-            data: {
-                dang_nhap: {},
-                errors: {
-                    email: '', // Thêm trường này để theo dõi lỗi email
-                    password: '' // Thêm trường này để theo dõi lỗi password
-                },
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            dang_nhap: {},
+            errors: {
+                email: '', // Thêm trường này để theo dõi lỗi email
+                password: '' // Thêm trường này để theo dõi lỗi password
             },
-            watch: {
-                'dang_nhap.email': function(newVal) {
-                    if (newVal) {
-                        this.errors.email = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
-                    }
-                },
-                'dang_nhap.password': function(newVal) {
-                    if (newVal) {
-                        this.errors.password = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
-                    }
+        },
+        watch: {
+            'dang_nhap.email': function(newVal) {
+                if (newVal) {
+                    this.errors.email = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
                 }
             },
-            methods: {
-                kich_hoat_dang_nhap() {
-                    axios
-                        .post('/kich-hoat-dang-nhap', this.dang_nhap)
-                        .then((res) => {
-                            if (res.data.status) {
-                                toastr.success(res.data.message);
-                                this.dang_nhap = {};
-                                setTimeout(() => {
-                                    window.location.href = "/";
-                                }, 2000); // Delay for 2 seconds (2000 milliseconds)
-                            } else {
-                                toastr.warning(res.data.message);
-                            }
-                        })
-                        .catch((error) => {
-                            if (error.response && error.response.data && error.response.data.errors) {
-                                this.errors = error.response.data.errors;
-                            } else {
-                                toastr.error('Có lỗi không mong muốn!');
-                            }
-                        })
-                },
+            'dang_nhap.password': function(newVal) {
+                if (newVal) {
+                    this.errors.password = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+                }
             }
-        });
-    </script>
+        },
+        methods: {
+            kich_hoat_dang_nhap() {
+                axios
+                    .post('/kich-hoat-dang-nhap', this.dang_nhap)
+                    .then((res) => {
+                        if (res.data.status) {
+                            toastr.success(res.data.message);
+                            this.dang_nhap = {};
+                            setTimeout(() => {
+                                window.location.href = "/";
+                            }, 1000); // Delay for 2 seconds (2000 milliseconds)
+                        } else {
+                            toastr.warning(res.data.message);
+                        }
+                    })
+                    .catch((error) => {
+                        if (error.response && error.response.data && error.response.data.errors) {
+                            this.errors = error.response.data.errors;
+                        } else {
+                            toastr.error('Có lỗi không mong muốn!');
+                        }
+                    })
+            },
+        }
+    });
+</script>
 @endsection
