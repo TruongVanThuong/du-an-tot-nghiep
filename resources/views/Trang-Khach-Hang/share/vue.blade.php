@@ -72,8 +72,10 @@ formatCurrency(value) {
     },
 
     isFavorite(productId) {
-        this.tai_san_pham_yeu_thich();
+        if (!this.ds_sp_yeu_thich.length) {
+            this.tai_san_pham_yeu_thich();
+        }
         const isFav = this.ds_sp_yeu_thich.some(favorite => favorite.ma_san_pham === productId);
         return isFav;
-    },
+    }
     

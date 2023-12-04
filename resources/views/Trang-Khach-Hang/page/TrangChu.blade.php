@@ -4,7 +4,7 @@
         $check = Auth::guard('khach_hang')->check();
         $user = Auth::guard('khach_hang')->user();
     @endphp
-    <main id="MainContent" class="content-for-layout">
+    <main id="MainContent" class="content-for-layout" v-cloak>
         <!-- slideshow start -->
         <div class="slideshow-section position-relative">
             <div class="slideshow-active activate-slider"
@@ -413,7 +413,7 @@
                                             <div class="product-card-action product-card-action-2">
 
                                                 <a href="#"
-                                                    class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto;">Thêm
+                                                    class="addtocart-btn btn-primary text-nowrap" style="margin: 0 auto;">Thêm
                                                     Vào Giỏ Hàng</a>
                                             </div>
 
@@ -619,6 +619,7 @@
             },
             created() {
                 this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
+                this.tai_san_pham_yeu_thich();
             },
             methods: {
                 @include('Trang-Khach-Hang.share.vue')
