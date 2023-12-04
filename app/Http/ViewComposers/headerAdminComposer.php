@@ -2,21 +2,20 @@
 // Trong thư mục app/Http/ViewComposers
 namespace App\Http\ViewComposers;
 
+use App\Models\LienheModel;
 use Illuminate\View\View;
-use App\Models\DanhmucModel;
-use App\Models\LoaisanphamModel;
-use App\Models\KhachHangModel;
 use Illuminate\Support\Facades\Auth;
 
 
 
-class headerComposer
+class headerAdminComposer
 {
     public function compose(View $view)
     {
-        // Truyền dữ liệu vào view
-        $danhMuc = DanhmucModel::all();
-        $theLoai = LoaisanphamModel::all();
+
+        $LIENHE = LienheModel::where('xu_ly', 0)->get();
+        $LIENHE_xu_ly = LienheModel::where('xu_ly', 0)->count();
+
 
         // Lấy thông tin về người dùng hiện tại đã đăng nhập
         $loggedInUser = Auth::guard('khach_hang')->user();
@@ -31,9 +30,9 @@ class headerComposer
             $isAdmin = false; // Ví dụ: gán biến $isAdmin = false;
         }        
         
-        $view->with('danhMuc', $danhMuc);
-        $view->with('theLoai', $theLoai);
+
         $view->with('isAdmin', $isAdmin);
-       
+        $view->with('LIENHE', $LIENHE);
+        $view->with('LIENHE_xu_ly', $LIENHE_xu_ly);
     }
 }

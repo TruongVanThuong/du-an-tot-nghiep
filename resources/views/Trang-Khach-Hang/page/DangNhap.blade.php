@@ -67,7 +67,7 @@
                             this.dang_nhap = {};
                             setTimeout(() => {
                                 window.location.href = "/";
-                            }, 2000); // Delay for 2 seconds (2000 milliseconds)
+                            }, 1000); // Delay for 2 seconds (2000 milliseconds)
                         } else {
                             toastr.warning(res.data.message);
                         }

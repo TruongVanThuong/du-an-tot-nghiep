@@ -11,13 +11,16 @@
     </div>
     <nav class="navbar navbar-expand-xl w-100">
         <ul class="navbar-nav justify-content-start flex-grow-1 gap-1">
-        <li class="nav-item">
+            @if ($isAdmin)
+            @else
+            <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/thong-ke')}}">
-                    <div class="parent-icon"><i class="bx bx-cart"></i>
+                    <div class="parent-icon"><i class="bx bx-home-circle"></i>
                     </div>
                     <div class="menu-title">Thong Ke</div>
                 </a>
             </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/sanpham')}}">
                     <div class="parent-icon"><i class="bx bx-cart"></i>

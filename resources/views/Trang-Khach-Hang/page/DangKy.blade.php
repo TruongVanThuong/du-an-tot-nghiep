@@ -149,7 +149,7 @@
                                 toastr.success(res.data.message);
                                 setTimeout(() => {
                                     window.location.href = "/dang-nhap";
-                                }, 2000); // Delay for 2 seconds (2000 milliseconds)
+                                }, 1000); // Delay for 2 seconds (2000 milliseconds)
                             } else {
                                 toastr.error('Có lỗi không mong muốn!');
                             }

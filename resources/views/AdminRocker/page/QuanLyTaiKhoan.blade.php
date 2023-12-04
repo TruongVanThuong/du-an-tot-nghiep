@@ -368,11 +368,11 @@
             }
           })
       },
-      format_date(taikhoan){
-                if (taikhoan) {
-                return moment(String(taikhoan)).format('DD/MM/YYYY')
-                }
-            },
+      format_date(taikhoan) {
+        if (taikhoan) {
+          return moment(String(taikhoan)).format('DD/MM/YYYY')
+        }
+      },
 
     }
   });
