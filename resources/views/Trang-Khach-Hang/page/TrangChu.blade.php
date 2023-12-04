@@ -810,8 +810,6 @@
             },
             methods: {
                 @include('Trang-Khach-Hang.share.vue')
-
-
             },
         });
     </script>

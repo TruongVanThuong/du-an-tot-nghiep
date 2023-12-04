@@ -42,12 +42,23 @@ class SanPhamYeuThichController extends Controller
     }
 
     public function HienThiSanPhamYeuThich(){
-        $ma_khach_hang = Auth::guard('khach_hang')->user()->id;
-        $san_pham_yeu_thich = SanPhamYeuThich::where('ma_khach_hang', $ma_khach_hang)->get();
-
-        return response()-> json([
-            'status' => true,
-            'du_lieu'=> $san_pham_yeu_thich
-        ]);
+        $ma_khach_hang = Auth::guard('khach_hang')->user();
+    
+        if ($ma_khach_hang) {
+            // User is authenticated
+            $ma_khach_hang_id = $ma_khach_hang->id;
+            $san_pham_yeu_thich = SanPhamYeuThich::where('ma_khach_hang', $ma_khach_hang_id)->get();
+    
+            return response()->json([
+                'status' => true,
+                'du_lieu' => $san_pham_yeu_thich
+            ]);
+        } else {
+            // User is not authenticated
+            return response()->json([
+                'status' => false,
+                'message' => 'User not authenticated'
+            ]);
+        }
     }
 }

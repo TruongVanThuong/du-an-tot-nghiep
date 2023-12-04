@@ -44,7 +44,7 @@
                 email: '', // Thêm trường này để theo dõi lỗi email
                 password: '' // Thêm trường này để theo dõi lỗi password
             },
-            @include('Trang-Khach-Hang.share.datavue');
+            @include('Trang-Khach-Hang.share.datavue')
         },
         watch: {
             'dang_nhap.email': function(newVal) {
