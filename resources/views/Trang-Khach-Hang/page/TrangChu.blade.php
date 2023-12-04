@@ -160,6 +160,9 @@
                 <div class="container">
                     <div class="section-header text-center">
                         <h2 class="section-heading">Sản Phẩm yêu thích</h2>
+                        @foreach ($danhMuc as $danhmuc)
+                        {{$danhmuc->id}}
+                        @endforeach
                     </div>
                     <div class="tab-list collection-tab-list">
                         <nav class="nav justify-content-center">

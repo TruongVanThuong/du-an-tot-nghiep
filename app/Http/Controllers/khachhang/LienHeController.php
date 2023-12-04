@@ -76,4 +76,22 @@ public function GuiLienHe(LienHe $request)
         ]);
 
     }
+
+    public function XemLienHe(Request $request) {
+
+        LienheModel::where('id', $request->id)->update(
+            [
+                'xu_ly' => 1
+            ]
+        );
+    }
+
+    public function XemLienHeHeader() {
+        $id = $_GET['id_data'];
+        LienheModel::where('id', $id)->update(
+            [
+                'xu_ly' => 1
+            ]
+        );
+    }
 }

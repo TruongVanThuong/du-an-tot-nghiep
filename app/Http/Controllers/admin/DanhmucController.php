@@ -17,11 +17,12 @@ class DanhmucController extends Controller
         return view('AdminRocker.page.DanhMuc.QuanLyDanhMuc');
     }
 
-    public function HienThiDanhMuc() {
+    public function HienThiDanhMuc()
+    {
         $data_danhmuc = DanhmucModel::orderBy('id', 'desc')->get();
         $data_theloai = LoaisanphamModel::withTrashed()->get();
         $TrashDanhMuc = DanhmucModel::onlyTrashed()->get(); // du lieu dax soft delete
-        
+
         foreach ($TrashDanhMuc as $danhmuc) {
             $danhmuc->disabled = $data_theloai->where('ma_danh_muc', $danhmuc->id)->isNotEmpty();
         }
@@ -29,82 +30,87 @@ class DanhmucController extends Controller
         $compact = compact('data_danhmuc', 'TrashDanhMuc');
 
         if ($data_danhmuc->isEmpty()) {
-			return response()->json( $compact );
+            return response()->json($compact);
         } else {
-            return response()->json( $compact );
+            return response()->json($compact);
         }
     }
 
-    public function ThemDanhMuc(DanhmucRequests $request) {
-        $data =  $request->all();
+    public function ThemDanhMuc(DanhmucRequests $request)
+    {
+        $data = $request->all();
         $data['ten_danh_muc_slug'] = Str::slug($data['ten_danh_muc']);
         DanhmucModel::create($data);
         return response()->json([
-            'status'    =>  true,
-            'message'   =>  'Thêm danh mục thành công'
+            'status' => true,
+            'message' => 'Thêm danh mục thành công'
         ]);
     }
 
-    public function XoaDanhMuc(Request $request) {
-         
+    public function XoaDanhMuc(Request $request)
+    {
+
         $xoa = DanhmucModel::find($request->id);
-		$xoa->delete();  
+        $xoa->delete();
         return response()->json([
-            'status'    =>      true,
-            'message'   =>      'Đã xóa danh mục thành công !'
+            'status' => true,
+            'message' => 'Đã xóa danh mục thành công !'
         ]);
-        
-    }// Xoa Mem
+
+    } // Xoa Mem
 
 
-    public function CapNhatDanhMuc(Request $request) {
+    public function CapNhatDanhMuc(Request $request)
+    {
         $data = $request->all();
         $data['ten_danh_muc_slug'] = Str::slug($data['ten_danh_muc']);
 
         $DanhMuc = DanhMucModel::where('id', $request->id)->first();
-        $DanhMuc->update($data);  
-              
+        $DanhMuc->update($data);
+
         return response()->json([
-            'status'    =>  true,
-            'message'   =>  'Cap nhật danh mục thành công'
-        ]);          
+            'status' => true,
+            'message' => 'Cap nhật danh mục thành công'
+        ]);
     }
 
     // ===================================================================================
     // =============================== TRASH =============================================
     // ===================================================================================
 
-   
-    public function PhucHoiDanhMuc(Request $request) {
-         
+
+    public function PhucHoiDanhMuc(Request $request)
+    {
+
         $PhucHoi = DanhmucModel::withTrashed()->where('id', $request->id);
-		$PhucHoi->restore();  
+        $PhucHoi->restore();
         return response()->json([
-            'status'    =>      true,
-            'message'   =>      'Phục hồi danh mục thành công !!'
+            'status' => true,
+            'message' => 'Phục hồi danh mục thành công !!'
         ]);
-        
-    }// Phuc hoi
+
+    } // Phuc hoi
 
     public function PhucHoiTatCaDanhMuc()
     {
         DanhmucModel::withTrashed()->restore();
         return response()->json([
-            'status'    =>      true,
-            'message'   =>      'Phục hồi danh mục thành công !!'
+            'status' => true,
+            'message' => 'Phục hồi danh mục thành công !!'
         ]);
     }
 
-    public function XoaDanhMucVinhVien(Request $request) {
-         
+    public function XoaDanhMucVinhVien(Request $request)
+    {
+
         $XoaCung = DanhmucModel::onlyTrashed()->where('id', $request->id);
-		$XoaCung->forceDelete();  
+        $XoaCung->forceDelete();
         return response()->json([
-            'status'    =>      true,
-            'message'   =>      'Đã xóa danh mục thành công !'
+            'status' => true,
+            'message' => 'Đã xóa danh mục thành công !'
         ]);
-        
-    }// Xoa cung
+
+    } // Xoa cung
 
 
 
