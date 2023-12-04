@@ -161,11 +161,18 @@ Route::get('/san-pham-nu', [TrangChuController::class, 'SanPhamNu']);
 Route::get('/san-pham-tre-em', [TrangChuController::class, 'SanPhamTreEm']);
 Route::get('/gio-hang', [TrangChuController::class, 'GioHang']);
 Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
+Route::get('/gioi-thieu', [TrangChuController::class, 'GioiThieu']);
 Route::get('/tin-tuc', [TinTucController::class, 'TinTuc']);
 Route::get('/tin-tuc/{id}', [TinTucController::class, 'TinTuc_theoloai']);
 Route::get('/tin-tuc-chi-tiet/{id}', [TinTucController::class, 'TinTucChiTiet']);
-Route::get('/gioi-thieu', [TrangChuController::class, 'GioiThieu']);
+// binh luan tin tuc
 Route::get('/binh-luan-tin-tuc', [BinhluanTintucController::class, 'binhluan_baiviet']);
+Route::get('/lay-binh-luan', [BinhluanTintucController::class, 'binhluan_baiviet']);
+
+Route::group (['middleware' => 'KhachHangDangNhap'],function () {
+  Route::post('/them-binhluan-tintuc', [BinhluanTintucController::class, 'them_binhluan']);
+  });
+
 
 
 Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemGet']);

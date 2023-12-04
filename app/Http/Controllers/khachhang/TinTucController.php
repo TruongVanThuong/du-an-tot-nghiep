@@ -44,7 +44,8 @@ class TinTucController extends Controller
         $baiviet = BaivietModel::find($id);
         $user = KhachHangModel::find($baiviet->ma_khach_hang);
         $baiviet->ma_khach_hang = $user->ho_va_ten;
-
+        $khach_hang = Auth::guard('khach_hang')->user();
+        
         $data_lastpost = BaivietModel::orderBy('created_at', 'desc')->limit(5)->get();
 
         foreach ($data_lastpost as $lastpost) {
@@ -52,10 +53,7 @@ class TinTucController extends Controller
             $lastpost->ma_khach_hang = $user->ho_va_ten;
         }
 
-
-
-
-        return view('Trang-Khach-Hang.page.TinTucChiTiet', compact('baiviet','data_lastpost'));
+        return view('Trang-Khach-Hang.page.TinTucChiTiet', compact('baiviet','data_lastpost','khach_hang'));
         //    var_dump($data_baiviet);
         //  return view('Trang-Khach-Hang.page.TinTucChiTiet');
     }
