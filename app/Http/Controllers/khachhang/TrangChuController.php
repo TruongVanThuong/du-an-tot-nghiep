@@ -16,14 +16,14 @@ class TrangChuController extends Controller
 {
     public function TrangChu()
     {
-        $san_pham_yeu_thich = SanPhamYeuThich::join('san_pham', 'san_pham_yeu_thichs.ma_san_pham', '=', 'san_pham.id')
+        $san_pham_yeu_thich = SanPhamYeuThich::join('san_pham', 'san_pham_yeu_thich.ma_san_pham', '=', 'san_pham.id')
             ->join('hinh_anh', function ($join) {
                 $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
                     ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
             })
             ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id') // Nối bảng loai_san_pham
             ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id') // Nối bảng danh_muc
-            ->select('san_pham.id as ma_san_pham', 'san_pham.deleted_at', 'san_pham.ten_san_pham', 'san_pham.ten_san_pham_slug', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', DB::raw('COUNT(san_pham_yeu_thichs.ma_san_pham) AS so_lan_xuat_hien'))
+            ->select('san_pham.id as ma_san_pham', 'san_pham.deleted_at', 'san_pham.ten_san_pham', 'san_pham.ten_san_pham_slug', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', DB::raw('COUNT(san_pham_yeu_thich.ma_san_pham) AS so_lan_xuat_hien'))
             ->groupBy('san_pham.id', 'san_pham.ten_san_pham', 'san_pham.deleted_at', 'san_pham.gia_san_pham', 'san_pham.ten_san_pham_slug', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug')
             ->orderByDesc('so_lan_xuat_hien')
             ->limit(8)
@@ -34,7 +34,7 @@ class TrangChuController extends Controller
         // Lấy 8 sản phẩm yêu thích xuất hiện nhiều nhất cho mỗi danh mục
         $san_pham_danh_muc = [];
         foreach ($danhMuc as $danhmuc) {
-            $san_pham_yeu_thich_danh_muc = SanPhamYeuThich::join('san_pham', 'san_pham_yeu_thichs.ma_san_pham', '=', 'san_pham.id')
+            $san_pham_yeu_thich_danh_muc = SanPhamYeuThich::join('san_pham', 'san_pham_yeu_thich.ma_san_pham', '=', 'san_pham.id')
                 ->join('hinh_anh', function ($join) {
                     $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
                         ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
@@ -42,7 +42,7 @@ class TrangChuController extends Controller
                 ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
                 ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
                 ->where('danh_muc.id', $danhmuc->id)
-                ->select('san_pham.id as ma_san_pham', 'san_pham.ten_san_pham', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug', DB::raw('COUNT(san_pham_yeu_thichs.ma_san_pham) AS so_lan_xuat_hien'), 'danh_muc.ten_danh_muc_slug AS ten_danh_muc_slug')
+                ->select('san_pham.id as ma_san_pham', 'san_pham.ten_san_pham', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug', DB::raw('COUNT(san_pham_yeu_thich.ma_san_pham) AS so_lan_xuat_hien'), 'danh_muc.ten_danh_muc_slug AS ten_danh_muc_slug')
                 ->groupBy('san_pham.id', 'san_pham.ten_san_pham', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug')
                 ->orderByDesc('so_lan_xuat_hien')
                 ->limit(8) // Thay đổi từ limit thành take

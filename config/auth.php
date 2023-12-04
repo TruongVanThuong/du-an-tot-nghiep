@@ -43,7 +43,7 @@ return [
         
         'khach_hang' => [
             'driver' => 'session',
-            'provider' => 'khach_hangs',
+            'provider' => 'khach_hang',
         ],
     ],
 
@@ -69,7 +69,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'khach_hangs' => [
+        'khach_hang' => [
             'driver' => 'eloquent',
             'model' => App\Models\KhachHangModel::class,
         ],

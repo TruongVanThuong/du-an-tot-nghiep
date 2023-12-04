@@ -18,7 +18,7 @@ class TaikhoanRequest extends FormRequest
     {
         return [
             'ho_va_ten'             =>  'required|min:6|max:50',
-            'email'                 =>  'required|email|unique:khach_hangs,email',
+            'email'                 =>  'required|email|unique:khach_hang,email',
             'password'              =>  'required|min:6|max:30',
             'nhap_lai_password'     =>  'required|same:password',
             'so_dien_thoai'         =>  'required|digits:10',

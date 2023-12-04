@@ -96,6 +96,8 @@
                     ngay_sinh: '',
                     gioi_tinh: ''
                 },
+            @include('Trang-Khach-Hang.share.datavue')
+
             },
             watch: {
                 'dang_ky.ho_va_ten': function(newVal) {
@@ -162,6 +164,7 @@
                             }
                         })
                 },
+                @include('Trang-Khach-Hang.share.vue')
             }
         });
     </script>

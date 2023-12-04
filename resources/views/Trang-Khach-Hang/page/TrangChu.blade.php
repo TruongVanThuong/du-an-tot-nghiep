@@ -23,8 +23,8 @@
         ]
     }'>
                 <div class="slide-item position-relative overlay">
-                    <img class="slide-img d-none d-md-block" src="/assets_client/img/slideshow/t1.jpg" alt="slide-1">
-                    <img class="slide-img d-md-none" src="/assets_client/img/slideshow/t1.jpg" alt="slide-1">
+                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
+                    <img class="slide-img d-md-none" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
                     <div class="content-absolute content-slide">
                         <div class="container height-inherit d-flex align-items-center justify-content-start">
                             <div class="content-box slide-content py-4">
@@ -49,57 +49,58 @@
                     </div>
                 </div>
                 <div class="slide-item position-relative overlay">
-                    <img class="slide-img d-none d-md-block" src="/assets_client/img/slideshow/t2.jpg" alt="slide-2">
-                    <img class="slide-img d-md-none" src="/assets_client/img/slideshow/t2.jpg" alt="slide-2">
+                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
+                    <img class="slide-img d-md-none" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
                     <div class="content-absolute content-slide">
                         <div class="container height-inherit d-flex align-items-center justify-content-start">
                             <div class="content-box slide-content py-4">
                                 <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
                                     data-animation="animate__animated animate__fadeInUp">
-                                    Designing for
+                                    Chinh phục thế giới thời trang với
                                 </p>
                                 <h2 class="slide-heading heading_72 text-white animate__animated animate__fadeInUp"
                                     data-animation="animate__animated animate__fadeInUp">
-                                    Innovative tools
+                                    Thiết Kế Độc Đáo tại Guci
                                 </h2>
                                 <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">Save upto
-                                    56% instantly
+                                    data-animation="animate__animated animate__fadeInUp">
+                                    Tiết kiệm ngay tới 56% cho mọi đơn hàng
                                 </p>
                                 <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
                                     href="collection-left-sidebar.html"
-                                    data-animation="animate__animated animate__fadeInUp">SHOP
-                                    NOW</a>
+                                    data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="slide-item position-relative overlay">
-                    <img class="slide-img d-none d-md-block" src="/assets_client/img/slideshow/t3.jpg" alt="slide-">
-                    <img class="slide-img d-md-none" src="/assets_client/img/slideshow/t3.jpg" alt="slide-">
+                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
+                    <img class="slide-img d-md-none" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
                     <div class="content-absolute content-slide">
                         <div class="container height-inherit d-flex align-items-center justify-content-start">
                             <div class="content-box slide-content py-4">
                                 <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
                                     data-animation="animate__animated animate__fadeInUp">
-                                    Designing for
+                                    Chinh phục thế giới thời trang với
                                 </p>
                                 <h2 class="slide-heading heading_72 text-white animate__animated animate__fadeInUp"
                                     data-animation="animate__animated animate__fadeInUp">
-                                    Innovative tools
+                                    Thiết Kế Độc Đáo tại Guci
                                 </h2>
                                 <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">Save upto
-                                    56% instantly
+                                    data-animation="animate__animated animate__fadeInUp">
+                                    Tiết kiệm ngay tới 56% cho mọi đơn hàng
                                 </p>
                                 <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
                                     href="collection-left-sidebar.html"
-                                    data-animation="animate__animated animate__fadeInUp">SHOP
-                                    NOW</a>
+                                    data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
                             </div>
                         </div>
+
                     </div>
                 </div>
+                
             </div>
             <div class="activate-arrows arrows-white"></div>
             <div class="activate-dots dots-white"></div>
@@ -160,9 +161,7 @@
                 <div class="container">
                     <div class="section-header text-center">
                         <h2 class="section-heading">Sản Phẩm yêu thích</h2>
-                        @foreach ($danhMuc as $danhmuc)
-                        {{$danhmuc->id}}
-                        @endforeach
+                     
                     </div>
                     <div class="tab-list collection-tab-list">
                         <nav class="nav justify-content-center">
@@ -407,9 +406,9 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="collection-left-sidebar.html">
-                                                <img class="secondary-img" src="/assets_client/img/products/tools/11.jpg"
+                                                <img class="secondary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
                                                     alt="product-img">
-                                                <img class="primary-img" src="/assets_client/img/products/tools/2.jpg"
+                                                <img class="primary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
                                                     alt="product-img">
                                             </a>
 
@@ -444,9 +443,194 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="collection-left-sidebar.html">
-                                                <img class="secondary-img" src="/assets_client/img/products/tools/11.jpg"
+                                                <img class="secondary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
                                                     alt="product-img">
-                                                <img class="primary-img" src="/assets_client/img/products/tools/2.jpg"
+                                                <img class="primary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
+                                                    alt="product-img">
+                                            </a>
+
+                                            <div class="product-card-action product-card-action-2">
+
+                                                <a href="#"
+                                                    class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto;">Thêm
+                                                    Vào Giỏ Hàng</a>
+                                            </div>
+
+                                            <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                                                <svg class="icon icon-wishlist" width="26" height="22"
+                                                    viewBox="0 0 26 22" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                        fill="black" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="product-card-details text-center">
+                                            <h3 class="product-card-title"><a href="collection-left-sidebar.html">Needle
+                                                    nose pliers</a></h3>
+                                            <div class="product-card-price">
+                                                <span class="card-price-regular">$1259</span>
+                                                <span class="card-price-compare text-decoration-line-through">$2259</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-grid-slideshow">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            <a class="hover-switch" href="collection-left-sidebar.html">
+                                                <img class="secondary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
+                                                    alt="product-img">
+                                                <img class="primary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
+                                                    alt="product-img">
+                                            </a>
+
+                                            <div class="product-card-action product-card-action-2">
+
+                                                <a href="#"
+                                                    class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto;">Thêm
+                                                    Vào Giỏ Hàng</a>
+                                            </div>
+
+                                            <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                                                <svg class="icon icon-wishlist" width="26" height="22"
+                                                    viewBox="0 0 26 22" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                        fill="black" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="product-card-details text-center">
+                                            <h3 class="product-card-title"><a href="collection-left-sidebar.html">Needle
+                                                    nose pliers</a></h3>
+                                            <div class="product-card-price">
+                                                <span class="card-price-regular">$1259</span>
+                                                <span class="card-price-compare text-decoration-line-through">$2259</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-grid-slideshow">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            <a class="hover-switch" href="collection-left-sidebar.html">
+                                                <img class="secondary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
+                                                    alt="product-img">
+                                                <img class="primary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
+                                                    alt="product-img">
+                                            </a>
+
+                                            <div class="product-card-action product-card-action-2">
+
+                                                <a href="#"
+                                                    class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto;">Thêm
+                                                    Vào Giỏ Hàng</a>
+                                            </div>
+
+                                            <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                                                <svg class="icon icon-wishlist" width="26" height="22"
+                                                    viewBox="0 0 26 22" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                        fill="black" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="product-card-details text-center">
+                                            <h3 class="product-card-title"><a href="collection-left-sidebar.html">Needle
+                                                    nose pliers</a></h3>
+                                            <div class="product-card-price">
+                                                <span class="card-price-regular">$1259</span>
+                                                <span class="card-price-compare text-decoration-line-through">$2259</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-grid-slideshow">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            <a class="hover-switch" href="collection-left-sidebar.html">
+                                                <img class="secondary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
+                                                    alt="product-img">
+                                                <img class="primary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
+                                                    alt="product-img">
+                                            </a>
+
+                                            <div class="product-card-action product-card-action-2">
+
+                                                <a href="#"
+                                                    class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto;">Thêm
+                                                    Vào Giỏ Hàng</a>
+                                            </div>
+
+                                            <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                                                <svg class="icon icon-wishlist" width="26" height="22"
+                                                    viewBox="0 0 26 22" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                        fill="black" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="product-card-details text-center">
+                                            <h3 class="product-card-title"><a href="collection-left-sidebar.html">Needle
+                                                    nose pliers</a></h3>
+                                            <div class="product-card-price">
+                                                <span class="card-price-regular">$1259</span>
+                                                <span class="card-price-compare text-decoration-line-through">$2259</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-grid-slideshow">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            <a class="hover-switch" href="collection-left-sidebar.html">
+                                                <img class="secondary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
+                                                    alt="product-img">
+                                                <img class="primary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
+                                                    alt="product-img">
+                                            </a>
+
+                                            <div class="product-card-action product-card-action-2">
+
+                                                <a href="#"
+                                                    class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto;">Thêm
+                                                    Vào Giỏ Hàng</a>
+                                            </div>
+
+                                            <a href="wishlist.html" class="wishlist-btn card-wishlist">
+                                                <svg class="icon icon-wishlist" width="26" height="22"
+                                                    viewBox="0 0 26 22" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                        fill="black" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="product-card-details text-center">
+                                            <h3 class="product-card-title"><a href="collection-left-sidebar.html">Needle
+                                                    nose pliers</a></h3>
+                                            <div class="product-card-price">
+                                                <span class="card-price-regular">$1259</span>
+                                                <span class="card-price-compare text-decoration-line-through">$2259</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-grid-slideshow">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            <a class="hover-switch" href="collection-left-sidebar.html">
+                                                <img class="secondary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
+                                                    alt="product-img">
+                                                <img class="primary-img" src="https://tuixachf1.com.vn/wp-content/uploads/2018/05/tui-xach-Gucci-handbag-459311-txgc0115.jpg"
                                                     alt="product-img">
                                             </a>
 
@@ -490,14 +674,14 @@
             <div class="latest-blog-inner">
                 <div class="container">
                     <div class="section-header text-center">
-                        <h2 class="section-heading">Latest blogs</h2>
+                        <h2 class="section-heading">Bài Viết Mới</h2>
                     </div>
                     <div class="article-card-container">
                         <div class="row justify-content-center">
                             <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
                                 <div class="article-card">
                                     <a class="article-card-img-wrapper" href="article.html">
-                                        <img src="/assets_client/img/blog/tools-1.jpg" alt="img"
+                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0" alt="img"
                                             class="article-card-img rounded">
                                     </a>
                                     <p class="article-card-published text_12">30 July 2022</p>
@@ -513,7 +697,7 @@
                             <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
                                 <div class="article-card">
                                     <a class="article-card-img-wrapper" href="article.html">
-                                        <img src="/assets_client/img/blog/tools-2.jpg" alt="img"
+                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0" alt="img"
                                             class="article-card-img rounded">
                                     </a>
                                     <p class="article-card-published text_12">30 July 2022</p>
@@ -529,7 +713,7 @@
                             <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
                                 <div class="article-card">
                                     <a class="article-card-img-wrapper" href="article.html">
-                                        <img src="/assets_client/img/blog/tools-3.jpg" alt="img"
+                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0" alt="img"
                                             class="article-card-img rounded">
                                     </a>
                                     <p class="article-card-published text_12">30 July 2022</p>
