@@ -10,7 +10,7 @@ class KhachHangModel extends Authenticatable
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'khach_hangs';
+    protected $table = 'khach_hang';
 
     protected $fillable = [
         'ho_va_ten',
