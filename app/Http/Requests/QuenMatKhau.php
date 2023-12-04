@@ -17,7 +17,7 @@ class QuenMatKhau extends FormRequest
     public function rules()
     {
         return [
-            'email'                 =>  'required|email|exists:khach_hangs,email',
+            'email'                 =>  'required|email|exists:khach_hang,email',
             // 'g-recaptcha-response'  => 'required|captcha',
         ];
     }

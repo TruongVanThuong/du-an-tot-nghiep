@@ -9,7 +9,7 @@ class LienheModel extends Model
 {
     use HasFactory;
     // use SoftDeletes;
-    protected $table = 'lien_hes';
+    protected $table = 'lien_he';
     protected $primarykey = 'id';
     protected $fillable = [
         'ho_va_ten',
