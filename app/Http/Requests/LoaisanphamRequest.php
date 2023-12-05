@@ -22,7 +22,7 @@ class LoaisanphamRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "ten_loai"=> "required|unique:loai_san_pham,ten_loai",
+            "ten_loai"=> "required",
             "ma_danh_muc"=> "required",
         ];
     }
@@ -31,7 +31,6 @@ class LoaisanphamRequest extends FormRequest
     {
         return [
             "ten_loai.required"  =>   "Tên thể loại không được để trống",
-            "ten_loai.unique"    =>   "Tên thể loại đã được tồn tại",
             "ma_danh_muc.required"   =>   "Mã danh mục không được để trống",
         ];
     }
