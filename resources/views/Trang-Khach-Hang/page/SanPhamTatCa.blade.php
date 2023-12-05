@@ -134,7 +134,7 @@
                                                     </ul>
                                                     <h3 class="product-card-title">
                                                         <a
-                                                        href="/san-pham/{{$value->ten_danh_muc_slug}}/{{$value->ten_loai_slug}}/{{ $value->ten_san_pham_slug }}">{{ $value->ten_san_pham }}{{$value->id}}</a>
+                                                        href="/san-pham/{{$value->ten_danh_muc_slug}}/{{$value->ten_loai_slug}}/{{ $value->ten_san_pham_slug }}">{{ $value->ten_san_pham }}</a>
                                                     </h3>
                                                     <div class="product-card-price">
                                                         <span class="card-price-regular">{{ number_format($value->gia_san_pham) }} ₫</span>
