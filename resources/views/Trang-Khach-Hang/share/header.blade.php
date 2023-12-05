@@ -85,7 +85,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-4 col-4">
                     <div class="header-logo">
-                        <a href="index-tools.html" class="logo-main">
+                        <a href="/" class="logo-main">
                             <img src="/assets_client/img/Gucci_Logo.svg.png" loading="lazy" alt="GUCCI">
                         </a>
                     </div>

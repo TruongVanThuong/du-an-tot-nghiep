@@ -165,10 +165,11 @@ Route::post('/gui-lien-he', [LienHeController::class, 'GuiLienHe']);
 
 //
 
+
 Route::get('/san-pham', [TrangChuController::class, 'SanPhamTatCa']);
 Route::get('/san-pham/{ten_danh_muc_slug}', [TrangChuController::class, 'SanPhamDanhMuc']);
 Route::get('/san-pham/{ten_danh_muc_slug}/{ten_loai_slug}', [TrangChuController::class, 'SanPhamTheLoai']);
-Route::get('/san-pham/{ten_danh_muc_slug}/{ten_loai_slug}/{ten_san_pham_slug}', [TrangChuController::class, 'SanPhamChiTiet']);
+Route::get('/san-pham/{ten_danh_muc_slug}/{ten_loai_slug}/{ten_san_pham_slug}{id}', [TrangChuController::class, 'SanPhamChiTiet']);
 
 Route::get('/san-pham-nam', [TrangChuController::class, 'SanPhamNam']);
 Route::get('/san-pham-nu', [TrangChuController::class, 'SanPhamNu']);
