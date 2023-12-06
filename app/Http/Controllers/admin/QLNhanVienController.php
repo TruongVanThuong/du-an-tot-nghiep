@@ -3,20 +3,21 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CapNhatTaikhoanRequest;
-use App\Http\Requests\TaikhoanRequest;
-use App\Models\KhachHangModel;
-use App\Models\PhanquyenModel;
+use App\Http\Requests\TKQuanTriRequest;
+use App\Models\TaiKhoanModel;
 use Illuminate\Http\Request;
+use App\Models\PhanquyenModel;
 
-class QLTaiKhoanController extends Controller
+class QLNhanVienController extends Controller
 {
-    public function QuanLyTaiKhoan() {
-        return view('AdminRocker.page.QuanLyTaiKhoan');
+    //
+    public function QuanLyNhanVien() {
+        return view('AdminRocker.page.NhanVien.QuanLyNhanVien');
     }
-    
-    public function DuLieuTaiKhoan() {
-        $data_taikhoan = KhachHangModel::all();
+
+      
+    public function DuLieuNhanVien() {
+        $data_taikhoan = TaiKhoanModel::all();
         $data_phanquyen = PhanquyenModel::all();
 
         $compact = compact('data_taikhoan', 'data_phanquyen');
@@ -24,11 +25,11 @@ class QLTaiKhoanController extends Controller
         return response()->json( $compact );
     }
 
-    public function ThemTaiKhoan(TaikhoanRequest $request) {
+    public function ThemNhanVien(TKQuanTriRequest $request) {
         $data =  $request->all();
-        $data['loai_tai_khoan'] =  1;
+        $data['loai_tai_khoan'] =  2;
         $data['password'] = bcrypt($data['password']);
-        KhachHangModel::create($data);
+        TaiKhoanModel::create($data);
         return response()->json([
             'status'    =>  true,
             'message'   =>  'Thêm thành công'
@@ -36,8 +37,8 @@ class QLTaiKhoanController extends Controller
 
     }
 
-    public function XoaTaiKhoan(Request $request) {
-        KhachHangModel::where('id', $request->id)->update(
+    public function XoaNhanVien(Request $request) {
+        TaiKhoanModel::where('id', $request->id)->update(
             [
                 'loai_tai_khoan' => -1
             ]
@@ -48,9 +49,9 @@ class QLTaiKhoanController extends Controller
         ]);
     }
 
-    public function CapNhatTaiKhoan(CapNhatTaikhoanRequest $request) {
+    public function CapNhatNhanVien(CapNhatTaikhoanRequest $request) {
         $data =  $request->all();
-        $khach_hang = KhachHangModel::where('id', $request->id)->first();
+        $khach_hang = TaiKhoanModel::where('id', $request->id)->first();
         $khach_hang->update($data); 
         return response()->json([
             'status'    =>  true,

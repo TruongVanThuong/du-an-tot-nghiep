@@ -161,7 +161,7 @@
     methods: {
       GetData() {
         axios
-          .get('/admin/thong-ke/du-lieu')
+          .get('/admin/du-lieu')
           .then((res) => {
             this.phanTramTaiKhoan = res.data.phanTramTaiKhan;
             this.phanTramDoanhThu = res.data.phanTramDoanhTu;

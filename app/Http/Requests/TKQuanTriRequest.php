@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaikhoanRequest extends FormRequest
+class TKQuanTriRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,10 +14,15 @@ class TaikhoanRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     */
+    public function rules(): array
     {
         return [
-            'ho_va_ten'             =>  'required|min:6|max:50',
+            'ten_tai_khoan'         =>  'required|min:6|max:50',
             'email'                 =>  'required|email|unique:khach_hang,email',
             'password'              =>  'required|min:6|max:30',
             'nhap_lai_password'     =>  'required|same:password',
@@ -27,13 +32,12 @@ class TaikhoanRequest extends FormRequest
             'ngay_sinh'             =>  'required|date',
         ];
     }
-
-    public function messages()
+    public function messages(): array
     {
         return [
-            'ho_va_ten.required'            => 'Họ và tên không được để trống',
-            'ho_va_ten.min'                 => 'Họ và tên phải từ 6 ký tự trở lên',
-            'ho_va_ten.max'                 => 'Họ và tên không được vượt quá 50 ký tự',
+            'ten_tai_khoan.required'        => 'Họ và tên không được để trống',
+            'ten_tai_khoan.min'             => 'Họ và tên phải từ 6 ký tự trở lên',
+            'ten_tai_khoan.max'             => 'Họ và tên không được vượt quá 50 ký tự',
             'email.required'                => 'Email không được để trống',
             'email.email'                   => 'Email không đúng định dạng',
             'email.unique'                  => 'Email đã tồn tại',
@@ -53,7 +57,6 @@ class TaikhoanRequest extends FormRequest
             'gioi_tinh.max'                 => 'Giới tính phải chọn theo yêu cầu',
             'ngay_sinh.required'            => 'Ngày sinh không được để trống',
             'ngay_sinh.date'                => 'Ngày sinh không đúng định dạng',
-
         ];
     }
 }
