@@ -65,9 +65,16 @@
             @endif
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/baiviet')}}">
-                    <div class="parent-icon"><i class="bx bx-cookie"></i>
+                    <div class="parent-icon"><i class="bx bx-highlight"></i>
                     </div>
                     <div class="menu-title">Bài viết</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{asset('admin/hoa-don')}}">
+                    <div class="parent-icon"><i class="bx bx-notepad"></i>
+                    </div>
+                    <div class="menu-title">Hoá Đơn</div>
                 </a>
             </li>
             <li class="nav-item">
