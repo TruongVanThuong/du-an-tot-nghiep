@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('hoa_don', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ma_khach_hang');
-            $table->unsignedBigInteger('ma_hoa_don');
+            $table->text('ma_don_hang');
             $table->string('ho_va_ten');
             $table->string('so_dien_thoai');
             $table->string('dia_chi');

@@ -15,10 +15,10 @@ class HoadonModel extends Model
         "ma_khach_hang",
         "ma_don_hang",
         "ho_va_ten",
-        "dia_chi",
         "so_dien_thoai",
+        "dia_chi",
         "tong_tien_tat_ca",
         "trang_thai_don",
-        "trang_thai_thanh_toan",
+        "trang_thai_thanh_toan"
     ];
 }

@@ -40,7 +40,7 @@ a.trigger-modal i {
 /* ==========    CSS THÊM SẢN PHẨM VÀO HOÁ ĐƠN CHI TIẾT    ================= */
 
 .modal-body.overflow, .col-md-9.overflow {
-  max-height: 600px; /* Đặt chiều cao tối đa cho modal body */
+  max-height: 530px; /* Đặt chiều cao tối đa cho modal body */
   overflow-y: auto; /* Thêm thanh cuộn khi nội dung vượt quá chiều cao tối đa */
 }
 

@@ -42,6 +42,7 @@
                     <div class="menu-title">Thể Loại</div>
                 </a>
             </li>
+            
             @if ($isAdmin)
             @else
             <li class="nav-item">
@@ -74,6 +75,13 @@
                     <div class="parent-icon"><i class="bx bx-notepad"></i>
                     </div>
                     <div class="menu-title">Hoá Đơn</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{asset('admin/binhluan')}}">
+                    <div class="parent-icon"><i class="bx bx-tag"></i>
+                    </div>
+                    <div class="menu-title">Bình luận</div>
                 </a>
             </li>
         </ul>
