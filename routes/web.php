@@ -14,6 +14,7 @@ use App\Http\Controllers\khachhang\LienHeController;
 use App\Http\Controllers\khachhang\TinTucController;
 use App\Http\Controllers\khachhang\BinhluanTintucController;
 use App\Http\Controllers\khachhang\SanPhamYeuThichController;
+use App\Http\Controllers\khachhang\ThanhToanControllerr;
 use App\Models\SanPhamYeuThich;
 use Illuminate\Support\Facades\Route;
 
@@ -154,8 +155,17 @@ Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], f
   Route::post('/xoa-san-pham-gio-hang/{id}', [GioHangController::class, 'XoaSanPhamGioHang']);
 // sản phẩm yêu thích
   Route::post('/quan-ly-san-pham-yeu-thich/{id}', [SanPhamYeuThichController::class, 'QuanLySanPhamYeuThich']);
-});
 
+  // mã giảm giá
+  
+
+// thanh toán
+Route::post('/thanh-toan', [ThanhToanControllerr::class, 'ThanhToan']);
+Route::get('/thanh-toan-thanh-cong', [ThanhToanControllerr::class, 'ThanhToanThanhCong']);
+Route::get('/lich-su-mua-hang', [ThanhToanControllerr::class, 'LichSuMuaHang']);
+});
+Route::post('/ma-giam-gia/{ma_giam_gia}', [GioHangController::class, 'MaGiamGia']);
+// Route::get('/tai-ma-giam-gia', [GioHangController::class, 'TaiMaGiamGia']);
 Route::get('/hien-thi-san-pham-yeu-thich', [SanPhamYeuThichController::class, 'HienThiSanPhamYeuThich']);
 Route::get('/san-pham-yeu-thich', [SanPhamYeuThichController::class, 'SanPhamYeuThich']);
 //Liên hệ

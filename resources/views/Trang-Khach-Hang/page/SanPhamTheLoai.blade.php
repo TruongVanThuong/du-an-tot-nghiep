@@ -386,6 +386,7 @@
             },
             created() {
                 this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
+                this.tai_san_pham_yeu_thich();
             },
             methods: {
                 @include('Trang-Khach-Hang.share.vue')

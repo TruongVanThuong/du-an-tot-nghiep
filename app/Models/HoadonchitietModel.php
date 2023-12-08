@@ -14,8 +14,7 @@ class HoadonchitietModel extends Model
     protected $fillable = [
         "ma_hoa_don",
         "ma_san_pham",
-        "so_luong",
-        "created_at",
-        "updated_at",
+        "tong_tien",
+        "tong_so_luong",
     ];
 }

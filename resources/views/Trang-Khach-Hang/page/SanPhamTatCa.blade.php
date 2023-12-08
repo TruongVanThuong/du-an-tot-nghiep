@@ -15,7 +15,6 @@
                                 <h2 class="collection-title heading_24 mb-0">Tất Cả Sản Phẩm Trẻ Em</h2>
                                 <p class="collection-counter text_16 mb-0 ms-2">(237 items)</p>
                             </div>
-
                         </div>
                         <div class="collection-product-container">
                             <div class="row">
@@ -373,6 +372,7 @@
             },
             created() {
                 this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
+                this.tai_san_pham_yeu_thich();
             },
             methods: {
               @include('Trang-Khach-Hang.share.vue')

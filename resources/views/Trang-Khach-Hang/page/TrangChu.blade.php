@@ -23,8 +23,12 @@
         ]
     }'>
                 <div class="slide-item position-relative overlay">
-                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
-                    <img class="slide-img d-md-none" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
+                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
+                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                        alt="slide-1">
+                    <img class="slide-img d-md-none"
+                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                        alt="slide-1">
                     <div class="content-absolute content-slide">
                         <div class="container height-inherit d-flex align-items-center justify-content-start">
                             <div class="content-box slide-content py-4">
@@ -49,8 +53,12 @@
                     </div>
                 </div>
                 <div class="slide-item position-relative overlay">
-                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
-                    <img class="slide-img d-md-none" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
+                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
+                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                        alt="slide-1">
+                    <img class="slide-img d-md-none"
+                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                        alt="slide-1">
                     <div class="content-absolute content-slide">
                         <div class="container height-inherit d-flex align-items-center justify-content-start">
                             <div class="content-box slide-content py-4">
@@ -75,8 +83,12 @@
                     </div>
                 </div>
                 <div class="slide-item position-relative overlay">
-                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
-                    <img class="slide-img d-md-none" src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg" alt="slide-1">
+                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
+                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                        alt="slide-1">
+                    <img class="slide-img d-md-none"
+                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                        alt="slide-1">
                     <div class="content-absolute content-slide">
                         <div class="container height-inherit d-flex align-items-center justify-content-start">
                             <div class="content-box slide-content py-4">
@@ -100,7 +112,7 @@
 
                     </div>
                 </div>
-                
+
             </div>
             <div class="activate-arrows arrows-white"></div>
             <div class="activate-dots dots-white"></div>
@@ -121,7 +133,7 @@
                                     <h2 class="heading_18 trusted-heading text-white text-nowrap">Miễn phí vận chuyển & Trả
                                         hàng</h2>
                                     <p class="text_16 trusted-subheading trusted-subheading-3 text-nowrap">trên đơn đặt hàng
-                                        từ 200.000 ₫ trở lên</p>
+                                        từ 1.000.000 ₫ trở lên</p>
                                 </div>
                             </div>
                         </div>
@@ -161,18 +173,16 @@
                 <div class="container">
                     <div class="section-header text-center">
                         <h2 class="section-heading">Sản Phẩm yêu thích</h2>
-                     
+
                     </div>
                     <div class="tab-list collection-tab-list">
                         <nav class="nav justify-content-center">
-
                             @foreach ($danhMuc as $danhmuc)
                                 @if ($danhmuc->deleted_at == null)
                                     <a class="tab-link" href="#{{ $danhmuc->ten_danh_muc_slug }}"
                                         data-bs-toggle="tab">{{ $danhmuc->ten_danh_muc }}</a>
                                 @endif
                             @endforeach
-
                         </nav>
                     </div>
                     <div class="tab-content collection-tab-content">
@@ -185,7 +195,7 @@
                                             <div class="product-card">
                                                 <div class="product-card-img">
                                                     <a class="hover-switch"
-                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{$value->ma_san_pham}}">
+                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{ $value->ma_san_pham }}">
                                                         <img class="secondary-img" src="/img/{{ $value->hinh_anh }}"
                                                             alt="product-img">
                                                         <img class="primary-img" src="/img/{{ $value->hinh_anh }}"
@@ -260,7 +270,7 @@
                                                 </div>
                                                 <div class="product-card-details text-center">
                                                     <h3 class="product-card-title"><a
-                                                            href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{$value->ma_san_pham}}">{{ $value->ten_san_pham }}</a>
+                                                            href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{ $value->ma_san_pham }}">{{ $value->ten_san_pham }}</a>
                                                     </h3>
                                                     <div class="product-card-price">
                                                         <span
@@ -280,77 +290,114 @@
                             </div>
                         </div>
                         @foreach ($danhMuc as $danhmuc)
-                        <div id="{{ $danhmuc->ten_danh_muc_slug }}" class="tab-pane fade">
-                            @if ($danhmuc->deleted_at == null)
+                            <div id="{{ $danhmuc->ten_danh_muc_slug }}" class="tab-pane fade">
+                                @if ($danhmuc->deleted_at == null)
                                     <div class="row">
                                         @foreach ($san_pham_danh_muc[$danhmuc->id] as $sp)
-                                        @if ($sp->deleted_at == null)
-                                            <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up"
-                                                data-aos-duration="700">
-                                                <div class="product-card">
-                                                    <div class="product-card-img">
-                                                        <a class="hover-switch"
-                                                            href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}{{$sp->ma_san_pham}}">
-                                                            <img class="secondary-img" src="/img/{{ $sp->hinh_anh }}"
-                                                                alt="product-img">
-                                                            <img class="primary-img" src="/img/{{ $sp->hinh_anh }}"
-                                                                alt="product-img">
-                                                        </a>
+                                            @if ($sp->deleted_at == null)
+                                                <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up"
+                                                    data-aos-duration="700">
+                                                    <div class="product-card">
+                                                        <div class="product-card-img">
+                                                            <a class="hover-switch"
+                                                                href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}{{ $sp->ma_san_pham }}">
+                                                                <img class="secondary-img" src="/img/{{ $sp->hinh_anh }}"
+                                                                    alt="product-img">
+                                                                <img class="primary-img" src="/img/{{ $sp->hinh_anh }}"
+                                                                    alt="product-img">
+                                                            </a>
 
-                                                        <div class="product-card-action product-card-action-2">
+                                                            <div class="product-card-action product-card-action-2">
+                                                                @if ($check)
+                                                                    <a href="javascript:void(0)"
+                                                                        v-on:click="them_so_luong({{ $sp->ma_san_pham }})"
+                                                                        class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto; ">Thêm
+                                                                        Vào Giỏ Hàng</a>
+                                                                @else
+                                                                    <form
+                                                                        action="/khach-hang/them-so-luong/{{ $sp->ma_san_pham }}"
+                                                                        method="post"
+                                                                        class="addtocart-btn btn-primary text-nowrap"
+                                                                        style="margin: 0 auto;">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="addtocart-btn btn-primary text-nowrap">
+                                                                            Thêm Vào Giỏ Hàng
+                                                                        </button>
+                                                                    </form>
+                                                                @endif
+                                                            </div>
+
                                                             @if ($check)
-                                                                <a href="javascript:void(0)"
-                                                                    v-on:click="them_so_luong({{ $sp->ma_san_pham }})"
-                                                                    class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto; ">Thêm
-                                                                    Vào Giỏ Hàng</a>
+                                                                <button v-if="isFavorite({{ $value->ma_san_pham }})"
+                                                                    v-on:click="quan_ly_san_pham_yeu_thich({{ $value->ma_san_pham }})"
+                                                                    class="wishlist-btn card-wishlist"
+                                                                    style="background-color: #ffae00; border: none; padding: 0; cursor: pointer;">
+                                                                    <svg class="icon icon-wishlist" width="26"
+                                                                        height="22" viewBox="0 0 26 22" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                                            fill="#00234D" />
+                                                                    </svg>
+
+                                                                </button>
+                                                                <button v-else
+                                                                    v-on:click="quan_ly_san_pham_yeu_thich({{ $value->ma_san_pham }})"
+                                                                    class="wishlist-btn card-wishlist"
+                                                                    style="background-color: white; border: none; padding: 0; cursor: pointer;">
+                                                                    <svg class="icon icon-wishlist" width="26"
+                                                                        height="22" viewBox="0 0 26 22" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                                            fill="#00234D" />
+                                                                    </svg>
+
+                                                                </button>
                                                             @else
                                                                 <form
-                                                                    action="/khach-hang/them-so-luong/{{ $sp->ma_san_pham }}"
-                                                                    method="post"
-                                                                    class="addtocart-btn btn-primary text-nowrap"
-                                                                    style="margin: 0 auto;">
+                                                                    action="/khach-hang/quan-ly-san-pham-yeu-thich/{{ $value->ma_san_pham }}"
+                                                                    method="post" class="wishlist-btn card-wishlist">
+
                                                                     @csrf
                                                                     <button type="submit"
-                                                                        class="addtocart-btn btn-primary text-nowrap">
-                                                                        Thêm Vào Giỏ Hàng
+                                                                        class="wishlist-btn card-wishlist">
+                                                                        <svg class="icon icon-wishlist" width="26"
+                                                                            height="22" viewBox="0 0 26 22"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <path
+                                                                                d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                                                fill="black" />
+                                                                        </svg>
                                                                     </button>
                                                                 </form>
                                                             @endif
                                                         </div>
-
-                                                        <a href="wishlist.html" class="wishlist-btn card-wishlist">
-                                                            <svg class="icon icon-wishlist" width="26" height="22"
-                                                                viewBox="0 0 26 22" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
-                                                                    fill="black" />
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                    <div class="product-card-details text-center">
-                                                        <h3 class="product-card-title"><a
-                                                                href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}{{$sp->ma_san_pham}}">{{ $sp->ten_san_pham }}</a>
-                                                        </h3>
-                                                        <div class="product-card-price">
-                                                            <span
-                                                                class="card-price-regular">{{ number_format($sp->gia_san_pham) }}
-                                                                ₫</span>
-                                                            <span
-                                                                class="card-price-compare text-decoration-line-through">{{ number_format($sp->giam_gia_san_pham) }}
-                                                                ₫</span>
+                                                        <div class="product-card-details text-center">
+                                                            <h3 class="product-card-title"><a
+                                                                    href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}{{ $sp->ma_san_pham }}">{{ $sp->ten_san_pham }}</a>
+                                                            </h3>
+                                                            <div class="product-card-price">
+                                                                <span
+                                                                    class="card-price-regular">{{ number_format($sp->gia_san_pham) }}
+                                                                    ₫</span>
+                                                                <span
+                                                                    class="card-price-compare text-decoration-line-through">{{ number_format($sp->giam_gia_san_pham) }}
+                                                                    ₫</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             @endif
                                         @endforeach
                                     </div>
                                     <div class="view-all text-center" data-aos="fade-up" data-aos-duration="700">
                                         <a class="btn-secondary" href="#">VIEW ALL</a>
                                     </div>
-                                </div>
-                            @endif
+                            </div>
+                        @endif
                         @endforeach
                     </div>
                 </div>
@@ -404,45 +451,98 @@
                   }
                 ]
             }'>
-            @foreach ( $san_pham_moi as $key => $value)
-            <div class="product-grid-slideshow">
-                <div class="product-card">
-                    <div class="product-card-img">
-                        <a class="hover-switch" href="collection-left-sidebar.html">
-                            <img class="secondary-img" src="/img/{{$value->hinh_anh}}"
-                                alt="product-img">
-                            <img class="primary-img" src="/img/{{$value->hinh_anh}}"
-                                alt="product-img">
-                        </a>
+                                @foreach ($san_pham_moi as $key => $value)
+                                    <div class="product-grid-slideshow">
+                                        <div class="product-card">
+                                            <div class="product-card-img">
+                                                <a class="hover-switch" href="collection-left-sidebar.html">
+                                                    <img class="secondary-img" src="/img/{{ $value->hinh_anh }}"
+                                                        alt="product-img">
+                                                    <img class="primary-img" src="/img/{{ $value->hinh_anh }}"
+                                                        alt="product-img">
+                                                </a>
 
-                        <div class="product-card-action product-card-action-2">
-                            <a href="#"
-                                class="addtocart-btn btn-primary text-nowrap" style="margin: 0 auto;">Thêm
-                                Vào Giỏ Hàng</a>
-                        </div>
+                                                <div class="product-card-action product-card-action-2">
+                                                    @if ($check)
+                                                        <a href="javascript:void(0)"
+                                                            v-on:click="them_so_luong({{ $value->id }})"
+                                                            class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto; ">Thêm
+                                                            Vào Giỏ Hàng</a>
+                                                    @else
+                                                        <form action="/khach-hang/them-so-luong/{{ $value->id }}"
+                                                            method="post" class="addtocart-btn btn-primary text-nowrap"
+                                                            style="margin: 0 auto;">
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="addtocart-btn btn-primary text-nowrap">
+                                                                Thêm Vào Giỏ Hàng
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </div>
 
-                        <a href="wishlist.html" class="wishlist-btn card-wishlist">
-                            <svg class="icon icon-wishlist" width="26" height="22"
-                                viewBox="0 0 26 22" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
-                                    fill="black" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="product-card-details text-center">
-                        <h3 class="product-card-title"><a href="collection-left-sidebar.html">{{$value->ten_san_pham}}</a></h3>
-                        <div class="product-card-price">
-                            <span class="card-price-regular">{{ number_format($value->gia_san_pham)}} ₫</span>
-                            <span class="card-price-compare text-decoration-line-through">{{ number_format($value->giam_gia_san_pham)}} ₫</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-                                
-                                
+                                                @if ($check)
+                                                    <button v-if="isFavorite({{ $value->id }})"
+                                                        v-on:click="quan_ly_san_pham_yeu_thich({{ $value->id }})"
+                                                        class="wishlist-btn card-wishlist"
+                                                        style="background-color: #ffae00; border: none; padding: 0; cursor: pointer;">
+                                                        <svg class="icon icon-wishlist" width="26" height="22"
+                                                            viewBox="0 0 26 22" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                                fill="#00234D" />
+                                                        </svg>
+                                                    </button>
+                                                    <button v-else
+                                                        v-on:click="quan_ly_san_pham_yeu_thich({{ $value->id }})"
+                                                        class="wishlist-btn card-wishlist"
+                                                        style="background-color: white; border: none; padding: 0; cursor: pointer;">
+                                                        <svg class="icon icon-wishlist" width="26" height="22"
+                                                            viewBox="0 0 26 22" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                                fill="#00234D" />
+                                                        </svg>
+
+                                                    </button>
+                                                @else
+                                                    <form
+                                                        action="/khach-hang/quan-ly-san-pham-yeu-thich/{{ $value->id }}"
+                                                        method="post" class="wishlist-btn card-wishlist">
+
+                                                        @csrf
+                                                        <button type="submit" class="wishlist-btn card-wishlist">
+                                                            <svg class="icon icon-wishlist" width="26" height="22"
+                                                                viewBox="0 0 26 22" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                                    fill="black" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </div>
+                                            <div class="product-card-details text-center">
+                                                <h3 class="product-card-title"><a
+                                                        href="collection-left-sidebar.html">{{ $value->ten_san_pham }}</a>
+                                                </h3>
+                                                <div class="product-card-price">
+                                                    <span
+                                                        class="card-price-regular">{{ number_format($value->gia_san_pham) }}
+                                                        ₫</span>
+                                                    <span
+                                                        class="card-price-compare text-decoration-line-through">{{ number_format($value->giam_gia_san_pham) }}
+                                                        ₫</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+
                             </div>
                             <div class="activate-arrows show-arrows-always"></div>
                         </div>
@@ -463,8 +563,8 @@
                             <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
                                 <div class="article-card">
                                     <a class="article-card-img-wrapper" href="article.html">
-                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0" alt="img"
-                                            class="article-card-img rounded">
+                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0"
+                                            alt="img" class="article-card-img rounded">
                                     </a>
                                     <p class="article-card-published text_12">30 July 2022</p>
                                     <h2 class="article-card-heading heading_18">
@@ -479,8 +579,8 @@
                             <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
                                 <div class="article-card">
                                     <a class="article-card-img-wrapper" href="article.html">
-                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0" alt="img"
-                                            class="article-card-img rounded">
+                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0"
+                                            alt="img" class="article-card-img rounded">
                                     </a>
                                     <p class="article-card-published text_12">30 July 2022</p>
                                     <h2 class="article-card-heading heading_18">
@@ -495,8 +595,8 @@
                             <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
                                 <div class="article-card">
                                     <a class="article-card-img-wrapper" href="article.html">
-                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0" alt="img"
-                                            class="article-card-img rounded">
+                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0"
+                                            alt="img" class="article-card-img rounded">
                                     </a>
                                     <p class="article-card-published text_12">30 July 2022</p>
                                     <h2 class="article-card-heading heading_18">
