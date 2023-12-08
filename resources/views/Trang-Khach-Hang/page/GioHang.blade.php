@@ -40,7 +40,7 @@
                                                 </div>
                                             </td>
                                             <td class="cart-item-details">
-                                                <h2 class="product-title"><a href="#">@{{ value.ten_san_pham }}</a></h2>
+                                                <h2 class="product-title"><a href="">@{{ value.ten_san_pham }}</a></h2>
                                                 <p class="product-vendor">Mã Loại @{{ value.id }}</p>
                                             </td>
                                             <td class="cart-item-quantity">

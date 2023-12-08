@@ -36,7 +36,7 @@
 </style>
 <!-- theme css -->
 <link rel="stylesheet" href="/assets_admin_rocker/css/tailwind.css" />
-<!-- <link rel="stylesheet" href="/assets_admin_rocker/css/tailwind.output.css" /> -->
+<link rel="stylesheet" href="/assets_admin_rocker/css/tailwind.output.css" />
 <!-- Style CSS -->
 <link rel="stylesheet" href="/css/style.css" />
 

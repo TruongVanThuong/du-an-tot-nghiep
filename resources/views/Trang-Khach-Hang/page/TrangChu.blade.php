@@ -294,18 +294,18 @@
                                 @if ($danhmuc->deleted_at == null)
                                     <div class="row">
                                         @foreach ($san_pham_danh_muc[$danhmuc->id] as $sp)
-                                            @if ($sp->deleted_at == null)
-                                                <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up"
-                                                    data-aos-duration="700">
-                                                    <div class="product-card">
-                                                        <div class="product-card-img">
-                                                            <a class="hover-switch"
-                                                                href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}{{ $sp->ma_san_pham }}">
-                                                                <img class="secondary-img" src="/img/{{ $sp->hinh_anh }}"
-                                                                    alt="product-img">
-                                                                <img class="primary-img" src="/img/{{ $sp->hinh_anh }}"
-                                                                    alt="product-img">
-                                                            </a>
+                                        @if ($sp->deleted_at == null && $sp->trang_thai==1)
+                                            <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up"
+                                                data-aos-duration="700">
+                                                <div class="product-card">
+                                                    <div class="product-card-img">
+                                                        <a class="hover-switch"
+                                                            href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}{{$sp->ma_san_pham}}">
+                                                            <img class="secondary-img" src="/img/{{ $sp->hinh_anh }}"
+                                                                alt="product-img">
+                                                            <img class="primary-img" src="/img/{{ $sp->hinh_anh }}"
+                                                                alt="product-img">
+                                                        </a>
 
                                                             <div class="product-card-action product-card-action-2">
                                                                 @if ($check)
@@ -394,7 +394,7 @@
                                         @endforeach
                                     </div>
                                     <div class="view-all text-center" data-aos="fade-up" data-aos-duration="700">
-                                        <a class="btn-secondary" href="#">VIEW ALL</a>
+                                        <a class="btn-secondary" href="/san-pham">Xem tất cả</a>
                                     </div>
                             </div>
                         @endif
@@ -422,7 +422,7 @@
                                 đã hơn một thập kỷ và năm năm qua, Groundlink đã không ngừng mang lại trải nghiệm độc đáo
                                 cho khách hàng.</p>
                             <div class="view-all mt-4">
-                                <a class="btn-secondary" href="collection-left-sidebar.html">KHÁM PHÁ NGAY</a>
+                                <a class="btn-secondary" href="/san-pham">KHÁM PHÁ NGAY</a>
                             </div>
 
                         </div>
@@ -451,16 +451,16 @@
                   }
                 ]
             }'>
-                                @foreach ($san_pham_moi as $key => $value)
-                                    <div class="product-grid-slideshow">
-                                        <div class="product-card">
-                                            <div class="product-card-img">
-                                                <a class="hover-switch" href="collection-left-sidebar.html">
-                                                    <img class="secondary-img" src="/img/{{ $value->hinh_anh }}"
-                                                        alt="product-img">
-                                                    <img class="primary-img" src="/img/{{ $value->hinh_anh }}"
-                                                        alt="product-img">
-                                                </a>
+            @foreach ( $san_pham_moi as $key => $value)
+            <div class="product-grid-slideshow">
+                <div class="product-card">
+                    <div class="product-card-img">
+                        <a class="hover-switch" href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{$value->id}}">
+                            <img class="secondary-img" src="/img/{{$value->hinh_anh}}"
+                                alt="product-img">
+                            <img class="primary-img" src="/img/{{$value->hinh_anh}}"
+                                alt="product-img">
+                        </a>
 
                                                 <div class="product-card-action product-card-action-2">
                                                     @if ($check)
@@ -560,54 +560,24 @@
                     </div>
                     <div class="article-card-container">
                         <div class="row justify-content-center">
+                            @foreach ($data_tintuc as $tin_tuc)
                             <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
                                 <div class="article-card">
-                                    <a class="article-card-img-wrapper" href="article.html">
-                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0"
-                                            alt="img" class="article-card-img rounded">
+                                    <a class="article-card-img-wrapper" href="/tin-tuc-chi-tiet/{{$tin_tuc->id}}">
+                                        <img src="{{ asset('img/') }}/{{$tin_tuc->hinh_anh}}" alt="img"
+                                            class="article-card-img rounded">
                                     </a>
-                                    <p class="article-card-published text_12">30 July 2022</p>
+                                    <p class="article-card-published text_12">{{$tin_tuc->created_at}}</p>
                                     <h2 class="article-card-heading heading_18">
                                         <a class="heading_18" href="article.html">
-                                            The fairycore trend is a 2022 fashion hit as fairies.
+                                           {{$tin_tuc->ten_bai_viet}}
                                         </a>
                                     </h2>
-                                    <a class="article-card-read-more text_14 link-underline" href="article.html">Read
-                                        More</a>
+                                    <a class="article-card-read-more text_14 link-underline" href="/tin-tuc-chi-tiet/{{$tin_tuc->id}}">Xem thêm</a>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
-                                <div class="article-card">
-                                    <a class="article-card-img-wrapper" href="article.html">
-                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0"
-                                            alt="img" class="article-card-img rounded">
-                                    </a>
-                                    <p class="article-card-published text_12">30 July 2022</p>
-                                    <h2 class="article-card-heading heading_18">
-                                        <a class="heading_18" href="article.html">
-                                            TOP 10 most fahionable ladies bag on super sale!
-                                        </a>
-                                    </h2>
-                                    <a class="article-card-read-more text_14 link-underline" href="article.html">Read
-                                        More</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
-                                <div class="article-card">
-                                    <a class="article-card-img-wrapper" href="article.html">
-                                        <img src="https://th.bing.com/th/id/R.f3625154284ddd8b4432fc3612c5d11b?rik=9pxLPuJ9n1bf6A&riu=http%3a%2f%2flury.net.vn%2fuploads%2ftui-xach-hang-hieu-gucci-sang-trong-va-dang-cap-4.jpg&ehk=wBTeMrGLr54bzW4X45EAvwHu0AwA3IUO5%2fDrmvgMQcA%3d&risl=&pid=ImgRaw&r=0"
-                                            alt="img" class="article-card-img rounded">
-                                    </a>
-                                    <p class="article-card-published text_12">30 July 2022</p>
-                                    <h2 class="article-card-heading heading_18">
-                                        <a class="heading_18" href="article.html">
-                                            Polish fashion, eco products and the national art seence.
-                                        </a>
-                                    </h2>
-                                    <a class="article-card-read-more text_14 link-underline" href="article.html">Read
-                                        More</a>
-                                </div>
-                            </div>
+                            @endforeach
+                            
                         </div>
                     </div>
                 </div>
@@ -623,7 +593,7 @@
                         <div class="col-lg-5 col-md-4 col-12">
                             <div class="video-tools d-flex align-items-center">
                                 <div class="video-button-area">
-                                    <a class="video-button" href="#video-modal" data-bs-toggle="modal">
+                                    <a class="video-button" href="#" data-bs-toggle="modal">
                                         <svg width="22" height="26" viewBox="0 0 22 26" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -644,7 +614,7 @@
                                     <h4 class="text-white" data-aos="fade-up" data-aos-duration="700">Khám phá bộ sưu
                                         tập mới nhất từ Gucci, biểu tượng của sự sang trọng và phong cách. Đắm chìm trong
                                         nghệ thuật và sự khéo léo làm nên bản chất của Gucci.</h4>
-                                    {{-- <a class="btn-primary mt-4" href="contact.html" data-aos="fade-up" data-aos-duration="1000">Mua Ngay</a> --}}
+                                    {{-- <a class="btn-primary mt-4" href="#" data-aos="fade-up" data-aos-duration="1000">Mua Ngay</a> --}}
                                 </div>
                             </div>
                         </div>
