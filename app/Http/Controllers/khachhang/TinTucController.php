@@ -14,12 +14,12 @@ class TinTucController extends Controller
 {
     public function TinTuc(Request $request)
     {
-        $data_tintuc = BaivietModel::orderBy('created_at', 'desc')->paginate(9);
+        $data_tintuc = BaivietModel::orderBy('created_at', 'desc')
+            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
+            ->select('bai_viet.*', 'khach_hang.ho_va_ten')
+            ->paginate(9);
 
-        foreach ($data_tintuc as $baiviet) {
-            $user = KhachHangModel::find($baiviet->ma_khach_hang);
-            $baiviet->ma_khach_hang = $user->ho_va_ten;
-        }
+
 
         return view('Trang-Khach-Hang.page.TinTuc', compact('data_tintuc'));
         //    var_dump($data_baiviet);
@@ -28,12 +28,11 @@ class TinTucController extends Controller
     {
         $data_tintuc = BaivietModel::where('loai_tin', $id)
             ->orderBy('created_at', 'desc')
+            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
+            ->select('bai_viet.*', 'khach_hang.ho_va_ten')
             ->paginate(9);
 
-        foreach ($data_tintuc as $baiviet) {
-            $user = KhachHangModel::find($baiviet->ma_khach_hang);
-            $baiviet->ma_khach_hang = $user->ho_va_ten;
-        }
+
 
         return view('Trang-Khach-Hang.page.TinTuc', compact('data_tintuc'));
         //    var_dump($data_baiviet);
@@ -45,17 +44,24 @@ class TinTucController extends Controller
         $user = KhachHangModel::find($baiviet->ma_khach_hang);
         $baiviet->ma_khach_hang = $user->ho_va_ten;
 
-        $data_lastpost = BaivietModel::orderBy('created_at', 'desc')->limit(5)->get();
+        $data_lastpost = BaivietModel::orderBy('created_at', 'desc')
+        ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')       
+        ->select('bai_viet.*', 'khach_hang.ho_va_ten')->limit(5)->get();
 
-        foreach ($data_lastpost as $lastpost) {
-            $user = KhachHangModel::find($lastpost->ma_khach_hang);
-            $lastpost->ma_khach_hang = $user->ho_va_ten;
-        }
+        $check=Auth::guard('khach_hang')->check();
+        if($check){
+            $khach_hang = Auth::guard('khach_hang')->user();
+            return view('Trang-Khach-Hang.page.TinTucChiTiet', compact('baiviet', 'data_lastpost', 'khach_hang'));
+        }else{
+            return view('Trang-Khach-Hang.page.TinTucChiTiet', compact('baiviet', 'data_lastpost'));
+        };
+       
 
+       
 
+        
 
-
-        return view('Trang-Khach-Hang.page.TinTucChiTiet', compact('baiviet','data_lastpost'));
+       
         //    var_dump($data_baiviet);
         //  return view('Trang-Khach-Hang.page.TinTucChiTiet');
     }

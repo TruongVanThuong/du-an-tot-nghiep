@@ -27,8 +27,6 @@ class SanphamModel extends Model
         "trang_thai",
     ];
 
-    
-
     public function HinhanhModel()
     {
         return $this->hasMany(HinhanhModel::class, 'ma_san_pham', 'id');

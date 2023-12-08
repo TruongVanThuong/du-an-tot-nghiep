@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
 use App\Http\Controllers\admin\QLTaiKhoanController;
 use App\Http\Controllers\admin\SanphamController;
+use App\Http\Controllers\admin\QLBinhluanController;
 use App\Http\Controllers\khachhang\GioHangController;
 use App\Http\Controllers\admin\ThongKeController;
 use App\Http\Controllers\khachhang\TrangChuController;
@@ -13,7 +14,10 @@ use App\Http\Controllers\khachhang\KhachHangController;
 use App\Http\Controllers\khachhang\LienHeController;
 use App\Http\Controllers\khachhang\TinTucController;
 use App\Http\Controllers\khachhang\BinhluanTintucController;
+use App\Http\Controllers\khachhang\BinhluanController;
+
 use App\Http\Controllers\khachhang\SanPhamYeuThichController;
+use App\Http\Controllers\khachhang\ThanhToanControllerr;
 use App\Models\SanPhamYeuThich;
 use Illuminate\Support\Facades\Route;
 
@@ -113,6 +117,11 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::get('/baiviet/doitrangthai', [BaivietController::class, 'doitrangthai']);
     Route::post('/baiviet/khoiphuc', [BaivietController::class, 'restore']);
 
+    // QL bình luận
+    Route::get('/binhluan', [QLBinhluanController::class, 'index']);
+    Route::get('/lay-binh-luan-san-pham', [QLBinhluanController::class, 'binhluan_sanpham']);
+    Route::get('xoa-binh-luan-bai-viet/{id}', [QLBinhluanController::class, 'xoa_binh_luan_baiviet']);
+    Route::get('xoa-binh-luan-san-pham/{id}', [QLBinhluanController::class, 'xoa_binh_luan_sanpham']);
   });
 });
 
@@ -154,8 +163,17 @@ Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], f
   Route::post('/xoa-san-pham-gio-hang/{id}', [GioHangController::class, 'XoaSanPhamGioHang']);
 // sản phẩm yêu thích
   Route::post('/quan-ly-san-pham-yeu-thich/{id}', [SanPhamYeuThichController::class, 'QuanLySanPhamYeuThich']);
-});
 
+  // mã giảm giá
+  
+
+// thanh toán
+Route::post('/thanh-toan', [ThanhToanControllerr::class, 'ThanhToan']);
+Route::get('/thanh-toan-thanh-cong', [ThanhToanControllerr::class, 'ThanhToanThanhCong']);
+Route::get('/lich-su-mua-hang', [ThanhToanControllerr::class, 'LichSuMuaHang']);
+});
+Route::post('/ma-giam-gia/{ma_giam_gia}', [GioHangController::class, 'MaGiamGia']);
+// Route::get('/tai-ma-giam-gia', [GioHangController::class, 'TaiMaGiamGia']);
 Route::get('/hien-thi-san-pham-yeu-thich', [SanPhamYeuThichController::class, 'HienThiSanPhamYeuThich']);
 Route::get('/san-pham-yeu-thich', [SanPhamYeuThichController::class, 'SanPhamYeuThich']);
 //Liên hệ
@@ -176,11 +194,16 @@ Route::get('/san-pham-nu', [TrangChuController::class, 'SanPhamNu']);
 Route::get('/san-pham-tre-em', [TrangChuController::class, 'SanPhamTreEm']);
 Route::get('/gio-hang', [TrangChuController::class, 'GioHang']);
 Route::get('/thanh-toan', [TrangChuController::class, 'ThanhToan']);
+Route::get('/gioi-thieu', [TrangChuController::class, 'GioiThieu']);
 Route::get('/tin-tuc', [TinTucController::class, 'TinTuc']);
 Route::get('/tin-tuc/{id}', [TinTucController::class, 'TinTuc_theoloai']);
 Route::get('/tin-tuc-chi-tiet/{id}', [TinTucController::class, 'TinTucChiTiet']);
-Route::get('/gioi-thieu', [TrangChuController::class, 'GioiThieu']);
+// binh luan tin tuc
 Route::get('/binh-luan-tin-tuc', [BinhluanTintucController::class, 'binhluan_baiviet']);
+Route::post('/them-binhluan-tintuc', [BinhluanTintucController::class, 'them_binhluan']);
+// binh luan san pham
+Route::get('/lay-binh-luan-san-pham', [BinhluanController::class, 'binhluan_sanpham']);
+Route::post('/them-binh-luan-san-pham', [BinhluanController::class, 'them_binhluan']);
 
 
 Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemGet']);
