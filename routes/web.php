@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\BaivietController;
 use App\Http\Controllers\admin\DanhmucController;
 use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
+use App\Http\Controllers\admin\QLHoaDonController;
 use App\Http\Controllers\admin\QLTaiKhoanController;
 use App\Http\Controllers\admin\SanphamController;
 use App\Http\Controllers\khachhang\GioHangController;
@@ -32,6 +33,17 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
   Route::middleware(['NhanVienMiddleware'])->group(function () {
 
     Route::middleware(['CheckAdminAccess'])->group(function () {
+
+      // HOÁ ĐƠN --------------------
+
+      Route::group(['prefix' => '/hoa-don'], function () {
+        Route::get('/', [QLHoaDonController::class, 'index']);
+        Route::get('/du-lieu', [QLHoaDonController::class, 'DuLieuHoaDon']);
+        Route::get('/hoa-don-chi-tiet/{id}', [QLHoaDonController::class, 'HoaDonChiTiet']);
+        Route::post('/them-san-pham-hdct', [QLHoaDonController::class, 'ThemHoaDonChiTiet']);
+        Route::get('/xoa-san-pham-hdct', [QLHoaDonController::class, 'XoaHoaDonChiTiet']);
+        Route::get('/them-hoa-don', [QLHoaDonController::class, 'ThemHoaDon']);
+      });
 
       // thong ke --------------
       Route::group(['prefix' => '/thong-ke'], function () {

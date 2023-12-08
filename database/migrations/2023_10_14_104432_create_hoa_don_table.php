@@ -13,12 +13,13 @@ return new class extends Migration {
         Schema::create('hoa_don', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ma_khach_hang');
+            $table->unsignedBigInteger('ma_hoa_don');
+            $table->string('ho_va_ten');
+            $table->string('so_dien_thoai');
             $table->string('dia_chi');
-            $table->integer('so_dien_thoai');
-            $table->string('email');
-            $table->integer('tong_tien');
-            $table->string('trang_thai');
-            $table->string('ghi_chu');
+            $table->integer('tong_tien_tat_ca');
+            $table->integer('trang_thai_don')->default(0);
+            $table->integer('trang_thai_thanh_toan')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

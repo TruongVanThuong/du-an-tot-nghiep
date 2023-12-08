@@ -15,7 +15,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header text-center">
-        <h3> Danh Sách Các Danh Mục</h3>
+        <h3> Danh Sách Các Tài Khoản</h3>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -23,10 +23,10 @@
             <thead clas="bg-primary">
               <tr>
                 <th class="text-center">ID</th>
-                <th class="text-center">Tên Tai Khoan</th>
+                <th class="text-center">Tên Tài Khoản</th>
                 <th class="text-center">Email</th>
-                <th class="text-center">Vai Tro</th>
-                <th class="text-center">Action</th>
+                <th class="text-center">Vai Trò</th>
+                <th class="text-center">Thao Tác</th>
               </tr>
             </thead>
             <tbody>
