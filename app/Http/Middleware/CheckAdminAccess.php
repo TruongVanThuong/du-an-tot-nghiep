@@ -16,9 +16,9 @@ class CheckAdminAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $check = Auth::guard('tai_khoan')->check();
+        $check = Auth::guard('khach_hang')->check();
         if($check) {
-            $user = Auth::guard('tai_khoan')->user();
+            $user = Auth::guard('khach_hang')->user();
             if($user->loai_tai_khoan <= 2) {
                 toastr()->error('Tài khoản của bạn không đủ quyền truy cập!');
                 return back();

@@ -19,7 +19,7 @@ class SanphamController extends Controller
 {
 	public function sanpham()
 	{
-		$data_HDCT = HoadonchitietModel::withTrashed()->get();
+		$data_HDCT = HoadonchitietModel::get();
 		$data_hinhanh = HinhanhModel::all();
 		$data_Loaisanpham = LoaisanphamModel::get();
 		$data_danhmuc = DanhmucModel::get();
