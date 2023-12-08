@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\hinhanhController;
 use App\Http\Controllers\admin\LoaiSanphamController;
 use App\Http\Controllers\admin\QLTaiKhoanController;
 use App\Http\Controllers\admin\SanphamController;
+use App\Http\Controllers\admin\QLBinhluanController;
 use App\Http\Controllers\khachhang\GioHangController;
 use App\Http\Controllers\admin\ThongKeController;
 use App\Http\Controllers\khachhang\TrangChuController;
@@ -13,6 +14,8 @@ use App\Http\Controllers\khachhang\KhachHangController;
 use App\Http\Controllers\khachhang\LienHeController;
 use App\Http\Controllers\khachhang\TinTucController;
 use App\Http\Controllers\khachhang\BinhluanTintucController;
+use App\Http\Controllers\khachhang\BinhluanController;
+
 use App\Http\Controllers\khachhang\SanPhamYeuThichController;
 use App\Models\SanPhamYeuThich;
 use Illuminate\Support\Facades\Route;
@@ -113,6 +116,11 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::get('/baiviet/doitrangthai', [BaivietController::class, 'doitrangthai']);
     Route::post('/baiviet/khoiphuc', [BaivietController::class, 'restore']);
 
+    // QL bình luận
+    Route::get('/binhluan', [QLBinhluanController::class, 'index']);
+    Route::get('/lay-binh-luan-san-pham', [QLBinhluanController::class, 'binhluan_sanpham']);
+    Route::get('xoa-binh-luan-bai-viet/{id}', [QLBinhluanController::class, 'xoa_binh_luan_baiviet']);
+    Route::get('xoa-binh-luan-san-pham/{id}', [QLBinhluanController::class, 'xoa_binh_luan_sanpham']);
   });
 });
 
@@ -182,12 +190,10 @@ Route::get('/tin-tuc/{id}', [TinTucController::class, 'TinTuc_theoloai']);
 Route::get('/tin-tuc-chi-tiet/{id}', [TinTucController::class, 'TinTucChiTiet']);
 // binh luan tin tuc
 Route::get('/binh-luan-tin-tuc', [BinhluanTintucController::class, 'binhluan_baiviet']);
-Route::get('/lay-binh-luan', [BinhluanTintucController::class, 'binhluan_baiviet']);
-
-Route::group (['middleware' => 'KhachHangDangNhap'],function () {
-  Route::post('/them-binhluan-tintuc', [BinhluanTintucController::class, 'them_binhluan']);
-  });
-
+Route::post('/them-binhluan-tintuc', [BinhluanTintucController::class, 'them_binhluan']);
+// binh luan san pham
+Route::get('/lay-binh-luan-san-pham', [BinhluanController::class, 'binhluan_sanpham']);
+Route::post('/them-binh-luan-san-pham', [BinhluanController::class, 'them_binhluan']);
 
 
 Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemGet']);
