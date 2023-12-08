@@ -26,7 +26,7 @@
                                 <div class="minicart-item d-flex" v-for="(value, key) in ds_gio_hang"
                                     :key="key">
                                     <div class="mini-img-wrapper">
-                                        <img class="mini-img"  :src="'/img/' + value.hinh_anh" alt="img">
+                                        <img class="mini-img" :src="'/img/' + value.hinh_anh" alt="img">
                                     </div>
                                     <div class="product-info">
                                         <h2 class="product-title"><a href="#">@{{ value.ten_san_pham }}</a></h2>

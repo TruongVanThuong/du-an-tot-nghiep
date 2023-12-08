@@ -11,16 +11,13 @@
     </div>
     <nav class="navbar navbar-expand-xl w-100">
         <ul class="navbar-nav justify-content-start flex-grow-1 gap-1">
-            @if ($isAdmin)
-            @else
             <li class="nav-item">
-                <a class="nav-link" href="{{asset('admin/thong-ke')}}">
+                <a class="nav-link" href="{{asset('admin')}}">
                     <div class="parent-icon"><i class="bx bx-home-circle"></i>
                     </div>
-                    <div class="menu-title">Thong Ke</div>
+                    <div class="menu-title">Thống Kê</div>
                 </a>
             </li>
-            @endif
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/sanpham')}}">
                     <div class="parent-icon"><i class="bx bx-cart"></i>
@@ -42,7 +39,6 @@
                     <div class="menu-title">Thể Loại</div>
                 </a>
             </li>
-            
             @if ($isAdmin)
             @else
             <li class="nav-item">
@@ -53,35 +49,30 @@
                 </a>
             </li>
             @endif
-            @if ($isAdmin)
-            @else
+
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/quan-ly-tai-khoan')}}">
                     <div class="parent-icon"><i class="bx bx-user"></i>
                     </div>
-                    <div class="menu-title">Thành Viên</div>
+                    <div class="menu-title">Khách hàng</div>
+                </a>
+            </li>
+
+            @if ($isAdmin)
+            @else
+            <li class="nav-item">
+                <a class="nav-link" href="{{asset('admin/quan-ly-nhan-vien')}}">
+                    <div class="parent-icon"><i class="bx bx-user"></i>
+                    </div>
+                    <div class="menu-title">Nhân Viên</div>
                 </a>
             </li>
             @endif
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/baiviet')}}">
-                    <div class="parent-icon"><i class="bx bx-highlight"></i>
+                    <div class="parent-icon"><i class="bx bx-cookie"></i>
                     </div>
                     <div class="menu-title">Bài viết</div>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{asset('admin/hoa-don')}}">
-                    <div class="parent-icon"><i class="bx bx-notepad"></i>
-                    </div>
-                    <div class="menu-title">Hoá Đơn</div>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{asset('admin/binhluan')}}">
-                    <div class="parent-icon"><i class="bx bx-tag"></i>
-                    </div>
-                    <div class="menu-title">Bình luận</div>
                 </a>
             </li>
         </ul>

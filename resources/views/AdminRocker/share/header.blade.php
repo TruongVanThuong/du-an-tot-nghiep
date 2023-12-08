@@ -37,8 +37,6 @@
 						</a>
 						<div class="header-notifications-list">
 							@foreach ($LIENHE as $lienhe)
-							<a class="dropdown-item" onclick="thong_bao_lien_he({{$lienhe->id}})" data-bs-toggle="modal"
-								data-bs-target="#viewLHModal{{$lienhe->id}}">
 								<div class="d-flex align-items-center">
 									<div class="notify bg-light-primary text-primary"><i class="bx bx-group"></i>
 									</div>
@@ -49,30 +47,7 @@
 										</h6>
 										<p class="msg-info">{{$lienhe->tieu_de}}</p>
 									</div>
-								</div>
-							</a>
-							<!-- Modal XEM-->
-							<div class="modal fade" id="viewLHModal{{$lienhe->id}}" tabindex="-1"
-								aria-labelledby="viewLHModalLabel{{$lienhe->id}}" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h1 class="modal-title fs-5" id="viewLHModalLabel{{$lienhe->id}}">Nội dung liên hệ</h1>
-											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body" v-if="thong_tin_lien_he">
-											<h6>Gmail khách hàng : @{{thong_tin_lien_he.email}}</h6>
-											<div class="box_lienhe p-2" style="border: 1px solid rgb(212 212 212); border-radius: 7px;">
-												<h4>(@{{thong_tin_lien_he.tieu_de}})</h4>
-												<p>@{{thong_tin_lien_he.noi_dung}}</p>
-											</div>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-										</div>
-									</div>
-								</div>
-							</div>
+								</div>							
 							@endforeach
 						</div>
 						<a href="javascript:;">
@@ -109,24 +84,9 @@
 					<div class="dropdown-divider mb-0"></div>
 				</li>
 				<li>
-					<a class="dropdown-item" href="/dang-xuat"><i class='bx bx-log-out-circle'></i><span>Đăng Xuất</span></a>
+					<a class="dropdown-item" href="/admin/dang-xuat"><i class='bx bx-log-out-circle'></i><span>Đăng Xuất</span></a>
 				</li>
 			</ul>
 		</div>
 	</nav>
 </div>
-
-@section('js')
-
-<script>
-	function thong_b			he(idLH)				d = idLH;
-	$.url: "/admin/lien-he/x			he-			
-	type: data: {
-		id_data: s: function
-			// $					_" + i						/ $("#sanpham_" + id).hide();
-			s("Sản phẩm đã đư							    }
-    });
-  }
-</script>
-
-@endsection

@@ -81,6 +81,6 @@ formatCurrency(value) {
             return isFav;
         }
         return false;
-    },
+    }
     
     

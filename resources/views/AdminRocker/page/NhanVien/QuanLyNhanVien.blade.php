@@ -7,7 +7,7 @@
     <div class="modal-category">
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Thêm Khách Hàng
+        Thêm Nhân Viên
       </button>
     </div>
   </div>
@@ -15,7 +15,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header text-center">
-        <h3> Danh Sách Khách Hàng</h3>
+        <h3> Danh Sách Nhân Viên</h3>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -32,7 +32,7 @@
             <tbody>
               <tr v-for="(taikhoan, key) in data_taikhoan">
                 <th class="align-middle text-center">@{{ key + 1 }}</th>
-                <td class="align-middle text-center">@{{ taikhoan.ho_va_ten }}</td>
+                <td class="align-middle text-center">@{{ taikhoan.ten_tai_khoan }}</td>
                 <td class="align-middle text-center">@{{ taikhoan.email }}</td>
                 <td class="align-middle text-center">
                   <span :class="getMauPhanQuyen(taikhoan.loai_tai_khoan)">
@@ -56,7 +56,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Khách Hàng</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Nhân Viên</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -101,16 +101,6 @@
                       </div>
                     </div>
                     <div class="form-group mt-3">
-                      <label>Giới tính</label>
-                      <select v-model="add_user.gioi_tinh" class="form-control">
-                        <option value="1">Nam</option>
-                        <option value="0">Nữ</option>
-                      </select>
-                      <div v-if="errors.gioi_tinh" class="alert alert-warning">
-                        @{{ errors.gioi_tinh[0] }}
-                      </div>
-                    </div>
-                    <div class="form-group mt-3">
                       <label>Mật khẩu</label>
                       <input v-model="add_user.password" type="password" class="form-control"
                         placeholder="Nhập vào mật khẩu">
@@ -141,7 +131,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cập Nhật Khách Hàng</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cập Nhật Nhân Viên</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -183,27 +173,6 @@
                         placeholder="Nhập vào ngày sinh">
                       <div v-if="errors.ngay_sinh" class="alert alert-warning">
                         @{{ errors.ngay_sinh[0] }}
-                      </div>
-                    </div>
-                    <div class="form-group mt-3">
-                      <label>Giới tính</label>
-                      <select v-model="edit_user.gioi_tinh" class="form-control">
-                        <option value="1">Nam</option>
-                        <option value="0">Nữ</option>
-                      </select>
-                      <div v-if="errors.gioi_tinh" class="alert alert-warning">
-                        @{{ errors.gioi_tinh[0] }}
-                      </div>
-                    </div>
-                    <div class="form-group mt-3">
-                      <label>Loại tài khoản</label>
-                      <select v-model="edit_user.loai_tai_khoan" class="form-control">
-                        <option v-for="(phanquyen, key) in data_phanquyen" :value="phanquyen.role_phan_quyen" v-if="phanquyen.role_phan_quyen < 2">
-                          @{{phanquyen.ten_phan_quyen}}
-                        </option>
-                      </select>
-                      <div v-if="errors.loai_tai_khoan" class="alert alert-warning">
-                        @{{ errors.loai_tai_khoan[0] }}
                       </div>
                     </div>
                   </div>
@@ -273,7 +242,7 @@
       // hien thi danh sach tai khoan
       GetData() {
         axios
-          .get('/admin/quan-ly-tai-khoan/du-lieu')
+          .get('/admin/quan-ly-nhan-vien/du-lieu')
           .then((res) => {
             this.data_taikhoan = res.data.data_taikhoan;
             this.data_phanquyen = res.data.data_phanquyen;
@@ -287,12 +256,10 @@
 
       getTenPhanQuyen(rolePhanQuyen) {
         switch (rolePhanQuyen) {
-          case -1:
-            return 'Vô Hiệu Hóa Tài Khoản';
-          case 0:
-            return 'Chưa Kích Hoạt';
-          case 1:
-            return 'Khách Hàng';
+          case 2:
+            return 'Nhân Viên';
+          case 3:
+            return 'Quản trị Viên';
           default:
             return 'Không xác định';
         }
@@ -300,20 +267,18 @@
 
       getMauPhanQuyen(rolePhanQuyen) {
         switch (rolePhanQuyen) {
-          case -1:
-            return 'btn btn-danger'; // Class CSS cho trạng thái Vô Hiệu Hóa Tài Khoản
-          case 0:
-            return 'btn btn-warning'; // Class CSS cho trạng thái Chưa Kích Hoạt
-          case 1:
-            return 'btn btn-success'; // Class CSS cho trạng thái Khách Hàng
+          case 2:
+            return 'btn btn-info'; 
+          case 3:
+            return 'btn btn-warning'; 
           default:
-            return 'btn btn-muted'; // Class CSS cho các giá trị khác
+            return 'btn btn-muted'; 
         }
       },
 
       them_nguoi_dung() {
         axios
-          .post('/admin/quan-ly-tai-khoan/them-tai-khoan', this.add_user)
+          .post('/admin/quan-ly-nhan-vien/them-nhan-vien', this.add_user)
           .then((res) => {
             if (res.data.status) {
               toastr.success(res.data.message);
@@ -336,7 +301,7 @@
 
       cap_nhat_nguoi_dung() {
         axios
-          .post('/admin/quan-ly-tai-khoan/cap-nhat-tai-khoan', this.edit_user)
+          .post('/admin/quan-ly-nhan-vien/cap-nhat-nhan-vien', this.edit_user)
           .then((res) => {
             if (res.data.status) {
               toastr.success(res.data.message);
@@ -359,7 +324,7 @@
 
       xoa_nguoi_dung() {
         axios
-          .post('/admin/quan-ly-tai-khoan/xoa-tai-khoan', this.xoa)
+          .post('/admin/quan-ly-nhan-vien/xoa-nhan-vien', this.xoa)
           .then((res) => {
             if (res.data.status) {
               const message = "Dữ liệu đã được xoá thành công!";

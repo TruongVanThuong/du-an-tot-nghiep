@@ -5,7 +5,6 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\SanphamModel;
-use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,6 +26,5 @@ class DatabaseSeeder extends Seeder
         //     'mo_ta' => 'test@example.com',
         //     'trang_thai' => '1',
         // ]);
-        // $this.call(baiviet::class);
     }
 }

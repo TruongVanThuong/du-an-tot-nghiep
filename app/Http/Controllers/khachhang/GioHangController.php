@@ -4,7 +4,6 @@ namespace App\Http\Controllers\khachhang;
 
 use App\Http\Controllers\Controller;
 use App\Models\GiohangModel;
-use App\Models\MaGiamGiaModel;
 use App\Models\SanphamModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -133,25 +132,5 @@ class GioHangController extends Controller
             }
         }
     }
-
-    public function MaGiamGia($ma_giam_gia)
-    {
-        $du_lieu = MaGiamGiaModel::where('ma_giam_gia', $ma_giam_gia)->first();
-        if ($du_lieu && isset($du_lieu->tien_giam_gia)) {
-            // Nếu mã tồn tại và chưa được sử dụng
-            $tien_giam_gia = $du_lieu->tien_giam_gia;
-            // Trả về số tiền giảm giá cho client trước khi xóa dữ liệu
-            $response = [
-                'tien_giam_gia' => $tien_giam_gia,
-                'status'        => true,
-                'message'       => 'Sử dụng mã thành công'
-            ];
-            // Xóa dữ liệu sau khi đã trả về response
-            $du_lieu->delete();
-    
-            return response()->json($response);
-        }
-    }
-    
     
 }

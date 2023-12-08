@@ -137,7 +137,7 @@
                     <th class="text-center">Tên Loại</th>
                     <th class="text-center">Danh Mục</th>
                     <th class="text-center">Trạng Thái</th>
-                    <th class="text-center">Action</th>
+                    <th class="text-center">Thao Tác</th>
                   </tr>
                 </thead>
                 <tbody>

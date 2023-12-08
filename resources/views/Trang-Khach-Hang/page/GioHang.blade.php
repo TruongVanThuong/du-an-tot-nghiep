@@ -1,33 +1,18 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
-@php
-        $check = Auth::guard('khach_hang')->check();
-        $user = Auth::guard('khach_hang')->user();
-    @endphp
     <main id="MainContent" class="content-for-layout" style="margin-bottom: 100px">
         <div class="cart-page mt-100">
-            <div class="checkout-progress overflow-hidden text-center">
-                <ol class="checkout-bar px-0" style="display: flex; justify-content: center; align-items: center; list-style: none;">
-                    <li class="progress-step step-done"><a href="cart.html">Giỏ hàng</a></li>
-                    <li class="progress-step step-todo"><a href="checkout.html">Thanh toán</a></li>
-                    <li class="progress-step step-todo"><a href="checkout.html">Hóa đơn</a></li>
-                </ol>
-            </div>
-            
-            <div class="container mt-100">
-                
+            <div class="container">
                 <div class="cart-page-wrapper">
-                   
                     <div class="row">
-                        
                         <div class="col-lg-7 col-md-12 col-12">
                             <table class="cart-table w-100">
                                 <thead>
                                     <tr>
-                                        <th class="cart-caption heading_18">Sản phẩm</th>
+                                        <th class="cart-caption heading_18">Product</th>
                                         <th class="cart-caption heading_18"></th>
-                                        <th class="cart-caption text-center heading_18 d-none d-md-table-cell">Số lượng</th>
-                                        <th class="cart-caption text-end heading_18">Giá</th>
+                                        <th class="cart-caption text-center heading_18 d-none d-md-table-cell">Quantity</th>
+                                        <th class="cart-caption text-end heading_18">Price</th>
                                     </tr>
                                 </thead>
 
@@ -40,7 +25,7 @@
                                                 </div>
                                             </td>
                                             <td class="cart-item-details">
-                                                <h2 class="product-title"><a href="">@{{ value.ten_san_pham }}</a></h2>
+                                                <h2 class="product-title"><a href="#">@{{ value.ten_san_pham }}</a></h2>
                                                 <p class="product-vendor">Mã Loại @{{ value.id }}</p>
                                             </td>
                                             <td class="cart-item-quantity">
@@ -73,7 +58,7 @@
                         </div>
                         <div class="col-lg-5 col-md-12 col-12">
                             <div class="cart-total-area">
-                                <h3 class="cart-total-title d-none d-lg-block mb-0 text-center">Tổng giỏ hàng</h4>
+                                <h3 class="cart-total-title d-none d-lg-block mb-0">Cart Totals</h4>
                                     <div class="cart-total-box mt-4">
                                         <div class="subtotal-item subtotal-box">
                                             <h4 class="subtotal-title">Tổng Tiền:</h4>
@@ -81,28 +66,18 @@
                                             <p class="subtotal-value" v-else>0 ₫</p>
                                         </div>
                                         <div class="subtotal-item shipping-box">
-                                            <h4 class="subtotal-title">Phí vận chuyển:</h4>
-                                            @if ($check)
-                                                <p class="subtotal-value" v-if="tong_tien_tat_ca > 1000000">0 ₫</p>
-                                                <p class="subtotal-value" v-else>10.000 ₫</p>
-                                            @else
-                                                <p class="subtotal-value">0 ₫</p>
-                                                
-                                            @endif
-                                          
+                                            <h4 class="subtotal-title">Shipping:</h4>
+                                            <p class="subtotal-value">10.000 ₫</p>
                                         </div>
-                                    
+                                        <div class="subtotal-item discount-box">
+                                            <h4 class="subtotal-title">Discount:</h4>
+                                            <p class="subtotal-value"></p>
+                                        </div>
                                         <hr />
                                         <div class="subtotal-item discount-box">
-                                            <h4 class="subtotal-title">Tổng tiền:</h4>
-                                            @if ($check)
-                                                <p class="subtotal-value" v-if="tong_tien_tat_ca > 1000000">@{{ formatCurrency((tong_tien_tat_ca + 0)* 1.005) }}</p>
-                                                <p class="subtotal-value" v-else>@{{ formatCurrency((tong_tien_tat_ca + 20000) * 1.005) }}</p>
-                                            @else
-                                                <p class="subtotal-value" >0 ₫</p>
-                                                
-                                            @endif
-                                           
+                                            <h4 class="subtotal-title">Total:</h4>
+                                            <p class="subtotal-value" v-if="tong_tien_tat_ca > 0">@{{ formatCurrency(tong_tien_tat_ca + 10000) }}</p>
+                                            <p class="subtotal-value" v-else>0 ₫</p>
                                         </div>
                                         <p class="shipping_text">Thuế và phí vận chuyển sẽ được tính khi thanh</p>
                                         <div class="d-flex justify-content-center mt-4">
