@@ -25,6 +25,7 @@ class TaikhoanRequest extends FormRequest
             'dia_chi'               =>  'required|min:6|max:50',
             'gioi_tinh'             =>  'required|numeric|min:0|max:1',
             'ngay_sinh'             =>  'required|date',
+            'loai_tai_khoan'        =>  'required',
         ];
     }
 
@@ -53,7 +54,7 @@ class TaikhoanRequest extends FormRequest
             'gioi_tinh.max'                 => 'Giới tính phải chọn theo yêu cầu',
             'ngay_sinh.required'            => 'Ngày sinh không được để trống',
             'ngay_sinh.date'                => 'Ngày sinh không đúng định dạng',
-
+            'loai_tai_khoan'                => 'Vui lòng chọn loại tài khoản',
         ];
     }
 }

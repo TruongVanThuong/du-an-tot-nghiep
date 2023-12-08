@@ -19,7 +19,7 @@ class headerComposer
         $theLoai = LoaisanphamModel::all();
 
         // Lấy thông tin về người dùng hiện tại đã đăng nhập
-        $loggedInUser = Auth::guard('tai_khoan')->user();
+        $loggedInUser = Auth::guard('khach_hang')->user();
 
         // dd($loggedInUser->loai_tai_khoan);
 

@@ -11,17 +11,17 @@ class NhanVienMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $check = Auth::guard('tai_khoan')->check();
+        $check = Auth::guard('khach_hang')->check();
         if($check) {
-            $user = Auth::guard('tai_khoan')->user();
+            $user = Auth::guard('khach_hang')->user();
             if($user->loai_tai_khoan <= 1) {
                 toastr()->error('Tài khoản của bạn không đủ quyền truy cập!');
-                return redirect('./admin/dang-nhap');
+                return redirect('./dang-nhap');
             }
             return $next($request);
         } else {
             toastr()->warning('Chức năng này yêu cầu phải đăng nhập!');
-            return redirect('./admin/dang-nhap');
+            return redirect('./dang-nhap');
         }
 
     }
