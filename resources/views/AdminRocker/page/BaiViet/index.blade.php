@@ -54,7 +54,7 @@
             
           </td>
           <td class="align-middle text-center">
-            <img height="50px" width="100px" src="{{ asset('img/') }}/{{$baiviet->hinh_anh}}" title="{{$baiviet->hinh_anh}}">
+            <img max-height="20px" width="100px" src="{{ asset('img/') }}/{{$baiviet->hinh_anh}}" title="{{$baiviet->hinh_anh}}">
 
           </td>
           <td class="align-middle text-center">
