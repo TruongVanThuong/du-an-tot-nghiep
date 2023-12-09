@@ -32,7 +32,7 @@ class BinhluanController extends Controller
             BinhluanModel::create($data_form);
             return response()->json([
                 'status'    =>  true,
-                'message'   =>  'Thêm thành công'
+                'message'   =>  'Bình luận thành công'
             ]);
         } else {
             return response()->json([

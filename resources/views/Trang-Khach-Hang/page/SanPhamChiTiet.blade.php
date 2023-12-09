@@ -100,13 +100,13 @@
                                         <path d="M1.5 4.25V16.25H4.5V20.0703L5.71875 19.0859L9.25781 16.25H16.5V4.25H1.5ZM3 5.75H15V14.75H8.74219L8.53125 14.9141L6 16.9297V14.75H3V5.75ZM18 7.25V8.75H21V17.75H18V19.9297L15.2578 17.75H9.63281L7.75781 19.25H14.7422L19.5 23.0703V19.25H22.5V7.25H18Z" fill="black" />
                                     </svg>
                                 </span>
-                                <span class="message-popup-text ms-2">Message</span>
+                                <span class="message-popup-text ms-2">Tin nhắn</span>
                             </div>
                         </div>
 
                         <form class="product-form" action="#">
                             <div class="product-form-buttons d-flex align-items-center justify-content-between mt-4">
-                                <button type="submit" class="position-relative btn-atc btn-add-to-cart loader">ADD TO CART</button>
+                                <button type="submit" class="position-relative btn-atc btn-add-to-cart loader">THÊM VÀO GIỎ HÀNG</button>
                                 <a href="wishlist.html" class="product-wishlist">
                                     <svg class="icon icon-wishlist" width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z" fill="#00234D"></path>
@@ -114,12 +114,12 @@
                                 </a>
                             </div>
                             <div class="buy-it-now-btn mt-2">
-                                <button type="submit" class="position-relative btn-atc btn-buyit-now">BUY IT NOW</button>
+                                <button type="submit" class="position-relative btn-atc btn-buyit-now">MUA NGAY</button>
                             </div>
                         </form>
 
                         <div class="guaranteed-checkout">
-                            <strong class="label mb-1 d-block">Guaranteed safe checkout:</strong>
+                            <strong class="label mb-1 d-block">CÁC PHƯƠNG THỨC THANH TOÁN AN TOÀN:</strong>
                             <ul class="list-unstyled checkout-icon-list d-flex align-items-center flex-wrap">
                                 <li class="checkout-icon-item">
                                     <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -235,7 +235,7 @@
                         </div>
 
                         <div class="share-area mt-4 d-flex align-items-center">
-                            <strong class="label mb-1 d-block">Share:</strong>
+                            <strong class="label mb-1 d-block">Chia sẽ:</strong>
                             <ul class="list-unstyled share-list d-flex align-items-center mb-1 flex-wrap">
                                 <li class="share-item">
                                     <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -378,12 +378,12 @@
                         </div>
                         
                     <!-- </div> -->
-                    <button class="text_14 bg-transparent text-decoration-underline write-btn" type="button">Write a review</button>
+                    <button class="text_14 bg-transparent text-decoration-underline write-btn" type="button">Viết đánh giá</button>
                     <div class="review-form-area accordion-child">
 
 
                         <fieldset>
-                            <label class="label">Full Name</label>
+                            <label class="label">Họ và tên</label>
                             <!-- <input type="text" placeholder="Enter your name" /> -->
                             @if(isset($khach_hang))
                             <input type="text" disabled placeholder="{{$khach_hang->ho_va_ten}}">
@@ -432,11 +432,11 @@
                             <input v-model="them_binhluan_sanpham.ma_san_pham" type="hidden">
                         </fieldset>
                         <fieldset>
-                            <label class="label">Body of Review (2000)</label>
-                            <textarea v-model="them_binhluan_sanpham.noi_dung" cols="30" rows="10" placeholder="Write your comments here"></textarea>
+                            <label class="label">Nội dung đánh giá (2000 ki tự)</label>
+                            <textarea v-model="them_binhluan_sanpham.noi_dung" cols="30" rows="10" placeholder="Viết đánh giá tại đây..."></textarea>
                         </fieldset>
 
-                        <button type="buttom" v-on:click="them_binh_luan_san_pham()" class="position-relative review-submit-btn">SUBMIT</button>
+                        <button type="buttom" v-on:click="them_binh_luan_san_pham()" class="position-relative review-submit-btn">Đăng đanh giá</button>
 
                     </div>
                 </div>
@@ -450,7 +450,7 @@
     <div class="featured-collection-section mt-100 home-section overflow-hidden">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-heading">You may also like</h2>
+                <h2 class="section-heading">Các sản phẩm có thể bạn sẽ thích</h2>
             </div>
 
             <div class="product-container position-relative">

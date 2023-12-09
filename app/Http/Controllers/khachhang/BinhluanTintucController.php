@@ -33,7 +33,7 @@ class BinhluanTintucController extends Controller
             binh_luan_bai_viets::create($data_form);
             return response()->json([
                 'status'    =>  true,
-                'message'   =>  'Thêm thành công'
+                'message'   =>  'Bình luận thành công'
             ]);
         }else{
             return response()->json([

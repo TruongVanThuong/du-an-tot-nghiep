@@ -32,7 +32,7 @@
                                             <path d="M0.347656 0.5V15.5H7.53711L10.0977 18.0605L12.6582 15.5H19.8477V0.5H0.347656ZM1.84766 2H18.3477V14H12.0371L10.0977 15.9395L8.1582 14H1.84766V2ZM4.84766 4.25V5.75H15.3477V4.25H4.84766ZM4.84766 7.25V8.75H15.3477V7.25H4.84766ZM4.84766 10.25V11.75H12.3477V10.25H4.84766Z" fill="black" />
                                         </svg>
                                     </span>
-                                    <span class="ms-2"> Comments</span>
+                                    <span class="ms-2"> BÌNH LUẬN</span>
                                 </a>
                                 <span class="article-separator mx-3 d-none d-sm-block">
                                     <svg width="2" height="12" viewBox="0 0 2 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="share-area mt-5 d-flex align-items-center">
-                            <strong class="label mb-1 d-block">Share:</strong>
+                            <strong class="label mb-1 d-block">Chia sẽ:</strong>
                             <ul class="list-unstyled share-list d-flex align-items-center mb-1 flex-wrap">
                                 <li class="share-item">
                                     <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,14 +111,14 @@
                             </ul>
                         </div>
 
-                        <div class="next-prev-article mt-5 d-flex align-items-center justify-content-between">
+                        <!-- <div class="next-prev-article mt-5 d-flex align-items-center justify-content-between">
                             <a href="" class="article-btn prev-article-btn mt-2">PREV ARTICLE</a>
                             <a href="" class="article-btn next-article-btn active mt-2">NEXT ARTICLE</a>
-                        </div>
+                        </div> -->
 
                         <div id="binh_luan_bai_viet" class="comments-section mt-100 home-section overflow-hidden">
                             <div class="section-header">
-                                <h2 class="section-heading">Comments </h2>
+                                <h2 class="section-heading">Bình luận </h2>
 
 
                             </div>
@@ -147,7 +147,7 @@
                                                         <path d="M5.14062 2.64062L1.14062 6.64062L0.796875 7L1.14062 7.35938L5.14062 11.3594L5.85938 10.6406L2.21875 7L5.85938 3.35938L5.14062 2.64062ZM7.64062 2.64062L3.64062 6.64062L3.29688 7L3.64062 7.35938L7.64062 11.3594L8.35938 10.6406L5.21875 7.5H11.5C12.8867 7.5 14 8.61328 14 10C14 11.3867 12.8867 12.5 11.5 12.5V13.5C13.4277 13.5 15 11.9277 15 10C15 8.07227 13.4277 6.5 11.5 6.5H5.21875L8.35938 3.35938L7.64062 2.64062Z" fill="black" />
                                                     </svg>
                                                 </span>
-                                                <span class="btn-reply-text">Reply</span>
+                                                <!-- <span class="btn-reply-text">Reply</span> -->
                                             </button>
                                         </div>
 
@@ -159,7 +159,7 @@
                             <div class="comment-form-area">
                                 <div class="form-header">
                                     <h4 class="form-title">Thêm bình luận</h4>
-                                    <p class="form-subtitle">All fields marked with an asterisk (*) are required</p>
+                                    <p class="form-subtitle">Các mục có dấu (*) cần bắt buột phải nhập</p>
                                 </div>
                                 <div class="name-email-field d-flex justify-content-between">
                                     <div class="field-item name-field">
@@ -219,8 +219,8 @@
                             <div class="blogger-img mb-3">
                                 <img class="rounded" src="/assets_client/img/people/blogger.jpg" alt="img">
                             </div>
-                            <h4 class="blogger-name heading_18 mb-1">Shakespeare D. Willaim</h4>
-                            <p class="blogger-designation mb-1">Bloger / Photographer</p>
+                            <h4 class="blogger-name heading_18 mb-1">{{$baiviet->ma_khach_hang}}</h4>
+                            <p class="blogger-designation mb-1">Nhân viên cửa hàng</p>
                             <div class="product-rating d-flex align-items-center mb-3 justify-content-center">
                                 <span class="star-rating">
                                     <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -240,7 +240,7 @@
                                     </svg>
                                 </span>
                             </div>
-                            <p class="blogger-desc mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Veritatis distinctio, odio eligendi suscipit reprehenderit atque</p>
+                            <p class="blogger-desc mb-3">Nhân viên marketing cửa hàng</p>
                             <ul class="list-unstyled share-list d-flex align-items-center justify-content-center mb-1 flex-wrap">
                                 <li class="share-item ms-0">
                                     <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -271,7 +271,7 @@
                         </div>
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom">
-                                Categories
+                                Thể loại tin
                             </div>
                             <div class="accordion-collapse">
                                 <ul class="filter-lists list-unstyled mb-0">
@@ -295,7 +295,7 @@
                         </div>
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center border-bottom">
-                                Latest Post
+                                Bài đăng mới
                             </div>
                             <div class="filter-related">
                                 @foreach($data_lastpost as $lastpost)
@@ -325,9 +325,9 @@
                         </div>
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom">
-                                Popular Tags
+                                Tag phổ biến
                             </div>
-                            <ul class="filter-tags list-unstyled">
+                            <!-- <ul class="filter-tags list-unstyled">
                                 <li class="tag-item"><a href="#">Popular</a></li>
                                 <li class="tag-item"><a href="#">Agency</a></li>
                                 <li class="tag-item"><a href="#">Furniture</a></li>
@@ -338,13 +338,13 @@
                                 <li class="tag-item"><a href="#">web</a></li>
                                 <li class="tag-item"><a href="#">bag</a></li>
                                 <li class="tag-item"><a href="#">shoe</a></li>
-                            </ul>
+                            </ul> -->
                         </div>
-                        <div class="filter-widget">
+                        <!-- <div class="filter-widget">
                             <a href="#">
                                 <img class="rounded" src="/assets_client/img/banner/collection.jpg" alt="img">
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
