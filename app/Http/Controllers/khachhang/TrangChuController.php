@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\khachhang;
-use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Models\DanhmucModel;
-use App\Models\BaivietModel;
+
 use App\Models\LoaisanphamModel;
 use App\Models\SanphamModel;
 use App\Models\HinhanhModel;
@@ -42,15 +42,14 @@ class TrangChuController extends Controller
                 ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
                 ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
                 ->where('danh_muc.id', $danhmuc->id)
-                ->select('san_pham.id as ma_san_pham','san_pham.trang_thai', 'san_pham.ten_san_pham', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug','san_pham.deleted_at', DB::raw('COUNT(san_pham_yeu_thich.ma_san_pham) AS so_lan_xuat_hien'), 'danh_muc.ten_danh_muc_slug AS ten_danh_muc_slug')
-                ->groupBy('san_pham.id', 'san_pham.ten_san_pham','san_pham.trang_thai', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug','san_pham.deleted_at')
+                ->select('san_pham.id as ma_san_pham', 'san_pham.ten_san_pham', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug','san_pham.deleted_at', DB::raw('COUNT(san_pham_yeu_thich.ma_san_pham) AS so_lan_xuat_hien'), 'danh_muc.ten_danh_muc_slug AS ten_danh_muc_slug')
+                ->groupBy('san_pham.id', 'san_pham.ten_san_pham', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug','san_pham.deleted_at')
                 ->orderByDesc('so_lan_xuat_hien')
                 ->limit(8) // Thay đổi từ limit thành take
                 ->get();
 
             $san_pham_danh_muc[$danhmuc->id] = $san_pham_yeu_thich_danh_muc;
         }
-        
         // dd($san_pham_danh_muc);
 
 
@@ -65,25 +64,20 @@ class TrangChuController extends Controller
                     ->orderByDesc('san_pham.created_at')
                     ->paginate(10);
     // dd($san_pham_moi);
-        $data_tintuc = BaivietModel::orderBy('created_at', 'desc')
-        ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')       
-        ->select('bai_viet.*', 'khach_hang.ho_va_ten')
-        ->limit(3)->get();
-
-        return view('Trang-Khach-Hang.page.TrangChu', compact('san_pham_yeu_thich', 'san_pham_danh_muc','san_pham_moi','data_tintuc'));
+              
+        return view('Trang-Khach-Hang.page.TrangChu', compact('san_pham_yeu_thich', 'san_pham_danh_muc','san_pham_moi'));
     }
 
     public function SanPhamTatCa()
     {
-        $san_pham_tat_ca = DanhmucModel::orderBy('created_at', 'desc')
-            ->join('loai_san_pham', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
+        $san_pham_tat_ca = DanhmucModel::join('loai_san_pham', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
             ->join('san_pham', 'loai_san_pham.id', '=', 'san_pham.ma_loai')
             ->join('hinh_anh', function ($join) {
                 $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
                     ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
             })
             ->select('san_pham.*', 'loai_san_pham.ten_loai as ten_loai_san_pham', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
-            ->paginate(9);
+            ->get();
     // dd($san_pham_tat_ca );
         return view('Trang-Khach-Hang.page.SanPhamTatCa', compact('san_pham_tat_ca'));
     }
@@ -91,7 +85,6 @@ class TrangChuController extends Controller
     public function SanPhamDanhMuc($ten_danh_muc_slug)
     {
         $san_pham_danh_muc = DanhmucModel::where('ten_danh_muc_slug', $ten_danh_muc_slug)
-            ->orderBy('created_at', 'desc')
             ->join('loai_san_pham', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
             ->join('san_pham', 'loai_san_pham.id', '=', 'san_pham.ma_loai')
             ->join('hinh_anh', function ($join) {
@@ -99,7 +92,7 @@ class TrangChuController extends Controller
                     ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
             })
             ->select('san_pham.*', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
-            ->paginate(9);
+            ->get();
 // dd($san_pham_danh_muc);
         return view("Trang-Khach-Hang.page.SanPhamDanhMuc", compact('san_pham_danh_muc'));
     }
@@ -107,7 +100,6 @@ class TrangChuController extends Controller
     public function SanPhamTheLoai($ten_danh_muc_slug, $ten_loai_slug)
     {
         $san_pham_the_loai = LoaisanphamModel::where('ten_loai_slug', $ten_loai_slug)
-            ->orderBy('created_at', 'desc')
             ->join('san_pham', 'loai_san_pham.id', '=', 'san_pham.ma_loai')
             ->join('hinh_anh', function ($join) {
                 $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
@@ -116,7 +108,7 @@ class TrangChuController extends Controller
             ->join('danh_muc', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
             ->where('danh_muc.ten_danh_muc_slug', $ten_danh_muc_slug)
             ->select('san_pham.*', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
-            ->paginate(9);
+            ->get();
 // dd( $san_pham_the_loai);
         return view('Trang-Khach-Hang.page.SanPhamTheLoai', compact('san_pham_the_loai'));
     }
@@ -124,26 +116,18 @@ class TrangChuController extends Controller
 
     public function SanPhamChiTiet($ten_danh_muc_slug, $ten_loai_slug, $ten_san_pham_slug,$id)
     {
-        $san_pham_chi_tiet = SanphamModel::
-            // where('ten_danh_muc_slug', $ten_danh_muc_slug)
-            // ->join('loai_san_pham', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
-            // ->where('loai_san_pham.ten_loai_slug', $ten_loai_slug)
-            // ->join('san_pham', 'loai_san_pham.id', '=', 'san_pham.ma_loai')
-            // ->where('san_pham.ten_san_pham_slug', $ten_san_pham_slug)
-            where('id', $id)
+        $san_pham_chi_tiet = DanhmucModel::where('ten_danh_muc_slug', $ten_danh_muc_slug)
+            ->join('loai_san_pham', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
+            ->where('loai_san_pham.ten_loai_slug', $ten_loai_slug)
+            ->join('san_pham', 'loai_san_pham.id', '=', 'san_pham.ma_loai')
+            ->where('san_pham.ten_san_pham_slug', $ten_san_pham_slug)
+            ->where('san_pham.id', $id)
             ->first();
 
-        // dd($san_pham_chi_tiet);
+        // dd($$san_pham_chi_tiet->id);
         $hinh_anh_san_pham = HinhAnhModel::where('ma_san_pham', $san_pham_chi_tiet->id)->get();
 
-        $check=Auth::guard('khach_hang')->check();
-        if($check){
-            $khach_hang = Auth::guard('khach_hang')->user();
-            return view('Trang-Khach-Hang.page.SanPhamChiTiet', compact('san_pham_chi_tiet', 'hinh_anh_san_pham','khach_hang'));
-        }else{
-            return view('Trang-Khach-Hang.page.SanPhamChiTiet', compact('san_pham_chi_tiet', 'hinh_anh_san_pham'));
-        };
-        
+        return view('Trang-Khach-Hang.page.SanPhamChiTiet', compact('san_pham_chi_tiet', 'hinh_anh_san_pham'));
     }
 
 

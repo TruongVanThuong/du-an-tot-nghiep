@@ -26,6 +26,7 @@ class QLTaiKhoanController extends Controller
 
     public function ThemTaiKhoan(TaikhoanRequest $request) {
         $data =  $request->all();
+        $data['loai_tai_khoan'] =  1;
         $data['password'] = bcrypt($data['password']);
         KhachHangModel::create($data);
         return response()->json([

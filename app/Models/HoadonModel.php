@@ -13,12 +13,13 @@ class HoadonModel extends Model
     protected $primarykey = 'id';
     protected $fillable = [
         "ma_khach_hang",
-        "ma_don_hang",
-        "ho_va_ten",
-        "so_dien_thoai",
         "dia_chi",
-        "tong_tien_tat_ca",
-        "trang_thai_don",
-        "trang_thai_thanh_toan"
+        "so_dien_thoai",
+        "email",
+        "tong_tien",
+        "trang_thai",
+        "ghi_chu",
+        "created_at",
+        "updated_at",
     ];
 }

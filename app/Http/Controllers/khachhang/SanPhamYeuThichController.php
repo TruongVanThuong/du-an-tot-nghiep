@@ -45,6 +45,7 @@ class SanPhamYeuThichController extends Controller
         $ma_khach_hang = Auth::guard('khach_hang')->user();
     
         if ($ma_khach_hang) {
+            // User is authenticated
             $ma_khach_hang_id = $ma_khach_hang->id;
             $san_pham_yeu_thich = SanPhamYeuThich::where('ma_khach_hang', $ma_khach_hang_id)->get();
     
@@ -53,7 +54,7 @@ class SanPhamYeuThichController extends Controller
                 'du_lieu' => $san_pham_yeu_thich
             ]);
         } else {
-     
+            // User is not authenticated
             return response()->json([
                 'status' => false,
                 'message' => 'User not authenticated'
