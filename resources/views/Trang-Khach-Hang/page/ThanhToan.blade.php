@@ -33,23 +33,23 @@
                                             <div class="col-lg-6 col-md-12 col-12">
                                                 <fieldset>
                                                     <label class="label">Họ Và Tên</label>
-                                                    <input type="text" name="ho_va_ten" value="{{ $user->ho_va_ten}}" />
+                                                    <input type="text" name="ho_va_ten" value="{{ isset($user) ? $user->ho_va_ten : '' }}" />
                                                 </fieldset>
                                             </div>
 
                                             <div class="col-lg-6 col-md-12 col-12">
                                                 <fieldset>
                                                     <label class="label">Số Điện Thoại</label>
-                                                    <input  type="text" name="so_dien_thoai" value="{{ $user->so_dien_thoai}}"/>
+                                                    <input  type="text" name="so_dien_thoai" value="{{ isset($user) ? $user->so_dien_thoai : '' }}"/>
                                                 </fieldset>
                                             </div>
                                             <div class="col-lg-6 col-md-12 col-12">
                                                 <fieldset>
                                                     <label class="label">Địa Chỉ</label>
-                                                    <input type="text" name="dia_chi" value="{{ $user->dia_chi}}" />
+                                                    <input type="text" name="dia_chi" value="{{ isset($user) ? $user->so_dien_thoai : '' }}"/>
                                                 </fieldset>
                                             </div>
-                                                                                                          
+                                                                                                       
                                             <div class="col-lg-6 col-md-12 col-12">
                                                 <fieldset>
                                                     <label class="label">Phương thức thanh toán</label>

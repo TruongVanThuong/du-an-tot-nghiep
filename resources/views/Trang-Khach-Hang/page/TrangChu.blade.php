@@ -274,10 +274,10 @@
                                                     </h3>
                                                     <div class="product-card-price">
                                                         <span
-                                                            class="card-price-regular">{{ number_format($value->gia_san_pham) }}
+                                                            class="card-price-regular">{{ number_format($value->giam_gia_san_pham) }}
                                                             ₫</span>
                                                         <span
-                                                            class="card-price-compare text-decoration-line-through">{{ number_format($value->giam_gia_san_pham) }}
+                                                            class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham) }}
                                                             ₫</span>
                                                     </div>
                                                 </div>
@@ -381,10 +381,10 @@
                                                             </h3>
                                                             <div class="product-card-price">
                                                                 <span
-                                                                    class="card-price-regular">{{ number_format($sp->gia_san_pham) }}
+                                                                    class="card-price-regular">{{ number_format($sp->giam_gia_san_pham) }}
                                                                     ₫</span>
                                                                 <span
-                                                                    class="card-price-compare text-decoration-line-through">{{ number_format($sp->giam_gia_san_pham) }}
+                                                                    class="card-price-compare text-decoration-line-through">{{ number_format($sp->gia_san_pham) }}
                                                                     ₫</span>
                                                             </div>
                                                         </div>
@@ -527,14 +527,14 @@
                                             </div>
                                             <div class="product-card-details text-center">
                                                 <h3 class="product-card-title"><a
-                                                        href="collection-left-sidebar.html">{{ $value->ten_san_pham }}</a>
+                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{$value->id}}">{{ $value->ten_san_pham }}</a>
                                                 </h3>
                                                 <div class="product-card-price">
                                                     <span
-                                                        class="card-price-regular">{{ number_format($value->gia_san_pham) }}
+                                                        class="card-price-regular">{{ number_format($value->giam_gia_san_pham) }}
                                                         ₫</span>
                                                     <span
-                                                        class="card-price-compare text-decoration-line-through">{{ number_format($value->giam_gia_san_pham) }}
+                                                        class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham) }}
                                                         ₫</span>
                                                 </div>
                                             </div>

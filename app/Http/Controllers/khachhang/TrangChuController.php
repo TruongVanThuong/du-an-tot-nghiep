@@ -28,6 +28,7 @@ class TrangChuController extends Controller
             ->orderByDesc('so_lan_xuat_hien')
             ->limit(8)
             ->get();
+            
         // dd($san_pham_yeu_thich);
         // Lấy danh mục
         $danhMuc = DanhmucModel::where('deleted_at', null)->get();

@@ -45,7 +45,6 @@
                     password: '',// Thêm trường này để theo dõi lỗi password
                     nhap_lai_password:''
                 },
-                
             },
             created() {
                 this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
@@ -62,7 +61,7 @@
                     }
                 },
             },
-            
+
             methods: {
                 kich_hoat_cap_nhat_mat_khau(){
                     axios
