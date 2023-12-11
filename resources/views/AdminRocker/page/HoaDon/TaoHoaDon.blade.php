@@ -23,7 +23,7 @@
             <h4 class="text-center">THÔNG TIN HOÁ ĐƠN</h4>
             <div class="form-group mt-3">
               <label>Thông tin đơn hàng</label>
-              <select class="form-control" name="" id="">
+              <select class="form-control" v-model="them_hoa_don.trang_thai_don">
                 <option value="-1">Huỷ đơn hàng</option>
                 <option value="0">Chờ xử lý</option>
                 <option value="1">Đang vận chuyển</option>
@@ -32,26 +32,133 @@
             </div>
             <div class="form-group mt-3">
               <label>Thông tin thanh toán</label>
-              <select class="form-control" name="" id="">
+              <select class="form-control" v-model="them_hoa_don.trang_thai_thanh_toan">
                 <option value="0">Chưa thanh toán</option>
                 <option value="1">Đã thanh toán</option>
               </select>
             </div>
+
+          </div>
+          <div class="col-6 custom-column">
+            <h4 class="text-center">THÔNG TIN KHÁCH HÀNG</h4>
+
+            <div>
+              <div class="form-group mt-3">
+                <label>Email khách hàng</label>
+                <select v-model="them_hoa_don.ma_khach_hang" class="form-control" @change="LayTTKhachHang">
+                  <option v-for="khachhang in data_khachhang" :value="khachhang.id">@{{ khachhang.email }}</option>
+                </select>
+                <div v-if="errors.ma_khach_hang" class="alert alert-warning">
+                  @{{ errors.ma_khach_hang[0] }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Họ và tên</label>
+                <input v-model="them_hoa_don.ho_va_ten" type="text" class="form-control"
+                  placeholder="Nhập vào Họ và tên">
+                <div v-if="errors.ho_va_ten" class="alert alert-warning">
+                  @{{ errors.ho_va_ten[0] }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Địa chỉ</label>
+                <input v-model="them_hoa_don.dia_chi" type="text" class="form-control" placeholder="Nhập vào địa chỉ">
+                <div v-if="errors.dia_chi" class="alert alert-warning">
+                  @{{ errors.dia_chi[0] }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Số điện thoại</label>
+                <input v-model="them_hoa_don.so_dien_thoai" type="number" class="form-control"
+                  placeholder="Nhập vào số điện thoại">
+                <div v-if="errors.so_dien_thoai" class="alert alert-warning">
+                  @{{ errors.so_dien_thoai[0] }}
+                </div>
+              </div>
+            </div>
+
+            <div class="">
+              <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal" data-bs-target="#ThemKHModal">
+                Thêm Tài Khoản Khách Hàng
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 custom-column">
+            <h4 class="text-center">THÔNG TIN SẢN PHẨM</h4>
+            <table class="cart-table w-100">
+              <thead>
+                <tr>
+                  <th class="cart-caption heading_18">Sản phẩm</th>
+                  <th class="cart-caption heading_18"></th>
+                  <th class="cart-caption text-center heading_18 d-none d-md-table-cell">Số lượng</th>
+                  <th class="cart-caption text-end heading_18">Giá</th>
+                </tr>
+                <tr class="cart-item" v-for="sanpham in data_sanpham">
+                    <td class="cart-item-media">
+                      <div class="mini-img-wrapper">
+                        <img src="/img/17a.jpg" alt="img" class="mini-img" width="200">
+                      </div>
+                    </td>
+                    <td class="cart-item-details">
+                      <h2 class="product-title"><a href="">Ví da Chanel</a></h2>
+                      <p class="product-vendor">Mã Loại 9</p>
+                    </td>
+                    <td class="cart-item-quantity">
+                      <div class="quantity d-flex align-items-center justify-content-between">
+                        <button class="qty-btn dec-qty"><img src="/assets_client/img/icon/minus.svg" alt="minus"></button>
+                        <input type="number" name="qty" min="0" readonly="readonly" class="qty-input"> 
+                        <button  class="qty-btn inc-qty"><img src="/assets_client/img/icon/plus.svg" alt="plus"></button>
+                      </div>
+                      <a href="#" class="product-remove mt-2">Xóa</a>
+                    </td>
+                    <td class="cart-item-price text-end">
+                      <div class="product-price">400.000&nbsp;₫</div>
+                    </td>
+                  </tr>
+              </thead>
+              <tbody>
+              <ul>
+                <li v-for="ChonSanPham in SanPhamDaChon" :key="ChonSanPham">
+                  Sản phẩm @{{ChonSanPham}}
+                  <tr class="cart-item" v-for="sanpham in data_sanpham">
+                    <td class="cart-item-media">
+                      <div class="mini-img-wrapper">
+                        <img src="/img/17a.jpg" alt="img" class="mini-img" width="200">
+                      </div>
+                    </td>
+                    <td class="cart-item-details">
+                      <h2 class="product-title"><a href="">Ví da Chanel</a></h2>
+                      <p class="product-vendor">Mã Loại 9</p>
+                    </td>
+                    <td class="cart-item-quantity">
+                      <div class="quantity d-flex align-items-center justify-content-between">
+                        <button class="qty-btn dec-qty"><img src="/assets_client/img/icon/minus.svg" alt="minus"></button>
+                        <input type="number" name="qty" min="0" readonly="readonly" class="qty-input"> 
+                        <button  class="qty-btn inc-qty"><img src="/assets_client/img/icon/plus.svg" alt="plus"></button>
+                      </div>
+                      <a href="#" class="product-remove mt-2">Xóa</a>
+                    </td>
+                    <td class="cart-item-price text-end">
+                      <div class="product-price">400.000&nbsp;₫</div>
+                    </td>
+                  </tr>
+                </li>
+              </ul>
+              </tbody>
+            </table>
+            
             <div class="">
               <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal" data-bs-target="#ThemSPModal">
                 Thêm sản phẩm
               </button>
             </div>
           </div>
-          <div class="col-6 custom-column">
-            <h4 class="text-center">THÔNG TIN KHÁCH HÀNG</h4>
-          </div>
         </div>
-        <div class="row">
-          <div class="col-12 custom-column">
-            <h4 class="text-center">THÔNG TIN SẢN PHẨM</h4>
-          </div>
-        </div>
+        <button v-on:click="tao_hoa_don()" type="button" class="btn btn-primary" style="float: right;">
+          Tạo Hoá Đơn
+        </button>
       </div>
 
       <!-- Modal them san pham-->
@@ -67,8 +174,9 @@
               <div class="product-grid">
                 @foreach ($data_sanpham as $sanpham)
                 <div class="product-box">
-                  <input type="checkbox">
-                  <img src="/img/{{ $sanpham->hinh_anh }}" alt="Sản Phẩm 1">
+                  <input type="checkbox" @change="luu_sanpham_session('{{ $sanpham->id }}')"
+                    v-model="SanPhamDaChon['{{ $sanpham->id }}']">
+                  <img src="/img/{{ $sanpham->hinh_anh }}" alt="">
                   <h3>{{ $sanpham->ten_san_pham }}</h3>
                   <p>Loại sản phẩm : <span>{{ $sanpham->ten_loai }}</span></p>
                   <p>Danh mục : <span>{{ $sanpham->ten_danh_muc }}</span></p>
@@ -83,14 +191,93 @@
                 @endforeach
               </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cập nhật</button>
-            </div>
           </div>
         </div>
       </div>
       <!-- END them san pham -->
+
+
+      <!-- Modal them Khách Hàng -->
+      <div class="modal fade" id="ThemKHModal" tabindex="-1" aria-labelledby="ThemKHModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="ThemKHModalLabel">Thêm Khách Hàng</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group mt-3">
+                <label>Họ và tên</label>
+                <input v-model="add_user.ho_va_ten" type="text" class="form-control" placeholder="Nhập vào Họ và tên">
+                <div v-if="errorss.ho_va_ten" class="alert alert-warning">
+                  @{{ errorss.ho_va_ten[0] }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Email</label>
+                <input v-model="add_user.email" type="email" class="form-control" placeholder="Nhập vào email">
+                <div v-if="errorss.email" class="alert alert-warning">
+                  @{{ errorss.email[0] }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Số điện thoại</label>
+                <input v-model="add_user.so_dien_thoai" type="text" class="form-control"
+                  placeholder="Nhập vào số điện thoại">
+                <div v-if="errorss.so_dien_thoai" class="alert alert-warning">
+                  @{{ errorss.so_dien_thoai[0] }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Địa chỉ</label>
+                <input v-model="add_user.dia_chi" type="text" class="form-control" placeholder="Nhập vào địa chỉ">
+                <div v-if="errorss.dia_chi" class="alert alert-warning">
+                  @{{ errorss.dia_chi[0] }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Ngày sinh</label>
+                <input v-model="add_user.ngay_sinh" type="date" class="form-control" placeholder="Nhập vào ngày sinh">
+                <div v-if="errorss.ngay_sinh" class="alert alert-warning">
+                  @{{ errorss.ngay_sinh[0] }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Giới tính</label>
+                <select v-model="add_user.gioi_tinh" class="form-control">
+                  <option value="1">Nam</option>
+                  <option value="0">Nữ</option>
+                </select>
+                <div v-if="errorss.gioi_tinh" class="alert alert-warning">
+                  @{{ errorss.gioi_tinh[0] }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Mật khẩu</label>
+                <input v-model="add_user.password" type="password" class="form-control" placeholder="Nhập vào mật khẩu">
+                <div v-if="errorss.password" class="alert alert-warning">
+                  @{{ errorss.password[0] }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Mật khẩu</label>
+                <input v-model="add_user.nhap_lai_password" type="password" class="form-control"
+                  placeholder="Nhập lại mật khẩu">
+                <div v-if="errorss.nhap_lai_password" class="alert alert-warning">
+                  @{{ errorss.nhap_lai_password[0] }}
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+              <button v-on:click="them_nguoi_dung()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Thêm
+                Khách Hàng</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END them Khách Hàng -->
 
     </div>
 
@@ -105,10 +292,20 @@
     new Vue({
       el: '#app',
       data: {
-
+        errors: {},
+        errorss: {},
+        them_hoa_don: {},
+        add_user: {},
+        SanPhamDaChon: [],
+        data_khachhang: [],
+        data_hoadon: [],
+        data_hdct: [],
+        data_sanpham: [],
       },
       created() {
         this.GetData();
+        // Đảm bảo là dữ liệu trong session storage được lưu
+        this.SanPhamDaChon = JSON.parse(sessionStorage.getItem('SanPhamDaChon')) || [];
       },
 
       methods: {
@@ -119,11 +316,65 @@
             .then((res) => {
               this.data_hoadon = res.data.data_hoadon;
               this.data_khachhang = res.data.data_khachhang;
-              this.data_hdct = res.data.datadct
+              this.data_hdct = res.data.data_hdct;
+              this.data_sanpham = res.data_sanpham;
             });
         },
 
+        LayTTKhachHang() {
+          // Lấy id của khách hàng từ dropdown
+          const ChonIDKhachHang = this.them_hoa_don.ma_khach_hang;
 
+          // Tìm thông tin của khách hàng tương ứng
+          const ChonKhachHang = this.data_khachhang.find(customer => customer.id === ChonIDKhachHang);
+
+          // Cập nhật thông tin vào đối tượng them_hoa_don
+          if (ChonKhachHang) {
+            this.them_hoa_don.ho_va_ten = ChonKhachHang.ho_va_ten;
+            this.them_hoa_don.dia_chi = ChonKhachHang.dia_chi;
+            this.them_hoa_don.so_dien_thoai = ChonKhachHang.so_dien_thoai;
+          }
+        },
+
+        them_nguoi_dung() {
+          axios
+            .post('/admin/quan-ly-tai-khoan/them-tai-khoan', this.add_user)
+            .then((res) => {
+              if (res.data.status) {
+                toastr.success(res.data.message);
+                this.GetData();
+                this.add_user = {};
+                // Tắt modal xác nhận
+                $('#exampleModal').modal('hide');
+              } else {
+                toastr.error('Có lỗi không mong muốn!');
+              }
+            })
+            .catch((error) => {
+              if (error && error.response.data && error.response.data.errors) {
+                this.errorss = error.response.data.errors;
+              } else {
+                toastr.error('Có lỗi không mong muốn!');
+              }
+            })
+        },
+
+        luu_sanpham_session(ChonSanPham) {
+          // Kiểm tra xem sản phẩm đã tồn tại trong danh sách chưa
+          const index = this.SanPhamDaChon.indexOf(ChonSanPham);
+          if (index === -1) {
+            // Nếu chưa tồn tại, thêm vào danh sách
+            this.SanPhamDaChon.push(ChonSanPham);
+            toastr.success('thêm vào danh sách!');
+          } else {
+            // Nếu đã tồn tại, loại bỏ khỏi danh sách
+            this.SanPhamDaChon.splice(index, 1);
+            toastr.error('loại bỏ khỏi danh sách!');
+          }
+
+          // Lưu danh sách sản phẩm vào session storage
+          sessionStorage.setItem('SanPhamDaChon', JSON.stringify(this.SanPhamDaChon));
+        },
       }
     });
   </script>

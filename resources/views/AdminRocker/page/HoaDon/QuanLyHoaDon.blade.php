@@ -6,70 +6,59 @@
   <div class="col-md-12 mb-3">
     <div class="modal-category">
       <!-- Button trigger modal -->
-      <a href="/admin/hoa-don/them-hoa-don" class="btn btn-primary">
+      <a href="/admin/hoa-don/tao-hoa-don" class="btn btn-primary">
         Tạo hoá đơn
       </a>
 
+      <!-- <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal" data-bs-target="#HoaDonModal">Tạo hoá
+        đơn</button> -->
+
       <!-- Modal them tai khoan-->
       <div class="modal fade" id="HoaDonModal" tabindex="-1" aria-labelledby="HoaDonModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="HoaDonModalLabel">Tạo hoá đơn</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body row">
-              <div class="col-md-9 overflow">
-                <div class="product-grid">
-                  <div class="product-box" v-for="(sanpham, key) in data_sanpham">
-                    <input type="checkbox" class="product-checkbox">
-                    <img :src="'/img/' + sanpham.hinh_anh " alt="Sản Phẩm 1">
-                    <h3>@{{ sanpham.ten_san_pham }}</h3>
-                    <p>Loại sản phẩm : <span>@{{ sanpham.ten_loai }}</span></p>
-                    <p>Danh mục : <span>@{{ sanpham.ten_danh_muc }}</span></p>
-                    <p class="price">@{{ sanpham.gia_san_pham }}</p>
-                  </div>
+
+              <div class="form-group mt-3">
+                <label>Email khách hàng</label>
+                <select v-model="add_hoadon.ma_khach_hang" class="form-control" @change="LayTTKhachHang">
+                  <option v-for="khachhang in data_khachhang" :value="khachhang.id">@{{ khachhang.email }}</option>
+                </select>
+                <div v-if="errors.ma_khach_hang" class="alert alert-warning">
+                  @{{ errors.ma_khach_hang[0] }}
                 </div>
               </div>
-              <!-- --------------- -->
-              <div class="col-md-3">
-                <div class="form-group mt-3">
-                  <label>Mã khách hàng</label>
-                  <select v-model="add_hoadon.ho_va_ten" class="form-control">
-                    <option value=""></option>
-                  </select>
-                  <div v-if="errors.ho_va_ten" class="alert alert-warning">
-                    @{{ errors.ho_va_ten[0] }}
-                  </div>
+              <div class="form-group mt-3">
+                <label>Họ và tên</label>
+                <input v-model="add_hoadon.ho_va_ten" type="text" class="form-control" placeholder="Nhập vào Họ và tên">
+                <div v-if="errors.ho_va_ten" class="alert alert-warning">
+                  @{{ errors.ho_va_ten[0] }}
                 </div>
-                <div class="form-group mt-3">
-                  <label>Họ và tên</label>
-                  <input v-model="add_hoadon.ho_va_ten" type="text" class="form-control"
-                    placeholder="Nhập vào Họ và tên">
-                  <div v-if="errors.ho_va_ten" class="alert alert-warning">
-                    @{{ errors.ho_va_ten[0] }}
-                  </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Địa chỉ</label>
+                <input v-model="add_hoadon.dia_chi" type="text" class="form-control" placeholder="Nhập vào địa chỉ">
+                <div v-if="errors.dia_chi" class="alert alert-warning">
+                  @{{ errors.dia_chi[0] }}
                 </div>
-                <div class="form-group mt-3">
-                  <label>Địa chỉ</label>
-                  <input v-model="add_hoadon.ho_va_ten" type="text" class="form-control" placeholder="Nhập vào địa chỉ">
-                  <div v-if="errors.ho_va_ten" class="alert alert-warning">
-                    @{{ errors.ho_va_ten[0] }}
-                  </div>
-                </div>
-                <div class="form-group mt-3">
-                  <label>Số điện thoại</label>
-                  <input v-model="add_hoadon.ho_va_ten" type="text" class="form-control"
-                    placeholder="Nhập vào số điện thoại">
-                  <div v-if="errors.ho_va_ten" class="alert alert-warning">
-                    @{{ errors.ho_va_ten[0] }}
-                  </div>
+              </div>
+              <div class="form-group mt-3">
+                <label>Số điện thoại</label>
+                <input v-model="add_hoadon.so_dien_thoai" type="number" class="form-control"
+                  placeholder="Nhập vào số điện thoại">
+                <div v-if="errors.so_dien_thoai" class="alert alert-warning">
+                  @{{ errors.so_dien_thoai[0] }}
                 </div>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button v-on:click="them_nguoi_dung()" type="button" class="btn btn-primary">Save changes</button>
+              <button v-on:click="them_hoa_don()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save
+                changes</button>
             </div>
           </div>
         </div>
@@ -84,7 +73,7 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <table id="table" class="table table-bordered">
+          <table id="table_id" class="table table-bordered">
             <thead clas="bg-primary">
               <tr>
                 <th class="text-center">#</th>
@@ -103,12 +92,23 @@
                 <td class="align-middle text-center">@{{ hoadon.so_dien_thoai }}</td>
                 <td class="align-middle text-center">@{{ hoadon.dia_chi }}</td>
                 <td class="align-middle text-center font-bold">
-                  <button type="button" :class="(hoadon.trang_thai_don !== 0 ? 'btn btn-success' : ' btn btn-danger')">
-                  @{{ getTTDonhang(hoadon.trang_thai_don) }}
-                  </button>
+                  <div class="dropdown">
+                    <button type="button" :class="'dropdown-toggle ' + (hoadon.trang_thai_don == 2 ? 'btn btn-success' : '')"
+                      role="button" id="dropdownTTDonHang" data-bs-toggle="dropdown" aria-expanded="false">
+                      @{{ getTTDonhang(hoadon.trang_thai_don) }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownTTDonHang">
+                      <a class="dropdown-item" href="#" @click="CapNhatTTDonHang(hoadon.id, 0)">Chờ Xác Nhận</a>
+                      <a class="dropdown-item" href="#" @click="CapNhatTTDonHang(hoadon.id, 1)">Đang Vận Chuyển</a>
+                      <a class="dropdown-item" href="#" @click="CapNhatTTDonHang(hoadon.id, 2)">Đã Nhận Hàng</a>
+                      <a class="dropdown-item" href="#" @click="CapNhatTTDonHang(hoadon.id, -1)">Huỷ Đơn Hàng</a>
+                    </div>
+                  </div>
                 </td>
                 <td class="align-middle text-center">
-                  <button type="button" :class="(hoadon.trang_thai_thanh_toan !== 0 ? 'btn btn-success' : ' btn btn-danger')">
+                  <button type="button"
+                    :class="(hoadon.trang_thai_thanh_toan !== 0 ? 'btn btn-success' : ' btn btn-danger')"
+                    @click="CapNhatTrangThaiThanhToan(hoadon.id, hoadon.trang_thai_thanh_toan)">
                     @{{ getTTThanhToan(hoadon.trang_thai_thanh_toan) }}
                   </button>
                 </td>
@@ -197,15 +197,21 @@
 
   @endsection
   @section('js')
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#table_id').DataTable();
+    });
+</script>
 
   <script>
     new Vue({
       el: '#app',
       data: {
         errors: {},
-        errors: {},
         add_hoadon: {},
-        edit_user: {},
         xoa: {},
         data_hoadon: [],
         data_khachhang: [],
@@ -245,8 +251,8 @@
             case 1:
               return 'Đang Vận Chuyển';
             case 2:
-              return 'Giao Hàng Thành Công';
-            case 3:
+              return 'Đã Nhận Hàng';
+            case -1:
               return 'Huỷ Đơn Hàng';
             default:
               return 'Không xác định';
@@ -264,7 +270,75 @@
           }
         },
 
+        them_hoa_don() {
+          axios
+            .post('/admin/hoa-don/them-hoa-don', this.add_hoadon)
+            .then((res) => {
+              if (res.data.status) {
+                toastr.success(res.data.message);
+                this.GetData();
+              } else {
+                toastr.error('Có lỗi không mong muốn!');
+              }
+            })
+            .catch((error) => {
+              if (error && error.response.data && error.response.data.errors) {
+                this.errors = error.response.data.errors;
+              } else {
+                toastr.error('Có lỗi không mong muốn!');
+              }
+            })
+        },
 
+        LayTTKhachHang() {
+          // Lấy id của khách hàng từ dropdown
+          const ChonIDKhachHang = this.add_hoadon.ma_khach_hang;
+
+          // Tìm thông tin của khách hàng tương ứng
+          const ChonKhachHang = this.data_khachhang.find(customer => customer.id === ChonIDKhachHang);
+
+          // Cập nhật thông tin vào đối tượng add_hoadon
+          if (ChonKhachHang) {
+            this.add_hoadon.ho_va_ten = ChonKhachHang.ho_va_ten;
+            this.add_hoadon.dia_chi = ChonKhachHang.dia_chi;
+            this.add_hoadon.so_dien_thoai = ChonKhachHang.so_dien_thoai;
+          }
+        },
+
+        CapNhatTTDonHang(donHangId, TTMoi) {
+          // Gửi yêu cầu cập nhật trạng thái đơn hàng lên server
+          axios.post('/admin/hoa-don/cap-nhat-trang-thai-don-hang', {
+              donHangId: donHangId,
+              TTMoi: TTMoi,
+          })
+          .then((res) => {
+              if (res.data.status) {
+                toastr.success(res.data.message);
+                this.GetData();
+              } else {
+                toastr.success(res.data.message);
+                this.GetData();
+              }
+            })
+        },
+
+        CapNhatTrangThaiThanhToan(id_hoa_don, TTTT) {
+          const TTTT_moi = TTTT === 0 ? 1 : 0;
+          axios
+          .post('/admin/hoa-don/cap-nhat-trang-thai-thanh-toan',{
+            id_hoa_don : id_hoa_don,
+            TTTT_moi : TTTT_moi,
+          })
+          .then((res) => {
+              if (res.data.status) {
+                toastr.success(res.data.message);
+                this.GetData();
+              } else {
+                toastr.success(res.data.message);
+                this.GetData();
+              }
+            })
+        },
 
       }
     });

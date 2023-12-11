@@ -121,6 +121,7 @@
                         <input type="hidden" name="ma_hoa_don" value="{{ $data_hoadon->id }}">
                         <input type="hidden" name="tong_tien_tat_ca" value="{{ $data_hoadon->tong_tien_tat_ca }}">
                         <input type="hidden" name="gia_san_pham" value="{{ $sanpham->gia_san_pham }}">
+                        <input type="hidden" name="giam_gia_san_pham" value="{{ $sanpham->giam_gia_san_pham }}">
                         <div class="text-center">
                           <button type="submit" class="btn btn-primary">Thêm</button>
                         </div>

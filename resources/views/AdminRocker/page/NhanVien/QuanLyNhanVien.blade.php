@@ -20,7 +20,7 @@
       <div class="card-body">
         <div class="table-responsive">
           <table id="table" class="table table-bordered">
-            <thead clas="bg-primary">
+            <thead clas="bg-primary"> 
               <tr>
                 <th class="text-center">ID</th>
                 <th class="text-center">Tên Tài Khoản</th>

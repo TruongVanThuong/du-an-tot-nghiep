@@ -128,8 +128,8 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button v-on:click="them_nguoi_dung()" type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button v-on:click="them_nguoi_dung()" type="button" class="btn btn-primary">Thêm Khách Hàng</button>
                   </div>
                 </div>
               </div>
@@ -208,9 +208,8 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button v-on:click="cap_nhat_nguoi_dung()" type="button" class="btn btn-primary">Save
-                      changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button v-on:click="cap_nhat_nguoi_dung()" type="button" class="btn btn-primary">Cập Nhật Khách Hàng</button>
                   </div>
                 </div>
               </div>
@@ -257,7 +256,6 @@
   new Vue({
     el: '#app',
     data: {
-      errors: {},
       errors: {},
       add_user: {},
       edit_user: {},
