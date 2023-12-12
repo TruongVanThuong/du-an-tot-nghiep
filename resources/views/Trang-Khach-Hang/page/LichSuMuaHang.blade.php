@@ -290,7 +290,7 @@
                                             style="width: 50px; height: 50px;">
                                     </th>
                                     <th class="align-middle text-center">
-                                        @{{ formatCurrency(value.giam_gia_san_pham ? value.giam_gia_san_pham : value.gia_san_pham) }}
+                                        @{{ formatCurrency(value.gia_san_pham * (1- value.giam_gia_san_pham / 100) ) }}
                                     </th>
 
                                     <th class="align-middle text-center">@{{ formatDate(value.created_at) }}</th>

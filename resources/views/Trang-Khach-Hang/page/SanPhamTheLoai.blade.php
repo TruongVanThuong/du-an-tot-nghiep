@@ -63,8 +63,7 @@ $user = Auth::guard('khach_hang')->user();
                                                 </button>
                                             </form>
                                             @endif
-
-                                            
+                                          
                                             @if ($check)
                                             <a href="javascript:void(0)" class="action-card action-addtocart" v-on:click="them_so_luong({{ $value->id }})">
                                                 <svg class="icon icon-cart" width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,7 +97,7 @@ $user = Auth::guard('khach_hang')->user();
                                             <a href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{$value->id}}">{{ $value->ten_san_pham }}</a>
                                         </h3>
                                         <div class="product-card-price">
-                                            <span class="card-price-regular">{{ number_format($value->giam_gia_san_pham) }} ₫</span>
+                                            <span class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }} ₫</span>
                                             <span class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham) }} ₫</span>
                                         </div>
                                     </div>

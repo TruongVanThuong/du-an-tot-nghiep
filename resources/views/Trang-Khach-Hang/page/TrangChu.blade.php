@@ -274,7 +274,7 @@
                                                     </h3>
                                                     <div class="product-card-price">
                                                         <span
-                                                            class="card-price-regular">{{ number_format($value->giam_gia_san_pham) }}
+                                                            class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }}
                                                             ₫</span>
                                                         <span
                                                             class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham) }}
@@ -381,7 +381,7 @@
                                                             </h3>
                                                             <div class="product-card-price">
                                                                 <span
-                                                                    class="card-price-regular">{{ number_format($sp->giam_gia_san_pham) }}
+                                                                    class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }}
                                                                     ₫</span>
                                                                 <span
                                                                     class="card-price-compare text-decoration-line-through">{{ number_format($sp->gia_san_pham) }}
@@ -531,7 +531,7 @@
                                                 </h3>
                                                 <div class="product-card-price">
                                                     <span
-                                                        class="card-price-regular">{{ number_format($value->giam_gia_san_pham) }}
+                                                        class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }}
                                                         ₫</span>
                                                     <span
                                                         class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham) }}

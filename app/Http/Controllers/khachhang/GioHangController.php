@@ -24,16 +24,16 @@ class GioHangController extends Controller
             if ($existingCartItem) {
                 // Cập nhật số lượng nếu sản phẩm đã có trong giỏ hàng
                 $existingCartItem->tong_so_luong += 1;
-                $existingCartItem->tong_tien = ($sanpham->giam_gia_san_pham ?? $sanpham->gia_san_pham) * $existingCartItem->tong_so_luong;
+                $existingCartItem->tong_tien = ($sanpham->gia_san_pham * (1 - $sanpham->giam_gia_san_pham / 100)) * $existingCartItem->tong_so_luong;
                 $existingCartItem->save();
-            
+                
             } else {
                 // Thêm sản phẩm mới vào giỏ hàng nếu chưa tồn tại
                 GiohangModel::create([
                     'ma_khach_hang' => $ma_khach_hang,
                     'ma_san_pham' => $id,
                     'tong_so_luong' => 1,
-                    'tong_tien' => $sanpham->giam_gia_san_pham ?? $sanpham->gia_san_pham,
+                    'tong_tien' => $sanpham->gia_san_pham * (1 - $sanpham->giam_gia_san_pham / 100)
                 ]);
             }
             return response()->json([
@@ -66,7 +66,7 @@ class GioHangController extends Controller
                     ]);
                 } else {
                     // Cập nhật tổng tiền nếu số lượng còn lại
-                    $existingCartItem->tong_tien = ($sanpham->giam_gia_san_pham ?? $sanpham->gia_san_pham) * $existingCartItem->tong_so_luong;
+                    $existingCartItem->tong_tien = ($sanpham->gia_san_pham * (1 - $sanpham->giam_gia_san_pham / 100)) * $existingCartItem->tong_so_luong;
                     $existingCartItem->save();
                     return response()->json([
                         'status' => true,

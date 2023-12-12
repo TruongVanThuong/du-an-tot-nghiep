@@ -43,8 +43,7 @@
                                                         src="/assets_client/img/icon/plus.svg" alt="plus"></button>
                                             </div>
                                             <div class="product-remove-area d-flex flex-column align-items-end">
-                                                <div class="product-price">@{{ formatCurrency(value.giam_gia_san_pham || value.gia_san_pham) }}</div>
-
+                                                <div class="product-price">@{{ formatCurrency(value.gia_san_pham * (1- value.giam_gia_san_pham / 100) ) }}</div>                                 
                                                 <a href="javascript:void(0)" class="product-remove"  v-on:click="xoa_san_pham_gio_hang(value.id)" >Xóa</a>
                                             </div>
                                         </div>

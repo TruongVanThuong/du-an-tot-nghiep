@@ -64,7 +64,7 @@
                                 <div class="product-card-img">
                                     <a class="hover-switch"
                                         :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value
-                                            .ten_san_pham_slug + value.id">
+                                            .ten_san_pham_slug + value.ma_san_pham">
                                         <img class="secondary-img" :src="'/img/' + value.hinh_anh" alt="product-img">
                                         <img class="primary-img" :src="'/img/' + value.hinh_anh" alt="product-img">
                                     </a>
@@ -85,8 +85,8 @@
                                         </a>
 
 
-                                        <button v-if="isFavorite(value.id)"
-                                            v-on:click="quan_ly_san_pham_yeu_thich(value.id)"
+                                        <button v-if="isFavorite(value.ma_san_pham)"
+                                            v-on:click="quan_ly_san_pham_yeu_thich(value.ma_san_pham)"
                                             class="action-card action-wishlist"
                                             style="background-color: #ffae00; border: none; padding: 0; cursor: pointer;">
                                             <svg class="icon icon-wishlist" width="26" height="22"
@@ -97,7 +97,7 @@
                                             </svg>
 
                                         </button>
-                                        <button v-else v-on:click="quan_ly_san_pham_yeu_thich(value.id)"
+                                        <button v-else v-on:click="quan_ly_san_pham_yeu_thich(value.ma_san_pham)"
                                             class="action-card action-wishlist"
                                             style="background-color: white; border: none; padding: 0; cursor: pointer;">
                                             <svg class="icon icon-wishlist" width="26" height="22"

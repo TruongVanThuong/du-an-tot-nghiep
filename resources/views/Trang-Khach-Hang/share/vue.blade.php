@@ -75,7 +75,6 @@ xoa_san_pham_gio_hang(id) {
         if (this.ds_sp_yeu_thich === undefined) {
             this.tai_san_pham_yeu_thich();
         }
-    
         if (this.ds_sp_yeu_thich && this.ds_sp_yeu_thich.length > 0) {
             const isFav = this.ds_sp_yeu_thich.some(favorite => favorite.ma_san_pham === productId);
             return isFav;

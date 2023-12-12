@@ -471,7 +471,7 @@
                                                                             <th class="align-middle text-center" style="border: 1px solid #000;">{{ $value->ten_san_pham }}</th>
 
                                                                             <th class="align-middle text-center" style="border: 1px solid #000;">
-                                                                                {{ number_format($value->giam_gia_san_pham ? $value->giam_gia_san_pham : $value->gia_san_pham) }} ₫
+                                                                                {{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }} ₫
                                                                             </th>
                                                                             <th class="align-middle text-center" style="border: 1px solid #000;">{{ $value->created_at }}</th>
                                                                             <th class="align-middle text-center" style="border: 1px solid #000;">{{ $value->tong_so_luong }}</th>

@@ -92,7 +92,7 @@
                                         </div>
                                         <div class="product-info">
                                             <h2 class="product-title"><a href="#">@{{ value.ten_san_pham }}</a></h2>
-                                            <p class="product-vendor">@{{ formatCurrency(value.gia_san_pham) }} x @{{ value.tong_so_luong }}</p>
+                                            <p class="product-vendor">@{{ formatCurrency(value.gia_san_pham * (1- value.giam_gia_san_pham / 100) ) }} x @{{ value.tong_so_luong }}</p>
                                         </div>
                                     </div>
 

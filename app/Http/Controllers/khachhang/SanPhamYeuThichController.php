@@ -22,7 +22,7 @@ class SanPhamYeuThichController extends Controller
         $sanPhamYeuThich = SanPhamYeuThich::where('ma_khach_hang', $ma_khach_hang)
             ->where('ma_san_pham', $id)
             ->first();
-
+            
         if ($sanPhamYeuThich) {
             $sanPhamYeuThich->delete();
             return response()->json([

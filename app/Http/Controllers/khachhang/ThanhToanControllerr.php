@@ -26,7 +26,8 @@ class ThanhToanControllerr extends Controller
         $so_dien_thoai = $request->so_dien_thoai;
         $dia_chi = $request->dia_chi;
 
-        $tinh_tong_tong_tien =  $request->tong_tien_tat_ca;
+        $tinh_tong_tong_tien =  ceil($request->tong_tien_tat_ca);
+        // dd( $tinh_tong_tong_tien);
         $ma_don_hang = Str::uuid();
         $vnp_OrderInfo = "cam on quy khach da dat hang";
 
