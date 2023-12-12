@@ -200,12 +200,12 @@ Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], f
   Route::post('/quan-ly-san-pham-yeu-thich/{id}', [SanPhamYeuThichController::class, 'QuanLySanPhamYeuThich']);
 
   // mã giảm giá
-  
 
-// thanh toán
-Route::post('/thanh-toan', [ThanhToanControllerr::class, 'ThanhToan']);
-Route::get('/thanh-toan-thanh-cong', [ThanhToanControllerr::class, 'ThanhToanThanhCong']);
-Route::get('/lich-su-mua-hang', [ThanhToanControllerr::class, 'LichSuMuaHang']);
+
+  // thanh toán
+  Route::post('/thanh-toan', [ThanhToanControllerr::class, 'ThanhToan']);
+  Route::get('/thanh-toan-thanh-cong', [ThanhToanControllerr::class, 'ThanhToanThanhCong']);
+  Route::get('/lich-su-mua-hang', [ThanhToanControllerr::class, 'LichSuMuaHang']);
 });
 Route::post('/ma-giam-gia/{ma_giam_gia}', [GioHangController::class, 'MaGiamGia']);
 // Route::get('/tai-ma-giam-gia', [GioHangController::class, 'TaiMaGiamGia']);
@@ -240,5 +240,5 @@ Route::post('/them-binhluan-tintuc', [BinhluanTintucController::class, 'them_bin
 Route::get('/lay-binh-luan-san-pham', [BinhluanController::class, 'binhluan_sanpham']);
 Route::post('/them-binh-luan-san-pham', [BinhluanController::class, 'them_binhluan']);
 
-Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemGet']);
+// Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemGet']);
 Route::post('/tim-kiem', [TrangChuController::class, 'TimKiemPost']);
