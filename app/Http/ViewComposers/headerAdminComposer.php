@@ -18,7 +18,7 @@ class headerAdminComposer
 
 
         // Lấy thông tin về người dùng hiện tại đã đăng nhập
-        $loggedInUser = Auth::guard('khach_hang')->user();
+        $loggedInUser = Auth::guard('tai_khoan')->user();
 
         // dd($loggedInUser->loai_tai_khoan);
 
