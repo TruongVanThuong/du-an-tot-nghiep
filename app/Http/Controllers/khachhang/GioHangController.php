@@ -24,15 +24,16 @@ class GioHangController extends Controller
             if ($existingCartItem) {
                 // Cập nhật số lượng nếu sản phẩm đã có trong giỏ hàng
                 $existingCartItem->tong_so_luong += 1;
-                $existingCartItem->tong_tien = $sanpham->gia_san_pham * $existingCartItem->tong_so_luong;
+                $existingCartItem->tong_tien = ($sanpham->gia_san_pham * (1 - $sanpham->giam_gia_san_pham / 100)) * $existingCartItem->tong_so_luong;
                 $existingCartItem->save();
+                
             } else {
                 // Thêm sản phẩm mới vào giỏ hàng nếu chưa tồn tại
                 GiohangModel::create([
                     'ma_khach_hang' => $ma_khach_hang,
                     'ma_san_pham' => $id,
                     'tong_so_luong' => 1,
-                    'tong_tien' => $sanpham->gia_san_pham,
+                    'tong_tien' => $sanpham->gia_san_pham * (1 - $sanpham->giam_gia_san_pham / 100)
                 ]);
             }
             return response()->json([
@@ -65,7 +66,7 @@ class GioHangController extends Controller
                     ]);
                 } else {
                     // Cập nhật tổng tiền nếu số lượng còn lại
-                    $existingCartItem->tong_tien = $sanpham->gia_san_pham * $existingCartItem->tong_so_luong;
+                    $existingCartItem->tong_tien = ($sanpham->gia_san_pham * (1 - $sanpham->giam_gia_san_pham / 100)) * $existingCartItem->tong_so_luong;
                     $existingCartItem->save();
                     return response()->json([
                         'status' => true,
@@ -87,13 +88,16 @@ class GioHangController extends Controller
         $ma_khach_hang = $khach_hang->id;
 
         $gio_hang = GiohangModel::where('ma_khach_hang', $ma_khach_hang)
-            ->join('san_pham', 'gio_hang.ma_san_pham', '=', 'san_pham.id')
-            ->join('hinh_anh', function ($join) {
-                $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
-                    ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
-            })
-            ->select('hinh_anh.hinh_anh', 'san_pham.ten_san_pham', 'san_pham.id','san_pham.gia_san_pham', 'gio_hang.tong_tien', 'gio_hang.tong_so_luong', 'gio_hang.ma_san_pham')
-            ->get();
+        ->join('san_pham', 'gio_hang.ma_san_pham', '=', 'san_pham.id')
+        ->join('hinh_anh', function ($join) {
+            $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
+                ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
+        })
+        ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
+        ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+        ->select('hinh_anh.hinh_anh', 'san_pham.ten_san_pham', 'san_pham.id', 'san_pham.gia_san_pham','san_pham.giam_gia_san_pham', 'gio_hang.tong_tien', 'gio_hang.tong_so_luong', 'gio_hang.ma_san_pham','loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug')
+        ->get();
+    // dd($gio_hang);
 
         $tinh_tong_tong_tien = $gio_hang->sum('tong_tien');
 

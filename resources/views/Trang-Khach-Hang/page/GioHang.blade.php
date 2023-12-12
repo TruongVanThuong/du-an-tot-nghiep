@@ -84,7 +84,7 @@
                                             <h4 class="subtotal-title">Phí vận chuyển:</h4>
                                             @if ($check)
                                                 <p class="subtotal-value" v-if="tong_tien_tat_ca > 1000000">0 ₫</p>
-                                                <p class="subtotal-value" v-else>10.000 ₫</p>
+                                                <p class="subtotal-value" v-else>20.000 ₫</p>
                                             @else
                                                 <p class="subtotal-value">0 ₫</p>
                                                 

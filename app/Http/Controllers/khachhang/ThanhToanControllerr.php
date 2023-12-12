@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\khachhang;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\GuiMailDatHang;
+use App\Jobs\GuiMailHuyDon;
 use App\Models\GiohangModel;
 use App\Models\HoadonchitietModel;
 use App\Models\HoadonModel;
@@ -24,7 +26,8 @@ class ThanhToanControllerr extends Controller
         $so_dien_thoai = $request->so_dien_thoai;
         $dia_chi = $request->dia_chi;
 
-        $tinh_tong_tong_tien =  $request->tong_tien_tat_ca;
+        $tinh_tong_tong_tien =  ceil($request->tong_tien_tat_ca);
+        // dd( $tinh_tong_tong_tien);
         $ma_don_hang = Str::uuid();
         $vnp_OrderInfo = "cam on quy khach da dat hang";
 
@@ -103,41 +106,59 @@ class ThanhToanControllerr extends Controller
                 return response()->json($returnData);
             }
         } else {
+            HoadonModel::create([
+                'ma_khach_hang' => $user_id,
+                'ma_don_hang'   => $ma_don_hang,
+                'ho_va_ten' =>  $ho_va_ten,
+                'so_dien_thoai' => $so_dien_thoai,
+                'dia_chi' => $dia_chi,
+                'tong_tien_tat_ca' => $tinh_tong_tong_tien,
+                'trang_thai_don' => 0,
+                'trang_thai_thanh_toan' => 0
+            ]);
 
-            if (isset($_POST['redirect'])) {
-
-                HoadonModel::create([
-                    'ma_khach_hang' => $user_id,
-                    'ma_don_hang'   => $ma_don_hang,
-                    'ho_va_ten' =>  $ho_va_ten,
-                    'so_dien_thoai' => $so_dien_thoai,
-                    'dia_chi' => $dia_chi,
-                    'tong_tien_tat_ca' => $tinh_tong_tong_tien,
-                    'trang_thai_don' => 0,
-                    'trang_thai_thanh_toan' => 0
+            $hoa_don_moi = HoadonModel::where('ma_don_hang', $ma_don_hang)->first();
+            $gio_hang = GiohangModel::where('ma_khach_hang', $user_id)->get();
+            foreach ($gio_hang as $item) {
+                HoadonchitietModel::create([
+                    'ma_hoa_don' => $hoa_don_moi->id,
+                    'ma_san_pham' => $item->ma_san_pham,
+                    'tong_so_luong' => $item->tong_so_luong,
+                    'tong_tien' => $item->tong_tien
                 ]);
-
-                $hoa_don_moi = HoadonModel::where('ma_don_hang', $ma_don_hang)->first();
-                $gio_hang = GiohangModel::where('ma_khach_hang', $user_id)->get();
-                foreach ($gio_hang as $item) {
-                    HoadonchitietModel::create([
-                        'ma_hoa_don' => $hoa_don_moi->id,
-                        'ma_san_pham' => $item->ma_san_pham,
-                        'tong_so_luong' => $item->tong_so_luong,
-                        'tong_tien' => $item->tong_tien
-                    ]);
-                    // Trừ số lượng sản phẩm đã bán từ bảng sản phẩm
-                    $san_pham = SanphamModel::find($item->ma_san_pham);
-                    $san_pham->so_luong -= $item->tong_so_luong;
-                    $san_pham->save();
-                }
-                GioHangModel::where('ma_khach_hang', $user_id)->delete();
-                // var_dump($hoa_don_moi);
-                toastr()->success("Đặt Hàng thành công!");
-                return view('Trang-Khach-Hang.page.HoaDon', compact('hoa_don_moi'));
-            } else {
-                echo "lỗi";
+                // Trừ số lượng sản phẩm đã bán từ bảng sản phẩm
+                $san_pham = SanphamModel::find($item->ma_san_pham);
+                $san_pham->so_luong -= $item->tong_so_luong;
+                $san_pham->save();
             }
+            GioHangModel::where('ma_khach_hang', $user_id)->delete();
+
+            $hoa_don_chi_tiet = HoadonchitietModel::where('ma_hoa_don', $hoa_don_moi->id)
+                ->join('san_pham', 'hoa_don_chi_tiet.ma_san_pham', '=', 'san_pham.id')
+                ->join('hinh_anh', function ($join) {
+                    $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
+                        ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
+                })
+                ->select(
+                    'hoa_don_chi_tiet.id',
+                    'hoa_don_chi_tiet.tong_so_luong',
+                    'hoa_don_chi_tiet.tong_tien',
+                    'hoa_don_chi_tiet.ma_hoa_don',
+                    'hoa_don_chi_tiet.created_at',
+                    'san_pham.ten_san_pham',
+                    'san_pham.gia_san_pham',
+                    'san_pham.giam_gia_san_pham',
+                    'hinh_anh.hinh_anh',
+                )
+                ->get();
+            // dd($hoa_don_chi_tiet);
+            $du_lieu_Mail['ho_va_ten'] =  $user->ho_va_ten;
+            $du_lieu_Mail['email']     =  $user->email;
+            $du_lieu_Mail['hoa_don_chi_tiet']     =  $hoa_don_chi_tiet;
+            $du_lieu_Mail['hoa_don_moi']     =  $hoa_don_moi;
+            GuiMailDatHang::dispatch($du_lieu_Mail);
+            toastr()->success("Đặt Hàng thành công!");
+            return view('Trang-Khach-Hang.page.HoaDon', compact('hoa_don_moi', 'hoa_don_chi_tiet'));
         }
     }
 
@@ -168,12 +189,35 @@ class ThanhToanControllerr extends Controller
                 $san_pham = SanphamModel::find($item->ma_san_pham);
                 $san_pham->so_luong -= $item->tong_so_luong;
                 $san_pham->save();
-            }   
+            }
             GioHangModel::where('ma_khach_hang', $user_id)->delete();
-            $chi_tiet_hoa_don = HoadonchitietModel::where('ma_hoa_don', $hoa_don_moi->id)->get();
+            $hoa_don_chi_tiet = HoadonchitietModel::where('ma_hoa_don', $hoa_don_moi->id)
+                ->join('san_pham', 'hoa_don_chi_tiet.ma_san_pham', '=', 'san_pham.id')
+                ->join('hinh_anh', function ($join) {
+                    $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
+                        ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
+                })
+                ->select(
+                    'hoa_don_chi_tiet.id',
+                    'hoa_don_chi_tiet.tong_so_luong',
+                    'hoa_don_chi_tiet.tong_tien',
+                    'hoa_don_chi_tiet.ma_hoa_don',
+                    'hoa_don_chi_tiet.created_at',
+                    'san_pham.ten_san_pham',
+                    'san_pham.gia_san_pham',
+                    'san_pham.giam_gia_san_pham',
+                    'hinh_anh.hinh_anh',
+                )
+                ->get();
+            // dd($hoa_don_chi_tiet);
+            $du_lieu_Mail['ho_va_ten'] =  $user->ho_va_ten;
+            $du_lieu_Mail['email']     =  $user->email;
+            $du_lieu_Mail['hoa_don_chi_tiet']     =  $hoa_don_chi_tiet;
+            $du_lieu_Mail['hoa_don_moi']     =  $hoa_don_moi;
+            GuiMailDatHang::dispatch($du_lieu_Mail);
 
             toastr()->success("Đặt hàng thành công ");
-            return view('Trang-Khach-Hang.page.HoaDon', compact('hoa_don_moi'));
+            return view('Trang-Khach-Hang.page.HoaDon', compact('hoa_don_moi', 'hoa_don_chi_tiet'));
         } elseif ($TransactionStatus === '02') {
             HoadonModel::where('ma_don_hang', $vnp_TxnRef)->update([
                 'trang_thai_don' => -1,
@@ -202,13 +246,78 @@ class ThanhToanControllerr extends Controller
         }
     }
 
-
-    public function LichSuMuaHang(){
+    public function DsLichSuMuaHang()
+    {
         $user = Auth::guard('khach_hang')->user();
         $user_id = $user->id;
-
         $ds_hoa_don = HoadonModel::where('ma_khach_hang', $user_id)->get();
 
-        return view('Trang-Khach-Hang.page.LichSuMuaHang', compact('ds_hoa_don'));
+        foreach ($ds_hoa_don as $hoa_don) {
+            $hoa_don_chi_tiet = HoadonchitietModel::where('ma_hoa_don', $hoa_don->id)
+                ->join('san_pham', 'hoa_don_chi_tiet.ma_san_pham', '=', 'san_pham.id')
+                ->join('hinh_anh', function ($join) {
+                    $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
+                        ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
+                })
+                ->select(
+                    'hoa_don_chi_tiet.id',
+                    'hoa_don_chi_tiet.tong_so_luong',
+                    'hoa_don_chi_tiet.tong_tien',
+                    'hoa_don_chi_tiet.ma_hoa_don',
+                    'hoa_don_chi_tiet.created_at',
+                    'san_pham.ten_san_pham',
+                    'san_pham.gia_san_pham',
+                    'san_pham.giam_gia_san_pham',
+                    'hinh_anh.hinh_anh',
+                )
+                ->get();
+
+            // Gán dữ liệu chi tiết vào trường mới trong mỗi phần tử hóa đơn
+            $hoa_don->ds_hoa_don_chi_tiet = $hoa_don_chi_tiet;
+        }
+        // dd($ds_hoa_don);
+        return response()->json([
+            'status'            => true,
+            'message'           => 'Bỏ Yêu Thích Thành Công',
+            'du_lieu'           => $ds_hoa_don,
+        ]);
+    }
+
+
+    public function LichSuMuaHang()
+    {
+        return view('Trang-Khach-Hang.page.LichSuMuaHang');
+    }
+
+    public function HuyDon($id)
+    {
+        $user = Auth::guard('khach_hang')->user();
+        HoadonModel::where('id', $id)->update([
+            'trang_thai_don' => -1,
+        ]);
+        $hoa_don_moi = HoadonModel::where('id', $id)->first();
+        $hoa_don_chi_tiet = HoadonchitietModel::where('ma_hoa_don', $hoa_don_moi->id)
+            ->join('san_pham', 'hoa_don_chi_tiet.ma_san_pham', '=', 'san_pham.id')
+            ->select(
+                'hoa_don_chi_tiet.id',
+                'hoa_don_chi_tiet.tong_so_luong',
+                'hoa_don_chi_tiet.tong_tien',
+                'hoa_don_chi_tiet.ma_hoa_don',
+                'hoa_don_chi_tiet.created_at',
+                'san_pham.ten_san_pham',
+                'san_pham.gia_san_pham',
+                'san_pham.giam_gia_san_pham',
+            )
+            ->get();
+        //   dd($hoa_don_chi_tiet);
+        $du_lieu_Mail['ho_va_ten']  =  $user->ho_va_ten;
+        $du_lieu_Mail['email']     =  $user->email;
+        $du_lieu_Mail['hoa_don_chi_tiet']     =  $hoa_don_chi_tiet;
+        $du_lieu_Mail['hoa_don_moi']     =  $hoa_don_moi;
+        GuiMailHuyDon::dispatch($du_lieu_Mail);
+
+        return response()->json([
+            'status'    => true,
+        ]);
     }
 }
