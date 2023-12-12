@@ -206,6 +206,8 @@ Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], f
   Route::post('/thanh-toan', [ThanhToanControllerr::class, 'ThanhToan']);
   Route::get('/thanh-toan-thanh-cong', [ThanhToanControllerr::class, 'ThanhToanThanhCong']);
   Route::get('/lich-su-mua-hang', [ThanhToanControllerr::class, 'LichSuMuaHang']);
+  Route::get('/ds-lich-su-mua-hang', [ThanhToanControllerr::class, 'DsLichSuMuaHang']);
+  Route::post('/huy-don/{id}', [ThanhToanControllerr::class, 'HuyDon']);
 });
 
 Route::post('/ma-giam-gia/{ma_giam_gia}', [GioHangController::class, 'MaGiamGia']);
