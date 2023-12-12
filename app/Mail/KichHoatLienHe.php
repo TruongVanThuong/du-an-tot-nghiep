@@ -22,7 +22,7 @@ class KichHoatLienHe extends Mailable
 
     public function build()
     {
-        return $this->subject('Đổi Mật Khẩu Tài Khoản Tại Website....')
+        return $this->subject('Cảm ơn đã gửi liên hệ cho chúng tôi')
             ->view('Trang-Khach-Hang.page.MailKichHoatLienHe', [
                 'du_lieu'   => $this->du_lieu,
             ]);

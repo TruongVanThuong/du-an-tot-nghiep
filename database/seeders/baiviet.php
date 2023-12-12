@@ -16,12 +16,14 @@ class baiviet extends Seeder
                 'ten_bai_viet' => 'Test Tiêu Đề',
                 'ten_bai_viet_slug' => 'Test Tiêu Đề',
                 'mo_ta_ngan' => 'Test Tiêu Đề',
-                'ma_khach_hang' => '1',
+                'ma_khach_hang' => '3',
                 'noi_dung' => 'Test Tiêu Đề',
                 'hinh_anh' => '111',
                 'rating' => '1',
-                'hien_thi' => '0',
+                'hien_thi' => '1',
                 'created_at' => '1/10/2023',
-            ]);
+            ],
+          
+        );
     }
 }

@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('lien_hes', function (Blueprint $table) {
+        Schema::create('lien_he', function (Blueprint $table) {
             $table->id();
             $table->string('ho_va_ten');
             $table->string('email');
@@ -28,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('lien_hes');
+        Schema::dropIfExists('lien_he');
     }
 };

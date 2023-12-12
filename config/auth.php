@@ -43,7 +43,12 @@ return [
         
         'khach_hang' => [
             'driver' => 'session',
-            'provider' => 'khach_hangs',
+            'provider' => 'khach_hang',
+        ],
+
+        'tai_khoan' => [
+            'driver' => 'session',
+            'provider' => 'tai_khoan',
         ],
     ],
 
@@ -69,14 +74,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'khach_hangs' => [
+        'khach_hang' => [
             'driver' => 'eloquent',
             'model' => App\Models\KhachHangModel::class,
         ],
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'tai_khoan' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\TaiKhoanModel::class,
+        ],
     ],
 
     /*

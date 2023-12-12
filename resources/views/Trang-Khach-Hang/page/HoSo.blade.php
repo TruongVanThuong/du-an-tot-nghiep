@@ -1,6 +1,6 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
-    <main id="app" class="content-for-layout" v-cloak>
+    <main class="content-for-layout" v-cloak>
         <div class="login-page mt-100" style="margin-bottom: 100px;">
             <div class="container">
                 <div class="login-form common-form mx-auto">
@@ -72,6 +72,7 @@
                     ngay_sinh: '',
                     gioi_tinh: ''
                 },
+                @include('Trang-Khach-Hang.share.datavue')
             },
             watch: {
                 'ng_dang_nhap.ho_va_ten': function(newVal) {
@@ -102,6 +103,7 @@
             },
             created() {
                 this.tai_thong_tin_dang_nhap();
+                this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
             },
             methods: {
                 tai_thong_tin_dang_nhap() {
@@ -137,6 +139,7 @@
                             }
                         });
                 },
+                @include('Trang-Khach-Hang.share.vue')
                 
             }
         });

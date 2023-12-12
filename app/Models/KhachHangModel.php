@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class KhachHangModel extends Authenticatable
 {
     use HasFactory;
-
-    protected $table = 'khach_hangs';
+    use SoftDeletes;
+    protected $table = 'khach_hang';
 
     protected $fillable = [
         'ho_va_ten',

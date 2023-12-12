@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\HinhanhModel;
-
+use App\Models\LoaisanphamModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class SanphamModel extends Model
 {
     use HasFactory;
-
+    use SoftDeletes;
     protected $table = 'san_pham';
     protected $primaryKey = 'id';
 
@@ -25,8 +26,6 @@ class SanphamModel extends Model
         "mo_ta",
         "trang_thai",
     ];
-
-    
 
     public function HinhanhModel()
     {

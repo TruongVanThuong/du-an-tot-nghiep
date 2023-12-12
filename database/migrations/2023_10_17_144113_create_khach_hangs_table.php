@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('khach_hangs', function (Blueprint $table) {
+        Schema::create('khach_hang', function (Blueprint $table) {
             $table->id();
             $table->string('ho_va_ten');
             $table->string('email');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('so_dien_thoai');
             $table->string('dia_chi');
             $table->string('ma_bam_email')->nullable();
-            $table->date('ngay_sinh');
+            $table->string('ngay_sinh');
             $table->integer('gioi_tinh');
             $table->unsignedBigInteger('loai_tai_khoan')->default(0);
             $table->string('ma_bam_quen_mat_khau')->nullable(); // Cho phép giá trị null
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('khach_hangs');
+        Schema::dropIfExists('khach_hang');
     }
 };
