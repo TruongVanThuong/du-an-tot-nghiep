@@ -90,7 +90,7 @@ $user = Auth::guard('khach_hang')->user();
                                             </li>
                                         </ul>
                                         <h3 class="product-card-title">
-                                            <a href="/san-pham/{{$value->ten_danh_muc_slug}}/{{$value->ten_loai_slug}}/{{ $value->ten_san_pham_slug }}">{{ $value->ten_san_pham }}</a>
+                                            <a href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{$value->id}}">{{ $value->ten_san_pham }}</a>
                                         </h3>
                                         <div class="product-card-price">
                                             <span class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }} ₫</span>

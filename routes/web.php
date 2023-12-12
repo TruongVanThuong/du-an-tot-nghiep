@@ -80,7 +80,9 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
         Route::post('/them-nhan-vien', [QLNhanVienController::class, 'ThemNhanVien']);
         Route::post('/xoa-nhan-vien', [QLNhanVienController::class, 'XoaNhanVien']);
         Route::post('/cap-nhat-nhan-vien', [QLNhanVienController::class, 'CapNhatNhanVien']);
+
       });
+
     });
 
     // Quan Ly Tai Khoan --------------
@@ -90,6 +92,7 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
       Route::post('/them-tai-khoan', [QLTaiKhoanController::class, 'ThemTaiKhoan']);
       Route::post('/xoa-tai-khoan', [QLTaiKhoanController::class, 'XoaTaiKhoan']);
       Route::post('/cap-nhat-tai-khoan', [QLTaiKhoanController::class, 'CapNhatTaiKhoan']);
+
     });
 
     // thong ke --------------
@@ -187,24 +190,22 @@ Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], f
   Route::get('/cap-nhap-mat-khau', [KhachHangController::class, 'CapNhapMatKhau']);
   Route::post('/kich-hoat-cap-nhap-mat-khau', [KhachHangController::class, 'KichHoatCapNhapMatKhau']);
 
+
   // giỏ hàng 
   Route::get('/hien-thi-ds-gio-hang', [GioHangController::class, 'HienThiDsGioHang']);
   Route::post('/them-so-luong/{id}', [GioHangController::class, 'ThemSoLuong']);
   Route::post('/tru-so-luong/{id}', [GioHangController::class, 'TruSoLuong']);
   Route::post('/xoa-san-pham-gio-hang/{id}', [GioHangController::class, 'XoaSanPhamGioHang']);
-
   // sản phẩm yêu thích
   Route::post('/quan-ly-san-pham-yeu-thich/{id}', [SanPhamYeuThichController::class, 'QuanLySanPhamYeuThich']);
 
   // mã giảm giá
+  
 
-  // thanh toán
-  Route::post('/thanh-toan', [ThanhToanControllerr::class, 'ThanhToan']);
-  Route::get('/thanh-toan-thanh-cong', [ThanhToanControllerr::class, 'ThanhToanThanhCong']);
-  Route::get('/lich-su-mua-hang', [ThanhToanControllerr::class, 'LichSuMuaHang']);
-  Route::get('/ds-lich-su-mua-hang', [ThanhToanControllerr::class, 'DsLichSuMuaHang']);
-  Route::post('/huy-don/{id}', [ThanhToanControllerr::class, 'HuyDon']);
-
+// thanh toán
+Route::post('/thanh-toan', [ThanhToanControllerr::class, 'ThanhToan']);
+Route::get('/thanh-toan-thanh-cong', [ThanhToanControllerr::class, 'ThanhToanThanhCong']);
+Route::get('/lich-su-mua-hang', [ThanhToanControllerr::class, 'LichSuMuaHang']);
 });
 Route::post('/ma-giam-gia/{ma_giam_gia}', [GioHangController::class, 'MaGiamGia']);
 // Route::get('/tai-ma-giam-gia', [GioHangController::class, 'TaiMaGiamGia']);

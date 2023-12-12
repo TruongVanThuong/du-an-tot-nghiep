@@ -196,10 +196,8 @@ class TrangChuController extends Controller
         // Tìm nạp tất cả các danh mục và loại
         $data_danh_muc = DanhmucModel::all();
         $data_the_loai = LoaisanphamModel::all();
-
         // Đang khởi tạo một mảng trống cho hình ảnh
         $HinhAnh = [];
-
         // Truy xuất hình ảnh cho từng sản phẩm
         foreach ($data_san_pham as $sanpham) {
             $hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
