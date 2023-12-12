@@ -36,7 +36,6 @@ class QLHoaDonController extends Controller {
                 'hinh_anh.hinh_anh',
             )
             ->get();
-        $data_sanpham = SanphamModel::all();
         $data_sanpham = SanphamModel::join('hinh_anh', function ($join) {
             $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
                 ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
@@ -85,15 +84,17 @@ class QLHoaDonController extends Controller {
     }
 
     public function TaoHoaDon() {
-        $data_sanpham = SanphamModel::join('hinh_anh', function ($join) {
-            $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
-                ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
-        })
-            ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
-            ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
-            ->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
-            ->get();
-        return view('AdminRocker.page.HoaDon.TaoHoaDon', compact('data_sanpham'));
+        // $data_sanpham = SanphamModel::join('hinh_anh', function ($join) {
+        //     $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
+        //         ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
+        // })
+        //     ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
+        //     ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+        //     ->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
+        //     ->get();
+        return view('AdminRocker.page.HoaDon.TaoHoaDon'
+        // , compact('data_sanpham')
+        );
     }
 
     public function ThemHoaDon(TaoHoaDonRequest $request) {
