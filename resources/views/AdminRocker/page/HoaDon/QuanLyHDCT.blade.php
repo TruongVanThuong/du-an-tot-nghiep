@@ -42,7 +42,7 @@
                 <td class="align-middle text-center d-flex justify-content-center">
                   <img class="secondary-img" width="100px" src="/img/{{$hdct->hinh_anh}}" alt="Hình ảnh sản phẩm">
                 </td>
-                <td class="align-middle text-center">{{$hdct->gia_san_pham}}</td>
+                <td class="align-middle text-center">{{@currency($hdct->gia_san_pham * (1 - $hdct->giam_gia_san_pham / 100))}}</td>
                 <td class="align-middle text-center">{{$hdct->tong_so_luong}}</td>
                 <td class="align-middle text-center">{{$hdct->ma_san_pham}}</td>
                 <td class="align-middle text-center text-nowrap">
@@ -92,7 +92,7 @@
             <div class="col-md-6">
               <h5 class="d-flex justify-content-end"> 
                 <span class="font-bold">Tổng tiền : </span> 
-                <span> {{ $data_hoadon->tong_tien_tat_ca }} </span> vnd 
+                <span> {{@currency( $data_hoadon->tong_tien_tat_ca )}} </span>
               </h5>
             </div>
           </div>
@@ -115,7 +115,7 @@
                         <h3>{{ $sanpham->ten_san_pham }}</h3>
                         <p>Loại sản phẩm : <span>{{ $sanpham->ten_loai }}</span></p>
                         <p>Danh mục : <span>{{ $sanpham->ten_danh_muc }}</span></p>
-                        <p class="price">{{ $sanpham->gia_san_pham }}</p>
+                        <p class="price">{{ @currency($sanpham->gia_san_pham * (1 - $sanpham->giam_gia_san_pham / 100)) }}</p>
                         <input type="number" name="tong_so_luong" value="1" min="0" class="border-1">
                         <input type="hidden" name="ma_san_pham" value="{{ $sanpham->id }}">
                         <input type="hidden" name="ma_hoa_don" value="{{ $data_hoadon->id }}">
@@ -180,6 +180,8 @@
           axios
             .get('/admin/hoa-don/du-lieu')
         },
+
+
       }
     });
   </script>

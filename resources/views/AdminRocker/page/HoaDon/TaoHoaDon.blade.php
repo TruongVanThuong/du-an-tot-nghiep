@@ -22,9 +22,15 @@
           <div class="col-6 custom-column">
             <h4 class="text-center">THÔNG TIN HOÁ ĐƠN</h4>
             <div class="form-group mt-3">
+              <strong>Mã hoá đơn : <span>@{{ hoa_don_moi_nhat.id }}</span></strong>
+            </div>
+            <div class="form-group mt-3">
+              <label>Nhân viên báng hàng : </label>
+              <input v-model="tai_khoan_dang_nhap.ten_tai_khoan" type="text" class="form-control" disabled>
+            </div>
+            <div class="form-group mt-3">
               <label>Thông tin đơn hàng</label>
               <select class="form-control" v-model="them_hoa_don.trang_thai_don">
-                <option value="-1">Huỷ đơn hàng</option>
                 <option value="0">Chờ xử lý</option>
                 <option value="1">Đang vận chuyển</option>
                 <option value="2">Giao hàng thành công</option>
@@ -32,12 +38,15 @@
             </div>
             <div class="form-group mt-3">
               <label>Thông tin thanh toán</label>
-              <select class="form-control" v-model="them_hoa_don.trang_thai_thanh_toan">
-                <option value="0">Chưa thanh toán</option>
+              <select class="form-control" v-model="them_hoa_don.trang_thai_thanh_toan" :value="0">
+                <option value="0" selected>Chưa thanh toán</option>
                 <option value="1">Đã thanh toán</option>
               </select>
             </div>
-
+            <div class="form-group mt-3">
+              <label>Ngày tạo hoá đơn : </label>
+              <input value="{{ date('Y-m-d') }}" type="text" class="form-control" disabled>
+            </div>
           </div>
           <div class="col-6 custom-column">
             <h4 class="text-center">THÔNG TIN KHÁCH HÀNG</h4>
@@ -87,50 +96,51 @@
         <div class="row">
           <div class="col-12 custom-column">
             <h4 class="text-center">THÔNG TIN SẢN PHẨM</h4>
-            <table class="cart-table w-100">
-              <thead>
-                <tr>
-                  <th class="cart-caption heading_18">Sản phẩm</th>
-                  <th class="cart-caption heading_18"></th>
-                  <th class="cart-caption text-center heading_18 d-none d-md-table-cell">Số lượng</th>
-                  <th class="cart-caption text-end heading_18">Giá</th>
-                </tr>
-              </thead>
-              <tbody>
-                <ul>
-                  <li v-for="ChonSanPham in SanPhamDaChon" :key="ChonSanPham.id">
-                    <tr class="cart-item" v-for="sanpham in data_sanpham" v-if="sanpham.id == ChonSanPham.id">
-                      <td class="cart-item-media">
-                        <div class="mini-img-wrapper">
-                          <img :src="'/img/' + sanpham.hinh_anh" :alt="sanpham.ten_san_pham" class="mini-img"
-                            width="200">
-                        </div>
-                      </td>
-                      <td class="cart-item-details">
-                        <h2 class="product-title"><a :href="'/product/' + sanpham.id">@{{ sanpham.ten_san_pham }}</a>
-                        </h2>
-                        <p class="product-vendor">Mã Loại 9</p>
-                      </td>
-                      <td class="cart-item-quantity">
-                        <div class="quantity d-flex align-items-center justify-content-between">
-                          <button class="qty-btn dec-qty" @click="giamSoLuong(sanpham.id)"><img
-                              src="/assets_client/img/icon/minus.svg" alt="minus"></button>
-                          <input type="number" v-model="ChonSanPham.so_luong" name="qty" min="0" readonly="readonly"
-                            class="qty-input">
-                          <button class="qty-btn inc-qty" @click="tangSoLuong(sanpham.id)"><img
-                              src="/assets_client/img/icon/plus.svg" alt="plus"></button>
-                        </div>
-                        <a href="#" class="product-remove mt-2" @click="xoaSanPham(ChonSanPham.id)">Xóa</a>
-                      </td>
-                      <td class="cart-item-price text-end">
-                        <div class="product-price">@{{ formatCurrency(sanpham.gia_san_pham * ChonSanPham.so_luong)
-                          }}&nbsp;₫</div>
-                      </td>
-                    </tr>
-                  </li>
-                </ul>
-              </tbody>
-            </table>
+            <div class="box_form">
+              <table id="select_table" class="table table-hover">
+                <thead class="bg-primary">
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Tên Sản Phẩm</th>
+                    <th class="text-center">Hình Ảnh</th>
+                    <th class="text-center">Giá Sản Phẩm Hiện Tại</th>
+                    <th class="text-center">Số Lượng</th>
+                    <th class="text-center">Thao Tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(SP, index) in SanPham" :key="index">
+                    <td class="text-center">@{{ SP.id_SP }}</td>
+                    <td class="text-center">@{{ getSanPham(SP.id_SP).ten_san_pham }}</td>
+                    <td class="text-center">
+                      <img :src="'/img/' + getSanPham(SP.id_SP).hinh_anh" :alt="getSanPham(SP.id_SP).hinh_anh">
+                    </td>
+                    <td class="text-center">@{{ formatCurrency(getSanPham(SP.id_SP).gia_san_pham * (1 -
+                      getSanPham(SP.id_SP).giam_gia_san_pham / 100 )) }}</td>
+                    <td class="text-center">
+                      <div class="quantity d-flex align-items-center justify-content-between">
+                        <button class="qty-btn dec-qty" @click="tru_so_luong(SP)"><img
+                            src="/assets_client/img/icon/minus.svg" alt="minus"></button>
+                        <input class="qty-input" type="number" v-model="SP.tong_so_luong" min="1" readonly>
+                        <button class="qty-btn inc-qty" @click="them_so_luong(SP)"><img
+                            src="/assets_client/img/icon/plus.svg" alt="plus"></button>
+                      </div>
+                      <!-- <input type="number" style="width: 50px;" v-model="SP.soluong" min="1" value="1"
+                        class="form-control" /> -->
+                    </td>
+                    <td class="text-center">
+                      <button class="btn btn-danger" @click="xoa_sp(index)">Xoá</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><strong>Tổng Tiền</strong></td>
+                    <td class="text-center">@{{ formatCurrency(tinhTongTien()) }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
 
             <div class="">
               <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal" data-bs-target="#ThemSPModal">
@@ -155,16 +165,18 @@
             </div>
             <div class="modal-body overflow">
               <div class="product-grid">
-                <div v-for="sanpham in data_sanpham" :key="sanpham.id" class="product-box">
-                  <input type="checkbox" @change="luu_sanpham_session(sanpham)" v-model="SanPhamDaChon[sanpham.id]">
-                  <img :src="'/img/' + sanpham.hinh_anh" alt="">
+                <div v-for="sanpham in data_sanpham" class="product-box input_row">
+                  <img :src="'/img/' + sanpham.hinh_anh" :alt="sanpham.hinh_anh">
                   <h3>@{{ sanpham.ten_san_pham }}</h3>
                   <p>Loại sản phẩm: <span>@{{ sanpham.ten_loai }}</span></p>
                   <p>Danh mục: <span>@{{ sanpham.ten_danh_muc }}</span></p>
-                  <p class="price">@{{ sanpham.gia_san_pham }}</p>
-                  <input type="number" v-model="sanpham.so_luong" min="0" class="form-control">
+                  <p class="price">@{{ formatCurrency(sanpham.gia_san_pham) }}</p>
+                  <input type="hidden" :id="'MaSP' + sanpham.id" :value="sanpham.id">
+                  <button class="btn btn-primary" @click="themSanPham(sanpham.id)">Thêm mới</button>
                 </div>
               </div>
+            </div>
+            <div class="modal-footer">
             </div>
           </div>
         </div>
@@ -269,20 +281,24 @@
       data: {
         errors: {},
         errorss: {},
-        them_hoa_don: {},
+        them_hoa_don: {
+          trang_thai_thanh_toan: 0,
+          trang_thai_don: 0,
+        },
         add_user: {},
         SanPhamDaChon: [],
         data_khachhang: [],
         data_hoadon: [],
         data_hdct: [],
         data_sanpham: [],
+        SanPham: [],
+        tai_khoan_dang_nhap: {},
+        hoa_don_moi_nhat: {},
       },
       created() {
         this.GetData();
-        // Đảm bảo là dữ liệu trong session storage được lưu
         this.SanPhamDaChon = JSON.parse(sessionStorage.getItem('SanPhamDaChon')) || [];
       },
-
       methods: {
         // hien thi danh sach tai khoan
         GetData() {
@@ -293,6 +309,8 @@
               this.data_khachhang = res.data.data_khachhang;
               this.data_hdct = res.data.data_hdct;
               this.data_sanpham = res.data.data_sanpham;
+              this.tai_khoan_dang_nhap = res.data.tai_khoan_dang_nhap;
+              this.hoa_don_moi_nhat = res.data.hoa_don_moi_nhat;
             });
         },
 
@@ -334,47 +352,86 @@
             })
         },
 
-        luu_sanpham_session(sanpham) {
-          // Kiểm tra xem sản phẩm đã tồn tại trong danh sách chưa
-          const index = this.SanPhamDaChon.findIndex(item => item.id === sanpham.id);
+        tru_so_luong(SP) {
+          if (SP.tong_so_luong > 1) {
+            SP.tong_so_luong--;
+          }
+        },
+
+        them_so_luong(SP) {
+          SP.tong_so_luong++;
+        },
+
+        themSanPham(idSP) {
+          const index = this.SanPham.findIndex(item => item.id_SP === idSP);
 
           if (index === -1) {
-            // Nếu chưa tồn tại, thêm vào danh sách
-            this.SanPhamDaChon.push({ id: sanpham.id, so_luong: sanpham.so_luong });
-            toastr.success('Thêm vào danh sách!');
+            this.SanPham.push({ id_SP: idSP, tong_so_luong: 1 });
+            toastr.success('Đã thêm vào danh sách sản phẩm!');
+            // this.displaySanPham();
           } else {
-            // Nếu đã tồn tại, cập nhật số lượng
-            this.SanPhamDaChon[index].so_luong = sanpham.so_luong;
-            toastr.info('Cập nhật số lượng!');
-          }
-
-          // Lưu danh sách sản phẩm vào session storage
-          sessionStorage.setItem('SanPhamDaChon', JSON.stringify(this.SanPhamDaChon));
-        },
-
-        giamSoLuong(sanPhamId) {
-          const ChonSanPham = this.SanPhamDaChon.find(item => item.id === sanPhamId);
-          if (ChonSanPham) {
-            ChonSanPham.so_luong--;
-          }
-        },
-        tangSoLuong(sanPhamId) {
-          const ChonSanPham = this.SanPhamDaChon.find(item => item.id === sanPhamId);
-          if (ChonSanPham) {
-            ChonSanPham.so_luong++;
-          }
-        },
-        xoaSanPham(sanPhamId) {
-          const index = this.SanPhamDaChon.findIndex(item => item.id === sanPhamId);
-          if (index !== -1) {
-            this.SanPhamDaChon.splice(index, 1);
+            toastr.warning("Sản phẩm đã tồn tại trong danh sách");
           }
         },
 
+        tinhTongTien() {
+          let tongTien = 0;
+          for (const SP of this.SanPham) {
+            const giaSanPham = this.getSanPham(SP.id_SP).gia_san_pham;
+            const giamGia = this.getSanPham(SP.id_SP).giam_gia_san_pham / 100;
+            tongTien += giaSanPham * (1 - giamGia) * SP.tong_so_luong;
+          }
+          return tongTien;
+        },
 
-      }
+        getSanPham(id) {
+          return this.data_sanpham.find(item => item.id === id) || {};
+        },
+
+        xoa_sp(index) {
+          this.SanPham.splice(index, 1);
+        },
+
+
+        tao_hoa_don() {
+          const du_lieu_yeu_cau = {
+            them_hoa_don: this.them_hoa_don,
+            SanPham: this.SanPham
+          };
+
+          axios
+            .post('/admin/hoa-don/tao-hoa-don', du_lieu_yeu_cau)
+            .then((res) => {
+              if (res.data.status) {
+                toastr.success(res.data.message);
+                window.location.href = "/admin/hoa-don";
+              } else {
+                toastr.error('Có lỗi không mong muốn!');
+              }
+            })
+            .catch((error) => {
+              if (error && error.response.data && error.response.data.errors) {
+                this.errorss = error.response.data.errors;
+              } else {
+                toastr.error('Có lỗi không mong muốn!');
+              }
+            })
+        },
+
+        formatCurrency(value) {
+          const formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+          });
+          return formatter.format(value);
+        },
+
+
+      },
+      // end methos
     });
   </script>
+
 
 
   @endsection

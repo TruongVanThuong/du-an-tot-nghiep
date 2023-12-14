@@ -13,7 +13,7 @@
       <!-- <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal" data-bs-target="#HoaDonModal">Tạo hoá
         đơn</button> -->
 
-      <!-- Modal them tai khoan-->
+      <!-- Modal tai khoan-->
       <div class="modal fade" id="HoaDonModal" tabindex="-1" aria-labelledby="HoaDonModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -93,8 +93,9 @@
                 <td class="align-middle text-center">@{{ hoadon.dia_chi }}</td>
                 <td class="align-middle text-center font-bold">
                   <div class="dropdown">
-                    <button type="button" :class="'dropdown-toggle ' + (hoadon.trang_thai_don == 2 ? 'btn btn-success' : '')"
-                      role="button" id="dropdownTTDonHang" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button"
+                      :class="'dropdown-toggle ' + (hoadon.trang_thai_don == 2 ? 'btn btn-success' : '')" role="button"
+                      id="dropdownTTDonHang" data-bs-toggle="dropdown" aria-expanded="false">
                       @{{ getTTDonhang(hoadon.trang_thai_don) }}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownTTDonHang">
@@ -115,7 +116,7 @@
                 <td class="align-middle text-center text-nowrap">
                   <!-- Button trigger modal -->
                   <a :class="'btn btn-primary' + (hoadon.trang_thai_don !== 0 ? ' disabled-link' : '')"
-                    :href="'{{ asset("admin/hoa-don/hoa-don-chi-tiet") }}/' + hoadon.id">
+                    :href="'{{ asset(" admin/hoa-don/hoa-don-chi-tiet") }}/' + hoadon.id">
                     Sửa
                   </a>
                   <button v-on:click="setHoaDon(hoadon)" class="btn btn-success" data-bs-toggle="modal"
@@ -161,7 +162,9 @@
                             <img class="secondary-img" width="100px" :src="'/img/' + hdct.hinh_anh"
                               alt="Hình ảnh sản phẩm">
                           </td>
-                          <td class="align-middle text-center">@{{ hdct.gia_san_pham }}</td>
+                          <td class="align-middle text-center">
+                            @{{ formatCurrency(hdct.gia_san_pham * (1 - hdct.giam_gia_san_pham / 100)) }}
+                          </td>
                           <td class="align-middle text-center">@{{ hdct.tong_so_luong }}</td>
                           <td class="align-middle text-center">@{{ hdct.ma_san_pham }}</td>
                         </tr>
@@ -169,13 +172,9 @@
                     </table>
 
                     <div class="row">
-                      <div class="col-md-6">
-                        <h5><span class="font-bold">Địa chỉ nhận hàng : </span> <span>@{{ hoa_don.dia_chi }}</span>
-                        </h5>
-                      </div>
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                         <h5 class="d-flex justify-content-end"> <span class="font-bold">Tổng tiền : </span> <span> @{{
-                            hoa_don.tong_tien_tat_ca }} </span> vnd </h5>
+                            formatCurrency(hoa_don.tong_tien_tat_ca) }} </span></h5>
                       </div>
                     </div>
                   </div>
@@ -198,13 +197,13 @@
   @endsection
   @section('js')
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-<script>
+  <script>
     $(document).ready(function () {
-        $('#table_id').DataTable();
+      $('#table_id').DataTable();
     });
-</script>
+  </script>
 
   <script>
     new Vue({
@@ -308,10 +307,10 @@
         CapNhatTTDonHang(donHangId, TTMoi) {
           // Gửi yêu cầu cập nhật trạng thái đơn hàng lên server
           axios.post('/admin/hoa-don/cap-nhat-trang-thai-don-hang', {
-              donHangId: donHangId,
-              TTMoi: TTMoi,
+            donHangId: donHangId,
+            TTMoi: TTMoi,
           })
-          .then((res) => {
+            .then((res) => {
               if (res.data.status) {
                 toastr.success(res.data.message);
                 this.GetData();
@@ -325,11 +324,11 @@
         CapNhatTrangThaiThanhToan(id_hoa_don, TTTT) {
           const TTTT_moi = TTTT === 0 ? 1 : 0;
           axios
-          .post('/admin/hoa-don/cap-nhat-trang-thai-thanh-toan',{
-            id_hoa_don : id_hoa_don,
-            TTTT_moi : TTTT_moi,
-          })
-          .then((res) => {
+            .post('/admin/hoa-don/cap-nhat-trang-thai-thanh-toan', {
+              id_hoa_don: id_hoa_don,
+              TTTT_moi: TTTT_moi,
+            })
+            .then((res) => {
               if (res.data.status) {
                 toastr.success(res.data.message);
                 this.GetData();
@@ -338,6 +337,14 @@
                 this.GetData();
               }
             })
+        },
+
+        formatCurrency(value) {
+          const formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+          });
+          return formatter.format(value);
         },
 
       }
