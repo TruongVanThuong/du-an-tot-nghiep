@@ -22,7 +22,7 @@
           <div class="col-6 custom-column">
             <h4 class="text-center">THÔNG TIN HOÁ ĐƠN</h4>
             <div class="form-group mt-3">
-              <strong>Mã hoá đơn : <span>@{{ hoa_don_moi_nhat.id }}</span></strong>
+              <strong>Mã hoá đơn : <span>@{{ hoa_don_moi_nhat.id + 1 }}</span></strong>
             </div>
             <div class="form-group mt-3">
               <label>Nhân viên báng hàng : </label>

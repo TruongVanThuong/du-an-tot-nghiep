@@ -25,10 +25,9 @@ class QLHoaDonController extends Controller
 
     public function DuLieuHoaDon()
     {
+        
         $data_hoadon = HoadonModel::orderBy('id', 'desc')->get();
         $hoa_don_moi_nhat = HoadonModel::orderBy('id', 'desc')->first();
-        $formattedId = str_pad($hoa_don_moi_nhat->id, 4, '0', STR_PAD_LEFT);
-        $hoa_don_moi_nhat->id = $formattedId;
         $tai_khoan_dang_nhap = Auth::guard('tai_khoan')->user();
         $data_khachhang = KhachHangModel::all();
         $data_hdct = HoadonchitietModel::join('san_pham', 'hoa_don_chi_tiet.ma_san_pham', '=', 'san_pham.id')
@@ -106,11 +105,12 @@ class QLHoaDonController extends Controller
     {
         $themHoaDon = $request->input('them_hoa_don');
         $SanPham = $request->input('SanPham');
-        // dd($themHoaDon, $SanPham);
+        $date = date('Y-m-d - H:i:s');
+        
         $hoaDon = HoadonModel::create([
             'trang_thai_thanh_toan' => $themHoaDon['trang_thai_thanh_toan'],
             'trang_thai_don' => $themHoaDon['trang_thai_don'],
-            'ma_don_hang' => Str::uuid(),
+            'ma_don_hang' => "TQ - $date",
             'ma_khach_hang' => $themHoaDon['ma_khach_hang'],
             'ho_va_ten' => $themHoaDon['ho_va_ten'],
             'dia_chi' => $themHoaDon['dia_chi'],
