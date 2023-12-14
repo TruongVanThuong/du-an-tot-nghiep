@@ -25,11 +25,12 @@
                             <div v-if="ds_gio_hang">
                                 <div class="minicart-item d-flex" v-for="(value, key) in ds_gio_hang"
                                     :key="key">
-                                    <div class="mini-img-wrapper">
-                                        <img class="mini-img" :src="'/img/' + value.hinh_anh" alt="img">
-                                    </div>
+                                    <a :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value.ten_san_pham_slug + value.id" class="mini-img-wrapper">
+
+                                        <img class="mini-img"  :src="'/img/' + value.hinh_anh" alt="img">
+                                    </a>
                                     <div class="product-info">
-                                        <h2 class="product-title"><a href="#">@{{ value.ten_san_pham }}</a></h2>
+                                        <h2 class="product-title"><a :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value.ten_san_pham_slug + value.id" >@{{ value.ten_san_pham }}</a></h2>
                                         <p class="product-vendor">Mã Loại @{{ value.id }} </p>
                                         <div class="misc d-flex align-items-end justify-content-between">
                                             <div class="quantity d-flex align-items-center justify-content-between">
@@ -42,7 +43,8 @@
                                                         src="/assets_client/img/icon/plus.svg" alt="plus"></button>
                                             </div>
                                             <div class="product-remove-area d-flex flex-column align-items-end">
-                                                <div class="product-price">@{{ formatCurrency(value.gia_san_pham) }}</div>
+                                                <div class="product-price">@{{ formatCurrency(value.giam_gia_san_pham || value.gia_san_pham) }}</div>
+
                                                 <a href="javascript:void(0)" class="product-remove"  v-on:click="xoa_san_pham_gio_hang(value.id)" >Xóa</a>
                                             </div>
                                         </div>

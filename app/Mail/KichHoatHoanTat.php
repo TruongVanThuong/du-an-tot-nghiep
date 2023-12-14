@@ -9,12 +9,15 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class KichHoatLienHe extends Mailable
+class KichHoatHoanTat extends Mailable
 {
     use Queueable, SerializesModels;
 
     protected $du_lieu;
 
+    /**
+     * Create a new message instance.
+     */
     public function __construct($du_lieu)
     {
         $this->du_lieu = $du_lieu;
@@ -22,9 +25,9 @@ class KichHoatLienHe extends Mailable
 
     public function build()
     {
-        return $this->subject('Cảm ơn đã gửi liên hệ cho chúng tôi')
-            ->view('Trang-Khach-Hang.page.MailKichHoatLienHe', [
-                'du_lieu'   => $this->du_lieu,
+        return $this->subject('[ GUCCI ] Đơn hàng của bạn đã được hoàn tất!')
+            ->view('Trang-Khach-Hang.page.MailKichHoatHoanTat', [
+                'du_lieu' => $this->du_lieu,
             ]);
     }
 }

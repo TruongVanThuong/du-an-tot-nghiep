@@ -7,7 +7,7 @@
                 Danh sách liên hệ chờ xử lý
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
+                <table id="table_id" class="table table-bordered">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -95,6 +95,17 @@
 </div>
 @endsection
 @section('js')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable();
+    });
+  </script>
+
+
 <script>
     new Vue({
         el: '#app',
