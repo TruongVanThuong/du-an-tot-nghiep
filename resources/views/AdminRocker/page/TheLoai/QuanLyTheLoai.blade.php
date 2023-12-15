@@ -83,7 +83,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered">
+              <table id="table_id" class="table table-bordered">
                 <thead clas="bg-primary">
                   <tr>
                     <th class="text-center">#</th>
@@ -211,7 +211,7 @@
             <div class="table-responsive">
               <button class="btn btn-info mb-3" style="float: right;" data-bs-toggle="modal"
               data-bs-target="#onlyTrashedModal">Phục hồi tất cả</button>
-              <table class="table table-bordered">
+              <table id="table_thungrac" class="table table-bordered">
                 <thead clas="bg-primary">
                   <tr>
                     <th class="px-4 py-3">#</th>
@@ -326,6 +326,17 @@
 </main>
 @endsection
 @section('js')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable();
+      $('#table_thungrac').DataTable();
+    });
+  </script>
+
 
 <script>
   new Vue({

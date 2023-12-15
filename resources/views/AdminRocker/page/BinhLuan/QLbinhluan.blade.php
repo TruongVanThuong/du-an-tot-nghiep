@@ -12,7 +12,7 @@
         <div class="tab-pane fade show active" id="nav-binhluansanpham" role="tabpanel" aria-labelledby="binhluansanpham">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table id="table_id" class="table table-bordered">
                         <thead clas="bg-primary">
                             <tr class="">
                                 <th class="text-center">#</th>
@@ -69,14 +69,13 @@
                     </table>
 
                 </div>
-                <div>{{$data_binhluan_sanpham->links('AdminRocker.share.custom')}}</div>
 
             </div>
         </div>
         <div class="tab-pane fade" id="nav-binhluanbaiviet" role="tabpanel" aria-labelledby="binhluanbaiviet">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table id="table_baiviet" class="table table-bordered">
                         <thead clas="bg-primary">
                             <tr class="">
                                 <th class="text-center">#</th>
@@ -144,6 +143,18 @@
 
 @endsection
 @section('js')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable();
+      $('#table_baiviet').DataTable();
+    });
+  </script>
+
+
 <script>
    
 

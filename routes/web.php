@@ -54,7 +54,13 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
         Route::get('/hoa-don-chi-tiet/{id}', [QLHoaDonController::class, 'HoaDonChiTiet']);
         Route::post('/them-san-pham-hdct', [QLHoaDonController::class, 'ThemHoaDonChiTiet']);
         Route::get('/xoa-san-pham-hdct', [QLHoaDonController::class, 'XoaHoaDonChiTiet']);
-        Route::get('/them-hoa-don', [QLHoaDonController::class, 'ThemHoaDon']);
+        /////////////
+        Route::get('/tao-hoa-don', [QLHoaDonController::class, 'TrangTaoHoaDon']);
+        Route::post('/tao-hoa-don', [QLHoaDonController::class, 'TaoHoaDon']);
+        //////////////
+        Route::post('/them-hoa-don', [QLHoaDonController::class, 'ThemHoaDon']);
+        Route::post('/cap-nhat-trang-thai-don-hang', [QLHoaDonController::class, 'CapNhatTTDonHang']);
+        Route::post('/cap-nhat-trang-thai-thanh-toan', [QLHoaDonController::class, 'CapNhatTTTT']);
       });
 
       // thong ke --------------
