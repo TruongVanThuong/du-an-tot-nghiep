@@ -28,21 +28,21 @@ class SanphamController extends Controller
 		->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
 		->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
 		->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
-		->paginate(10);
+		->get();
 
 		$TrashSanPhamsWithInfo = SanphamModel::orderBy('id', 'desc')->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
 		->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
 		->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
 		->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
 		->onlyTrashed()
-		->paginate(10);
+		->get();
 
 		$StatusSanPhamsWithInfo = SanphamModel::orderBy('id', 'desc')->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
 		->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
 		->leftJoin('hinh_anh', 'san_pham.id', '=', 'hinh_anh.ma_san_pham')
 		->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
 		->where('trang_thai', 0)
-		->paginate(10);
+		->get();
 
 		foreach ($TrashSanPhamsWithInfo as $san_pham) {
 			$san_pham->disabled = $data_HDCT->where('ma_san_pham', $san_pham->id)->isNotEmpty();

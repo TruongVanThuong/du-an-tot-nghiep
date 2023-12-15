@@ -19,8 +19,8 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <table id="table" class="table table-bordered">
-            <thead clas="bg-primary">
+          <table id="table_id" class="table table-bordered">
+            <thead clas="bg-primary"> 
               <tr>
                 <th class="text-center">ID</th>
                 <th class="text-center">Tên Tài Khoản</th>
@@ -221,6 +221,16 @@
 
 @endsection
 @section('js')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable();
+    });
+  </script>
+
 
 <script>
   new Vue({

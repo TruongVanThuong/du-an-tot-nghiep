@@ -13,41 +13,21 @@ class KichHoatHoanTat extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $du_lieu;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($du_lieu)
     {
-        //
+        $this->du_lieu = $du_lieu;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Kich Hoat Hoan Tat',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->subject('[ GUCCI ] Đơn hàng của bạn đã được hoàn tất!')
+            ->view('Trang-Khach-Hang.page.MailKichHoatHoanTat', [
+                'du_lieu' => $this->du_lieu,
+            ]);
     }
 }
