@@ -3,8 +3,8 @@
 <main id="app" v-cloak>
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="binhluansanpham" data-bs-toggle="tab" data-bs-target="#nav-binhluansanpham" type="button" role="tab" aria-controls="binhluansanpham" aria-selected="true">Home</button>
-            <button class="nav-link" id="binhluanbaiviet" data-bs-toggle="tab" data-bs-target="#nav-binhluanbaiviet" type="button" role="tab" aria-controls="binhluanbaiviet" aria-selected="false">Profile</button>
+            <button class="nav-link active" id="binhluansanpham" data-bs-toggle="tab" data-bs-target="#nav-binhluansanpham" type="button" role="tab" aria-controls="binhluansanpham" aria-selected="true">Bình luận sản phẩm</button>
+            <button class="nav-link" id="binhluanbaiviet" data-bs-toggle="tab" data-bs-target="#nav-binhluanbaiviet" type="button" role="tab" aria-controls="binhluanbaiviet" aria-selected="false">Bình luận bài viết</button>
             <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
         </div>
     </nav>
@@ -145,37 +145,7 @@
 @endsection
 @section('js')
 <script>
-    new Vue({
-        el: '#app',
-        data: {
-            them_binhluan: {},
-            ds_binhluan_sanpham: [],
-
-
-
-        },
-        created() {
-
-            this.laybinhluan();
-
-        },
-        methods: {
-
-            laybinhluan() {
-                axios
-                    .get('admin/lay-binh-luan-san-pham')
-                    .then((res) => {
-                        this.ds_binhluan = res.data.data_binhluan_sanpham;
-
-
-                    });
-            },
-
-
-
-        },
-    });
-
+   
 
     const delBtnEl = document.querySelectorAll("#btn_delete");
     delBtnEl.forEach(function(delBtn) {

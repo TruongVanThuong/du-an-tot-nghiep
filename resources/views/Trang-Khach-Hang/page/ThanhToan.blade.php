@@ -154,7 +154,7 @@
                         return (this.tong_tien_tat_ca - this.giam_gia) * 1.005;
                     } else {
                         // Hoặc trả về giá trị khác nếu điều kiện không đúng
-                        return (this.tong_tien_tat_ca + 20000) * 1.005;
+                        return (this.tong_tien_tat_ca - this.giam_gia + 20000) * 1.005;
                     }
                 },
             },
@@ -166,6 +166,7 @@
                     axios
                         .post('/ma-giam-gia/' + this.ma_giam_gia)
                         .then((res) => {
+                            
                             toastr.success(res.data.message);
                             this.giam_gia = res.data.tien_giam_gia;
                         })

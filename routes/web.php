@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\SanphamController;
 use App\Http\Controllers\admin\TaiKhoanController;
 use App\Http\Controllers\admin\QLHoaDonController;
 use App\Http\Controllers\admin\QLBinhluanController;
+use App\Http\Controllers\admin\MaGiamGiaController;
 use App\Http\Controllers\khachhang\GioHangController;
 use App\Http\Controllers\admin\ThongKeController;
 use App\Http\Controllers\khachhang\TrangChuController;
@@ -154,6 +155,11 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::get('/lay-binh-luan-san-pham', [QLBinhluanController::class, 'binhluan_sanpham']);
     Route::get('xoa-binh-luan-bai-viet/{id}', [QLBinhluanController::class, 'xoa_binh_luan_baiviet']);
     Route::get('xoa-binh-luan-san-pham/{id}', [QLBinhluanController::class, 'xoa_binh_luan_sanpham']);
+    
+    // QL mã giảm giá
+    Route::get('/magiamgia', [MaGiamGiaController::class, 'index']);
+    Route::get('/magiamgia/lay-ma-giam-gia', [MaGiamGiaController::class, 'lay_ma_giam_gia']);
+    Route::post('/magiamgia/them-ma-giam-gia', [MaGiamGiaController::class, 'them_ma_giam_gia']);
   });
 });
 

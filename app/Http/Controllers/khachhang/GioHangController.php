@@ -142,33 +142,50 @@ class GioHangController extends Controller
 
     public function MaGiamGia($ma_giam_gia)
     {
-        $du_lieu = MaGiamGiaModel::where('ma_giam_gia', $ma_giam_gia)->first();
-        if ($du_lieu && isset($du_lieu->tien_giam_gia)) {
-            // Nếu mã tồn tại và chưa được sử dụng
+        if ($ma_giam_gia) {
+            $du_lieu = MaGiamGiaModel::where('ma_giam_gia', $ma_giam_gia)->first();
+            if ($du_lieu && isset($du_lieu->tien_giam_gia)) {
+                // Nếu mã tồn tại và chưa được sử dụng
 
-            if ($du_lieu->so_luong > 0) {
-                
-                $tien_giam_gia = $du_lieu->tien_giam_gia;
-                // Trả về số tiền giảm giá cho client 
+                if ($du_lieu->so_luong > 0) {
+
+                    $tien_giam_gia = $du_lieu->tien_giam_gia;
+                    // Trả về số tiền giảm giá cho client 
+                    $response = [
+                        'tien_giam_gia' => $tien_giam_gia,
+                        'status'        => true,
+                        'message'       => 'Sử dụng mã thành công'
+                    ];
+                    // giam số lượng mã
+                    $du_lieu->decrement('so_luong', 1);
+
+                    return response()->json($response);
+                } else {
+                    $tien_giam_gia = 0;
+                    $response = [
+                        'tien_giam_gia' => $tien_giam_gia,
+                        'status'        => false,
+                        'message'       => 'Mã đã sử dụng hết'
+                    ];
+                    return response()->json($response);
+                }
+            } else {
+                $tien_giam_gia = 0;
                 $response = [
                     'tien_giam_gia' => $tien_giam_gia,
-                    'status'        => true,
-                    'message'       => 'Sử dụng mã thành công'
-                ];
-                // giam số lượng mã
-                $du_lieu->decrement('so_luong',1);
-            
-                return response()->json($response);
-
-            } else{
-                $response = [
-                    
                     'status'        => false,
-                    'message'       => 'Mã đã sử dụng hết'
+                    'message'       => 'Nhập mã không chính xác'
                 ];
                 return response()->json($response);
             }
-
+        }else {
+            $tien_giam_gia = 0;
+            $response = [
+                'tien_giam_gia' => $tien_giam_gia,
+                'status'        => false,
+                'message'       => 'Nhập mã không chính xác'
+            ];
+            return response()->json($response);
         }
     }
 }
