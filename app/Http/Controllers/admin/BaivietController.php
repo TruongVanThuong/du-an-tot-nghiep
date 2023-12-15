@@ -27,7 +27,7 @@ class BaivietController extends Controller
     public function taobaiviet(Request $request)
     {
 
-        $khach_hang = Auth::guard('khach_hang')->user();
+        $khach_hang = Auth::guard('tai_khoan')->user();
         $data_form = $request->all();
         $data_form['ten_bai_viet_slug'] = Str::slug($data_form['ten_bai_viet']);
         $data_form['ma_khach_hang']  = $khach_hang->id;
