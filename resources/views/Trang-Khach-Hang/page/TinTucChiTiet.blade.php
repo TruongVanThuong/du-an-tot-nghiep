@@ -205,7 +205,7 @@
                                         Save my information in this browser for the next time.
                                     </label>
                                 </div> -->
-                                <button v-on:click="them_binh_luan()" type="button" class="position-relative review-submit-btn mt-4">SUBMIT</button>
+                                <button v-on:click="them_binh_luan()" type="button" class="position-relative review-submit-btn mt-4">Bình luận</button>
 
                             </div>
                         </div>
