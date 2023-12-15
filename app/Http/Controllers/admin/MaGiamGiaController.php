@@ -31,12 +31,24 @@ class MaGiamGiaController extends Controller
 
     public function cap_nhat_ma_giam_gia(Request $request)
     {
+        $data_ma_giam_gia = MaGiamGiaModel::where('id',$request->id)->first();
+        $data_ma_giam_gia->so_luong =  $request->so_luong;
+        $data_ma_giam_gia->tien_giam_gia =  $request->tien_giam_gia;
+        $data_ma_giam_gia->save();
+
+        return response()->json([
+            'status'    =>  true,
+            'message'   =>  'Cập nhật mã giảm giá thành công'
+        ]);
+    }
+    public function xoa_ma_giam_gia(Request $request)
+    {
         $data_ma_giam_gia = MaGiamGiaModel::find($request->id);
-        $data_form =  $request->all();
+        $data_ma_giam_gia->delete();
         
         return response()->json([
             'status'    =>  true,
-            'message'   =>  'Thêm mã giảm giá thành công'
+            'message'   =>  'Xoá m mã giảm giá thành công'
         ]);
     }
 }

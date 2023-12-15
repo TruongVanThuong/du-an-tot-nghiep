@@ -30,7 +30,7 @@
                     </div>
                 </label>
                 <label class="block text-sm">
-                   
+
                     <button v-on:click="them_ma()" type="button" class="btn btn-primary">
                         Thêm Mã Giảm Giá
                     </button>
@@ -75,7 +75,7 @@
                                 </td>
                                 <td class="align-middle text-center text-xs">
                                     <button v-on:click="cap_nhat(value)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalEdit">Edit</button>
-                                    <button v-on:click="xoa_ma = value" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal">Xóa</button>
+                                    <button v-on:click="xoa_ma(value)" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal">Xóa</button>
                                 </td>
 
                                 <!-- Modal cap nhat-->
@@ -93,9 +93,21 @@
                                             <div class="modal-body">
                                                 <label class="block text-sm">
                                                     <label>Mã Giảm Giá</label>
-                                                    <input v-model="edit_ma_giam_gia.ma_giam_gia" type="text" class="form-control" placeholder="Nhập Vào  Mã giảm giá">
-                                                    <div v-if="errors.ma_giam_gia" class="alert alert-warning">
-                                                        @{{ errors.ma_giam_gia[0] }}
+                                                    <input type="text" class="form-control" disabled v-model="edit_ma_giam_gia.ma_giam_gia">
+
+                                                </label>
+                                                <label class="block text-sm">
+                                                    <label>số lượng</label>
+                                                    <input v-model="edit_ma_giam_gia.so_luong" type="text" class="form-control" placeholder="Nhập Vào  Mã giảm giá">
+                                                    <div v-if="errors.so_luong" class="alert alert-warning">
+                                                        @{{ errors.so_luong[0] }}
+                                                    </div>
+                                                </label>
+                                                <label class="block text-sm">
+                                                    <label>Mức Giảm Giá</label>
+                                                    <input v-model="edit_ma_giam_gia.tien_giam_gia" type="text" class="form-control" placeholder="Nhập Vào  Mã giảm giá">
+                                                    <div v-if="errors.tien_giam_gia" class="alert alert-warning">
+                                                        @{{ errors.tien_giam_gia[0] }}
                                                     </div>
                                                 </label>
                                             </div>
@@ -109,6 +121,30 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Xác Nhận Xoá Dữ Liệu</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Bạn có chắc muốn xoá dữ liệu này không?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+              <button type="button" class="btn btn-danger" v-on:click="xoa_ma_giam_gia()"
+                data-bs-dismiss="modal">Xoá</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
 
                             </tr>
 
@@ -131,7 +167,7 @@
             data_ma_giam_gia: [],
             edit_ma_giam_gia: {},
             errors: {},
-
+            xoa: {},
         },
         created() {
             this.lay_ma_giam_gia();
@@ -144,17 +180,18 @@
                         this.data_ma_giam_gia = res.data.data_ma_giam_gia;
                     });
             },
+
             them_ma() {
                 axios
                     .post('magiamgia/them-ma-giam-gia', this.them_ma_giam_gia)
                     .then((res) => {
-                
+
 
                         if (res.data.status) {
                             toastr.success(res.data.message);
-                            this.GetData();
-                            
-                            
+                            this.lay_ma_giam_gia();
+
+
                         } else {
                             toastr.error('Có lỗi không mong muốn! 1');
                         }
@@ -167,18 +204,52 @@
                         }
                     })
             },
+
+            cap_nhat(value) {
+                this.edit_ma_giam_gia = value;
+            },
+            cap_nhat_ma_giam_gia() {
+                axios
+                    .post('magiamgia/cap-nhat-ma-giam-gia', this.edit_ma_giam_gia)
+                    .then((res) => {
+
+
+                        if (res.data.status) {
+                            toastr.success(res.data.message);
+                            this.lay_ma_giam_gia();
+                            // Tắt modal xác nhận
+                            $('#ModalEdit').modal('hide');
+                        } else {
+                            toastr.error('Có lỗi không mong muốn! 1');
+                        }
+                    })
+                    .catch((error) => {
+                        if (error && error.response.data && error.response.data.errors) {
+                            this.errors = error.response.data.errors;
+                        } else {
+                            toastr.error('Có lỗi không mong muốn! 2');
+                        }
+                    })
+            },
+
+            xoa_ma(value) {
+                this.xoa = value;
+            },
+            xoa_ma_giam_gia() {
+                axios
+                    .post('magiamgia/xoa-ma', this.xoa)
+                    .then((res) => {
+                        if (res.data.status) {
+                            const message = "Dữ liệu đã được xoá thành công!";
+                            toastr.success(message);
+                            this.lay_ma_giam_gia();
+                        } else {
+                            toastr.error('Có lỗi không mong muốn!');
+                        }
+                    })
+            },
+
         },
-    });
-
-
-    const delBtnEl = document.querySelectorAll("#btn_delete");
-    delBtnEl.forEach(function(delBtn) {
-        delBtn.addEventListener("click", function(event) {
-            const message = confirm("Bạn có chắc muốn xoá dữ liệu này không?");
-            if (message == false) {
-                event.preventDefault();
-            }
-        });
     });
 </script>
 @endsection

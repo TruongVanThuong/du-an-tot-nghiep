@@ -160,6 +160,8 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::get('/magiamgia', [MaGiamGiaController::class, 'index']);
     Route::get('/magiamgia/lay-ma-giam-gia', [MaGiamGiaController::class, 'lay_ma_giam_gia']);
     Route::post('/magiamgia/them-ma-giam-gia', [MaGiamGiaController::class, 'them_ma_giam_gia']);
+    Route::post('/magiamgia/cap-nhat-ma-giam-gia', [MaGiamGiaController::class, 'cap_nhat_ma_giam_gia']);
+    Route::post('/magiamgia/xoa-ma', [MaGiamGiaController::class, 'xoa_ma_giam_gia']);
   });
 });
 

@@ -11,7 +11,7 @@ class MaGiamGiaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class MaGiamGiaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "ma_giam_gia" => "required|unique:ma_giam_gia,ma_giam_gia",
+            "ma_giam_gia" => "required|string|unique:ma_giam_gia",
             "tien_giam_gia" => "required|numeric|min:0",
             "so_luong" => "required|numeric|min:0",
         ];
