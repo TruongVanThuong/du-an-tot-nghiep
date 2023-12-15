@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\khachhang;
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\DanhmucModel;
@@ -42,35 +43,35 @@ class TrangChuController extends Controller
                 ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
                 ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
                 ->where('danh_muc.id', $danhmuc->id)
-                ->select('san_pham.id as ma_san_pham','san_pham.trang_thai', 'san_pham.ten_san_pham', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug','san_pham.deleted_at', DB::raw('COUNT(san_pham_yeu_thich.ma_san_pham) AS so_lan_xuat_hien'), 'danh_muc.ten_danh_muc_slug AS ten_danh_muc_slug')
-                ->groupBy('san_pham.id', 'san_pham.ten_san_pham','san_pham.trang_thai', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug','san_pham.deleted_at')
+                ->select('san_pham.id as ma_san_pham', 'san_pham.trang_thai', 'san_pham.ten_san_pham', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug', 'san_pham.deleted_at', DB::raw('COUNT(san_pham_yeu_thich.ma_san_pham) AS so_lan_xuat_hien'), 'danh_muc.ten_danh_muc_slug AS ten_danh_muc_slug')
+                ->groupBy('san_pham.id', 'san_pham.ten_san_pham', 'san_pham.trang_thai', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', 'san_pham.ten_san_pham_slug', 'san_pham.deleted_at')
                 ->orderByDesc('so_lan_xuat_hien')
                 ->limit(8) // Thay đổi từ limit thành take
                 ->get();
 
             $san_pham_danh_muc[$danhmuc->id] = $san_pham_yeu_thich_danh_muc;
         }
-        
+
         // dd($san_pham_danh_muc);
 
 
         // sản phẩm mới
         $san_pham_moi = Sanphammodel::select('san_pham.*', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug', 'loai_san_pham.ten_loai_slug')
-                    ->join('hinh_anh', function ($join) {
-                        $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
-                            ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
-                    })
-                    ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id') // Nối bảng loai_san_pham
-                    ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
-                    ->orderByDesc('san_pham.created_at')
-                    ->paginate(10);
-    // dd($san_pham_moi);
+            ->join('hinh_anh', function ($join) {
+                $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
+                    ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
+            })
+            ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id') // Nối bảng loai_san_pham
+            ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+            ->orderByDesc('san_pham.created_at')
+            ->paginate(10);
+        // dd($san_pham_moi);
         $data_tintuc = BaivietModel::orderBy('created_at', 'desc')
-        ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')       
-        ->select('bai_viet.*', 'khach_hang.ho_va_ten')
-        ->limit(3)->get();
+            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
+            ->select('bai_viet.*', 'khach_hang.ho_va_ten')
+            ->limit(3)->get();
 
-        return view('Trang-Khach-Hang.page.TrangChu', compact('san_pham_yeu_thich', 'san_pham_danh_muc','san_pham_moi','data_tintuc'));
+        return view('Trang-Khach-Hang.page.TrangChu', compact('san_pham_yeu_thich', 'san_pham_danh_muc', 'san_pham_moi', 'data_tintuc'));
     }
 
     public function SanPhamTatCa()
@@ -84,10 +85,14 @@ class TrangChuController extends Controller
             })
             ->select('san_pham.*', 'loai_san_pham.ten_loai as ten_loai_san_pham', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
             ->paginate(9);
-    // dd($san_pham_tat_ca );
-        return view('Trang-Khach-Hang.page.SanPhamTatCa', compact('san_pham_tat_ca'));
+        $tin_khuyen_mai = BaivietModel::orderBy('created_at', 'desc')
+            ->where('loai_tin', '1')
+            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
+            ->select('bai_viet.*', 'khach_hang.ho_va_ten')->limit(5)->get();
+        // dd($san_pham_tat_ca );
+        return view('Trang-Khach-Hang.page.SanPhamTatCa', compact('san_pham_tat_ca', 'tin_khuyen_mai'));
     }
-    
+
     public function SanPhamDanhMuc($ten_danh_muc_slug)
     {
         $san_pham_danh_muc = DanhmucModel::where('ten_danh_muc_slug', $ten_danh_muc_slug)
@@ -100,8 +105,12 @@ class TrangChuController extends Controller
             })
             ->select('san_pham.*', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
             ->paginate(9);
-// dd($san_pham_danh_muc);
-        return view("Trang-Khach-Hang.page.SanPhamDanhMuc", compact('san_pham_danh_muc'));
+        // dd($san_pham_danh_muc);
+        $tin_khuyen_mai = BaivietModel::orderBy('created_at', 'desc')
+            ->where('loai_tin', '1')
+            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
+            ->select('bai_viet.*', 'khach_hang.ho_va_ten')->limit(5)->get();
+        return view("Trang-Khach-Hang.page.SanPhamDanhMuc", compact('san_pham_danh_muc', 'tin_khuyen_mai'));
     }
 
     public function SanPhamTheLoai($ten_danh_muc_slug, $ten_loai_slug)
@@ -117,12 +126,16 @@ class TrangChuController extends Controller
             ->where('danh_muc.ten_danh_muc_slug', $ten_danh_muc_slug)
             ->select('san_pham.*', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
             ->paginate(9);
-// dd( $san_pham_the_loai);
-        return view('Trang-Khach-Hang.page.SanPhamTheLoai', compact('san_pham_the_loai'));
+        // dd( $san_pham_the_loai);
+        $tin_khuyen_mai = BaivietModel::orderBy('created_at', 'desc')
+            ->where('loai_tin', '1')
+            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
+            ->select('bai_viet.*', 'khach_hang.ho_va_ten')->limit(5)->get();
+        return view('Trang-Khach-Hang.page.SanPhamTheLoai', compact('san_pham_the_loai', 'tin_khuyen_mai'));
     }
 
 
-    public function SanPhamChiTiet($ten_danh_muc_slug, $ten_loai_slug, $ten_san_pham_slug,$id)
+    public function SanPhamChiTiet($ten_danh_muc_slug, $ten_loai_slug, $ten_san_pham_slug, $id)
     {
         $san_pham_chi_tiet = SanphamModel::
             // where('ten_danh_muc_slug', $ten_danh_muc_slug)
@@ -135,15 +148,27 @@ class TrangChuController extends Controller
 
         // dd($san_pham_chi_tiet);
         $hinh_anh_san_pham = HinhAnhModel::where('ma_san_pham', $san_pham_chi_tiet->id)->get();
-
-        $check=Auth::guard('khach_hang')->check();
-        if($check){
+        $san_pham_yeu_thich = SanPhamYeuThich::join('san_pham', 'san_pham_yeu_thich.ma_san_pham', '=', 'san_pham.id')
+            ->join('hinh_anh', function ($join) {
+                $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
+                    ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
+            })
+            ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id') // Nối bảng loai_san_pham
+            ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id') // Nối bảng danh_muc
+            ->select('san_pham.id as ma_san_pham', 'san_pham.deleted_at', 'san_pham.ten_san_pham', 'san_pham.ten_san_pham_slug', 'san_pham.gia_san_pham', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug', DB::raw('COUNT(san_pham_yeu_thich.ma_san_pham) AS so_lan_xuat_hien'))
+            ->groupBy('san_pham.id', 'san_pham.ten_san_pham', 'san_pham.deleted_at', 'san_pham.gia_san_pham', 'san_pham.ten_san_pham_slug', 'san_pham.giam_gia_san_pham', 'hinh_anh.hinh_anh', 'loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug')
+            ->orderByDesc('so_lan_xuat_hien')
+            ->limit(8)
+            ->get();
+        $check = Auth::guard('khach_hang')->check();
+        if ($check) {
             $khach_hang = Auth::guard('khach_hang')->user();
-            return view('Trang-Khach-Hang.page.SanPhamChiTiet', compact('san_pham_chi_tiet', 'hinh_anh_san_pham','khach_hang'));
-        }else{
-            return view('Trang-Khach-Hang.page.SanPhamChiTiet', compact('san_pham_chi_tiet', 'hinh_anh_san_pham'));
-        };
-        
+            return view('Trang-Khach-Hang.page.SanPhamChiTiet', compact('san_pham_chi_tiet', 'hinh_anh_san_pham', 'san_pham_yeu_thich', 'khach_hang'));
+        } else {
+            return view('Trang-Khach-Hang.page.SanPhamChiTiet', compact('san_pham_chi_tiet', 'hinh_anh_san_pham', 'san_pham_yeu_thich'));
+        }
+        ;
+
     }
 
 
@@ -196,10 +221,8 @@ class TrangChuController extends Controller
         // Tìm nạp tất cả các danh mục và loại
         $data_danh_muc = DanhmucModel::all();
         $data_the_loai = LoaisanphamModel::all();
-
         // Đang khởi tạo một mảng trống cho hình ảnh
         $HinhAnh = [];
-
         // Truy xuất hình ảnh cho từng sản phẩm
         foreach ($data_san_pham as $sanpham) {
             $hinhAnh = HinhanhModel::where('ma_san_pham', $sanpham->id)->first();
