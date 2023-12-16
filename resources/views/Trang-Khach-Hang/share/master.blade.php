@@ -10,8 +10,8 @@
             $check = Auth::guard('khach_hang')->check();
             $user = Auth::guard('khach_hang')->user();
         @endphp
-        @include('Trang-Khach-Hang.share.header')
         <div id="app">
+            @include('Trang-Khach-Hang.share.header')
             <div class="offcanvas offcanvas-end" tabindex="-1" id="drawer-cart">
                 <div class="offcanvas-header border-btm-black">
                     <h5 class="cart-drawer-heading text_16">Your Cart (@{{ tong_so_luong }})</h5>

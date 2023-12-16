@@ -31,9 +31,6 @@ class TinTucController extends Controller
             ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
             ->select('bai_viet.*', 'khach_hang.ho_va_ten')
             ->paginate(9);
-
-
-
         return view('Trang-Khach-Hang.page.TinTuc', compact('data_tintuc'));
         //    var_dump($data_baiviet);
 

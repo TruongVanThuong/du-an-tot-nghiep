@@ -241,3 +241,10 @@ Route::post('/them-binh-luan-san-pham', [BinhluanController::class, 'them_binhlu
 
 Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemGet']);
 Route::post('/tim-kiem', [TrangChuController::class, 'TimKiemPost']);
+
+
+Route::post('/tim-kiem-nang-cao', [TrangChuController::class, 'TimKiemNangcao']);
+
+// 
+
+Route::post('/loc-san-pham', [TrangChuController::class, 'locSanPham']);

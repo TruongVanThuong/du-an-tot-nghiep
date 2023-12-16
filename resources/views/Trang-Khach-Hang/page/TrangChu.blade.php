@@ -653,6 +653,15 @@
             data: {
                 @include('Trang-Khach-Hang.share.datavue')
             },
+            watch: {
+                tim_kiem: {
+                    handler(newVal) {
+                        // Gọi phương thức khi mảng id được chọn thay đổi
+                        this.gui_tim_kiem();
+                    },
+                    deep: true, // Theo dõi thay đổi sâu (nếu có) trong mảng
+                },
+            },
             created() {
                 this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
                 this.tai_san_pham_yeu_thich();

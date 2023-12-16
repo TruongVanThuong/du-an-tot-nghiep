@@ -128,7 +128,8 @@
                                         </li>
                                     </ul>
                                     <h3 class="product-card-title">
-                                        <a href="collection-left-sidebar.html">@{{ value.ten_san_pham }}</a>
+                                        <a :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value
+                                        .ten_san_pham_slug + value.ma_san_pham">@{{ value.ten_san_pham }}</a>
                                     </h3>
                                     <div class="product-card-price">
                                         <span class="card-price-regular">@{{ formatCurrency(value.giam_gia_san_pham) }}</span>
