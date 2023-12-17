@@ -15,12 +15,9 @@ class TinTucController extends Controller
     public function TinTuc(Request $request)
     {
         $data_tintuc = BaivietModel::orderBy('created_at', 'desc')
-            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
-            ->select('bai_viet.*', 'khach_hang.ho_va_ten')
+        ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
+        ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')
             ->paginate(9);
-
-
-
         return view('Trang-Khach-Hang.page.TinTuc', compact('data_tintuc'));
         //    var_dump($data_baiviet);
     }
@@ -28,8 +25,8 @@ class TinTucController extends Controller
     {
         $data_tintuc = BaivietModel::where('loai_tin', $id)
             ->orderBy('created_at', 'desc')
-            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
-            ->select('bai_viet.*', 'khach_hang.ho_va_ten')
+            ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
+            ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')
             ->paginate(9);
 
 
@@ -40,13 +37,15 @@ class TinTucController extends Controller
     }
     public function TinTucChiTiet($id)
     {
-        $baiviet = BaivietModel::find($id);
-        $user = KhachHangModel::find($baiviet->ma_khach_hang);
-        $baiviet->ma_khach_hang = $user->ho_va_ten;
+        $baiviet = BaivietModel::where('bai_viet.id', $id)
+            ->orderBy('created_at', 'desc')
+            ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
+            ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')
+            ->first();
 
         $data_lastpost = BaivietModel::orderBy('created_at', 'desc')
-        ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')       
-        ->select('bai_viet.*', 'khach_hang.ho_va_ten')->limit(5)->get();
+        ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
+            ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')->limit(5)->get();
 
         $check=Auth::guard('khach_hang')->check();
         if($check){

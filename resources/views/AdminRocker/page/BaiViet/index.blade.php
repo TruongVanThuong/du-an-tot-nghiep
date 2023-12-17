@@ -62,7 +62,7 @@
             {{substr($baiviet->mo_ta_ngan, 0, 30) }}
           </td>
           <td class="align-middle text-center">
-            {{$baiviet->ma_khach_hang}}
+            {{$baiviet->ten_tai_khoan}}
           </td>
           <td class="align-middle text-center">
             <div class="form-check form-switch">

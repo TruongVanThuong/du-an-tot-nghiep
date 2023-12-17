@@ -19,7 +19,7 @@
                                             <path d="M7.5 0.59375C4.72888 0.59375 2.46875 2.85388 2.46875 5.625C2.46875 7.3573 3.35315 8.89587 4.69238 9.80274C2.12903 10.9033 0.3125 13.447 0.3125 16.4063H1.75C1.75 13.2224 4.31616 10.6563 7.5 10.6563C10.6838 10.6563 13.25 13.2224 13.25 16.4063H14.6875C14.6875 13.447 12.871 10.9033 10.3076 9.80274C11.6469 8.89587 12.5313 7.3573 12.5313 5.625C12.5313 2.85388 10.2711 0.59375 7.5 0.59375ZM7.5 2.03125C9.49341 2.03125 11.0938 3.63159 11.0938 5.625C11.0938 7.61841 9.49341 9.21875 7.5 9.21875C5.50659 9.21875 3.90625 7.61841 3.90625 5.625C3.90625 3.63159 5.50659 2.03125 7.5 2.03125Z" fill="#00234D" />
                                         </svg>
                                     </span>
-                                    <span class="ms-2">{{$baiviet->ma_khach_hang}}</span>
+                                    <span class="ms-2">{{$baiviet->ten_tai_khoan}}</span>
                                 </span>
                                 <span class="article-separator mx-3">
                                     <svg width="2" height="12" viewBox="0 0 2 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,9 +124,9 @@
                             </div>
                             <div class="comments-area">
                                 <div v-for="(value, key) in ds_binhluan" class="d-flex comments-item" v-if="value.ma_bai_viet == {{$baiviet->id}}">
-                                    <div class="comments-img">
-                                        <img src="/assets_client/img/people/1.jpg" alt="img">
-                                    </div>
+                                <div class="comments-img">
+                                    <img src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA0L3BmLWljb240LWppcjIwNjItcG9yLWwtam9iNzg4LnBuZw.png" alt="img">
+                                </div>
                                     <div class="comments-main">
                                         <div class="comments-main-content">
                                             <div class="comments-meta">
@@ -197,8 +197,12 @@
                                             <path d="M0.25 0.75V14.25H4V18.0586L8.76367 14.25H19.75V0.75H0.25ZM1.75 2.25H18.25V12.75H8.23633L5.5 14.9385V12.75H1.75V2.25ZM5.5 6C4.6709 6 4 6.6709 4 7.5C4 8.3291 4.6709 9 5.5 9C6.3291 9 7 8.3291 7 7.5C7 6.6709 6.3291 6 5.5 6ZM10 6C9.1709 6 8.5 6.6709 8.5 7.5C8.5 8.3291 9.1709 9 10 9C10.8291 9 11.5 8.3291 11.5 7.5C11.5 6.6709 10.8291 6 10 6ZM14.5 6C13.6709 6 13 6.6709 13 7.5C13 8.3291 13.6709 9 14.5 9C15.3291 9 16 8.3291 16 7.5C16 6.6709 15.3291 6 14.5 6Z" fill="#00234D" />
                                         </svg>
                                     </span>
-                                    <textarea v-model="them_binhluan.noi_dung" cols="20" rows="6" placeholder="viết nội dung đánh giá........"></textarea>
+                                    <textarea v-model="them_binhluan.noi_dung" cols="20" rows="6" required placeholder="viết nội dung đánh giá........"></textarea>
+                                        
                                 </div>
+                                <div v-if="errors.noi_dung" class="alert alert-warning">
+                                            @{{ errors.noi_dung[0] }}
+                                        </div>
                                 <!-- <div class="form-checkbox d-flex align-items-center mt-4">
                                     <input class="form-check-input mt-0" type="checkbox" />
                                     <label class="form-check-label ms-2">
@@ -219,7 +223,7 @@
                             <div class="blogger-img mb-3">
                                 <img class="rounded" src="/assets_client/img/people/blogger.jpg" alt="img">
                             </div>
-                            <h4 class="blogger-name heading_18 mb-1">{{$baiviet->ma_khach_hang}}</h4>
+                            <h4 class="blogger-name heading_18 mb-1">{{$baiviet->ten_tai_khoan}}</h4>
                             <p class="blogger-designation mb-1">Nhân viên cửa hàng</p>
                             <div class="product-rating d-flex align-items-center mb-3 justify-content-center">
                                 <span class="star-rating">
@@ -359,6 +363,7 @@
         data: {
             them_binhluan: {},
             ds_binhluan: [],
+            errors: {},
             @include('Trang-Khach-Hang.share.datavue')
 
 
@@ -379,6 +384,7 @@
                         // console.log(this.ds_binhluan);
                     });
             },
+
             them_binh_luan() {
 
                 axios
@@ -390,7 +396,14 @@
                         } else {
                             toastr.error(res.data.message);
                         }
-                    });
+                    })
+                    .catch((error) => {
+                        if (error && error.response.data && error.response.data.errors) {
+                            this.errors = error.response.data.errors;
+                        } else {
+                            toastr.error('Có lỗi không mong muốn! 2');
+                        }
+                    })
 
             },
 

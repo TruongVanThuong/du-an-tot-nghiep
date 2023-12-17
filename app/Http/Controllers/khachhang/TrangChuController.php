@@ -67,8 +67,8 @@ class TrangChuController extends Controller
             ->paginate(10);
         // dd($san_pham_moi);
         $data_tintuc = BaivietModel::orderBy('created_at', 'desc')
-            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
-            ->select('bai_viet.*', 'khach_hang.ho_va_ten')
+        ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
+        ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')
             ->limit(3)->get();
 
         return view('Trang-Khach-Hang.page.TrangChu', compact('san_pham_yeu_thich', 'san_pham_danh_muc', 'san_pham_moi', 'data_tintuc'));
@@ -87,8 +87,8 @@ class TrangChuController extends Controller
             ->paginate(9);
         $tin_khuyen_mai = BaivietModel::orderBy('created_at', 'desc')
             ->where('loai_tin', '1')
-            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
-            ->select('bai_viet.*', 'khach_hang.ho_va_ten')->limit(5)->get();
+            ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
+            ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')->limit(5)->get();
         // dd($san_pham_tat_ca );
         return view('Trang-Khach-Hang.page.SanPhamTatCa', compact('san_pham_tat_ca', 'tin_khuyen_mai'));
     }
@@ -108,8 +108,8 @@ class TrangChuController extends Controller
         // dd($san_pham_danh_muc);
         $tin_khuyen_mai = BaivietModel::orderBy('created_at', 'desc')
             ->where('loai_tin', '1')
-            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
-            ->select('bai_viet.*', 'khach_hang.ho_va_ten')->limit(5)->get();
+            ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
+            ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')->limit(5)->get();
         return view("Trang-Khach-Hang.page.SanPhamDanhMuc", compact('san_pham_danh_muc', 'tin_khuyen_mai'));
     }
 
@@ -129,8 +129,8 @@ class TrangChuController extends Controller
         // dd( $san_pham_the_loai);
         $tin_khuyen_mai = BaivietModel::orderBy('created_at', 'desc')
             ->where('loai_tin', '1')
-            ->join('khach_hang', 'bai_viet.ma_khach_hang', '=', 'khach_hang.id')
-            ->select('bai_viet.*', 'khach_hang.ho_va_ten')->limit(5)->get();
+            ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
+            ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')->limit(5)->get();
         return view('Trang-Khach-Hang.page.SanPhamTheLoai', compact('san_pham_the_loai', 'tin_khuyen_mai'));
     }
 

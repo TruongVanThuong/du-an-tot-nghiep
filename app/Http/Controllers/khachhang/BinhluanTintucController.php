@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\binh_luan_bai_viets;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\binhluantintucRequest;
 
 class BinhluanTintucController extends Controller
 {
@@ -21,7 +22,7 @@ class BinhluanTintucController extends Controller
         return response()->json($compact);
 
     }
-    public function them_binhluan(Request $request)
+    public function them_binhluan(binhluantintucRequest $request)
     {
         $check =Auth::guard('khach_hang')->check();
         if($check){

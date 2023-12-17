@@ -15,12 +15,10 @@ class BaivietController extends Controller
 {
     public function baiviet()
     {
-        $data_baiviet = BaivietModel::orderBy('created_at', 'desc')->paginate(5);
-
-        foreach ($data_baiviet as $baiviet) {
-            $user = KhachHangModel::find($baiviet->ma_khach_hang);
-            $baiviet->ma_khach_hang = $user->ho_va_ten;
-        }
+        $data_baiviet = BaivietModel::orderBy('created_at', 'desc')
+            ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
+            ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')
+            ->paginate(9);
 
         return view('AdminRocker.page.BaiViet.index', compact('data_baiviet'));
     }
@@ -30,7 +28,7 @@ class BaivietController extends Controller
         $khach_hang = Auth::guard('tai_khoan')->user();
         $data_form = $request->all();
         $data_form['ten_bai_viet_slug'] = Str::slug($data_form['ten_bai_viet']);
-        $data_form['ma_khach_hang']  = $khach_hang->id;
+        $data_form['ma_nhan_vien']  = $khach_hang->id;
         $data_form['hien_thi']  = 1;
         $get_image = $request->file('hinh_anh');
         $get_name_image = $get_image->getClientOriginalName();
