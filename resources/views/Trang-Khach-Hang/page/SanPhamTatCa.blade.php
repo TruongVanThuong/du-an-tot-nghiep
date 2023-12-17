@@ -540,10 +540,19 @@
             methods: {
                 @include('Trang-Khach-Hang.share.vue')
                 guiDuLieuLenServer() {
-                    if (this.selectedTheLoai.length === 0) {
-                        this.ds_loc = [];
-                        return;
-                    }
+                    if (this.selectedTheLoai.length === 0 && (this.minPrice === null || this.maxPrice === null)) {
+                            this.ds_loc = [];
+                            return;
+                        }
+
+                        let postData = {
+                            the_loai_ids: this.selectedTheLoai,
+                        };
+
+                        if (this.minPrice !== null && this.maxPrice !== null) {
+                            postData.minPrice = this.minPrice;
+                            postData.maxPrice = this.maxPrice;
+                        }
 
                     axios.post('/loc-san-pham', {
                             the_loai_ids: this.selectedTheLoai,
@@ -554,6 +563,11 @@
                             if (res.data.status) {
                                 this.ds_loc = res.data.ds_loc;
                                 this.currentPage = 1;
+                                const hasResults = this.ds_loc.length > 0;
+                                // Hiển thị thông báo toast tùy thuộc vào kết quả
+                                if (!hasResults) {
+                                    toastr.warning('Không có sản phẩm với giá tiền này.');
+                                }
                             } else {
                                 toastr.error('Có lỗi không mong muốn!');
                             }

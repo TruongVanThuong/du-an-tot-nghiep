@@ -112,7 +112,7 @@
                         </form>
 
                         <div v-if="ds_tim_kiem && ds_tim_kiem.length > 0" v-cloak>
-                            <div  class="header-action-item header-wishlist ms-4 d-none d-lg-block">
+                            <div  class="header-action-item ms-4 d-none d-lg-block">
                                 <ul class="submenu list-unstyled field-search"
                                     style="box-shadow: 0 0 5px #55555545; position: absolute;
                                     z-index: 1000; background-color: #fff; margin-left: 6px;">
