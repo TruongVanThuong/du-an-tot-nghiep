@@ -24,7 +24,7 @@ class KichHoatHuyDon extends Mailable
     {
         return $this->subject('Bạn đã hủy đặt hàng ở shop GUCCI')
             ->view('Trang-Khach-Hang.page.MailKichHoatHuyDon', [
-                'du_lieu'   => $this->du_lieu,
+                'du_lieu' => $this->du_lieu,
             ]);
     }
 }

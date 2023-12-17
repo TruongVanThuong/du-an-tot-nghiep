@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BinhluanModel;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\binhluansanphamRequest;
 
 class BinhluanController extends Controller
 {
@@ -20,7 +21,7 @@ class BinhluanController extends Controller
 
         return response()->json($compact);
     }
-    public function them_binhluan(Request $request)
+    public function them_binhluan(binhluansanphamRequest $request)
     {
         $check = Auth::guard('khach_hang')->check();
         if ($check) {
@@ -32,7 +33,7 @@ class BinhluanController extends Controller
             BinhluanModel::create($data_form);
             return response()->json([
                 'status'    =>  true,
-                'message'   =>  'Thêm thành công'
+                'message'   =>  'Bình luận thành công'
             ]);
         } else {
             return response()->json([
@@ -48,15 +49,20 @@ class BinhluanController extends Controller
             $khach_hang = Auth::guard('khach_hang')->user();
 
             $xoa_binh_luan_sanpham = BinhluanModel::find($request);
-            if ($xoa_binh_luan_sanpham == null) {
+
+            if ($xoa_binh_luan_sanpham->ma_khach_hang==$khach_hang->id) {
+                $xoa_binh_luan_sanpham->delete();
                 return response()->json([
-                    'status'    =>  false,
-                    'message'   =>  'Cần phải đăng nhập để bình luận'
+                    'status'    =>  true,
+                    'message'   => 'xoá bình luận'
                 ]);
             }else{
-                $xoa_binh_luan_sanpham->delete();
-                toastr()->success('Xoá Bình Luận Thành Công');
-                return redirect('admin/binhluan');
+                
+                return response()->json([
+                    'status'    =>  false,
+                    'message'   =>  'Cần phải đăng nhập để xoá bình luận'
+                ]);
+                
             };
             
         } else {

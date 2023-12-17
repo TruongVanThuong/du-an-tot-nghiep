@@ -79,7 +79,7 @@
                             <span class="glyphicon glyphicon-usd"></span>
                           </div>
                           <input name="gia_san_pham" type="number" class="form-control form-icon-trailing"
-                            placeholder="Nhập Giá Bán" min="0" required>
+                            placeholder="Nhập Giá Bán" min="1" required>
                         </div>
                       </div>
                       <div class="col-md-12 p-1 form-group-item">
@@ -88,7 +88,7 @@
                           <div class="input-group-addon">
                             <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                           </div>
-                          <input name="giam_gia_san_pham" type="number" class="form-control" placeholder="Nhập Giảm giá" min="0"  >
+                          <input name="giam_gia_san_pham" type="number" class="form-control" placeholder="Nhập Giảm giá" min="1" max="100" >
                         </div>
                       </div>
                       <div class="col-md-12 p-1 form-group-item">
@@ -124,7 +124,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table id="table" class="table table-bordered">
+              <table id="table_id" class="table table-bordered">
                 <thead clas="bg-primary">
                   <tr>
                     <th class="text-center">ID</th>
@@ -369,7 +369,7 @@
               </table>
 
             </div>
-            <div>{{$sanPhamsWithInfo->links('AdminRocker.share.custom')}}</div>
+            
           </div>
         </div>
       </div>
@@ -391,7 +391,7 @@
           <div class="card-body">
             <div class="table-responsive">
 
-              <table id="table" class="table table-bordered">
+              <table  class="table table-bordered">
                 <thead clas="bg-primary">
                   <tr>
                     <th class="text-center">ID</th>
@@ -456,7 +456,7 @@
                     <td class="align-middle text-center">
                       <div class="form-check form-switch">
                         <input class="form-check-input" onclick="toggleStatus(<?php echo $sanpham->id; ?>)" type="checkbox"
-                          @if($sanpham->trang_thai == 1) checked @endif role="switch" id="flexSwitchCheckDefault">
+                          @if($sanpham->trang_thai == 1) checked @endif role="switch" >
                       </div>
                     </td>
                     <td class="align-middle text-center text-nowrap">
@@ -637,7 +637,7 @@
               </table>
 
             </div>
-            <div>{{$StatusSanPhamsWithInfo->links('AdminRocker.share.custom')}}</div>
+            
           </div>
         </div>
       </div>
@@ -670,7 +670,7 @@
             <div class="table-responsive">
               <button class="btn btn-info mb-3" style="float: right;" data-bs-toggle="modal"
               data-bs-target="#onlyTrashedModal">Phục hồi tất cả</button>
-              <table id="table" class="table table-bordered">
+              <table class="table table-bordered">
                 <thead clas="bg-primary">
                   <tr>
                     <th class="text-center">ID</th>
@@ -735,7 +735,7 @@
                     <td class="align-middle text-center">
                       <div class="form-check form-switch">
                         <input class="form-check-input" onclick="toggleStatus(<?php echo $sanpham->id; ?>)" type="checkbox"
-                          @if($sanpham->trang_thai == 1) checked @endif role="switch" id="flexSwitchCheckDefault">
+                          @if($sanpham->trang_thai == 1) checked @endif role="switch" >
                       </div>
                     </td>
                     <td class="align-middle text-center text-nowrap">
@@ -831,7 +831,7 @@
               <span class="text-danger">* Không thể xoá sản phẩm khi có dữ liệu liên quan tới hoá đơn</span>
 
             </div>
-            <div>{{$TrashSanPhamsWithInfo->links('AdminRocker.share.custom')}}</div>
+            
           </div>
         </div>
       </div>
@@ -860,6 +860,16 @@
 </div>
 @endsection
 @section('js')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable();
+    });
+  </script>
+
 
 
 <!-- toggle status -->
@@ -974,6 +984,10 @@
         'gia_san_pham': {
           required: true,
         },
+        'giam_gia_san_pham': {
+          min: 1,
+          max: 100,
+        },
         'hinh_anh[]': {
           required: true,
         },
@@ -988,6 +1002,10 @@
         'ten_san_pham': "Vui lòng không được bỏ trống tên sản phẩm.",
         'ma_loai': "Vui lòng không được bỏ trống mã loại.",
         'gia_san_pham': "Vui lòng không được bỏ trống giá sản phẩm.",
+        'giam_gia_san_pham': {
+          min: 'Vui lòng nhập giảm giá lớn hơn hoặc bằng 1.',
+          max: 'Vui lòng nhập giảm giá nhỏ hơn hoặc bằng 100.'
+        },
         'hinh_anh[]': "Vui lòng không được bỏ trống hình ảnh sản phẩm.",
         'so_luong': "Vui lòng không được bỏ trống số lượng sản phẩm.",
         'dat_biet': "Vui lòng không được bỏ trống đặt biệt.",

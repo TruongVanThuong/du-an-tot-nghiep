@@ -3,8 +3,8 @@
 <main id="app" v-cloak>
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="binhluansanpham" data-bs-toggle="tab" data-bs-target="#nav-binhluansanpham" type="button" role="tab" aria-controls="binhluansanpham" aria-selected="true">Home</button>
-            <button class="nav-link" id="binhluanbaiviet" data-bs-toggle="tab" data-bs-target="#nav-binhluanbaiviet" type="button" role="tab" aria-controls="binhluanbaiviet" aria-selected="false">Profile</button>
+            <button class="nav-link active" id="binhluansanpham" data-bs-toggle="tab" data-bs-target="#nav-binhluansanpham" type="button" role="tab" aria-controls="binhluansanpham" aria-selected="true">Bình luận sản phẩm</button>
+            <button class="nav-link" id="binhluanbaiviet" data-bs-toggle="tab" data-bs-target="#nav-binhluanbaiviet" type="button" role="tab" aria-controls="binhluanbaiviet" aria-selected="false">Bình luận bài viết</button>
             <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
         </div>
     </nav>
@@ -12,7 +12,7 @@
         <div class="tab-pane fade show active" id="nav-binhluansanpham" role="tabpanel" aria-labelledby="binhluansanpham">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table id="table_id" class="table table-bordered">
                         <thead clas="bg-primary">
                             <tr class="">
                                 <th class="text-center">#</th>
@@ -69,14 +69,13 @@
                     </table>
 
                 </div>
-                <div>{{$data_binhluan_sanpham->links('AdminRocker.share.custom')}}</div>
 
             </div>
         </div>
         <div class="tab-pane fade" id="nav-binhluanbaiviet" role="tabpanel" aria-labelledby="binhluanbaiviet">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table id="table_baiviet" class="table table-bordered">
                         <thead clas="bg-primary">
                             <tr class="">
                                 <th class="text-center">#</th>
@@ -144,38 +143,20 @@
 
 @endsection
 @section('js')
-<script>
-    new Vue({
-        el: '#app',
-        data: {
-            them_binhluan: {},
-            ds_binhluan_sanpham: [],
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-
-        },
-        created() {
-
-            this.laybinhluan();
-
-        },
-        methods: {
-
-            laybinhluan() {
-                axios
-                    .get('admin/lay-binh-luan-san-pham')
-                    .then((res) => {
-                        this.ds_binhluan = res.data.data_binhluan_sanpham;
-
-
-                    });
-            },
-
-
-
-        },
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable();
+      $('#table_baiviet').DataTable();
     });
+  </script>
 
+
+<script>
+   
 
     const delBtnEl = document.querySelectorAll("#btn_delete");
     delBtnEl.forEach(function(delBtn) {

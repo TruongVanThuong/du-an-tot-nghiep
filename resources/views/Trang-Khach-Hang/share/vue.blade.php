@@ -82,4 +82,24 @@ xoa_san_pham_gio_hang(id) {
         return false;
     },
     
-    
+    gui_tim_kiem() {
+        if (this.tim_kiem == "") {
+            this.ds_tim_kiem = [];
+            return;
+        }
+        axios.post('/tim-kiem-nang-cao', {
+                tim_kiem: this.tim_kiem,
+            })
+            .then((res) => {
+                if (res.data.status) {
+                    console.log("Giá trị của this.tim_kiem trong kiểm tra:", this.tim_kiem);
+                    this.ds_tim_kiem = res.data.ds_tim_kiem;
+                } else {
+                    toastr.error('Có lỗi không mong muốn!');
+                }
+            })
+            .catch((error) => {
+                toastr.error('Có lỗi khi gửi yêu cầu!');
+                console.error(error);
+            });
+    },

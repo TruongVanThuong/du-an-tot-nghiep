@@ -16,7 +16,7 @@
 <!-- table -->
 <div class="col-md-12">
   <div class="table-responsive" >
-    <table class="table table-bordered">
+    <table id="table_id" class="table table-bordered">
       <thead clas="bg-primary">
         <tr class="">
           <th class="text-center">#</th>
@@ -62,7 +62,7 @@
             {{substr($baiviet->mo_ta_ngan, 0, 30) }}
           </td>
           <td class="align-middle text-center">
-            {{$baiviet->ma_khach_hang}}
+            {{$baiviet->ten_tai_khoan}}
           </td>
           <td class="align-middle text-center">
             <div class="form-check form-switch">
@@ -105,7 +105,6 @@
       </svg>
     </a> -->
   </div>
-  <div>{{$data_baiviet->links('AdminRocker.share.custom')}}</div>
 
 </div>
 
@@ -115,6 +114,17 @@
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable();
+    });
+  </script>
+
+
 <script>
   function doitrangthai(id) {
     var id = id;

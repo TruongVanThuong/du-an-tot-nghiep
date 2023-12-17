@@ -89,6 +89,13 @@
                     <div class="menu-title">Bình luận</div>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{asset('admin/magiamgia')}}">
+                    <div class="parent-icon"><i class="bx bx-tag"></i>
+                    </div>
+                    <div class="menu-title">Mã Giảm Giá</div>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

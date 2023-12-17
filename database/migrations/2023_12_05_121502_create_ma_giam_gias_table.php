@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('ma_giam_gia');
             $table->integer('tien_giam_gia');
+            $table->integer('so_luong');
             $table->timestamps();
         });
     }

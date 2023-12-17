@@ -33,7 +33,7 @@ class ThanhToanControllerr extends Controller
         $so_dien_thoai = $request->so_dien_thoai;
         $dia_chi = $request->dia_chi;
 
-        $tinh_tong_tong_tien =  ceil($request->tong_tien_tat_ca);
+        $tinh_tong_tong_tien = ceil($request->tong_tien_tat_ca);
         // dd( $tinh_tong_tong_tien);
         // $ma_don_hang = Str::uuid();
         $vnp_OrderInfo = "cam on quy khach da dat hang";
@@ -47,7 +47,7 @@ class ThanhToanControllerr extends Controller
             $vnp_TxnRef = $ma_don_hang; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
             $vnp_OrderInfo = $vnp_OrderInfo;
             $vnp_OrderType = 'billpayment';
-            $vnp_Amount =  $tinh_tong_tong_tien * 100;
+            $vnp_Amount = $tinh_tong_tong_tien * 100;
             $vnp_Locale = 'vn';
 
             $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -87,7 +87,7 @@ class ThanhToanControllerr extends Controller
 
             $vnp_Url = $vnp_Url . "?" . $query;
             if (isset($vnp_HashSecret)) {
-                $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);
+                $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
                 $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
             }
 
@@ -159,10 +159,10 @@ class ThanhToanControllerr extends Controller
                 )
                 ->get();
             // dd($hoa_don_chi_tiet);
-            $du_lieu_Mail['ho_va_ten'] =  $user->ho_va_ten;
-            $du_lieu_Mail['email']     =  $user->email;
-            $du_lieu_Mail['hoa_don_chi_tiet']     =  $hoa_don_chi_tiet;
-            $du_lieu_Mail['hoa_don_moi']     =  $hoa_don_moi;
+            $du_lieu_Mail['ho_va_ten'] = $user->ho_va_ten;
+            $du_lieu_Mail['email'] = $user->email;
+            $du_lieu_Mail['hoa_don_chi_tiet'] = $hoa_don_chi_tiet;
+            $du_lieu_Mail['hoa_don_moi'] = $hoa_don_moi;
             GuiMailDatHang::dispatch($du_lieu_Mail);
             toastr()->success("Đặt Hàng thành công!");
             return view('Trang-Khach-Hang.page.HoaDon', compact('hoa_don_moi', 'hoa_don_chi_tiet'));
@@ -217,10 +217,10 @@ class ThanhToanControllerr extends Controller
                 )
                 ->get();
             // dd($hoa_don_chi_tiet);
-            $du_lieu_Mail['ho_va_ten'] =  $user->ho_va_ten;
-            $du_lieu_Mail['email']     =  $user->email;
-            $du_lieu_Mail['hoa_don_chi_tiet']     =  $hoa_don_chi_tiet;
-            $du_lieu_Mail['hoa_don_moi']     =  $hoa_don_moi;
+            $du_lieu_Mail['ho_va_ten'] = $user->ho_va_ten;
+            $du_lieu_Mail['email'] = $user->email;
+            $du_lieu_Mail['hoa_don_chi_tiet'] = $hoa_don_chi_tiet;
+            $du_lieu_Mail['hoa_don_moi'] = $hoa_don_moi;
             GuiMailDatHang::dispatch($du_lieu_Mail);
 
             toastr()->success("Đặt hàng thành công ");
@@ -333,14 +333,14 @@ class ThanhToanControllerr extends Controller
             )
             ->get();
         //   dd($hoa_don_chi_tiet);
-        $du_lieu_Mail['ho_va_ten']  =  $user->ho_va_ten;
-        $du_lieu_Mail['email']     =  $user->email;
-        $du_lieu_Mail['hoa_don_chi_tiet']     =  $hoa_don_chi_tiet;
-        $du_lieu_Mail['hoa_don_moi']     =  $hoa_don_moi;
+        $du_lieu_Mail['ho_va_ten'] = $user->ho_va_ten;
+        $du_lieu_Mail['email'] = $user->email;
+        $du_lieu_Mail['hoa_don_chi_tiet'] = $hoa_don_chi_tiet;
+        $du_lieu_Mail['hoa_don_moi'] = $hoa_don_moi;
         GuiMailHuyDon::dispatch($du_lieu_Mail);
 
         return response()->json([
-            'status'    => true,
+            'status' => true,
         ]);
     }
 }

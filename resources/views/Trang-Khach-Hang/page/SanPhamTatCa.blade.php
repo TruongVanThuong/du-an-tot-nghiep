@@ -15,10 +15,9 @@
                                 <h2 class="collection-title heading_24 mb-0">Tất Cả Sản Phẩm </h2>
                                 <p class="collection-counter text_16 mb-0 ms-2">(237 items)</p>
                             </div>
-
                         </div>
+                        
                         <div class="collection-product-container">
-
                             <!-- Kiểm tra xem có ds_loc hay không -->
                             <div v-if="ds_loc.length > 0">
                                 <div class="row">
@@ -99,8 +98,21 @@
 
 
                                                     @if ($check)
-                                                        <a href="javascript:void(0)" class="action-card action-addtocart"
-                                                            v-on:click="them_so_luong(value.ma_san_pham)">
+                                                    <a href="javascript:void(0)" class="action-card action-addtocart"
+                                                        v-on:click="them_so_luong(value.ma_san_pham)">
+                                                        <svg class="icon icon-cart" width="24" height="26"
+                                                            viewBox="0 0 24 26" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M12 0.000183105C9.25391 0.000183105 7 2.25409 7 5.00018V6.00018H2.0625L2 6.93768L1 24.9377L0.9375 26.0002H23.0625L23 24.9377L22 6.93768L21.9375 6.00018H17V5.00018C17 2.25409 14.7461 0.000183105 12 0.000183105ZM12 2.00018C13.6562 2.00018 15 3.34393 15 5.00018V6.00018H9V5.00018C9 3.34393 10.3438 2.00018 12 2.00018ZM3.9375 8.00018H7V11.0002H9V8.00018H15V11.0002H17V8.00018H20.0625L20.9375 24.0002H3.0625L3.9375 8.00018Z"
+                                                                fill="#00234D" />
+                                                        </svg>
+                                                    </a>
+                                                @else
+                                                    <form action="/khach-hang/them-so-luong/(value.ma_san_pham)"
+                                                        method="post">
+                                                        @csrf
+                                                        <button type="submit" class="action-card action-addtocart">
                                                             <svg class="icon icon-cart" width="24" height="26"
                                                                 viewBox="0 0 24 26" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
@@ -108,47 +120,33 @@
                                                                     d="M12 0.000183105C9.25391 0.000183105 7 2.25409 7 5.00018V6.00018H2.0625L2 6.93768L1 24.9377L0.9375 26.0002H23.0625L23 24.9377L22 6.93768L21.9375 6.00018H17V5.00018C17 2.25409 14.7461 0.000183105 12 0.000183105ZM12 2.00018C13.6562 2.00018 15 3.34393 15 5.00018V6.00018H9V5.00018C9 3.34393 10.3438 2.00018 12 2.00018ZM3.9375 8.00018H7V11.0002H9V8.00018H15V11.0002H17V8.00018H20.0625L20.9375 24.0002H3.0625L3.9375 8.00018Z"
                                                                     fill="#00234D" />
                                                             </svg>
-                                                        </a>
-                                                    @else
-                                                        <form action="/khach-hang/them-so-luong/(value.ma_san_pham)"
-                                                            method="post">
-                                                            @csrf
-                                                            <button type="submit" class="action-card action-addtocart">
-                                                                <svg class="icon icon-cart" width="24" height="26"
-                                                                    viewBox="0 0 24 26" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M12 0.000183105C9.25391 0.000183105 7 2.25409 7 5.00018V6.00018H2.0625L2 6.93768L1 24.9377L0.9375 26.0002H23.0625L23 24.9377L22 6.93768L21.9375 6.00018H17V5.00018C17 2.25409 14.7461 0.000183105 12 0.000183105ZM12 2.00018C13.6562 2.00018 15 3.34393 15 5.00018V6.00018H9V5.00018C9 3.34393 10.3438 2.00018 12 2.00018ZM3.9375 8.00018H7V11.0002H9V8.00018H15V11.0002H17V8.00018H20.0625L20.9375 24.0002H3.0625L3.9375 8.00018Z"
-                                                                        fill="#00234D" />
-                                                                </svg>
-                                                            </button>
-                                                        </form>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="product-card-details">
-                                                <ul class="color-lists list-unstyled d-flex align-items-center">
-                                                    <li><a href="javascript:void(0)"
-                                                            class="color-swatch swatch-black active"></a></li>
-                                                    <li><a href="javascript:void(0)" class="color-swatch swatch-cyan"></a>
-                                                    </li>
-                                                    <li><a href="javascript:void(0)" class="color-swatch swatch-purple"></a>
-                                                    </li>
-                                                </ul>
-                                                <h3 class="product-card-title">
-                                                    <a
-                                                        :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value
-                                                            .ten_loai_slug + '/' + value
-                                                            .ten_san_pham_slug + value.ma_san_pham">@{{ value.ten_san_pham }}</a>
-                                                </h3>
-                                                <div class="product-card-price">
-                                                    <span class="card-price-regular">@{{ formatCurrency(value.gia_san_pham * (1 - value.giam_gia_san_pham / 100)) }}</span>
-
-                                                    <span
-                                                        class="card-price-compare text-decoration-line-through">@{{ formatCurrency(value.gia_san_pham) }}</span>
-                                                </div>
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
+                                        <div class="product-card-details">
+                                            <ul class="color-lists list-unstyled d-flex align-items-center">
+                                                <li><a href="javascript:void(0)"
+                                                        class="color-swatch swatch-black active"></a></li>
+                                                <li><a href="javascript:void(0)" class="color-swatch swatch-cyan"></a>
+                                                </li>
+                                                <li><a href="javascript:void(0)" class="color-swatch swatch-purple"></a>
+                                                </li>
+                                            </ul>
+                                            <h3 class="product-card-title">
+                                                <a
+                                                    :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value
+                                                        .ten_loai_slug + '/' + value
+                                                        .ten_san_pham_slug + value.ma_san_pham">@{{ value.ten_san_pham }}</a>
+                                            </h3>
+                                            <div class="product-card-price">
+                                                <span class="card-price-regular">@{{ formatCurrency(value.gia_san_pham * (1 - value.giam_gia_san_pham / 100)) }}</span>
+
+                                                <span
+                                                    class="card-price-compare text-decoration-line-through">@{{ formatCurrency(value.gia_san_pham) }}</span>
+                                            </div>
+                                        </div>                                        </div>
                                     </div>
 
                                     <div class="pagination justify-content-center mt-100">
@@ -450,29 +448,33 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="filter-widget">
-                                <div class="filter-related">
-                                    <div class="related-item d-flex">
-                                        <div class="related-img-wrapper">
-                                            <img class="related-img" src="/assets_client/img/products/furniture/21.jpg"
-                                                alt="img">
-                                        </div>
-                                        <div class="related-product-info">
-                                            <h2 class="related-heading heading_18">
-                                                <a href="product.html">Tea Table</a>
-                                            </h2>
-                                            <div class="related-review-icon product-icon-star d-flex align-items-center">
-                                                <img src="/assets_client/img/icon/star.png" alt="img">
-                                                <img src="/assets_client/img/icon/star.png" alt="img">
-                                                <img src="/assets_client/img/icon/star.png" alt="img">
-                                                <img src="/assets_client/img/icon/star.png" alt="img">
-                                                <img src="/assets_client/img/icon/star.png" alt="img">
-                                            </div>
-                                            <p class="related-price text_16">$2,546</p>
-                                        </div>
+                        </div>
+                        <div class="filter-widget pt-5" >
+                            <div class="filter-header faq-heading heading_18 d-flex align-items-center border-bottom">
+                                Khuyến mãi mới
+                            </div>
+                            <div class="filter-related">
+                                @foreach( $tin_khuyen_mai as $tin)
+                                <div class="related-item d-flex">
+                                    <div class="related-img-wrapper">
+                                        <img class="related-img" src="{{ asset('img/') }}/{{$tin->hinh_anh}}" alt="{{$tin->hinh_anh}}">
+                                    </div>
+                                    <div class="related-product-info">
+                                        <h2 class="related-heading heading_18">
+                                            <a href="/tin-tuc-chi-tiet/{{$tin->id}}">{{$tin->ten_bai_viet}}</a>
+                                        </h2>
+                                        <!-- <div class="related-review-icon product-icon-star d-flex align-items-center">
+                                            <img src="/assets_client/img/icon/star.png" alt="img">
+                                            <img src="/assets_client/img/icon/star.png" alt="img">
+                                            <img src="/assets_client/img/icon/star.png" alt="img">
+                                            <img src="/assets_client/img/icon/star.png" alt="img">
+                                            <img src="/assets_client/img/icon/star.png" alt="img">
+                                        </div> -->
+                                        <p class="related-price text_16">{{$tin->ten_tai_khoan}}</p>
                                     </div>
                                 </div>
+                                @endforeach
+                                
                             </div>
 
                         </div>
@@ -495,8 +497,6 @@
                 minPrice: null,
                 maxPrice: null,
                 ds_loc: [],
-                tim_kiem: "",
-                ds_tim_kiem: [],
                 @include('Trang-Khach-Hang.share.datavue')
             },
             created() {
@@ -582,27 +582,7 @@
                         this.currentPage = page;
                     }
                 },
-                gui_tim_kiem() {
-                    if (this.tim_kiem == "") {
-                        this.ds_tim_kiem = [];
-                        return;
-                    }
-                    axios.post('/tim-kiem-nang-cao', {
-                            tim_kiem: this.tim_kiem,
-                        })
-                        .then((res) => {
-                            if (res.data.status) {
-                                console.log("Giá trị của this.tim_kiem trong kiểm tra:", this.tim_kiem);
-                                this.ds_tim_kiem = res.data.ds_tim_kiem;
-                            } else {
-                                toastr.error('Có lỗi không mong muốn!');
-                            }
-                        })
-                        .catch((error) => {
-                            toastr.error('Có lỗi khi gửi yêu cầu!');
-                            console.error(error);
-                        });
-                }
+               
             },
             computed: {
                 totalPages() {

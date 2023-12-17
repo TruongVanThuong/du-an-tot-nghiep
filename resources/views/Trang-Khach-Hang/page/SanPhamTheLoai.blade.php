@@ -213,63 +213,30 @@ $user = Auth::guard('khach_hang')->user();
                         </div>
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center border-bottom">
-                                Related products
+                                Khuyến mãi mới
                             </div>
                             <div class="filter-related">
+                                @foreach( $tin_khuyen_mai as $tin)
                                 <div class="related-item d-flex">
                                     <div class="related-img-wrapper">
-                                        <img class="related-img" src="/assets_client/img/products/furniture/21.jpg" alt="img">
+                                        <img class="related-img" src="{{ asset('img/') }}/{{$tin->hinh_anh}}" alt="{{$tin->hinh_anh}}">
                                     </div>
                                     <div class="related-product-info">
                                         <h2 class="related-heading heading_18">
-                                            <a href="product.html">Tea Table</a>
+                                            <a href="/tin-tuc-chi-tiet/{{$tin->id}}">{{$tin->ten_bai_viet}}</a>
                                         </h2>
-                                        <div class="related-review-icon product-icon-star d-flex align-items-center">
+                                        <!-- <div class="related-review-icon product-icon-star d-flex align-items-center">
                                             <img src="/assets_client/img/icon/star.png" alt="img">
                                             <img src="/assets_client/img/icon/star.png" alt="img">
                                             <img src="/assets_client/img/icon/star.png" alt="img">
                                             <img src="/assets_client/img/icon/star.png" alt="img">
                                             <img src="/assets_client/img/icon/star.png" alt="img">
-                                        </div>
-                                        <p class="related-price text_16">$2,546</p>
+                                        </div> -->
+                                        <p class="related-price text_16">{{$tin->ten_tai_khoan}}</p>
                                     </div>
                                 </div>
-                                <div class="related-item d-flex">
-                                    <div class="related-img-wrapper">
-                                        <img class="related-img" src="/assets_client/img/products/furniture/22.jpg" alt="img">
-                                    </div>
-                                    <div class="related-product-info">
-                                        <h2 class="related-heading heading_18">
-                                            <a href="product.html">Comfy Sofa</a>
-                                        </h2>
-                                        <div class="related-review-icon product-icon-star d-flex align-items-center">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                        </div>
-                                        <p class="related-price text_16">$1,526</p>
-                                    </div>
-                                </div>
-                                <div class="related-item d-flex">
-                                    <div class="related-img-wrapper">
-                                        <img class="related-img" src="/assets_client/img/products/furniture/23.jpg" alt="img">
-                                    </div>
-                                    <div class="related-product-info">
-                                        <h2 class="related-heading heading_18">
-                                            <a href="product.html">Cusion Chair</a>
-                                        </h2>
-                                        <div class="related-review-icon product-icon-star d-flex align-items-center">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                        </div>
-                                        <p class="related-price text_16">$1,235</p>
-                                    </div>
-                                </div>
+                                @endforeach
+                                
                             </div>
                         </div>
 

@@ -127,7 +127,7 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="trusted-badge bg-4 rounded">
                                 <div class="trusted-icon">
-                                    <img class="icon-trusted" src="/assets_client/img/trusted/4.png" alt="icon-1">
+                                    <img class="icon-trusted"  style="filter: brightness(0) invert(1);" src="https://img.icons8.com/ios-filled/452/delivery.png" alt="icon-1">
                                 </div>
                                 <div class="trusted-content">
                                     <h2 class="heading_18 trusted-heading text-white text-nowrap">Miễn phí vận chuyển & Trả
@@ -140,7 +140,7 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="trusted-badge bg-4 rounded">
                                 <div class="trusted-icon">
-                                    <img class="icon-trusted" src="/assets_client/img/trusted/5.png" alt="icon-2">
+                                    <img class="icon-trusted" src="https://img.icons8.com/ios-filled/452/return.png"  style="filter: brightness(0) invert(1);" alt="icon-2">
                                 </div>
                                 <div class="trusted-content">
                                     <h2 class="heading_18 trusted-heading text-white">Hỗ trợ khách hàng 24/7</h2>
@@ -152,7 +152,7 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="trusted-badge bg-4 rounded">
                                 <div class="trusted-icon">
-                                    <img class="icon-trusted" src="/assets_client/img/trusted/6.png" alt="icon-3">
+                                    <img class="icon-trusted" src="https://img.icons8.com/ios/452/card-exchange.png" style="filter: brightness(0) invert(1);" alt="icon-3">
                                 </div>
                                 <div class="trusted-content">
                                     <h2 class="heading_18 trusted-heading text-white">Thanh toán an toàn 100%</h2>
@@ -551,39 +551,128 @@
             </div>
         </div>
         <!-- promotinal product end -->
-        <!-- latest blog start -->
-        <div class="latest-blog-section mt-100 overflow-hidden">
-            <div class="latest-blog-inner">
+
+
+        <!-- collection tab start -->
+        <div class="collection-tab-section mt-100 overflow-hidden">
+            <div class="collection-tab-inner">
                 <div class="container">
                     <div class="section-header text-center">
-                        <h2 class="section-heading">Bài Viết Mới</h2>
+                        <h2 class="section-heading">Sản Phẩm Đặc Biệt</h2>
+
                     </div>
-                    <div class="article-card-container">
-                        <div class="row justify-content-center">
-                            @foreach ($data_tintuc as $tin_tuc)
-                            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
-                                <div class="article-card">
-                                    <a class="article-card-img-wrapper" href="/tin-tuc-chi-tiet/{{$tin_tuc->id}}">
-                                        <img src="{{ asset('img/') }}/{{$tin_tuc->hinh_anh}}" alt="img"
-                                            class="article-card-img rounded">
-                                    </a>
-                                    <p class="article-card-published text_12">{{$tin_tuc->created_at}}</p>
-                                    <h2 class="article-card-heading heading_18">
-                                        <a class="heading_18" href="article.html">
-                                           {{$tin_tuc->ten_bai_viet}}
-                                        </a>
-                                    </h2>
-                                    <a class="article-card-read-more text_14 link-underline" href="/tin-tuc-chi-tiet/{{$tin_tuc->id}}">Xem thêm</a>
-                                </div>
+                    <div class="tab-content collection-tab-content">
+                        <div id="collection-all" class="tab-pane fade show active">
+                            <div class="row">
+                                @foreach ($san_pham_dac_biet as $key => $value)
+                                    @if ($value->deleted_at == null)
+                                        <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up" data-aos-duration="700">
+                                            <div class="product-card">
+                                                <div class="product-card-img">
+                                                    <a class="hover-switch"
+                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{ $value->ma_san_pham }}">
+                                                        <img class="secondary-img" src="/img/{{ $value->hinh_anh }}"
+                                                            alt="product-img">
+                                                        <img class="primary-img" src="/img/{{ $value->hinh_anh }}"
+                                                            alt="product-img">
+                                                    </a>
+
+                                                    <div class="product-card-action product-card-action-2">
+                                                        @if ($check)
+                                                            <a href="javascript:void(0)"
+                                                                v-on:click="them_so_luong({{ $value->id }})"
+                                                                class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto; ">Thêm
+                                                                Vào Giỏ Hàng</a>
+                                                        @else
+                                                            <form
+                                                                action="/khach-hang/them-so-luong/{{ $value->id }}"
+                                                                method="post"
+                                                                class="addtocart-btn btn-primary text-nowrap"
+                                                                style="margin: 0 auto;">
+                                                                @csrf
+                                                                <button type="submit"
+                                                                    class="addtocart-btn btn-primary text-nowrap">
+                                                                    Thêm Vào Giỏ Hàng
+                                                                </button>
+                                                            </form>
+                                                        @endif
+                                                    </div>
+
+                                                    @if ($check)
+                                                        <button v-if="isFavorite({{ $value->id }})"
+                                                            v-on:click="quan_ly_san_pham_yeu_thich({{ $value->id }})"
+                                                            class="wishlist-btn card-wishlist"
+                                                            style="background-color: #ffae00; border: none; padding: 0; cursor: pointer;">
+                                                            <svg class="icon icon-wishlist" width="26" height="22"
+                                                                viewBox="0 0 26 22" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                                    fill="#00234D" />
+                                                            </svg>
+
+                                                        </button>
+                                                        <button v-else
+                                                            v-on:click="quan_ly_san_pham_yeu_thich({{ $value->id }})"
+                                                            class="wishlist-btn card-wishlist"
+                                                            style="background-color: white; border: none; padding: 0; cursor: pointer;">
+                                                            <svg class="icon icon-wishlist" width="26" height="22"
+                                                                viewBox="0 0 26 22" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                                    fill="#00234D" />
+                                                            </svg>
+
+                                                        </button>
+                                                    @else
+                                                        <form
+                                                            action="/khach-hang/quan-ly-san-pham-yeu-thich/{{ $value->id }}"
+                                                            method="post" class="wishlist-btn card-wishlist">
+
+                                                            @csrf
+                                                            <button type="submit" class="wishlist-btn card-wishlist">
+                                                                <svg class="icon icon-wishlist" width="26"
+                                                                    height="22" viewBox="0 0 26 22" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </div>
+                                                <div class="product-card-details text-center">
+                                                    <h3 class="product-card-title"><a
+                                                            href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{ $value->id }}">{{ $value->ten_san_pham }}</a>
+                                                    </h3>
+                                                    <div class="product-card-price">
+                                                        <span
+                                                            class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }}
+                                                            ₫</span>
+                                                        <span
+                                                            class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham) }}
+                                                            ₫</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                    @endif
+                                @endforeach
+
                             </div>
-                            @endforeach
-                            
                         </div>
+                       
                     </div>
                 </div>
             </div>
         </div>
-        <!-- latest blog end -->
+        <!-- collection tab end -->
+
+
+       
         <!-- video start -->
         <div class="video-section mt-100 overflow-hidden">
             <div class="overlay-tools section-spacing"
@@ -643,6 +732,41 @@
             </div>
         </div>
         <!-- video end -->
+
+
+         <!-- latest blog start -->
+         <div class="latest-blog-section mt-100 overflow-hidden mb-5">
+            <div class="latest-blog-inner">
+                <div class="container">
+                    <div class="section-header text-center">
+                        <h2 class="section-heading">Tin Tức</h2>
+                    </div>
+                    <div class="article-card-container">
+                        <div class="row justify-content-center">
+                            @foreach ($data_tintuc as $tin_tuc)
+                            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
+                                <div class="article-card">
+                                    <a class="article-card-img-wrapper" href="/tin-tuc-chi-tiet/{{$tin_tuc->id}}">
+                                        <img src="{{ asset('img/') }}/{{$tin_tuc->hinh_anh}}" alt="img"
+                                            class="article-card-img rounded">
+                                    </a>
+                                    <p class="article-card-published text_12">{{$tin_tuc->created_at}}</p>
+                                    <h2 class="article-card-heading heading_18">
+                                        <a class="heading_18" href="article.html">
+                                           {{$tin_tuc->ten_bai_viet}}
+                                        </a>
+                                    </h2>
+                                    <a class="article-card-read-more text_14 link-underline" href="/tin-tuc-chi-tiet/{{$tin_tuc->id}}">Xem thêm</a>
+                                </div>
+                            </div>
+                            @endforeach
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- latest blog end -->
     </main>
 @endsection
 
@@ -654,12 +778,16 @@
                 @include('Trang-Khach-Hang.share.datavue')
             },
             watch: {
-                tim_kiem: {
-                    handler(newVal) {
-                        // Gọi phương thức khi mảng id được chọn thay đổi
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
                         this.gui_tim_kiem();
-                    },
-                    deep: true, // Theo dõi thay đổi sâu (nếu có) trong mảng
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
                 },
             },
             created() {
