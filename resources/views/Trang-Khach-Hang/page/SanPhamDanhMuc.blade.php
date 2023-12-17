@@ -282,7 +282,7 @@ $user = Auth::guard('khach_hang')->user();
                                             <img src="/assets_client/img/icon/star.png" alt="img">
                                             <img src="/assets_client/img/icon/star.png" alt="img">
                                         </div> -->
-                                        <p class="related-price text_16">{{$tin->ho_va_ten}}</p>
+                                        <p class="related-price text_16">{{$tin->ten_tai_khoan}}</p>
                                     </div>
                                 </div>
                                 @endforeach
