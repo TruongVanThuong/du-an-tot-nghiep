@@ -14,7 +14,6 @@
                             <th class="text-center">Họ Và Tên</th>
                             <th class="text-center">Số Điện Thoại</th>
                             <th class="text-center">Email</th>
-                            <th class="text-center">Tiêu Đề</th>
                             <th class="text-center">Nội Dung</th>
                             <th class="text-center">Trạng thái</th>
                             <th class="text-center">Action</th>
@@ -23,10 +22,9 @@
                     <tbody>
                         <tr v-for="(item, key) in ds_lien_he">
                             <th>@{{ key + 1 }}</th>
-                            <td>@{{ item.ho_va_ten }}</td>
+                            <td>@{{ item.ten_khach_hang }}</td>
                             <td>@{{ item.so_dien_thoai }}</td>
                             <td>@{{ item.email }}</td>
-                            <td>@{{ item.tieu_de }}</td>
                             <td>@{{ item.noi_dung }}</td>
                             <td class="text-center">
                                 <button class="btn btn-warning" v-if="item.xu_ly === 0">Chưa đọc</button>
@@ -57,7 +55,6 @@
                             <div class="modal-body" v-if="thong_tin_lien_he">
                                 <h6>Gmail khách hàng : @{{thong_tin_lien_he.email}}</h6>
                                 <div class="box_lienhe p-2" style="border: 1px solid rgb(212 212 212); border-radius: 7px;">
-                                    <h4>(@{{thong_tin_lien_he.tieu_de}})</h4>
                                     <p>@{{thong_tin_lien_he.noi_dung}}</p>
                                 </div>
                             </div>
@@ -105,7 +102,6 @@
     });
   </script>
 
-
 <script>
     new Vue({
         el: '#app',
@@ -119,6 +115,7 @@
 
         },
         methods: {
+            
             loadData() {
                 axios
                     .get('/admin/lien-he/du-lieu')
@@ -146,6 +143,7 @@
                         this.loadData();
                     })
             },
+
         }
     });
 </script>

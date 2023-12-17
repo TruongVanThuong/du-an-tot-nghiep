@@ -7,7 +7,7 @@
     <div class="modal-category">
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Thêm Nhân Viên
+        Thêm tài khoản
       </button>
     </div>
   </div>
@@ -15,12 +15,12 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header text-center">
-        <h3> Danh Sách Nhân Viên</h3>
+        <h3> Danh Sách Tài Khoản</h3>
       </div>
       <div class="card-body">
         <div class="table-responsive">
           <table id="table_id" class="table table-bordered">
-            <thead clas="bg-primary"> 
+            <thead clas="bg-primary">
               <tr>
                 <th class="text-center">ID</th>
                 <th class="text-center">Tên Tài Khoản</th>
@@ -30,8 +30,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(taikhoan, key) in data_taikhoan">
-                <th class="align-middle text-center">@{{ key + 1 }}</th>
+              <tr v-for="(taikhoan, key) in data_taikhoan" v-if="taikhoan.loai_tai_khoan > 1 && taikhoan.loai_tai_khoan < (TaiKhoanDangNhap.loai_tai_khoan == 4 ? 4 : 5)">
+                <th class="align-middle text-center">@{{ taikhoan.id }}</th>
                 <td class="align-middle text-center">@{{ taikhoan.ten_tai_khoan }}</td>
                 <td class="align-middle text-center">@{{ taikhoan.email }}</td>
                 <td class="align-middle text-center">
@@ -56,22 +56,21 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Nhân Viên</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm tài khoản</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <div class="form-group mt-3">
                       <label>Họ và tên</label>
-                      <input v-model="add_user.ho_va_ten" type="text" class="form-control"
+                      <input v-model="add_user.ten_tai_khoan" type="text" class="form-control"
                         placeholder="Nhập vào Họ và tên">
-                      <div v-if="errors.ho_va_ten" class="alert alert-warning">
-                        @{{ errors.ho_va_ten[0] }}
+                      <div v-if="errors.ten_tai_khoan" class="alert alert-warning">
+                        @{{ errors.ten_tai_khoan[0] }}
                       </div>
                     </div>
                     <div class="form-group mt-3">
                       <label>Email</label>
-                      <input v-model="add_user.email" type="email" class="form-control"
-                        placeholder="Nhập vào email">
+                      <input v-model="add_user.email" type="email" class="form-control" placeholder="Nhập vào email">
                       <div v-if="errors.email" class="alert alert-warning">
                         @{{ errors.email[0] }}
                       </div>
@@ -86,18 +85,24 @@
                     </div>
                     <div class="form-group mt-3">
                       <label>Địa chỉ</label>
-                      <input v-model="add_user.dia_chi" type="text" class="form-control"
-                        placeholder="Nhập vào địa chỉ">
+                      <input v-model="add_user.dia_chi" type="text" class="form-control" placeholder="Nhập vào địa chỉ">
                       <div v-if="errors.dia_chi" class="alert alert-warning">
                         @{{ errors.dia_chi[0] }}
                       </div>
                     </div>
                     <div class="form-group mt-3">
-                      <label>Ngày sinh</label>
-                      <input v-model="add_user.ngay_sinh" type="date" class="form-control"
-                        placeholder="Nhập vào ngày sinh">
-                      <div v-if="errors.ngay_sinh" class="alert alert-warning">
-                        @{{ errors.ngay_sinh[0] }}
+                      <label>Loại tài khoản</label>
+                      <select v-model="add_user.loai_tai_khoan" class="form-control">
+                        <!-- <div v-if="TaiKhoanDangNhap.loai_tai_khoan == 4 || TaiKhoanDangNhap.loai_tai_khoan == 5"> -->
+                          <option v-for="(phanquyen, index) in data_phanquyen" 
+                            v-if="phanquyen.role_phan_quyen > 1 && phanquyen.role_phan_quyen < (TaiKhoanDangNhap.loai_tai_khoan == 4 ? 4 : 5)"
+                            :value="phanquyen.role_phan_quyen">
+                            @{{ phanquyen.ten_phan_quyen }}
+                          </option>
+                        <!-- </div> -->
+                      </select>
+                      <div v-if="errors.loai_tai_khoan" class="alert alert-warning">
+                        @{{ errors.loai_tai_khoan[0] }}
                       </div>
                     </div>
                     <div class="form-group mt-3">
@@ -118,8 +123,8 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button v-on:click="them_nguoi_dung()" type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button v-on:click="them_nguoi_dung()" type="button" class="btn btn-primary">Thêm tài khoản</button>
                   </div>
                 </div>
               </div>
@@ -131,22 +136,21 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cập Nhật Nhân Viên</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cập Nhật Tài Khoản</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <div class="form-group mt-3">
                       <label>Họ và tên</label>
-                      <input v-model="edit_user.ho_va_ten" type="text" class="form-control"
+                      <input v-model="edit_user.ten_tai_khoan" type="text" class="form-control"
                         placeholder="Nhập vào Họ và tên">
-                      <div v-if="errors.ho_va_ten" class="alert alert-warning">
-                        @{{ errors.ho_va_ten[0] }}
+                      <div v-if="errors.ten_tai_khoan" class="alert alert-warning">
+                        @{{ errors.ten_tai_khoan[0] }}
                       </div>
                     </div>
                     <div class="form-group mt-3">
                       <label>Email</label>
-                      <input v-model="edit_user.email" type="email" class="form-control"
-                        placeholder="Nhập vào email">
+                      <input v-model="edit_user.email" type="email" class="form-control" placeholder="Nhập vào email" disabled>
                       <div v-if="errors.email" class="alert alert-warning">
                         @{{ errors.email[0] }}
                       </div>
@@ -168,18 +172,27 @@
                       </div>
                     </div>
                     <div class="form-group mt-3">
-                      <label>Ngày sinh</label>
-                      <input v-model="edit_user.ngay_sinh" type="date" class="form-control"
-                        placeholder="Nhập vào ngày sinh">
-                      <div v-if="errors.ngay_sinh" class="alert alert-warning">
-                        @{{ errors.ngay_sinh[0] }}
+                      <label>Loại tài khoản</label>
+                      <select v-model="edit_user.loai_tai_khoan" class="form-control">
+                        <div v-if="TaiKhoanDangNhap.loai_tai_khoan == 4 || TaiKhoanDangNhap.loai_tai_khoan == 5">
+                          <option v-for="(phanquyen, index) in data_phanquyen"
+                            v-if="phanquyen.role_phan_quyen > 1 && phanquyen.role_phan_quyen < (TaiKhoanDangNhap.loai_tai_khoan == 4 ? 4 : 5)"
+                            :value="phanquyen.role_phan_quyen"
+                            :checked="phanquyen.role_phan_quyen === edit_user.loai_tai_khoan">
+                            @{{ phanquyen.ten_phan_quyen }}
+                          </option>
+                        </div>
+                      </select>
+                      <div v-if="errors.loai_tai_khoan" class="alert alert-warning">
+                        @{{ errors.loai_tai_khoan[0] }}
                       </div>
                     </div>
+                    
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button v-on:click="cap_nhat_nguoi_dung()" type="button" class="btn btn-primary">Save
-                      changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button v-on:click="cap_nhat_nguoi_dung()" type="button" class="btn btn-primary">
+                      Cập Nhật Tài Khoản</button>
                   </div>
                 </div>
               </div>
@@ -223,13 +236,13 @@
 @section('js')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-  <script>
-    $(document).ready(function () {
-      $('#table_id').DataTable();
-    });
-  </script>
+<script>
+  $(document).ready(function () {
+    $('#table_id').DataTable();
+  });
+</script>
 
 
 <script>
@@ -238,11 +251,14 @@
     data: {
       errors: {},
       errors: {},
-      add_user: {},
+      add_user: {
+        loai_tai_khoan: 2,
+      },
       edit_user: {},
       xoa: {},
       data_taikhoan: [],
       data_phanquyen: [],
+      TaiKhoanDangNhap: {},
     },
     created() {
       this.GetData();
@@ -256,7 +272,7 @@
           .then((res) => {
             this.data_taikhoan = res.data.data_taikhoan;
             this.data_phanquyen = res.data.data_phanquyen;
-
+            this.TaiKhoanDangNhap = res.data.TaiKhoanDangNhap;
           });
       },
 
@@ -267,8 +283,12 @@
       getTenPhanQuyen(rolePhanQuyen) {
         switch (rolePhanQuyen) {
           case 2:
-            return 'Nhân Viên';
+            return 'Nhân Viên Bán Hàng';
           case 3:
+            return 'Nhân Viên Đăng Bài';
+          case 4:
+            return 'Quản Lý Nhân Viên';
+          case 5:
             return 'Quản trị Viên';
           default:
             return 'Không xác định';
@@ -278,18 +298,23 @@
       getMauPhanQuyen(rolePhanQuyen) {
         switch (rolePhanQuyen) {
           case 2:
-            return 'btn btn-info'; 
+            return 'btn btn-info';
           case 3:
-            return 'btn btn-warning'; 
+            return 'btn btn-info';
+          case 4:
+            return 'btn btn-warning';
+          case 5:
+            return 'btn btn-warning';
           default:
-            return 'btn btn-muted'; 
+            return 'btn btn-muted';
         }
       },
-
+     
       them_nguoi_dung() {
         axios
           .post('/admin/quan-ly-nhan-vien/them-nhan-vien', this.add_user)
           .then((res) => {
+            
             if (res.data.status) {
               toastr.success(res.data.message);
               this.GetData();
@@ -316,7 +341,6 @@
             if (res.data.status) {
               toastr.success(res.data.message);
               this.GetData();
-              this.edit_user = {};
               // Tắt modal xác nhận
               $('#exampleModalEidt').modal('hide');
             } else {
@@ -324,12 +348,20 @@
             }
           })
           .catch((error) => {
-            if (error && error.response.data && error.response.data.errors) {
-              this.errors = error.response.data.errors;
+            if (error.response) {
+                // Đối tượng error.response chứa thông tin lỗi từ server
+                console.error('Server error:', error.response.data);
+                toastr.error('Server error. Xem console log để biết chi tiết.');
+            } else if (error.request) {
+                // Đối tượng error.request chứa thông tin về request gửi lên server
+                console.error('Request error:', error.request);
+                toastr.error('Request error. Xem console log để biết chi tiết.');
             } else {
-              toastr.error('Có lỗi không mong muốn! 2');
+                // Các lỗi khác
+                console.error('Error:', error.message);
+                toastr.error('Có lỗi không mong muốn! ' + error.message);
             }
-          })
+        });
       },
 
       xoa_nguoi_dung() {
@@ -345,15 +377,12 @@
             }
           })
       },
-      format_date(taikhoan) {
-        if (taikhoan) {
-          return moment(String(taikhoan)).format('DD/MM/YYYY')
-        }
-      },
+      
 
     }
   });
 </script>
+
 
 
 @endsection

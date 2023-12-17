@@ -142,6 +142,7 @@ class GioHangController extends Controller
     {
         $du_lieu = MaGiamGiaModel::where('ma_giam_gia', $ma_giam_gia)->first();
         if ($du_lieu && isset($du_lieu->tien_giam_gia)) {
+            
             // Nếu mã tồn tại và chưa được sử dụng
             $tien_giam_gia = $du_lieu->tien_giam_gia;
             // Trả về số tiền giảm giá cho client trước khi xóa dữ liệu

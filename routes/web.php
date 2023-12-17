@@ -37,13 +37,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocker'], function () {
 
-  Route::get('/dang-nhap', [TaiKhoanController::class, 'DangNhap']);
-  Route::post('/kich-hoat-dang-nhap', [TaiKhoanController::class, 'KichHoatDangNhap']);
-  Route::get('/dang-xuat', [TaiKhoanController::class, 'DangXuat']);
+  Route::middleware(['CheckAdminAccess'])->group(function () {
 
 
-  Route::middleware(['NhanVienMiddleware'])->group(function () {
-    Route::middleware(['CheckAdminAccess'])->group(function () {
+    // nhan vien ban hang  -qlsp-lh-kh-dh
+    Route::middleware(['NhanVienMiddleware'])->group(function () {
 
       // HOÁ ĐƠN --------------------
 
@@ -62,20 +60,59 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
         Route::post('/cap-nhat-trang-thai-thanh-toan', [QLHoaDonController::class, 'CapNhatTTTT']);
       });
 
+
+    });
+
+    // nhan vien dang bai (sale) - qlsp-lh-kh-bv
+    Route::middleware(['NhanVienDangBaiMiddleware'])->group(function () {
+
+      //bài viết --------------
+      Route::get('/baiviet', [BaivietController::class, 'baiviet']);
+      Route::post('/baiviet', [BaivietController::class, 'taobaiviet']);
+      Route::get('/baiviet/{id}', [BaivietController::class, 'xoa_baiviet']);
+      Route::post('/capnhat_baiviet/{id}', [BaivietController::class, 'capnhat_baiviet']);
+      Route::get('/baiviet/doitrangthai', [BaivietController::class, 'doitrangthai']);
+      Route::post('/baiviet/khoiphuc', [BaivietController::class, 'restore']);
+
+    });
+
+    // quan ly nhan vien
+    Route::middleware(['QuanLyMiddleware'])->group(function () {
+
       // thong ke --------------
-      Route::group(['prefix' => '/thong-ke'], function () {
-        Route::get('/', [ThongKeController::class, 'index']);
-        Route::get('/du-lieu', [ThongKeController::class, 'DuLieuThongKe']);
+      // Route::group(['prefix' => '/thong-ke'], function () {
+      //   Route::get('/', [ThongKeController::class, 'index']);
+      //   Route::get('/du-lieu', [ThongKeController::class, 'DuLieuThongKe']);
+      // });
+
+      //danhmuc --------------
+      Route::group(['prefix' => '/danhmuc'], function () {
+        Route::get('/', [DanhmucController::class, 'index']);
+        Route::get('/du-lieu', [DanhmucController::class, 'HienThiDanhMuc']); // url/admin/danh-muc/du-lieu
+        Route::post('/', [DanhmucController::class, 'ThemDanhMuc']);
+        Route::post('/xoa', [DanhmucController::class, 'XoaDanhMuc']);
+        Route::post('/cap-nhat', [DanhmucController::class, 'CapNhatDanhMuc']);
+
+        // trash
+
+        Route::post('/phuc-hoi', [DanhmucController::class, 'PhucHoiDanhMuc']);
+        Route::post('/phuc-hoi-all', [DanhmucController::class, 'PhucHoiTatCaDanhMuc']);
+        Route::post('/xoa-cung', [DanhmucController::class, 'XoaDanhMucVinhVien']);
       });
 
+      //the loai --------------
+      Route::group(['prefix' => '/theloai'], function () {
+        Route::get('/', [LoaiSanphamController::class, 'index']);
+        Route::get('/du-lieu', [LoaiSanphamController::class, 'HienThiTheLoai']); // url/admin/the-loa/du-lieu
+        Route::post('/', [LoaiSanphamController::class, 'ThemTheLoai']);
+        Route::post('/xoa', [LoaiSanphamController::class, 'XoaTheLoai']);
+        Route::post('/cap-nhat', [LoaiSanphamController::class, 'CapNhatTheLoai']);
 
-      // Lien He --------------
-      Route::group(['prefix' => '/lien-he'], function () {
-        Route::get('/', [LienHeController::class, 'QuanLyLienHe']);
-        Route::get('/du-lieu', [LienHeController::class, 'LayDuLieu']);
-        Route::post('/xoa-lien-he', [LienHeController::class, 'XoaLienHe']);
-        Route::post('/xem-lien-he', [LienHeController::class, 'XemLienHe']);
-        Route::post('/xem-lien-he-header', [LienHeController::class, 'XemLienHeHeader']);
+        // trash
+
+        Route::post('/phuc-hoi', [LoaiSanphamController::class, 'PhucHoiTheLoai']);
+        Route::post('/phuc-hoi-all', [LoaiSanphamController::class, 'PhucHoiTatCaTheLoai']);
+        Route::post('/xoa-cung', [LoaiSanphamController::class, 'XoaTheLoaiVinhVien']);
       });
 
 
@@ -87,6 +124,20 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
         Route::post('/xoa-nhan-vien', [QLNhanVienController::class, 'XoaNhanVien']);
         Route::post('/cap-nhat-nhan-vien', [QLNhanVienController::class, 'CapNhatNhanVien']);
       });
+
+    });
+
+    // thong ke --------------
+    Route::get('/', [ThongKeController::class, 'index']);
+    Route::get('/du-lieu', [ThongKeController::class, 'DuLieuThongKe']);
+
+    // Lien He --------------
+    Route::group(['prefix' => '/lien-he'], function () {
+      Route::get('/', [LienHeController::class, 'QuanLyLienHe']);
+      Route::get('/du-lieu', [LienHeController::class, 'LayDuLieu']);
+      Route::post('/xoa-lien-he', [LienHeController::class, 'XoaLienHe']);
+      Route::post('/xem-lien-he', [LienHeController::class, 'XemLienHe']);
+      Route::post('/xem-lien-he-header', [LienHeController::class, 'XemLienHeHeader']);
     });
 
     // Quan Ly Tai Khoan --------------
@@ -97,11 +148,6 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
       Route::post('/xoa-tai-khoan', [QLTaiKhoanController::class, 'XoaTaiKhoan']);
       Route::post('/cap-nhat-tai-khoan', [QLTaiKhoanController::class, 'CapNhatTaiKhoan']);
     });
-
-    // thong ke --------------
-
-    Route::get('/', [ThongKeController::class, 'index']);
-    Route::get('/du-lieu', [ThongKeController::class, 'DuLieuThongKe']);
 
     //sanpham --------------
     Route::get('/sanpham', [SanphamController::class, 'sanpham']);
@@ -117,55 +163,22 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     // Hình Ảnh --------------
     Route::get('/xoahinhanh', [hinhanhController::class, 'xoa_hinhanh']);
 
-    //danhmuc --------------
-    Route::group(['prefix' => '/danhmuc'], function () {
-      Route::get('/', [DanhmucController::class, 'index']);
-      Route::get('/du-lieu', [DanhmucController::class, 'HienThiDanhMuc']); // url/admin/danh-muc/du-lieu
-      Route::post('/', [DanhmucController::class, 'ThemDanhMuc']);
-      Route::post('/xoa', [DanhmucController::class, 'XoaDanhMuc']);
-      Route::post('/cap-nhat', [DanhmucController::class, 'CapNhatDanhMuc']);
-
-      // trash
-
-      Route::post('/phuc-hoi', [DanhmucController::class, 'PhucHoiDanhMuc']);
-      Route::post('/phuc-hoi-all', [DanhmucController::class, 'PhucHoiTatCaDanhMuc']);
-      Route::post('/xoa-cung', [DanhmucController::class, 'XoaDanhMucVinhVien']);
-    });
-
-    //the loai --------------
-    Route::group(['prefix' => '/theloai'], function () {
-      Route::get('/', [LoaiSanphamController::class, 'index']);
-      Route::get('/du-lieu', [LoaiSanphamController::class, 'HienThiTheLoai']); // url/admin/the-loa/du-lieu
-      Route::post('/', [LoaiSanphamController::class, 'ThemTheLoai']);
-      Route::post('/xoa', [LoaiSanphamController::class, 'XoaTheLoai']);
-      Route::post('/cap-nhat', [LoaiSanphamController::class, 'CapNhatTheLoai']);
-
-      // trash
-
-      Route::post('/phuc-hoi', [LoaiSanphamController::class, 'PhucHoiTheLoai']);
-      Route::post('/phuc-hoi-all', [LoaiSanphamController::class, 'PhucHoiTatCaTheLoai']);
-      Route::post('/xoa-cung', [LoaiSanphamController::class, 'XoaTheLoaiVinhVien']);
-    });
-
-    //bài viết --------------
-    Route::get('/baiviet', [BaivietController::class, 'baiviet']);
-    Route::post('/baiviet', [BaivietController::class, 'taobaiviet']);
-    Route::get('/baiviet/{id}', [BaivietController::class, 'xoa_baiviet']);
-    Route::post('/capnhat_baiviet/{id}', [BaivietController::class, 'capnhat_baiviet']);
-    Route::get('/baiviet/doitrangthai', [BaivietController::class, 'doitrangthai']);
-    Route::post('/baiviet/khoiphuc', [BaivietController::class, 'restore']);
-
     // QL bình luận
     Route::get('/binhluan', [QLBinhluanController::class, 'index']);
     Route::get('/lay-binh-luan-san-pham', [QLBinhluanController::class, 'binhluan_sanpham']);
     Route::get('xoa-binh-luan-bai-viet/{id}', [QLBinhluanController::class, 'xoa_binh_luan_baiviet']);
     Route::get('xoa-binh-luan-san-pham/{id}', [QLBinhluanController::class, 'xoa_binh_luan_sanpham']);
+  
+  
   });
+
+  Route::get('/dang-nhap', [TaiKhoanController::class, 'DangNhap']);
+  Route::post('/kich-hoat-dang-nhap', [TaiKhoanController::class, 'KichHoatDangNhap']);
+  Route::get('/dang-xuat', [TaiKhoanController::class, 'DangXuat']);
+
 });
 
-// Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-//   \vendor\UniSharp\LaravelFilemanager\Lfm::routes();
-// });
+
 
 Route::get('/', [TrangChuController::class, 'TrangChu']);
 // ĐĂNG NHẬP

@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('ten_tai_khoan');
             $table->string('email');
             $table->string('password');
+            $table->string('hinh_anh');
             $table->unsignedBigInteger('loai_tai_khoan');
             $table->integer('so_dien_thoai');
             $table->string('dia_chi');

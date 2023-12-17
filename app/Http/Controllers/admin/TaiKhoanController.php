@@ -38,6 +38,6 @@ class TaiKhoanController extends Controller
     {
         Auth::guard('tai_khoan')->logout();  //nếu đăng nhập mới đăng xuất đc
         toastr()->success('Đăng Xuất Thành Công');
-        return redirect('/admin');
+        return redirect('/admin/dang-nhap');
     }
 }
