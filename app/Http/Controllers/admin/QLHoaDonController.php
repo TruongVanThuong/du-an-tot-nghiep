@@ -12,6 +12,7 @@ use App\Models\HoadonModel;
 use App\Models\KhachHangModel;
 use App\Models\SanphamModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -105,12 +106,16 @@ class QLHoaDonController extends Controller
     {
         $themHoaDon = $request->input('them_hoa_don');
         $SanPham = $request->input('SanPham');
-        $date = date('Y-m-d - H:i:s');
-        
+        $date = date('YmdHis');
+        $now = Carbon::now();
+        $date = $now->toDateString(); 
+        $time = $now->toTimeString();
+        $dateWithoutSpecialChars = str_replace(['-', ':'], '', $date);
+        $timeWithoutSpecialChars = str_replace(['-', ':'], '', $time);
         $hoaDon = HoadonModel::create([
             'trang_thai_thanh_toan' => $themHoaDon['trang_thai_thanh_toan'],
             'trang_thai_don' => $themHoaDon['trang_thai_don'],
-            'ma_don_hang' => "TQ - $date",
+            'ma_don_hang' => "TQ$dateWithoutSpecialChars$timeWithoutSpecialChars",
             'ma_khach_hang' => $themHoaDon['ma_khach_hang'],
             'ho_va_ten' => $themHoaDon['ho_va_ten'],
             'dia_chi' => $themHoaDon['dia_chi'],
