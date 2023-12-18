@@ -361,20 +361,41 @@
     new Vue({
         el: '#app',
         data: {
-            them_binhluan: {},
+            them_binhluan: {
+                ma_bai_viet: {{$baiviet->id}},
+            },
             ds_binhluan: [],
-            errors: {},
+            errors: {
+                noi_dung: '',
+            },
             @include('Trang-Khach-Hang.share.datavue')
 
 
         },
+        watch: {
+            'them_binhluan.noi_dung': function (newVal) {
+            if (newVal) {
+                this.errors.noi_dung = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+            }
+            },
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
+            },
         created() {
             this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
             this.laybinhluan();
-            this.them_binhluan.ma_bai_viet = {{$baiviet -> id}};
+            
         },
         methods: {
-
             laybinhluan() {
                 axios
                     .get('/binh-luan-tin-tuc')
@@ -384,7 +405,6 @@
                         // console.log(this.ds_binhluan);
                     });
             },
-
             them_binh_luan() {
 
                 axios
@@ -393,6 +413,7 @@
                         if (res.data.status) {
                             toastr.success(res.data.message);
                             this.laybinhluan();
+                            this.them_binhluan.noi_dung ='';
                         } else {
                             toastr.error(res.data.message);
                         }

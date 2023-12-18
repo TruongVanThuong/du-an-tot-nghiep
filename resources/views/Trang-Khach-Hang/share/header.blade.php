@@ -92,7 +92,7 @@
                 </div>
                 <div class="col-lg-6 d-lg-block d-none">
                     <div class="header-search">
-                        <form action="/tim-kiem" method="post" role="search"
+                        <form action="/tim-kiem" method="get" role="search"
                             class="search-form d-flex justify-content-center">
                             @csrf
                             <div class="field field-search">
@@ -117,17 +117,19 @@
                                     style="box-shadow: 0 0 5px #55555545; position: absolute;
                                     z-index: 1000; background-color: #fff; margin-left: 6px;">
                                     <li v-for="(value, key) in ds_tim_kiem" :key="key" class="menu-list-item nav-item-sub">
-                                        <a class="nav-link-sub nav-text-sub d-flex" href="">
+                                        <a class="nav-link-sub nav-text-sub d-flex" :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value.ten_san_pham_slug + '/' + value.id">
                                             <div style="border: 1px solid #999; width: 100px; margin-right: 10px">
                                                 <img  :src="'/img/' + value.hinh_anh" alt="product-img" width="100px">
                                             </div>
                                             <div>
                                                 <h6>@{{value.ten_san_pham}}</h6>
                                                 <div class="product-card-price">
-                                                    <span class="card-price-regular">@{{ formatCurrency(value.gia_san_pham * (1 - value.giam_gia_san_pham / 100)) }}</span>
+                                                    <span class="card-price-regular">@{{ formatCurrency(value.giam_gia_san_pham) }}</span>
 
-                                                    <span
-                                                        class="card-price-compare text-decoration-line-through">@{{ formatCurrency(value.gia_san_pham) }}</span>
+                                                    <span class="card-price-compare text-decoration-line-through"
+                                                        v-if="value.giam_gia_san_pham == value.gia_san_pham"></span>
+                                                    <span class="card-price-compare text-decoration-line-through"
+                                                        v-else>@{{ formatCurrency(value.gia_san_pham) }}</span>
                                                 </div>
                                                  <span v-html="value.mo_ta.substring(0, 10)+ '...'"></span>
                                                 
@@ -150,8 +152,8 @@
                             
                         </div>
                     </div>
-
                 </div>
+                
                 <div class="col-lg-3 col-md-8 col-8">
                     <div class="header-action d-flex align-items-center justify-content-end">
                         <a class="header-action-item header-search d-lg-none" href="javascript:void(0)">

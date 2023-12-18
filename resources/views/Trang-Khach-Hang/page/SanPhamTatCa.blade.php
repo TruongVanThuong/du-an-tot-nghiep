@@ -16,7 +16,7 @@
                                 <p class="collection-counter text_16 mb-0 ms-2">(237 items)</p>
                             </div>
                         </div>
-                        
+
                         <div class="collection-product-container">
                             <!-- Kiểm tra xem có ds_loc hay không -->
                             <div v-if="ds_loc.length > 0">
@@ -29,7 +29,7 @@
                                                 <a class="hover-switch"
                                                     :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug +
                                                         '/' + value
-                                                        .ten_san_pham_slug + value.ma_san_pham">
+                                                        .ten_san_pham_slug + '/' + value.ma_san_pham">
                                                     <img class="secondary-img" :src="'/img/' + value.hinh_anh"
                                                         alt="product-img">
                                                     <img class="primary-img" :src="'/img/' + value.hinh_anh"
@@ -98,21 +98,8 @@
 
 
                                                     @if ($check)
-                                                    <a href="javascript:void(0)" class="action-card action-addtocart"
-                                                        v-on:click="them_so_luong(value.ma_san_pham)">
-                                                        <svg class="icon icon-cart" width="24" height="26"
-                                                            viewBox="0 0 24 26" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M12 0.000183105C9.25391 0.000183105 7 2.25409 7 5.00018V6.00018H2.0625L2 6.93768L1 24.9377L0.9375 26.0002H23.0625L23 24.9377L22 6.93768L21.9375 6.00018H17V5.00018C17 2.25409 14.7461 0.000183105 12 0.000183105ZM12 2.00018C13.6562 2.00018 15 3.34393 15 5.00018V6.00018H9V5.00018C9 3.34393 10.3438 2.00018 12 2.00018ZM3.9375 8.00018H7V11.0002H9V8.00018H15V11.0002H17V8.00018H20.0625L20.9375 24.0002H3.0625L3.9375 8.00018Z"
-                                                                fill="#00234D" />
-                                                        </svg>
-                                                    </a>
-                                                @else
-                                                    <form action="/khach-hang/them-so-luong/(value.ma_san_pham)"
-                                                        method="post">
-                                                        @csrf
-                                                        <button type="submit" class="action-card action-addtocart">
+                                                        <a href="javascript:void(0)" class="action-card action-addtocart"
+                                                            v-on:click="them_so_luong(value.ma_san_pham)">
                                                             <svg class="icon icon-cart" width="24" height="26"
                                                                 viewBox="0 0 24 26" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
@@ -120,33 +107,49 @@
                                                                     d="M12 0.000183105C9.25391 0.000183105 7 2.25409 7 5.00018V6.00018H2.0625L2 6.93768L1 24.9377L0.9375 26.0002H23.0625L23 24.9377L22 6.93768L21.9375 6.00018H17V5.00018C17 2.25409 14.7461 0.000183105 12 0.000183105ZM12 2.00018C13.6562 2.00018 15 3.34393 15 5.00018V6.00018H9V5.00018C9 3.34393 10.3438 2.00018 12 2.00018ZM3.9375 8.00018H7V11.0002H9V8.00018H15V11.0002H17V8.00018H20.0625L20.9375 24.0002H3.0625L3.9375 8.00018Z"
                                                                     fill="#00234D" />
                                                             </svg>
-                                                        </button>
-                                                    </form>
-                                                @endif
+                                                        </a>
+                                                    @else
+                                                        <form action="/khach-hang/them-so-luong/(value.ma_san_pham)"
+                                                            method="post">
+                                                            @csrf
+                                                            <button type="submit" class="action-card action-addtocart">
+                                                                <svg class="icon icon-cart" width="24" height="26"
+                                                                    viewBox="0 0 24 26" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M12 0.000183105C9.25391 0.000183105 7 2.25409 7 5.00018V6.00018H2.0625L2 6.93768L1 24.9377L0.9375 26.0002H23.0625L23 24.9377L22 6.93768L21.9375 6.00018H17V5.00018C17 2.25409 14.7461 0.000183105 12 0.000183105ZM12 2.00018C13.6562 2.00018 15 3.34393 15 5.00018V6.00018H9V5.00018C9 3.34393 10.3438 2.00018 12 2.00018ZM3.9375 8.00018H7V11.0002H9V8.00018H15V11.0002H17V8.00018H20.0625L20.9375 24.0002H3.0625L3.9375 8.00018Z"
+                                                                        fill="#00234D" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="product-card-details">
+                                                <ul class="color-lists list-unstyled d-flex align-items-center">
+                                                    <li><a href="javascript:void(0)"
+                                                            class="color-swatch swatch-black active"></a></li>
+                                                    <li><a href="javascript:void(0)" class="color-swatch swatch-cyan"></a>
+                                                    </li>
+                                                    <li><a href="javascript:void(0)" class="color-swatch swatch-purple"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3 class="product-card-title">
+                                                    <a
+                                                        :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value
+                                                            .ten_loai_slug + '/' + value
+                                                            .ten_san_pham_slug + '/' + value.ma_san_pham">@{{ value.ten_san_pham }}</a>
+                                                </h3>
+                                                <div class="product-card-price">
+                                                    <span class="card-price-regular">@{{ formatCurrency(value.giam_gia_san_pham) }}</span>
+
+                                                    <span class="card-price-compare text-decoration-line-through"
+                                                        v-if="value.giam_gia_san_pham == value.gia_san_pham"></span>
+                                                    <span class="card-price-compare text-decoration-line-through"
+                                                        v-else>@{{ formatCurrency(value.gia_san_pham) }}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="product-card-details">
-                                            <ul class="color-lists list-unstyled d-flex align-items-center">
-                                                <li><a href="javascript:void(0)"
-                                                        class="color-swatch swatch-black active"></a></li>
-                                                <li><a href="javascript:void(0)" class="color-swatch swatch-cyan"></a>
-                                                </li>
-                                                <li><a href="javascript:void(0)" class="color-swatch swatch-purple"></a>
-                                                </li>
-                                            </ul>
-                                            <h3 class="product-card-title">
-                                                <a
-                                                    :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value
-                                                        .ten_loai_slug + '/' + value
-                                                        .ten_san_pham_slug + value.ma_san_pham">@{{ value.ten_san_pham }}</a>
-                                            </h3>
-                                            <div class="product-card-price">
-                                                <span class="card-price-regular">@{{ formatCurrency(value.gia_san_pham * (1 - value.giam_gia_san_pham / 100)) }}</span>
-
-                                                <span
-                                                    class="card-price-compare text-decoration-line-through">@{{ formatCurrency(value.gia_san_pham) }}</span>
-                                            </div>
-                                        </div>                                        </div>
                                     </div>
 
                                     <div class="pagination justify-content-center mt-100">
@@ -197,17 +200,21 @@
                                                     <div class="product-card">
                                                         <div class="product-card-img">
                                                             <a class="hover-switch"
-                                                                href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{ $value->id }}">
+                                                                href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{ $value->id }}">
                                                                 <img class="secondary-img"
                                                                     src="/img/{{ $value->hinh_anh }}"
                                                                     alt="/img/{{ $value->hinh_anh }}">
                                                                 <img class="primary-img" src="/img/{{ $value->hinh_anh }}"
                                                                     alt="/img/{{ $value->hinh_anh }}">
                                                             </a>
-                                                            <div class="product-badge">
-                                                                <span
-                                                                    class="badge-label badge-percentage rounded">{{ $value->giam_gia_san_pham }}</span>
-                                                            </div>
+                                                            @if ($value->phan_tram_giam_gia)
+                                                                <div class="product-badge">
+                                                                    <span
+                                                                        class="badge-label badge-percentage rounded">{{ $value->phan_tram_giam_gia }}%</span>
+                                                                </div>
+                                                            @else
+                                                            @endif
+
 
                                                             <div
                                                                 class="product-card-action product-card-action-2 justify-content-center">
@@ -316,15 +323,20 @@
                                                             </ul>
                                                             <h3 class="product-card-title">
                                                                 <a
-                                                                    href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}">{{ $value->ten_san_pham }}</a>
+                                                                    href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{$value->id}}">{{ $value->ten_san_pham }}</a>
                                                             </h3>
                                                             <div class="product-card-price">
                                                                 <span
-                                                                    class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100)) }}
+                                                                    class="card-price-regular">{{ number_format($value->giam_gia_san_pham, 0, '.', '.') }}
                                                                     ₫</span>
-                                                                <span
-                                                                    class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham) }}
-                                                                    ₫</span>
+                                                                @if ($value->giam_gia_san_pham == $value->gia_san_pham)
+                                                                @else
+                                                                    <span
+                                                                        class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
+
+                                                                        ₫</span>
+                                                                @endif
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -449,32 +461,34 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="filter-widget pt-5" >
+                        <div class="filter-widget pt-5">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center border-bottom">
                                 Khuyến mãi mới
                             </div>
                             <div class="filter-related">
-                                @foreach( $tin_khuyen_mai as $tin)
-                                <div class="related-item d-flex">
-                                    <div class="related-img-wrapper">
-                                        <img class="related-img" src="{{ asset('img/') }}/{{$tin->hinh_anh}}" alt="{{$tin->hinh_anh}}">
+                                @foreach ($tin_khuyen_mai as $tin)
+                                    <div class="related-item d-flex">
+                                        <div class="related-img-wrapper">
+                                            <img class="related-img" src="{{ asset('img/') }}/{{ $tin->hinh_anh }}"
+                                                alt="{{ $tin->hinh_anh }}">
+                                        </div>
+                                        <div class="related-product-info">
+                                            <h2 class="related-heading heading_18">
+                                                <a
+                                                    href="/tin-tuc-chi-tiet/{{ $tin->id }}">{{ $tin->ten_bai_viet }}</a>
+                                            </h2>
+                                            <!-- <div class="related-review-icon product-icon-star d-flex align-items-center">
+                                                    <img src="/assets_client/img/icon/star.png" alt="img">
+                                                    <img src="/assets_client/img/icon/star.png" alt="img">
+                                                    <img src="/assets_client/img/icon/star.png" alt="img">
+                                                    <img src="/assets_client/img/icon/star.png" alt="img">
+                                                    <img src="/assets_client/img/icon/star.png" alt="img">
+                                                </div> -->
+                                            <p class="related-price text_16">{{ $tin->ten_tai_khoan }}</p>
+                                        </div>
                                     </div>
-                                    <div class="related-product-info">
-                                        <h2 class="related-heading heading_18">
-                                            <a href="/tin-tuc-chi-tiet/{{$tin->id}}">{{$tin->ten_bai_viet}}</a>
-                                        </h2>
-                                        <!-- <div class="related-review-icon product-icon-star d-flex align-items-center">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                            <img src="/assets_client/img/icon/star.png" alt="img">
-                                        </div> -->
-                                        <p class="related-price text_16">{{$tin->ten_tai_khoan}}</p>
-                                    </div>
-                                </div>
                                 @endforeach
-                                
+
                             </div>
 
                         </div>
@@ -489,114 +503,143 @@
 @section('js')
     <script>
         new Vue({
-            el: '#app',
-            data: {
-                selectedTheLoai: [],
-                currentPage: 1, // trang hiện tại
-                itemsPerPage: 9, // số sản phẩm trên mỗi trang
-                minPrice: null,
-                maxPrice: null,
-                ds_loc: [],
-                @include('Trang-Khach-Hang.share.datavue')
+    el: '#app',
+    data: {
+        selectedTheLoai: [],
+        currentPage: 1,
+        itemsPerPage: 9,
+        minPrice: null,
+        maxPrice: null,
+        ds_loc: [],
+        ds_sp_yeu_thich: [],
+        @include('Trang-Khach-Hang.share.datavue')
+    },
+    created() {
+        this.tai_gio_hang();
+        this.tai_san_pham_yeu_thich();
+    },
+    watch: {
+        selectedTheLoai: {
+            handler(newVal) {
+                this.guiDuLieuLenServer();
             },
-            created() {
-                this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
-                this.tai_san_pham_yeu_thich();
+            deep: true,
+        },
+        minPrice: {
+            handler(newVal) {
+                if (newVal !== null && this.maxPrice !== null) {
+                    this.guiDuLieuLenServer();
+                }
             },
-            watch: {
-                selectedTheLoai: {
-                    handler(newVal) {
-                        // Gọi phương thức khi mảng id được chọn thay đổi
-                        this.guiDuLieuLenServer();
-                    },
-                    deep: true, // Theo dõi thay đổi sâu (nếu có) trong mảng
-                },
-                minPrice: {
-                    handler(newVal) {
-                        if (newVal !== null && this.maxPrice !== null) {
-                            this.guiDuLieuLenServer();
+        },
+        maxPrice: {
+            handler(newVal) {
+                if (newVal !== null && this.minPrice !== null) {
+                    setTimeout(() => {
+                this.guiDuLieuLenServer();
+                }, 400);
+
+                }
+            },
+        },
+        tim_kiem: function(newVal) {
+            if (this.searchTimeout) {
+                clearTimeout(this.searchTimeout);
+            }
+            this.searchTimeout = setTimeout(() => {
+                this.gui_tim_kiem();
+            }, 100);
+        },
+    },
+    methods: {
+        
+    quan_ly_san_pham_yeu_thich(id) {
+        axios
+            .post('/khach-hang/quan-ly-san-pham-yeu-thich/' + id)
+            .then((res) => {
+                if (res.data.status) {
+                    toastr.success(res.data.message);
+                    this.tai_san_pham_yeu_thich();
+                } else {
+                    toastr.error('Có lỗi không mong muốn!');
+                }
+            });
+    },
+
+    tai_san_pham_yeu_thich() {
+        axios
+            .get('/hien-thi-san-pham-yeu-thich')
+            .then((res) => {
+                this.ds_sp_yeu_thich = res.data.du_lieu;
+            });
+    },
+
+    isFavorite(productId) {
+        if (this.ds_sp_yeu_thich === undefined) {
+            this.tai_san_pham_yeu_thich();
+        }
+        if (this.ds_sp_yeu_thich && this.ds_sp_yeu_thich.length > 0) {
+            const isFav = this.ds_sp_yeu_thich.some(favorite => favorite.ma_san_pham === productId);
+            return isFav;
+        }
+        return false;
+    },
+        @include('Trang-Khach-Hang.share.vue')
+        guiDuLieuLenServer() {
+            // Check if selectedTheLoai is not empty
+            
+            if (this.selectedTheLoai.length === 0 && (this.minPrice === null || this.maxPrice === null)) {
+                this.ds_loc = [];
+                return;
+            }
+            let postData = {
+                the_loai_ids: this.selectedTheLoai,
+            };
+
+            if (this.minPrice !== null && this.maxPrice !== null) {
+                postData.minPrice = this.minPrice;
+                postData.maxPrice = this.maxPrice;
+            }
+
+            axios.post('/loc-san-pham', postData)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.ds_loc = res.data.ds_loc;
+                        this.currentPage = 1;
+
+                        // Check if ds_loc is empty
+                        if (Array.isArray(this.ds_loc) && this.ds_loc.length === 0) {
+                            toastr.warning('Không có sản phẩm với giá tiền này.');
                         }
-                    },
-                },
-                maxPrice: {
-                    handler(newVal) {
-                        if (newVal !== null && this.minPrice !== null) {
-                            this.guiDuLieuLenServer();
-                        }
-                    },
-                },
-                tim_kiem: function(newVal) {
-                    // Clear previous timeout
-                    if (this.searchTimeout) {
-                        clearTimeout(this.searchTimeout);
+                    } else {
+                        toastr.error('Không có dữ liệu');
                     }
+                })
+                .catch((error) => {
+                    toastr.error('Có lỗi khi gửi yêu cầu!');
+                    console.error(error);
+                });
+        },
+        changePage(page) {
+            if (page >= 1 && page <= this.totalPages) {
+                this.currentPage = page;
+            }
+        },
+    },
+    computed: {
+        totalPages() {
+            if (Array.isArray(this.ds_loc) && this.ds_loc.length > 0) {
+                return Math.ceil(this.ds_loc.length / this.itemsPerPage);
+            }
+            return 0;
+        },
+        displayedProducts() {
+            const start = (this.currentPage - 1) * this.itemsPerPage;
+            const end = start + this.itemsPerPage;
+            return this.ds_loc.slice(start, end);
+        },
+    },
+});
 
-                    // Set a new timeout to debounce the search
-                    this.searchTimeout = setTimeout(() => {
-                        this.gui_tim_kiem();
-                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
-                },
-            },
-            methods: {
-                @include('Trang-Khach-Hang.share.vue')
-                guiDuLieuLenServer() {
-                    if (this.selectedTheLoai.length === 0 && (this.minPrice === null || this.maxPrice === null)) {
-                            this.ds_loc = [];
-                            return;
-                        }
-
-                        let postData = {
-                            the_loai_ids: this.selectedTheLoai,
-                        };
-
-                        if (this.minPrice !== null && this.maxPrice !== null) {
-                            postData.minPrice = this.minPrice;
-                            postData.maxPrice = this.maxPrice;
-                        }
-
-                    axios.post('/loc-san-pham', {
-                            the_loai_ids: this.selectedTheLoai,
-                            minPrice: this.minPrice,
-                            maxPrice: this.maxPrice,
-                        })
-                        .then((res) => {
-                            if (res.data.status) {
-                                this.ds_loc = res.data.ds_loc;
-                                this.currentPage = 1;
-                                const hasResults = this.ds_loc.length > 0;
-                                // Hiển thị thông báo toast tùy thuộc vào kết quả
-                                if (!hasResults) {
-                                    toastr.warning('Không có sản phẩm với giá tiền này.');
-                                }
-                            } else {
-                                toastr.error('Có lỗi không mong muốn!');
-                            }
-                        })
-                        .catch((error) => {
-                            toastr.error('Có lỗi khi gửi yêu cầu!');
-                            console.error(error);
-                        });
-                },
-                changePage(page) {
-                    if (page >= 1 && page <= this.totalPages) {
-                        this.currentPage = page;
-                    }
-                },
-               
-            },
-            computed: {
-                totalPages() {
-                    if (Array.isArray(this.ds_loc) && this.ds_loc.length > 0) {
-                        return Math.ceil(this.ds_loc.length / this.itemsPerPage);
-                    }
-                    return 0;
-                },
-                displayedProducts() {
-                    const start = (this.currentPage - 1) * this.itemsPerPage;
-                    const end = start + this.itemsPerPage;
-                    return this.ds_loc.slice(start, end);
-                },
-            },
-        });
     </script>
 @endsection

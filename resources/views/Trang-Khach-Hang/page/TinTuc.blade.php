@@ -59,6 +59,19 @@
             data: {
                 @include('Trang-Khach-Hang.share.datavue')
             },
+            watch: {
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
+            },
             created() {
                 this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
             },

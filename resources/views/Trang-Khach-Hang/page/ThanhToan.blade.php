@@ -88,11 +88,15 @@
                                     <div class="minicart-item d-flex" v-for="(value, key) in ds_gio_hang"
                                         :key="key">
                                         <div class="mini-img-wrapper">
-                                            <img class="mini-img" :src="'/img/' + value.hinh_anh" alt="img">
+                                            <a  :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value
+                                                .ten_san_pham_slug + '/' + value.ma_san_pham" class="mini-img-wrapper">
+                                                    <img  class="mini-img" :src="'/img/' + value.hinh_anh" alt="img">
+                                                </a>
                                         </div>
                                         <div class="product-info">
-                                            <h2 class="product-title"><a href="#">@{{ value.ten_san_pham }}</a></h2>
-                                            <p class="product-vendor">@{{ formatCurrency(value.gia_san_pham * (1- value.giam_gia_san_pham / 100) ) }} x @{{ value.tong_so_luong }}</p>
+                                            <h2 class="product-title"><a :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value
+                                                .ten_san_pham_slug + '/' + value.ma_san_pham">@{{ value.ten_san_pham }}</a></h2>
+                                            <p class="product-vendor">@{{ formatCurrency(value.giam_gia_san_pham) }} x @{{ value.tong_so_luong }}</p>
                                         </div>
                                     </div>
 
@@ -112,7 +116,7 @@
                                         </div>
                                         <div class="subtotal-item discount-box">
                                             <h4 class="subtotal-title">giảm giá:</h4>
-                                            <p class="subtotal-value">@{{ giam_gia }} ₫</p>
+                                            <p class="subtotal-value">@{{ formatCurrency(giam_gia) }} ₫</p>
                                         </div>
                                         <hr />
                                         <div class="subtotal-item discount-box">
@@ -148,6 +152,19 @@
             created() {
                 this.tai_gio_hang();
             },
+            watch: {
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
+            },
             computed: {
                 calculatedTotal() {
                     if (this.tong_tien_tat_ca > 1000000) {
@@ -158,7 +175,7 @@
                     }
                 },
             },
-            
+
             methods: {
                 @include('Trang-Khach-Hang.share.vue')
 

@@ -23,6 +23,7 @@ class HeaderProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::composer('Trang-Khach-Hang.page.TimKiemSanPham', headerComposer::class);
         View::composer('Trang-Khach-Hang.share.footer', headerComposer::class);
         View::composer('Trang-Khach-Hang.share.header', headerComposer::class);
         View::composer('Trang-Khach-Hang.page.SanPhamTatCa', headerComposer::class);

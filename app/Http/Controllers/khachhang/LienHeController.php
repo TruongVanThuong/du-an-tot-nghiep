@@ -27,6 +27,7 @@ public function GuiLienHe(LienHe $request)
     // Kiểm tra xem người dùng đã đăng nhập chưa
     if (Auth::check()) {
         $du_lieu = $request->all();
+        dd($du_lieu);
         $user = Auth::guard('khach_hang')->user();
         // Nếu không, tiếp tục tạo mới bản ghi
         LienheModel::create($du_lieu);

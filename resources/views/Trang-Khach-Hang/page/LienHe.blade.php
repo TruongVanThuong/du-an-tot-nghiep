@@ -155,8 +155,8 @@
             data: {
                 @include('Trang-Khach-Hang.share.datavue')
                 lien_he: {
-                    ho_va_ten : '{{$user->ho_va_ten}}',
-                    email :  '{{$user->email}}'
+                    ho_va_ten: "{{$user ? $user->ho_va_ten : ''}}", // Giá trị mặc định nếu không có dữ liệu từ v-model
+                     email: "{{$user ? $user->email : ''}}"
                 },
                 errors: {},
             },

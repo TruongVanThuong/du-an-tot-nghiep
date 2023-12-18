@@ -50,37 +50,7 @@ xoa_san_pham_gio_hang(id) {
         });
         return formatter.format(value);
     },
-    quan_ly_san_pham_yeu_thich(id) {
-        axios
-            .post('/khach-hang/quan-ly-san-pham-yeu-thich/' + id)
-            .then((res) => {
-                if (res.data.status) {
-                    toastr.success(res.data.message);
-                    this.tai_san_pham_yeu_thich();
-                } else {
-                    toastr.error('Có lỗi không mong muốn!');
-                }
-            });
-    },
-
-    tai_san_pham_yeu_thich() {
-        axios
-            .get('/hien-thi-san-pham-yeu-thich')
-            .then((res) => {
-                this.ds_sp_yeu_thich = res.data.du_lieu;
-            });
-    },
-
-    isFavorite(productId) {
-        if (this.ds_sp_yeu_thich === undefined) {
-            this.tai_san_pham_yeu_thich();
-        }
-        if (this.ds_sp_yeu_thich && this.ds_sp_yeu_thich.length > 0) {
-            const isFav = this.ds_sp_yeu_thich.some(favorite => favorite.ma_san_pham === productId);
-            return isFav;
-        }
-        return false;
-    },
+    
     
     gui_tim_kiem() {
         if (this.tim_kiem == "") {

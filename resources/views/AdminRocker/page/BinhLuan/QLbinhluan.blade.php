@@ -1,6 +1,6 @@
 @extends('AdminRocker.share.master')
 @section('noi_dung')
-<main id="app" v-cloak>
+{{-- <main id="app" v-cloak> --}}
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <button class="nav-link active" id="binhluansanpham" data-bs-toggle="tab" data-bs-target="#nav-binhluansanpham" type="button" role="tab" aria-controls="binhluansanpham" aria-selected="true">Bình luận sản phẩm</button>
@@ -139,7 +139,7 @@
         <!-- <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div> -->
     </div>
 
-</main>
+{{-- </main> --}}
 
 @endsection
 @section('js')

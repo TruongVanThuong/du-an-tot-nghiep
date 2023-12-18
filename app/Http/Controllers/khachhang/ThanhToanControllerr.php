@@ -338,7 +338,6 @@ class ThanhToanControllerr extends Controller
         $du_lieu_Mail['hoa_don_chi_tiet'] = $hoa_don_chi_tiet;
         $du_lieu_Mail['hoa_don_moi'] = $hoa_don_moi;
         GuiMailHuyDon::dispatch($du_lieu_Mail);
-
         return response()->json([
             'status' => true,
         ]);

@@ -195,7 +195,7 @@
                                             <div class="product-card">
                                                 <div class="product-card-img">
                                                     <a class="hover-switch"
-                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{ $value->ma_san_pham }}">
+                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{ $value->ma_san_pham }}">
                                                         <img class="secondary-img" src="/img/{{ $value->hinh_anh }}"
                                                             alt="product-img">
                                                         <img class="primary-img" src="/img/{{ $value->hinh_anh }}"
@@ -270,15 +270,21 @@
                                                 </div>
                                                 <div class="product-card-details text-center">
                                                     <h3 class="product-card-title"><a
-                                                            href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{ $value->ma_san_pham }}">{{ $value->ten_san_pham }}</a>
+                                                            href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{ $value->ma_san_pham }}">{{ $value->ten_san_pham }}</a>
                                                     </h3>
                                                     <div class="product-card-price">
                                                         <span
-                                                            class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }}
+                                                            class="card-price-regular">{{ number_format( $value->giam_gia_san_pham, 0, '.', '.' ) }}
                                                             ₫</span>
-                                                        <span
-                                                            class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham) }}
-                                                            ₫</span>
+                                                     @if ( $value->giam_gia_san_pham == $value->gia_san_pham)
+                                                         
+                                                     @else
+                                                     <span
+                                                     class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
+
+                                                     ₫</span>
+                                                     @endif
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -300,7 +306,7 @@
                                                 <div class="product-card">
                                                     <div class="product-card-img">
                                                         <a class="hover-switch"
-                                                            href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}{{$sp->ma_san_pham}}">
+                                                            href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}/{{$sp->ma_san_pham}}">
                                                             <img class="secondary-img" src="/img/{{ $sp->hinh_anh }}"
                                                                 alt="product-img">
                                                             <img class="primary-img" src="/img/{{ $sp->hinh_anh }}"
@@ -377,15 +383,21 @@
                                                         </div>
                                                         <div class="product-card-details text-center">
                                                             <h3 class="product-card-title"><a
-                                                                    href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}{{ $sp->ma_san_pham }}">{{ $sp->ten_san_pham }}</a>
+                                                                    href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}/{{ $sp->ma_san_pham }}">{{ $sp->ten_san_pham }}</a>
                                                             </h3>
                                                             <div class="product-card-price">
                                                                 <span
-                                                                    class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }}
+                                                                    class="card-price-regular">{{ number_format( $value->giam_gia_san_pham, 0, '.', '.' ) }}
                                                                     ₫</span>
-                                                                <span
-                                                                    class="card-price-compare text-decoration-line-through">{{ number_format($sp->gia_san_pham) }}
-                                                                    ₫</span>
+                                                             @if ( $value->giam_gia_san_pham == $value->gia_san_pham)
+                                                                 
+                                                             @else
+                                                             <span
+                                                             class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
+        
+                                                             ₫</span>
+                                                             @endif
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -455,7 +467,7 @@
             <div class="product-grid-slideshow">
                 <div class="product-card">
                     <div class="product-card-img">
-                        <a class="hover-switch" href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{$value->id}}">
+                        <a class="hover-switch" href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{$value->id}}">
                             <img class="secondary-img" src="/img/{{$value->hinh_anh}}"
                                 alt="product-img">
                             <img class="primary-img" src="/img/{{$value->hinh_anh}}"
@@ -527,15 +539,21 @@
                                             </div>
                                             <div class="product-card-details text-center">
                                                 <h3 class="product-card-title"><a
-                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{$value->id}}">{{ $value->ten_san_pham }}</a>
+                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{$value->id}}">{{ $value->ten_san_pham }}</a>
                                                 </h3>
                                                 <div class="product-card-price">
                                                     <span
-                                                        class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }}
+                                                        class="card-price-regular">{{ number_format( $value->giam_gia_san_pham, 0, '.', '.' ) }}
                                                         ₫</span>
-                                                    <span
-                                                        class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham) }}
-                                                        ₫</span>
+                                                 @if ( $value->giam_gia_san_pham == $value->gia_san_pham)
+                                                     
+                                                 @else
+                                                 <span
+                                                 class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
+
+                                                 ₫</span>
+                                                 @endif
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -570,7 +588,7 @@
                                             <div class="product-card">
                                                 <div class="product-card-img">
                                                     <a class="hover-switch"
-                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{ $value->ma_san_pham }}">
+                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{ $value->ma_san_pham }}">
                                                         <img class="secondary-img" src="/img/{{ $value->hinh_anh }}"
                                                             alt="product-img">
                                                         <img class="primary-img" src="/img/{{ $value->hinh_anh }}"
@@ -645,15 +663,21 @@
                                                 </div>
                                                 <div class="product-card-details text-center">
                                                     <h3 class="product-card-title"><a
-                                                            href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}{{ $value->id }}">{{ $value->ten_san_pham }}</a>
+                                                            href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{ $value->id }}">{{ $value->ten_san_pham }}</a>
                                                     </h3>
                                                     <div class="product-card-price">
                                                         <span
-                                                            class="card-price-regular">{{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }}
+                                                            class="card-price-regular">{{ number_format( $value->giam_gia_san_pham, 0, '.', '.' ) }}
                                                             ₫</span>
-                                                        <span
-                                                            class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham) }}
-                                                            ₫</span>
+                                                     @if ( $value->giam_gia_san_pham == $value->gia_san_pham)
+                                                         
+                                                     @else
+                                                     <span
+                                                     class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
+
+                                                     ₫</span>
+                                                     @endif
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -775,6 +799,7 @@
         new Vue({
             el: '#app',
             data: {
+                ds_sp_yeu_thich: [],
                 @include('Trang-Khach-Hang.share.datavue')
             },
             watch: {
@@ -795,6 +820,38 @@
                 this.tai_san_pham_yeu_thich();
             },
             methods: {
+                
+    quan_ly_san_pham_yeu_thich(id) {
+        axios
+            .post('/khach-hang/quan-ly-san-pham-yeu-thich/' + id)
+            .then((res) => {
+                if (res.data.status) {
+                    toastr.success(res.data.message);
+                    this.tai_san_pham_yeu_thich();
+                } else {
+                    toastr.error('Có lỗi không mong muốn!');
+                }
+            });
+    },
+
+    tai_san_pham_yeu_thich() {
+        axios
+            .get('/hien-thi-san-pham-yeu-thich')
+            .then((res) => {
+                this.ds_sp_yeu_thich = res.data.du_lieu;
+            });
+    },
+
+    isFavorite(productId) {
+        if (this.ds_sp_yeu_thich === undefined) {
+            this.tai_san_pham_yeu_thich();
+        }
+        if (this.ds_sp_yeu_thich && this.ds_sp_yeu_thich.length > 0) {
+            const isFav = this.ds_sp_yeu_thich.some(favorite => favorite.ma_san_pham === productId);
+            return isFav;
+        }
+        return false;
+    },
                 @include('Trang-Khach-Hang.share.vue')
             },
         });

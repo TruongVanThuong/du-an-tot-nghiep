@@ -91,7 +91,7 @@
                                                             <img src="/img/{{ $value->hinh_anh }}" alt="Ảnh sản phẩm" style="width: 50px; height: 50px;">
                                                         </th>      
                                                         <th class="align-middle text-center">
-                                                            {{ number_format($value->gia_san_pham * (1 - $value->giam_gia_san_pham / 100) ) }} ₫
+                                                            {{ number_format($value->giam_gia_san_pham) }} ₫
                                                         </th>
                                                         <th class="align-middle text-center">{{ $value->created_at }}</th>
                                                         <th class="align-middle text-center">{{ $value->tong_so_luong }}</th>
@@ -139,9 +139,21 @@
         data: {
             @include('Trang-Khach-Hang.share.datavue')
         },
+        watch: {
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
+            },
         created() {
             this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
-            this.tai_san_pham_yeu_thich();
         },
         methods: {
             @include('Trang-Khach-Hang.share.vue')

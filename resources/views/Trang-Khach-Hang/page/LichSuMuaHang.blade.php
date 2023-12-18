@@ -290,7 +290,7 @@
                                             style="width: 50px; height: 50px;">
                                     </th>
                                     <th class="align-middle text-center">
-                                        @{{ formatCurrency(value.gia_san_pham * (1- value.giam_gia_san_pham / 100) ) }}
+                                        @{{ formatCurrency(value.giam_gia_san_pham) }}
                                     </th>
 
                                     <th class="align-middle text-center">@{{ formatDate(value.created_at) }}</th>
@@ -325,9 +325,21 @@
                 huy_don: {},
                 @include('Trang-Khach-Hang.share.datavue')
             },
+            watch: {
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
+            },
             created() {
                 this.tai_gio_hang();
-                this.tai_san_pham_yeu_thich();
                 this.lich_su_mua_hang();
             },
             methods: {

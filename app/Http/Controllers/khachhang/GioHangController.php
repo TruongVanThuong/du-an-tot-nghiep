@@ -25,7 +25,7 @@ class GioHangController extends Controller
             if ($existingCartItem) {
                 // Cập nhật số lượng nếu sản phẩm đã có trong giỏ hàng
                 $existingCartItem->tong_so_luong += 1;
-                $existingCartItem->tong_tien = ($sanpham->gia_san_pham * (1 - $sanpham->giam_gia_san_pham / 100)) * $existingCartItem->tong_so_luong;
+                $existingCartItem->tong_tien = $sanpham->giam_gia_san_pham * $existingCartItem->tong_so_luong;
                 $existingCartItem->save();
             } else {
                 // Thêm sản phẩm mới vào giỏ hàng nếu chưa tồn tại
@@ -33,7 +33,7 @@ class GioHangController extends Controller
                     'ma_khach_hang' => $ma_khach_hang,
                     'ma_san_pham' => $id,
                     'tong_so_luong' => 1,
-                    'tong_tien' => $sanpham->gia_san_pham * (1 - $sanpham->giam_gia_san_pham / 100)
+                    'tong_tien' => $sanpham->giam_gia_san_pham
                 ]);
             }
             return response()->json([
@@ -67,7 +67,7 @@ class GioHangController extends Controller
                     ]);
                 } else {
                     // Cập nhật tổng tiền nếu số lượng còn lại
-                    $existingCartItem->tong_tien = ($sanpham->gia_san_pham * (1 - $sanpham->giam_gia_san_pham / 100)) * $existingCartItem->tong_so_luong;
+                    $existingCartItem->tong_tien = $sanpham->giam_gia_san_pham * $existingCartItem->tong_so_luong;
                     $existingCartItem->save();
                     return response()->json([
                         'status' => true,
@@ -186,6 +186,35 @@ class GioHangController extends Controller
                 'message'       => 'Nhập mã không chính xác'
             ];
             return response()->json($response);
+        }
+    }
+
+
+    public function MuaHangNgay($id)
+    {
+        $sanpham = SanphamModel::where('id', $id)->first();
+
+        if ($sanpham) {
+            $user = Auth::guard('khach_hang')->user();
+            $ma_khach_hang = $user->id;
+            $existingCartItem = GiohangModel::where('ma_khach_hang', $ma_khach_hang)
+                ->where('ma_san_pham', $id)
+                ->first();
+            if ($existingCartItem) {
+                // Cập nhật số lượng nếu sản phẩm đã có trong giỏ hàng
+                $existingCartItem->tong_so_luong += 1;
+                $existingCartItem->tong_tien = $sanpham->giam_gia_san_pham * $existingCartItem->tong_so_luong;
+                $existingCartItem->save();
+            } else {
+                // Thêm sản phẩm mới vào giỏ hàng nếu chưa tồn tại
+                GiohangModel::create([
+                    'ma_khach_hang' => $ma_khach_hang,
+                    'ma_san_pham' => $id,
+                    'tong_so_luong' => 1,
+                    'tong_tien' => $sanpham->giam_gia_san_pham
+                ]);
+            }
+            return view('Trang-Khach-Hang.page.ThanhToan');
         }
     }
 }
