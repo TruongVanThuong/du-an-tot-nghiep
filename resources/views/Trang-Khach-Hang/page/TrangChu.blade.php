@@ -22,7 +22,7 @@
           }
         ]
     }'>
-                <div class="slide-item position-relative overlay">
+                <!-- <div class="slide-item position-relative overlay">
                     <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
                         src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
                         alt="slide-1">
@@ -51,7 +51,8 @@
                         </div>
 
                     </div>
-                </div>
+                </div> -->
+                @if( count($data_banner) < 3)
                 <div class="slide-item position-relative overlay">
                     <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
                         src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
@@ -75,43 +76,93 @@
                                     Tiết kiệm ngay tới 56% cho mọi đơn hàng
                                 </p>
                                 <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
-                                    href="collection-left-sidebar.html"
+                                    href="/gioi-thieu"
                                     data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
                             </div>
                         </div>
 
                     </div>
                 </div>
+                @foreach($data_banner as $banner)
                 <div class="slide-item position-relative overlay">
                     <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
-                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                        src="{{ asset('img/') }}/{{$banner->anh_banner}}"
                         alt="slide-1">
-                    <img class="slide-img d-md-none"
+                    <!-- <img class="slide-img d-md-none"
                         src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
-                        alt="slide-1">
+                        alt="slide-1"> -->
                     <div class="content-absolute content-slide">
                         <div class="container height-inherit d-flex align-items-center justify-content-start">
                             <div class="content-box slide-content py-4">
+                                @if($banner->loai_tin==1)
                                 <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
                                     data-animation="animate__animated animate__fadeInUp">
-                                    Chinh phục thế giới thời trang với
+                                    Tin Khuyến Mãi
                                 </p>
-                                <h2 class="slide-heading heading_72 text-white animate__animated animate__fadeInUp"
+                                @else
+                                <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
                                     data-animation="animate__animated animate__fadeInUp">
-                                    Thiết Kế Độc Đáo tại Guci
+                                    Tin Tức
+                                </p>
+                                @endif
+                                <h2 class="slide-heading heading_48 text-white animate__animated animate__fadeInUp"
+                                    data-animation="animate__animated animate__fadeInUp">
+                                    {{$banner->ten_bai_viet }}
                                 </h2>
                                 <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
                                     data-animation="animate__animated animate__fadeInUp">
-                                    Tiết kiệm ngay tới 56% cho mọi đơn hàng
+                                    {{$banner->mo_ta_ngan }}
                                 </p>
                                 <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
-                                    href="collection-left-sidebar.html"
+                                    href="/tin-tuc-chi-tiet/{{$banner->ma_bai_viet}}"
                                     data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
                             </div>
                         </div>
 
                     </div>
                 </div>
+                @endforeach
+                @elseif( count($data_banner) == 3 )
+                @foreach($data_banner as $banner)
+                <div class="slide-item position-relative overlay">
+                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
+                        src="{{ asset('img/') }}/{{$banner->anh_banner}}"
+                        alt="slide-1">
+                    <!-- <img class="slide-img d-md-none"
+                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                        alt="slide-1"> -->
+                    <div class="content-absolute content-slide">
+                        <div class="container height-inherit d-flex align-items-center justify-content-start">
+                            <div class="content-box slide-content py-4">
+                                @if($banner->loai_tin==1)
+                                <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
+                                    data-animation="animate__animated animate__fadeInUp">
+                                    Tin Khuyến Mãi
+                                </p>
+                                @else
+                                <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
+                                    data-animation="animate__animated animate__fadeInUp">
+                                    Tin Tức
+                                </p>
+                                @endif
+                                <h2 class="slide-heading heading_48 text-white animate__animated animate__fadeInUp"
+                                    data-animation="animate__animated animate__fadeInUp">
+                                    {{$banner->ten_bai_viet }}
+                                </h2>
+                                <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
+                                    data-animation="animate__animated animate__fadeInUp">
+                                    {{$banner->mo_ta_ngan }}
+                                </p>
+                                <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
+                                    href="/tin-tuc-chi-tiet/{{$banner->ma_bai_viet}}"
+                                    data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                @endforeach
+                @endif
 
             </div>
             <div class="activate-arrows arrows-white"></div>

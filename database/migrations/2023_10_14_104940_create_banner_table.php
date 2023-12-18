@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('banner', function (Blueprint $table) {
             $table->id();
-            $table->string('ten_anh_banner');
-            $table->string('link_anh_banner');
+            $table->string('anh_banner');
+            $table->string('ma_bai_viet');
             $table->integer('hien_thi');
             $table->softDeletes();
             $table->timestamps();

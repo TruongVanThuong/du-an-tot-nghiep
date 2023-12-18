@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\TaiKhoanController;
 use App\Http\Controllers\admin\QLHoaDonController;
 use App\Http\Controllers\admin\QLBinhluanController;
 use App\Http\Controllers\admin\MaGiamGiaController;
+use App\Http\Controllers\admin\QLbannerController;
 use App\Http\Controllers\khachhang\GioHangController;
 use App\Http\Controllers\admin\ThongKeController;
 use App\Http\Controllers\khachhang\TrangChuController;
@@ -171,6 +172,12 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::post('/magiamgia/them-ma-giam-gia', [MaGiamGiaController::class, 'them_ma_giam_gia']);
     Route::post('/magiamgia/cap-nhat-ma-giam-gia', [MaGiamGiaController::class, 'cap_nhat_ma_giam_gia']);
     Route::post('/magiamgia/xoa-ma', [MaGiamGiaController::class, 'xoa_ma_giam_gia']);
+
+    // QL banner
+    Route::get('/banner', [QLbannerController::class, 'index']);
+    Route::post('/banner', [QLbannerController::class, 'them_banner']);
+    Route::post('/banner/capnhat/{id}', [QLbannerController::class, 'capnhat_banner']);
+    Route::get('/banner/xoa/{id}', [QLbannerController::class, 'xoa_banner']);
   });
 });
 

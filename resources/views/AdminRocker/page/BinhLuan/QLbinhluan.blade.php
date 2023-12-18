@@ -156,7 +156,19 @@
 
 
 <script>
-   
+   new Vue({
+        el: '#app',
+        data: {
+            
+        },
+        created() {
+            
+        },
+        methods: {
+            
+
+        },
+    });
 
     const delBtnEl = document.querySelectorAll("#btn_delete");
     delBtnEl.forEach(function(delBtn) {

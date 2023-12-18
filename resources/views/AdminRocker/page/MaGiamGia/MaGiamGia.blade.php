@@ -4,7 +4,7 @@
 
     <!-- thêm mã -->
     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Thêm mã giảm giá</button>
-
+    <br>
     <div class="col">
         <div class="collapse multi-collapse" id="multiCollapseExample2">
             <div class="card card-body">
@@ -38,6 +38,7 @@
             </div>
         </div>
     </div>
+    <br>
     <!-- danh sach -->
     <div class="col-md-12">
         <div class="card">
@@ -46,7 +47,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table id="table_id" class="table table-bordered">
                         <thead clas="bg-primary">
                             <tr>
                                 <th class="text-center">#</th>
@@ -159,6 +160,14 @@
 
 @endsection
 @section('js')
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable();
+    });
+  </script>
+
 <script>
     new Vue({
         el: '#app',

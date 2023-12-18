@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BaivietRequest;
 use Illuminate\Http\Request;
 use App\Models\BaivietModel;
+use App\Models\BannerModel;
 use App\Models\KhachHangModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Models\binh_luan_bai_viets;
 
 class BaivietController extends Controller
 {
@@ -44,13 +46,37 @@ class BaivietController extends Controller
     public function xoa_baiviet($id)
     {
         $xoa_baiviet = BaivietModel::find($id);
+        $lien_ket_banner=BannerModel::where('ma_bai_viet',$id)->first();
+        $binh_luan=binh_luan_bai_viets::where('ma_bai_viet',$id)->get();
         if ($xoa_baiviet == null) {
-            return '<script type ="text/JavaScript">alert("Lỗi!");</script>';
+            toastr()->error('Có lỗi xãy ra!!');
+            return redirect('admin/baiviet');
+        }elseif($lien_ket_banner){
+            if($xoa_baiviet->id ===$lien_ket_banner->ma_bai_viet){
+                toastr()->error('Bài Viết đã được liên kết với Banner');
+                return redirect('admin/baiviet');
+            }else{
+                if($binh_luan){
+                    foreach($binh_luan as $value){
+                        $value->delete();
+                    }
+                }
+                $xoa_baiviet->delete();
+                toastr()->success('Xoá bài viết Thành Công');
+                return redirect('admin/baiviet');
+            }
             
+        }else{
+            if($binh_luan){
+                foreach($binh_luan as $value){
+                    $value->delete();
+                }
+            }
+            $xoa_baiviet->delete();
+            toastr()->success('Xoá bài viết Thành Công');
+            return redirect('admin/baiviet');
         }
-        $xoa_baiviet->delete();
-        toastr()->success('Xoá bài viết Thành Công');
-        return redirect('admin/baiviet');
+        
     }
 
     public function capnhat_baiviet(Request $request, $id)
@@ -107,13 +133,14 @@ class BaivietController extends Controller
     }
     public function restore()
     {
-        $khoiphuc = BaivietModel::onlyTrashed()->get();
-        foreach ($khoiphuc as $baiviet) {
-            $id = $baiviet->id;
-            // BaivietModel::withTrashed()->find($id)->restore();
-            BaivietModel::onlyTrashed()->where('id', $id)->restore();
-        }
-        toastr()->success('cập nhật bài viết Thành Công');
+        
+        BaivietModel::onlyTrashed()->restore();
+        // foreach ($khoiphuc as $baiviet) {
+        //     $id = $baiviet->id;
+        //     // BaivietModel::withTrashed()->find($id)->restore();
+        //     BaivietModel::onlyTrashed()->where('id', $id)->restore();
+        // }
+        toastr()->success('Phục hồi bài viết Thành Công');
         return redirect('admin/baiviet');
     }
 

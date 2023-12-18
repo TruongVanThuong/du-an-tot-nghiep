@@ -163,16 +163,34 @@
                 @include('Trang-Khach-Hang.share.vue')
 
                 kiem_tra_ma_giam_gia() {
-                    axios
+                    if(this.giam_gia === 0){
+                        axios
                         .post('/ma-giam-gia/' + this.ma_giam_gia)
                         .then((res) => {
-                            
-                            toastr.success(res.data.message);
-                            this.giam_gia = res.data.tien_giam_gia;
+                            if(res.data.status){
+                                toastr.success(res.data.message);
+                                this.giam_gia = res.data.tien_giam_gia;
+                            }else{
+                                toastr.error(res.data.message);
+                            }
+                           
                         })
                         .catch((error) => {
                             console.error("Lỗi khi kiểm tra mã giảm giá:", error);
                         });
+                    }else{
+                        toastr.error("Khách hàng đã nhập mã giảm giá");
+                    }
+                    // axios
+                    //     .post('/ma-giam-gia/' + this.ma_giam_gia)
+                    //     .then((res) => {
+                            
+                    //         toastr.success(res.data.message);
+                    //         this.giam_gia = res.data.tien_giam_gia;
+                    //     })
+                    //     .catch((error) => {
+                    //         console.error("Lỗi khi kiểm tra mã giảm giá:", error);
+                    //     });
                 },
             },
         });

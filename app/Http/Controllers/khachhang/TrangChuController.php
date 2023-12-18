@@ -12,6 +12,7 @@ use App\Models\HinhanhModel;
 use App\Models\SanPhamYeuThich;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\BannerModel;
 
 class TrangChuController extends Controller
 {
@@ -69,9 +70,13 @@ class TrangChuController extends Controller
         $data_tintuc = BaivietModel::orderBy('created_at', 'desc')
         ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
         ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')
-            ->limit(3)->get();
-
-        return view('Trang-Khach-Hang.page.TrangChu', compact('san_pham_yeu_thich', 'san_pham_danh_muc', 'san_pham_moi', 'data_tintuc'));
+        ->limit(3)->get();
+        $data_banner=BannerModel::orderBy('created_at', 'desc')
+        ->join('bai_viet', 'banner.ma_bai_viet', '=', 'bai_viet.id')
+        ->select('banner.*', 'bai_viet.ten_bai_viet','bai_viet.mo_ta_ngan','bai_viet.loai_tin')
+        ->limit(3)->get();
+        // dd($data_banner);
+        return view('Trang-Khach-Hang.page.TrangChu', compact('san_pham_yeu_thich', 'san_pham_danh_muc', 'san_pham_moi', 'data_tintuc','data_banner'));
     }
 
     public function SanPhamTatCa()

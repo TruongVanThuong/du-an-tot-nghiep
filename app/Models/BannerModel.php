@@ -12,8 +12,9 @@ class BannerModel extends Model
     protected $table = 'banner';
     protected $primarykey = 'id';
     protected $fillable = [
-        "ten_anh_banner",
-        "link_anh_banner",
+        "anh_banner",
+        "ma_bai_viet",
+        "hien_thi",
         "created_at",
         "updated_at",
     ];
