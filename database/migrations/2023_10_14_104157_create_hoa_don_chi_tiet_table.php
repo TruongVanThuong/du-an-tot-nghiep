@@ -12,11 +12,10 @@ return new class extends Migration {
     {
         Schema::create('hoa_don_chi_tiet', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('ma_hoa_don');
+            $table->string('ma_hoa_don',191);
             $table->unsignedBigInteger('ma_san_pham');
             $table->integer('tong_so_luong');
             $table->integer('tong_tien');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

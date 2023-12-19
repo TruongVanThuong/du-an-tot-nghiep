@@ -32,7 +32,7 @@
                                             <path d="M7.5 0.59375C4.72888 0.59375 2.46875 2.85388 2.46875 5.625C2.46875 7.3573 3.35315 8.89587 4.69238 9.80274C2.12903 10.9033 0.3125 13.447 0.3125 16.4063H1.75C1.75 13.2224 4.31616 10.6563 7.5 10.6563C10.6838 10.6563 13.25 13.2224 13.25 16.4063H14.6875C14.6875 13.447 12.871 10.9033 10.3076 9.80274C11.6469 8.89587 12.5313 7.3573 12.5313 5.625C12.5313 2.85388 10.2711 0.59375 7.5 0.59375ZM7.5 2.03125C9.49341 2.03125 11.0938 3.63159 11.0938 5.625C11.0938 7.61841 9.49341 9.21875 7.5 9.21875C5.50659 9.21875 3.90625 7.61841 3.90625 5.625C3.90625 3.63159 5.50659 2.03125 7.5 2.03125Z" fill="#00234D" />
                                         </svg>
                                     </span>
-                                    <span class="ms-2">{{$baiviet->ho_va_ten}}</span>
+                                    <span class="ms-2">{{$baiviet->ten_tai_khoan}}</span>
                                 </span>
                             </p>
                             <h2 class="article-card-heading heading_18">
@@ -58,6 +58,19 @@
             el: '#app',
             data: {
                 @include('Trang-Khach-Hang.share.datavue')
+            },
+            watch: {
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
             },
             created() {
                 this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo

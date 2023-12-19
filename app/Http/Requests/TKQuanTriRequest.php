@@ -23,13 +23,13 @@ class TKQuanTriRequest extends FormRequest
     {
         return [
             'ten_tai_khoan'         =>  'required|min:6|max:50',
-            'email'                 =>  'required|email|unique:khach_hang,email',
+            'email'                 =>  'required|email|unique:tai_khoan,email',
             'password'              =>  'required|min:6|max:30',
             'nhap_lai_password'     =>  'required|same:password',
             'so_dien_thoai'         =>  'required|digits:10',
             'dia_chi'               =>  'required|min:6|max:50',
-            'gioi_tinh'             =>  'required|numeric|min:0|max:1',
-            'ngay_sinh'             =>  'required|date',
+            'loai_tai_khoan'        =>  'required',
+
         ];
     }
     public function messages(): array
@@ -51,12 +51,8 @@ class TKQuanTriRequest extends FormRequest
             'dia_chi.required'              => 'Địa chỉ không được để trống',
             'dia_chi.min'                   => 'Địa chỉ phải từ 6 ký tự trở lên',
             'dia_chi.max'                   => 'Địa chỉ không được vượt quá 50 ký tự',
-            'gioi_tinh.required'            => 'Vui lòng chọn giới tính',
-            'gioi_tinh.numeric'             => 'Giới tính phải là một số',
-            'gioi_tinh.min'                 => 'Giới tính phải chọn theo yêu cầu',
-            'gioi_tinh.max'                 => 'Giới tính phải chọn theo yêu cầu',
-            'ngay_sinh.required'            => 'Ngày sinh không được để trống',
-            'ngay_sinh.date'                => 'Ngày sinh không đúng định dạng',
+            'loai_tai_khoan.required'       => 'Loại tài khoản không được để trống',
+
         ];
     }
 }

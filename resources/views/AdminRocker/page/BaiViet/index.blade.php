@@ -7,7 +7,7 @@
   <button @click="openModal" data-bs-toggle="modal" data-bs-target="#themModal" class="btn btn-primary">
     Thêm bài viết
   </button>
-
+<br>
   <!-- Modal -->
   @include('AdminRocker/page/BaiViet/thembaiviet')
 </div>
@@ -16,7 +16,7 @@
 <!-- table -->
 <div class="col-md-12">
   <div class="table-responsive" >
-    <table class="table table-bordered">
+    <table id="table_id" class="table table-bordered">
       <thead clas="bg-primary">
         <tr class="">
           <th class="text-center">#</th>
@@ -62,7 +62,7 @@
             {{substr($baiviet->mo_ta_ngan, 0, 30) }}
           </td>
           <td class="align-middle text-center">
-            {{$baiviet->ma_khach_hang}}
+            {{$baiviet->ten_tai_khoan}}
           </td>
           <td class="align-middle text-center">
             <div class="form-check form-switch">
@@ -99,13 +99,10 @@
         @endforeach
       </tbody>
     </table>
-    <!-- <a  class="btn btn-danger btn_delete trigger-modal" href="baiviet/khoiphuc" aria-label="">
-      <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-        xoá
-      </svg>
+    <!-- <a  class="btn btn-primary" href="baiviet/khoiphuc" aria-label="">
+      Khôi Phục
     </a> -->
   </div>
-  <div>{{$data_baiviet->links('AdminRocker.share.custom')}}</div>
 
 </div>
 
@@ -115,6 +112,17 @@
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable();
+    });
+  </script>
+
+
 <script>
   function doitrangthai(id) {
     var id = id;

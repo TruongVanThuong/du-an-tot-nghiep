@@ -66,6 +66,11 @@ class SanphamController extends Controller
 	{
 		$data = $request->all();
 		$data['ten_san_pham_slug'] = Str::slug($data['ten_san_pham']);
+		if($data['phan_tram_giam_gia'] == 0 || $data['phan_tram_giam_gia'] == null) {
+			$data['giam_gia_san_pham'] = $data['gia_san_pham'];
+		} else {
+			$data['giam_gia_san_pham'] = $data['gia_san_pham'] * (1 - $data['phan_tram_giam_gia'] / 100) ;
+		}
 
 		$sanpham = SanphamModel::create($data);
 
@@ -126,7 +131,12 @@ class SanphamController extends Controller
 		$sanpham->ten_san_pham_slug = Str::slug($sanpham->ten_san_pham);
 		$sanpham->ma_loai = $request->ma_loai;
 		$sanpham->gia_san_pham = $request->gia_san_pham;
-		$sanpham->giam_gia_san_pham = $request->giam_gia_san_pham;
+		$sanpham->phan_tram_giam_gia = $request->phan_tram_giam_gia;
+		if($request->phan_tram_giam_gia == 0 || $request->phan_tram_giam_gia == null) {
+			$sanpham->giam_gia_san_pham = $request->gia_san_pham;
+		} else {
+			$sanpham->giam_gia_san_pham = $request->gia_san_pham * (1 - $request->phan_tram_giam_gia / 100) ;
+		}
 		$sanpham->so_luong = $request->so_luong;
 		$sanpham->luot_xem = $request->luot_xem;
 		$sanpham->dat_biet = $request->dat_biet;

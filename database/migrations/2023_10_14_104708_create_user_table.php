@@ -13,9 +13,11 @@ return new class extends Migration {
         Schema::create('tai_khoan', function (Blueprint $table) {
             $table->id();
             $table->string('ten_tai_khoan');
+            $table->string('email');
             $table->string('password');
+            $table->string('hinh_anh')->nullable();
             $table->unsignedBigInteger('loai_tai_khoan');
-            $table->integer('so_dien_thoai');
+            $table->string('so_dien_thoai');
             $table->string('dia_chi');
             $table->softDeletes();
             $table->timestamps();

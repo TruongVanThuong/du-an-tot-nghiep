@@ -10,11 +10,11 @@
             $check = Auth::guard('khach_hang')->check();
             $user = Auth::guard('khach_hang')->user();
         @endphp
-        @include('Trang-Khach-Hang.share.header')
         <div id="app">
+            @include('Trang-Khach-Hang.share.header')
             <div class="offcanvas offcanvas-end" tabindex="-1" id="drawer-cart">
                 <div class="offcanvas-header border-btm-black">
-                    <h5 class="cart-drawer-heading text_16">Your Cart (@{{ tong_so_luong }})</h5>
+                    <h5 class="cart-drawer-heading text_16">Giỏ hàng (@{{ tong_so_luong }})</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
@@ -25,12 +25,12 @@
                             <div v-if="ds_gio_hang">
                                 <div class="minicart-item d-flex" v-for="(value, key) in ds_gio_hang"
                                     :key="key">
-                                    <a :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value.ten_san_pham_slug + value.id" class="mini-img-wrapper">
+                                    <a :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value.ten_san_pham_slug + '/' + value.id" class="mini-img-wrapper">
 
                                         <img class="mini-img"  :src="'/img/' + value.hinh_anh" alt="img">
                                     </a>
                                     <div class="product-info">
-                                        <h2 class="product-title"><a :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value.ten_san_pham_slug + value.id" >@{{ value.ten_san_pham }}</a></h2>
+                                        <h2 class="product-title"><a :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value.ten_san_pham_slug + '/' + value.id" >@{{ value.ten_san_pham }}</a></h2>
                                         <p class="product-vendor">Mã Loại @{{ value.id }} </p>
                                         <div class="misc d-flex align-items-end justify-content-between">
                                             <div class="quantity d-flex align-items-center justify-content-between">
@@ -43,7 +43,7 @@
                                                         src="/assets_client/img/icon/plus.svg" alt="plus"></button>
                                             </div>
                                             <div class="product-remove-area d-flex flex-column align-items-end">
-                                                <div class="product-price">@{{ formatCurrency(value.gia_san_pham * (1- value.giam_gia_san_pham / 100) ) }}</div>                                 
+                                                <div class="product-price">@{{ formatCurrency(value.giam_gia_san_pham) }}</div>                                 
                                                 <a href="javascript:void(0)" class="product-remove"  v-on:click="xoa_san_pham_gio_hang(value.id)" >Xóa</a>
                                             </div>
                                         </div>
@@ -82,7 +82,7 @@
                                 <line x1="15" y1="9" x2="15.01" y2="9"></line>
                             </svg>
                         </div>
-                        <p class="cart-empty">You have no items in your cart</p>
+                        {{-- <p class="cart-empty">You have no items in your cart</p> --}}
                     </div>
                 </div>
             </div>

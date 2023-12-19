@@ -35,12 +35,14 @@
                                     <div v-if="ds_gio_hang">
                                         <tr class="cart-item" v-for="(value, key) in ds_gio_hang" :key="key">
                                             <td class="cart-item-media">
-                                                <div class="mini-img-wrapper">
-                                                    <img class="mini-img" :src="'/img/' + value.hinh_anh" alt="img">
-                                                </div>
+                                                <a  :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value
+                                                .ten_san_pham_slug + '/' + value.ma_san_pham" class="mini-img-wrapper">
+                                                    <img  class="mini-img" :src="'/img/' + value.hinh_anh" alt="img">
+                                                </a>
                                             </td>
                                             <td class="cart-item-details">
-                                                <h2 class="product-title"><a href="">@{{ value.ten_san_pham }}</a></h2>
+                                                <h2 class="product-title"><a :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value
+                                                    .ten_san_pham_slug + '/' + value.ma_san_pham">@{{ value.ten_san_pham }}</a></h2>
                                                 <p class="product-vendor">Mã Loại @{{ value.id }}</p>
                                             </td>
                                             <td class="cart-item-quantity">
@@ -125,6 +127,19 @@
             el: '#app',
             data: {
                 @include('Trang-Khach-Hang.share.datavue')
+            },
+            watch: {
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
             },
             created() {
                 this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo

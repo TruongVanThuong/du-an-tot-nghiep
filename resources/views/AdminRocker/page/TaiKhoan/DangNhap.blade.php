@@ -71,7 +71,7 @@
                       </div>
                     </div>
                     <div class="col-md-6 text-end">
-                      <a href="">
+                      <a href="{{asset('/admin/ho-so/quen-mat-khau')}}">
                         Quên mật khẩu ?
                       </a>
                     </div>

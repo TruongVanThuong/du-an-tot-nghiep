@@ -29,7 +29,7 @@
             <div class="form-group mt-3">
               <label>Mô tả ngắn</label>
               <div class="input-group form-group-item">
-                <textarea name="mo_ta_ngan" class="form-control" id="" cols="20" rows="3"></textarea>
+                <textarea name="mo_ta_ngan" class="form-control" id="" cols="20" rows="3"required></textarea>
               </div>
             </div>
 
@@ -43,7 +43,7 @@
 
             <div class="form-group mt-3 form-group-item">
               <label>Nội dung</label>
-              <textarea name="noi_dung" id="noi_dung" class="form-control ckeditor" cols="30" rows="10" required="required"></textarea>
+              <textarea name="noi_dung" id="noi_dung" class="form-control ckeditor" cols="30" rows="10" required></textarea>
 
             </div>
           </div>

@@ -16,22 +16,42 @@ class headerAdminComposer
         $LIENHE = LienheModel::where('xu_ly', 0)->get();
         $LIENHE_xu_ly = LienheModel::where('xu_ly', 0)->count();
 
+        $TaiKhoanDangNhap = Auth::guard('tai_khoan')->user();
 
-        // Lấy thông tin về người dùng hiện tại đã đăng nhập
-        $loggedInUser = Auth::guard('tai_khoan')->user();
+        // quản trị viên
+        // if ($TaiKhoanDangNhap && $TaiKhoanDangNhap->loai_tai_khoan == 5) {
+        //     $isAdmin = true;
+        // } else {
+        //     $isAdmin = false;
+        // }
 
-        // dd($loggedInUser->loai_tai_khoan);
-
-        // Kiểm tra nếu người dùng có đăng nhập và có id là 1
-        if ($loggedInUser && $loggedInUser->loai_tai_khoan == 2) {
-            // Thực hiện các hành động phù hợp nếu người dùng có id là 1
-            $isAdmin = true; // Ví dụ: gán biến $isAdmin = true;
+        // Quản lý nhân viên
+        if ($TaiKhoanDangNhap && $TaiKhoanDangNhap->loai_tai_khoan == 4) {
+            $QuanLy = true;
         } else {
-            $isAdmin = false; // Ví dụ: gán biến $isAdmin = false;
-        }        
-        
+            $QuanLy = false;
+        }
 
-        $view->with('isAdmin', $isAdmin);
+        // nhân viên đăng bài
+        if ($TaiKhoanDangNhap && $TaiKhoanDangNhap->loai_tai_khoan == 3) {
+            $DangBai = true;
+        } else {
+            $DangBai = false;
+        }
+
+        // nhân viên báng hàng
+        if ($TaiKhoanDangNhap && $TaiKhoanDangNhap->loai_tai_khoan == 2) {
+            $BanHang = true;
+        } else {
+            $BanHang = false;
+        }
+
+
+        // $view->with('isAdmin', $isAdmin);
+        $view->with('QuanLy', $QuanLy);
+        $view->with('DangBai', $DangBai);
+        $view->with('BanHang', $BanHang);
+        $view->with('TaiKhoanDangNhap', $TaiKhoanDangNhap);
         $view->with('LIENHE', $LIENHE);
         $view->with('LIENHE_xu_ly', $LIENHE_xu_ly);
     }
