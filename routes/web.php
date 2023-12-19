@@ -270,3 +270,9 @@ Route::post('/them-binh-luan-san-pham', [BinhluanController::class, 'them_binhlu
 
 Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemGet']);
 Route::post('/tim-kiem', [TrangChuController::class, 'TimKiemPost']);
+
+
+
+Route::group(['prefix' => 'laravel-filemanager'], function () {
+  \UniSharp\LaravelFilemanager\Lfm::routes();
+});

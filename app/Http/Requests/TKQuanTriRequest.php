@@ -23,7 +23,7 @@ class TKQuanTriRequest extends FormRequest
     {
         return [
             'ten_tai_khoan'         =>  'required|min:6|max:50',
-            'email'                 =>  'required|email|unique:khach_hang,email',
+            'email'                 =>  'required|email|unique:tai_khoan,email',
             'password'              =>  'required|min:6|max:30',
             'nhap_lai_password'     =>  'required|same:password',
             'so_dien_thoai'         =>  'required|digits:10',

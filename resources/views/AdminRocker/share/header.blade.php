@@ -63,13 +63,9 @@
 		<div class="user-box dropdown">
 			<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button"
 				data-bs-toggle="dropdown" aria-expanded="false">
-				<!-- <img src="/assets_admin_rocker/images/avatars/avatar-2.png" class="user-img" alt="user avatar"> -->
-				<i class='bx bx-user user-img' style="font-size: 25px;
-				background-color: #333;
-				text-align: center;
-				color: #fff;
-				align-items: center;
-				display: grid;"></i>
+				<div style="width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 0 10px #000; align-content: center; display: grid; overflow: hidden;">
+					<img src="{{$TaiKhoanDangNhap->hinh_anh}}" alt="" style="width: 50px; ">
+				</div>
 				<div class="user-info ps-3">
 					<p class="user-name mb-0"></p>
 					<p class="designattion mb-0"></p>

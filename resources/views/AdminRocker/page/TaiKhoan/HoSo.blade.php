@@ -23,14 +23,9 @@
           <div class="card" style="height: 100%;">
             <div class="card-body">
               <div class="d-flex flex-column align-items-center text-center">
-                <i class="bx bx-user user-img" style="font-size: 35px;
-                  background-color: #333;
-                  text-align: center;
-                  color: #fff;
-                  align-items: center;
-                  width: 70px;
-                  display: grid;
-                  height: 70px;"></i>
+                <div style="width: 100px; height: 100px; border-radius: 50%; box-shadow: 0 0 10px #000; align-content: center; display: grid; overflow: hidden;">
+                  <img :src="edit_user.hinh_anh" alt="" style="width: 100px; ">
+                </div>
                 <div class="mt-3">
                   <h4>@{{ edit_user.ten_tai_khoan }}</h4>
                   <p class="text-secondary mb-1">@{{ edit_user.email }}</p>
@@ -66,6 +61,22 @@
                   <div v-if="errors.email" class="alert alert-warning">
                     @{{ errors.email[0] }}
                   </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Hình Ảnh</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <div class="input-group">
+                    <input id="hinh_anh_update" class="form-control" type="text" name="filepath">
+                    <span class="input-group-prepend">
+                      <a id="lfm_update" data-input="hinh_anh_update" data-preview="holder_update" class="btn btn-primary">
+                        <i class="fa fa-picture-o"></i> Choose
+                      </a>
+                    </span>
+                  </div>
+                  <div id="holder_update" style="margin-top:15px;max-height:100px;"></div>
                 </div>
               </div>
               <div class="row mb-3">
@@ -128,11 +139,15 @@
           .get('/admin/ho-so/du-lieu')
           .then((res) => {
             this.edit_user = res.data.tai_khoan;
+            $("#hinh_anh_update").val(this.edit_user.hinh_anh);
+            var text = '<img src="'+ this.edit_user.hinh_anh + '" style="margin-top:15px;max-height:100px;">'
+            $("#holder_update").html(text);
             this.data_phanquyen = res.data.data_phanquyen;
           });
       },
 
       cap_nhap_ho_so() {
+        this.edit_user.hinh_anh = $("#hinh_anh_update").val();
         axios
           .post('/admin/ho-so/cap-nhat', this.edit_user)
           .then((res) => {
@@ -153,6 +168,15 @@
       }
     }
   });
+</script>
+
+{{--  --}}
+<script>
+  var route_prefix = "/laravel-filemanager";
+</script>
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+<script>
+  $("#lfm_update").filemanager('image', {prefix : route_prefix});
 </script>
 
 @endsection

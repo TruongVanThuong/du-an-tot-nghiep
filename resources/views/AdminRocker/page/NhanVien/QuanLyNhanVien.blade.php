@@ -23,6 +23,7 @@
             <thead clas="bg-primary">
               <tr>
                 <th class="text-center">ID</th>
+                <th class="text-center">Hình Ảnh</th>
                 <th class="text-center">Tên Tài Khoản</th>
                 <th class="text-center">Email</th>
                 <th class="text-center">Vai Trò</th>
@@ -30,16 +31,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(taikhoan, key) in data_taikhoan" v-if="taikhoan.loai_tai_khoan > 1 && taikhoan.loai_tai_khoan < (TaiKhoanDangNhap.loai_tai_khoan == 4 ? 4 : 5)">
-                <th class="align-middle text-center">@{{ taikhoan.id }}</th>
-                <td class="align-middle text-center">@{{ taikhoan.ten_tai_khoan }}</td>
-                <td class="align-middle text-center">@{{ taikhoan.email }}</td>
-                <td class="align-middle text-center">
+              <tr  style="border: 1px solid #000;" v-for="(taikhoan, key) in data_taikhoan" v-if="taikhoan.loai_tai_khoan > 1 && taikhoan.loai_tai_khoan < (TaiKhoanDangNhap.loai_tai_khoan == 4 ? 4 : 5)">
+                <th style="border: 1px solid #000;"class="align-middle text-center">@{{ taikhoan.id }}</th>
+                <th style="border: 1px solid #000;"class="align-middle text-center">
+                  <img v-bind:src="taikhoan.hinh_anh" class="img-fluid" style="max-width: 200px;">                  
+                </th>
+                <td style="border: 1px solid #000;" class="align-middle text-center">@{{ taikhoan.ten_tai_khoan }}</td>
+                <td style="border: 1px solid #000;" class="align-middle text-center">@{{ taikhoan.email }}</td>
+                <td style="border: 1px solid #000;" class="align-middle text-center">
                   <span :class="getMauPhanQuyen(taikhoan.loai_tai_khoan)">
                     @{{ getTenPhanQuyen(taikhoan.loai_tai_khoan) }}
                   </span>
                 </td>
-                <td class="align-middle text-center text-nowrap">
+                <td style="border: 1px solid #000;" class="align-middle text-center text-nowrap">
                   <!-- Button trigger modal -->
                   <button v-on:click="cap_nhat(taikhoan)" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#exampleModalEidt"><i class="bx bx-edit"></i>
@@ -75,6 +79,18 @@
                         @{{ errors.email[0] }}
                       </div>
                     </div>
+                    <div class="form-group mt-3">
+                      <label>Ảnh Sản Phẩm</label>
+                      <div class="input-group">
+                          <input id="hinh_anh" class="form-control" type="text" name="filepath">
+                          <span class="input-group-prepend">
+                              <a id="lfm" data-input="hinh_anh" data-preview="holder" class="btn btn-primary">
+                                  <i class="fa fa-picture-o"></i> Choose
+                              </a>
+                          </span>
+                      </div>
+                      <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                  </div>
                     <div class="form-group mt-3">
                       <label>Số điện thoại</label>
                       <input v-model="add_user.so_dien_thoai" type="text" class="form-control"
@@ -121,6 +137,7 @@
                         @{{ errors.nhap_lai_password[0] }}
                       </div>
                     </div>
+
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
@@ -153,6 +170,19 @@
                       <input v-model="edit_user.email" type="email" class="form-control" placeholder="Nhập vào email" disabled>
                       <div v-if="errors.email" class="alert alert-warning">
                         @{{ errors.email[0] }}
+                      </div>
+                    </div>
+                    <div class="form-group mt-3">
+                      <label>Hình </label>
+                      <div class="input-group">
+                          <input id="hinh_anh_update" class="form-control" type="text" name="filepath">
+                          <span class="input-group-prepend">
+                              <a id="lfm_update" data-input="hinh_anh_update" data-preview="holder_update" class="btn btn-primary">
+                                  <i class="fa fa-picture-o"></i> Choose
+                              </a>
+                          </span>
+                      </div>
+                      <div id="holder_update" style="margin-top:15px; max-height:100px;">
                       </div>
                     </div>
                     <div class="form-group mt-3">
@@ -235,14 +265,7 @@
 @endsection
 @section('js')
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-<script>
-  $(document).ready(function () {
-    $('#table_id').DataTable();
-  });
-</script>
 
 
 <script>
@@ -276,6 +299,9 @@
       },
 
       cap_nhat(taikhoan) {
+        $("#hinh_anh_update").val(taikhoan.hinh_anh);
+        var text = '<img src="'+ taikhoan.hinh_anh + '" style="margin-top:15px;max-height:100px;">'
+        $("#holder_update").html(text);
         this.edit_user = taikhoan; // Tạo một bản sao của user để tránh ảnh hưởng trực tiếp đến dữ liệu người dùng
       },
 
@@ -310,6 +336,7 @@
       },
      
       them_nguoi_dung() {
+        this.add_user.hinh_anh = $("#hinh_anh").val();
         axios
           .post('/admin/quan-ly-nhan-vien/them-nhan-vien', this.add_user)
           .then((res) => {
@@ -318,6 +345,7 @@
               toastr.success(res.data.message);
               this.GetData();
               this.add_user = {};
+              $("#hinh_anh").val("");
               // Tắt modal xác nhận
               $('#exampleModal').modal('hide');
             } else {
@@ -334,6 +362,7 @@
       },
 
       cap_nhat_nguoi_dung() {
+        this.edit_user.hinh_anh = $("#hinh_anh_update").val();
         axios
           .post('/admin/quan-ly-nhan-vien/cap-nhat-nhan-vien', this.edit_user)
           .then((res) => {
@@ -382,6 +411,22 @@
   });
 </script>
 
+<script>
+  var route_prefix = "/laravel-filemanager";
+</script>
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+<script>
+  $("#lfm").filemanager('image', {prefix : route_prefix});
+  $("#lfm_update").filemanager('image', {prefix : route_prefix});
+</script>
 
+{{--  --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+<script>
+  $(document).ready(function () {
+    $('#table_id').DataTable();
+  });
+</script>
 @endsection

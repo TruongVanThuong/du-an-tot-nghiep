@@ -51,6 +51,7 @@ class headerAdminComposer
         $view->with('QuanLy', $QuanLy);
         $view->with('DangBai', $DangBai);
         $view->with('BanHang', $BanHang);
+        $view->with('TaiKhoanDangNhap', $TaiKhoanDangNhap);
         $view->with('LIENHE', $LIENHE);
         $view->with('LIENHE_xu_ly', $LIENHE_xu_ly);
     }

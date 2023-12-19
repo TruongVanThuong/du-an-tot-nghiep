@@ -67,6 +67,7 @@ class TaiKhoanController extends Controller
     public function CapNhatHoSo(CapNhatHoSoRQ $request)
     {
         $du_lieu = $request->all();
+        // dd($du_lieu);
         $id = Auth::guard('tai_khoan')->user()->id;
         $tai_khoan = TaiKhoanModel::find($id);
         $tai_khoan->update($du_lieu);

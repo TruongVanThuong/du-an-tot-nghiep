@@ -34,6 +34,7 @@ class QLNhanVienController extends Controller
 
     public function ThemNhanVien(TKQuanTriRequest $request)
     {
+        // dd( $request);
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
        
