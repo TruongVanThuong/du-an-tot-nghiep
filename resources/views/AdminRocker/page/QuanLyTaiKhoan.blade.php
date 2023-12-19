@@ -19,7 +19,7 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <table id="table" class="table table-bordered">
+          <table id="table_id" class="table table-bordered">
             <thead clas="bg-primary">
               <tr>
                 <th class="text-center">ID</th>
@@ -128,8 +128,8 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button v-on:click="them_nguoi_dung()" type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button v-on:click="them_nguoi_dung()" type="button" class="btn btn-primary">Thêm Khách Hàng</button>
                   </div>
                 </div>
               </div>
@@ -208,9 +208,8 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button v-on:click="cap_nhat_nguoi_dung()" type="button" class="btn btn-primary">Save
-                      changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button v-on:click="cap_nhat_nguoi_dung()" type="button" class="btn btn-primary">Cập Nhật Khách Hàng</button>
                   </div>
                 </div>
               </div>
@@ -253,11 +252,20 @@
 @endsection
 @section('js')
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable();
+    });
+  </script>
+
+
 <script>
   new Vue({
     el: '#app',
     data: {
-      errors: {},
       errors: {},
       add_user: {},
       edit_user: {},

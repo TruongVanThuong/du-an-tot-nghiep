@@ -32,23 +32,25 @@
 					<div class="dropdown-menu dropdown-menu-end">
 						<a href="javascript:;">
 							<div class="msg-header">
-								<p class="msg-header-title">Thông báo</p>
+								<p class="msg-header-title">Thông báo liên hệ</p>
 							</div>
 						</a>
 						<div class="header-notifications-list">
 							@foreach ($LIENHE as $lienhe)
-								<div class="d-flex align-items-center">
+								<div class="d-flex align-items-center p-3">
 									<div class="notify bg-light-primary text-primary"><i class="bx bx-group"></i>
 									</div>
 									<div class="flex-grow-1">
 										<h6 class="msg-name">
-											{{$lienhe->ho_va_ten}}
+											{{$lienhe->ten_khach_hang}}
 											<!-- <span class="msg-time float-end">14 phút trước</span> -->
 										</h6>
-										<p class="msg-info">{{$lienhe->tieu_de}}</p>
+										<p class="msg-info">{!!Str::limit($lienhe->noi_dung, $limit = 20, $end = '...')!!}</p>
 									</div>
-								</div>							
+								</div>
+							</button>
 							@endforeach
+							
 						</div>
 						<a href="javascript:;">
 							<div class="text-center msg-footer">Xem tất cả thông báo</div>
@@ -75,7 +77,10 @@
 			</a>
 			<ul class="dropdown-menu dropdown-menu-end">
 				<li>
-					<a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Hồ Sơ</span></a>
+					<a class="dropdown-item" href="{{asset('/admin/ho-so')}}"><i class="bx bx-user"></i><span>Hồ Sơ</span></a>
+				</li>
+				<li>
+					<a class="dropdown-item" href="{{asset('/admin/ho-so/cap-nhat-mat-khau')}}"><i class="bx bx-repost"></i><span>Đổi mật khẩu</span></a>
 				</li>
 				<li>
 					<a class="dropdown-item" href="{{asset('')}}"><i class='bx bx-home-circle'></i><span>Trang Chủ</span></a>
@@ -84,7 +89,8 @@
 					<div class="dropdown-divider mb-0"></div>
 				</li>
 				<li>
-					<a class="dropdown-item" href="/admin/dang-xuat"><i class='bx bx-log-out-circle'></i><span>Đăng Xuất</span></a>
+					<a class="dropdown-item" href="/admin/dang-xuat"><i class='bx bx-log-out-circle'></i><span>Đăng
+							Xuất</span></a>
 				</li>
 			</ul>
 		</div>

@@ -46,7 +46,6 @@ use Throwable;
 class Handler implements ExceptionHandlerContract
 {
     use ReflectsClosures;
-
     /**
      * The container implementation.
      *

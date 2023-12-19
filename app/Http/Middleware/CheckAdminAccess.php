@@ -19,14 +19,14 @@ class CheckAdminAccess
         $check = Auth::guard('tai_khoan')->check();
         if($check) {
             $user = Auth::guard('tai_khoan')->user();
-            if($user->loai_tai_khoan <= 2) {
+            if($user->loai_tai_khoan <= 1) {
                 toastr()->error('Tài khoản của bạn không đủ quyền truy cập!');
-                return back();
+                return redirect('./admin/dang-nhap');
             }
             return $next($request);
         } else {
             toastr()->warning('Chức năng này yêu cầu phải đăng nhập!');
-            return back();
+            return redirect('./admin/dang-nhap');
         }
     }
 }

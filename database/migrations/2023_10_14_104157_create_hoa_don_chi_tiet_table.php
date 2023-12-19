@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('ma_san_pham');
             $table->integer('tong_so_luong');
             $table->integer('tong_tien');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

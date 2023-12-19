@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->string('ten_san_pham_slug');
             $table->integer('gia_san_pham');
             $table->integer('giam_gia_san_pham');
-            $table->text('mo_ta');
+            $table->integer('phan_tram_giam_gia')->nullable();
+            $table->text('mo_ta')->nullable();
             $table->integer('so_luong');
             $table->unsignedBigInteger('ma_loai');
             $table->integer('luot_xem')->nullable();
