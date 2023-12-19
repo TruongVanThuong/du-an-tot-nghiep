@@ -250,7 +250,6 @@
     el: '#app',
     data: {
       errors: {},
-      errors: {},
       add_user: {
         loai_tai_khoan: 2,
       },

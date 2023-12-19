@@ -19,133 +19,138 @@
 
       <div class="card-body">
         <div class="row">
-          <div class="col-6 custom-column">
-            <h4 class="text-center">THÔNG TIN HOÁ ĐƠN</h4>
-            <div class="form-group mt-3">
-              <strong>Mã hoá đơn : <span>@{{ hoa_don_moi_nhat.id + 1 }}</span></strong>
-            </div>
-            <div class="form-group mt-3">
-              <label>Nhân viên báng hàng : </label>
-              <input v-model="tai_khoan_dang_nhap.ten_tai_khoan" type="text" class="form-control" disabled>
-            </div>
-            <div class="form-group mt-3">
-              <label>Thông tin đơn hàng</label>
-              <select class="form-control" v-model="them_hoa_don.trang_thai_don">
-                <option value="0">Chờ xử lý</option>
-                <option value="1">Đang vận chuyển</option>
-                <option value="2">Giao hàng thành công</option>
-              </select>
-            </div>
-            <div class="form-group mt-3">
-              <label>Thông tin thanh toán</label>
-              <select class="form-control" v-model="them_hoa_don.trang_thai_thanh_toan" :value="0">
-                <option value="0" selected>Chưa thanh toán</option>
-                <option value="1">Đã thanh toán</option>
-              </select>
-            </div>
-            <div class="form-group mt-3">
-              <label>Ngày tạo hoá đơn : </label>
-              <input value="{{ date('Y-m-d') }}" type="text" class="form-control" disabled>
+          <div class="col-6">
+            <div class="card custom-column" style="height: 100%;">
+              <h4 class="text-center">THÔNG TIN HOÁ ĐƠN</h4>
+              <div class="form-group mt-3">
+                <strong>Mã hoá đơn : <span>@{{ hoa_don_moi_nhat.ma_hoa_don }}</span></strong>
+              </div>
+              <div class="form-group mt-3">
+                <label>Nhân viên báng hàng : </label>
+                <input v-model="tai_khoan_dang_nhap.ten_tai_khoan" type="text" class="form-control" disabled>
+              </div>
+              <div class="form-group mt-3">
+                <label>Thông tin đơn hàng</label>
+                <select class="form-control" v-model="them_hoa_don.trang_thai_don">
+                  <option value="0">Chờ xử lý</option>
+                  <option value="1">Đang vận chuyển</option>
+                  <option value="2">Giao hàng thành công</option>
+                </select>
+              </div>
+              <div class="form-group mt-3">
+                <label>Thông tin thanh toán</label>
+                <select class="form-control" v-model="them_hoa_don.trang_thai_thanh_toan" :value="0">
+                  <option value="0" selected>Chưa thanh toán</option>
+                  <option value="1">Đã thanh toán</option>
+                </select>
+              </div>
+              <div class="form-group mt-3">
+                <label>Ngày tạo hoá đơn : </label>
+                <input value="{{ date('Y-m-d') }}" type="text" class="form-control" disabled>
+              </div>
             </div>
           </div>
-          <div class="col-6 custom-column">
-            <h4 class="text-center">THÔNG TIN KHÁCH HÀNG</h4>
+          <div class="col-6">
+            <div class="card custom-column" style="height: 100%;">
+              <h4 class="text-center">THÔNG TIN KHÁCH HÀNG</h4>
 
-            <div>
-              <div class="form-group mt-3">
-                <label>Email khách hàng</label>
-                <select v-model="them_hoa_don.ma_khach_hang" class="form-control" @change="LayTTKhachHang">
-                  <option v-for="khachhang in data_khachhang" :value="khachhang.id">@{{ khachhang.email }}</option>
-                </select>
-                <div v-if="errors.ma_khach_hang" class="alert alert-warning">
-                  @{{ errors.ma_khach_hang[0] }}
+              <div>
+                <div class="form-group mt-3">
+                  <label>Email khách hàng</label>
+                  <select v-model="them_hoa_don.ma_khach_hang" class="form-control" @change="LayTTKhachHang">
+                    <option v-for="khachhang in data_khachhang" :value="khachhang.id">@{{ khachhang.email }}</option>
+                  </select>
+                  <div v-if="errors.ma_khach_hang" class="alert alert-warning">
+                    @{{ errors.ma_khach_hang[0] }}
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <label>Họ và tên</label>
+                  <input v-model="them_hoa_don.ho_va_ten" type="text" class="form-control"
+                    placeholder="Nhập vào Họ và tên">
+                  <div v-if="errors.ho_va_ten" class="alert alert-warning">
+                    @{{ errors.ho_va_ten[0] }}
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <label>Địa chỉ</label>
+                  <input v-model="them_hoa_don.dia_chi" type="text" class="form-control" placeholder="Nhập vào địa chỉ">
+                  <div v-if="errors.dia_chi" class="alert alert-warning">
+                    @{{ errors.dia_chi[0] }}
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <label>Số điện thoại</label>
+                  <input v-model="them_hoa_don.so_dien_thoai" type="number" class="form-control"
+                    placeholder="Nhập vào số điện thoại">
+                  <div v-if="errors.so_dien_thoai" class="alert alert-warning">
+                    @{{ errors.so_dien_thoai[0] }}
+                  </div>
                 </div>
               </div>
-              <div class="form-group mt-3">
-                <label>Họ và tên</label>
-                <input v-model="them_hoa_don.ho_va_ten" type="text" class="form-control"
-                  placeholder="Nhập vào Họ và tên">
-                <div v-if="errors.ho_va_ten" class="alert alert-warning">
-                  @{{ errors.ho_va_ten[0] }}
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <label>Địa chỉ</label>
-                <input v-model="them_hoa_don.dia_chi" type="text" class="form-control" placeholder="Nhập vào địa chỉ">
-                <div v-if="errors.dia_chi" class="alert alert-warning">
-                  @{{ errors.dia_chi[0] }}
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <label>Số điện thoại</label>
-                <input v-model="them_hoa_don.so_dien_thoai" type="number" class="form-control"
-                  placeholder="Nhập vào số điện thoại">
-                <div v-if="errors.so_dien_thoai" class="alert alert-warning">
-                  @{{ errors.so_dien_thoai[0] }}
-                </div>
-              </div>
-            </div>
 
-            <div class="">
-              <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal" data-bs-target="#ThemKHModal">
-                Thêm Tài Khoản Khách Hàng
-              </button>
+              <div class="">
+                <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal" data-bs-target="#ThemKHModal">
+                  Thêm Tài Khoản Khách Hàng
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12 custom-column">
-            <h4 class="text-center">THÔNG TIN SẢN PHẨM</h4>
-            <div class="box_form">
-              <table id="select_table" class="table table-hover">
-                <thead class="bg-primary">
-                  <tr>
-                    <th class="text-center">#</th>
-                    <th class="text-center">Tên Sản Phẩm</th>
-                    <th class="text-center">Hình Ảnh</th>
-                    <th class="text-center">Giá Sản Phẩm Hiện Tại</th>
-                    <th class="text-center">Số Lượng</th>
-                    <th class="text-center">Thao Tác</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(SP, index) in SanPham" :key="index">
-                    <td class="text-center">@{{ SP.id_SP }}</td>
-                    <td class="text-center">@{{ getSanPham(SP.id_SP).ten_san_pham }}</td>
-                    <td class="text-center">
-                      <img :src="'/img/' + getSanPham(SP.id_SP).hinh_anh" :alt="getSanPham(SP.id_SP).hinh_anh">
-                    </td>
-                    <td class="text-center">@{{ formatCurrency(getSanPham(SP.id_SP).gia_san_pham * (1 -
-                      getSanPham(SP.id_SP).giam_gia_san_pham / 100 )) }}</td>
-                    <td class="text-center">
-                      <div class="quantity d-flex align-items-center justify-content-between">
-                        <button class="qty-btn dec-qty" @click="tru_so_luong(SP)"><img
-                            src="/assets_client/img/icon/minus.svg" alt="minus"></button>
-                        <input class="qty-input" type="number" v-model="SP.tong_so_luong" min="1" readonly>
-                        <button class="qty-btn inc-qty" @click="them_so_luong(SP)"><img
-                            src="/assets_client/img/icon/plus.svg" alt="plus"></button>
-                      </div>
-                      <!-- <input type="number" style="width: 50px;" v-model="SP.soluong" min="1" value="1"
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="card custom-column">
+              <h4 class="text-center">THÔNG TIN SẢN PHẨM</h4>
+              <div class="box_form">
+                <table id="select_table" class="table table-hover">
+                  <thead class="bg-primary">
+                    <tr>
+                      <th class="text-center">#</th>
+                      <th class="text-center">Tên Sản Phẩm</th>
+                      <th class="text-center">Hình Ảnh</th>
+                      <th class="text-center">Giá Sản Phẩm Hiện Tại</th>
+                      <th class="text-center">Số Lượng</th>
+                      <th class="text-center">Thao Tác</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(SP, index) in SanPham" :key="index">
+                      <td class="text-center">@{{ SP.id_SP }}</td>
+                      <td class="text-center">@{{ getSanPham(SP.id_SP).ten_san_pham }}</td>
+                      <td class="text-center">
+                        <img :src="'/img/' + getSanPham(SP.id_SP).hinh_anh" :alt="getSanPham(SP.id_SP).hinh_anh">
+                      </td>
+                      <td class="text-center">@{{ formatCurrency(getSanPham(SP.id_SP).giam_gia_san_pham) }}</td>
+                      <td class="text-center">
+                        <div class="quantity d-flex align-items-center justify-content-between">
+                          <button class="qty-btn dec-qty" @click="tru_so_luong(SP)"><img
+                              src="/assets_client/img/icon/minus.svg" alt="minus"></button>
+                          <input class="qty-input" type="number" v-model="SP.tong_so_luong" min="1" readonly>
+                          <button class="qty-btn inc-qty" @click="them_so_luong(SP)"><img
+                              src="/assets_client/img/icon/plus.svg" alt="plus"></button>
+                        </div>
+                        <!-- <input type="number" style="width: 50px;" v-model="SP.soluong" min="1" value="1"
                         class="form-control" /> -->
-                    </td>
-                    <td class="text-center">
-                      <button class="btn btn-danger" @click="xoa_sp(index)">Xoá</button>
-                    </td>
-                  </tr>
+                      </td>
+                      <td class="text-center">
+                        <button class="btn btn-danger" @click="xoa_sp(index)">Xoá</button>
+                      </td>
+                    </tr>
 
-                  <tr>
-                    <td colspan="5"><strong>Tổng Tiền</strong></td>
-                    <td class="text-center">@{{ formatCurrency(tinhTongTien()) }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                    <tr>
+                      <td colspan="5"><strong>Tổng Tiền</strong></td>
+                      <td class="text-center">@{{ formatCurrency(tinhTongTien()) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
 
-            <div class="">
-              <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal" data-bs-target="#ThemSPModal">
-                Thêm sản phẩm
-              </button>
+              <div class="">
+                <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal" data-bs-target="#ThemSPModal">
+                  Thêm sản phẩm
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -170,7 +175,7 @@
                   <h3>@{{ sanpham.ten_san_pham }}</h3>
                   <p>Loại sản phẩm: <span>@{{ sanpham.ten_loai }}</span></p>
                   <p>Danh mục: <span>@{{ sanpham.ten_danh_muc }}</span></p>
-                  <p class="price">@{{ formatCurrency(sanpham.gia_san_pham) }}</p>
+                  <p class="price">@{{ formatCurrency(sanpham.giam_gia_san_pham) }}</p>
                   <input type="hidden" :id="'MaSP' + sanpham.id" :value="sanpham.id">
                   <button class="btn btn-primary" @click="themSanPham(sanpham.id)">Thêm mới</button>
                 </div>
@@ -377,9 +382,8 @@
         tinhTongTien() {
           let tongTien = 0;
           for (const SP of this.SanPham) {
-            const giaSanPham = this.getSanPham(SP.id_SP).gia_san_pham;
-            const giamGia = this.getSanPham(SP.id_SP).giam_gia_san_pham / 100;
-            tongTien += giaSanPham * (1 - giamGia) * SP.tong_so_luong;
+            const giaSanPham = this.getSanPham(SP.id_SP).giam_gia_san_pham;
+            tongTien += giaSanPham * SP.tong_so_luong;
           }
           return tongTien;
         },

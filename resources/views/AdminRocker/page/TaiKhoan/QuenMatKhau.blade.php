@@ -46,40 +46,25 @@
               <div class="card-body">
                 <div class="border p-4 rounded">
                   <div class="form-body row g-3">
-
+                    <div class="section-header mb-3">
+                      <h2 class="section-heading text-center text-nowrap">Quên Mật Khẩu</h2>
+                    </div>
                     <div class="col-12">
-                      <label for="inputEmailAddress" class="form-label">Địa chỉ email</label>
-                      <input v-model="dang_nhap.email" type="email" class="form-control"
+                      <label for="inputEmailAddress" class="form-label">Nhập Email Muốn Đổi Lại Mật Khẩu
+                      </label>
+                      <input v-model="quen_mat_khau.email" type="email" class="form-control"
                         placeholder="Nhập địa chỉ email">
                       <div v-if="errors.email" class="alert alert-warning">@{{ errors.email[0] }}</div>
                     </div>
-                    <div class="col-12">
-                      <label for="inputChoosePassword" class="form-label">Mật khẩu</label>
-                      <div class="input-group" id="show_hide_password">
-                        <input v-model="dang_nhap.password" type="password" class="form-control border-end-0"
-                          placeholder="Nhập mật khẩu">
-                        <a href="javascript:;" class="input-group-text bg-transparent">
-                          <i class='bx bx-hide'></i>
-                        </a>
-                      </div>
-                      <div v-if="errors.password" class="alert alert-warning">@{{ errors.password[0] }}</div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Nhớ tài khoản</label>
-                      </div>
-                    </div>
-                    <div class="col-md-6 text-end">
-                      <a href="{{asset('/admin/ho-so/quen-mat-khau')}}">
-                        Quên mật khẩu ?
+                    <div class="col-12 text-end">
+                      <a class="mb-2" href="{{asset('/admin/dang-nhap')}}">
+                        Đăng nhập
                       </a>
                     </div>
                     <div class="col-12">
                       <div class="d-grid">
-                        <button type="submit" v-on:click="kich_hoat_dang_nhap()" class="btn btn-primary">
-                          <i class="bx bxs-lock-open"></i>
-                          Đăng nhập
+                        <button type="submit" v-on:click="kich_hoat_quen_mat_khau()" class="btn btn-primary">
+                          Gửi
                         </button>
                       </div>
                     </div>
@@ -102,23 +87,21 @@
     new Vue({
       el: "#app",
       data: {
-        dang_nhap: {},
+        quen_mat_khau: {},
         errors: {
-          email: '', // Thêm trường này để theo dõi lỗi email
-          password: '' // Thêm trường này để theo dõi lỗi mat_khau
+          email: '',
         },
       },
 
       methods: {
-        kich_hoat_dang_nhap() {
+        kich_hoat_quen_mat_khau() {
           axios
-            .post('/admin/kich-hoat-dang-nhap', this.dang_nhap)
+            .post('/admin/ho-so/quen-mat-khau', this.quen_mat_khau)
             .then((res) => {
               if (res.data.status) {
                 toastr.success(res.data.message);
-                this.dang_nhap = {};
                 setTimeout(() => {
-                  window.location.href = "/admin";
+                  window.location.href = "/admin/dang-nhap";
                 }, 1000); // Delay for 2 seconds (2000 milliseconds)
               } else {
                 toastr.warning(res.data.message);

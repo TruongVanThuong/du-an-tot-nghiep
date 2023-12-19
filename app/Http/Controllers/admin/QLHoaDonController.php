@@ -26,9 +26,16 @@ class QLHoaDonController extends Controller
 
     public function DuLieuHoaDon()
     {
-        
-        $data_hoadon = HoadonModel::orderBy('id', 'desc')->get();
+        $now = Carbon::now();
+        $date = $now->toDateString(); 
+        $time = $now->toTimeString();
+        $dateWithoutSpecialChars = str_replace(['-', ':'], '', $date);
+        $timeWithoutSpecialChars = str_replace(['-', ':'], '', $time);
+
         $hoa_don_moi_nhat = HoadonModel::orderBy('id', 'desc')->first();
+        $hoa_don_moi_nhat->ma_hoa_don = "TQ$dateWithoutSpecialChars$timeWithoutSpecialChars";
+
+        $data_hoadon = HoadonModel::orderBy('id', 'desc')->get();
         $tai_khoan_dang_nhap = Auth::guard('tai_khoan')->user();
         $data_khachhang = KhachHangModel::all();
         $data_hdct = HoadonchitietModel::join('san_pham', 'hoa_don_chi_tiet.ma_san_pham', '=', 'san_pham.id')
@@ -44,6 +51,7 @@ class QLHoaDonController extends Controller
                 'san_pham.ten_san_pham',
                 'san_pham.gia_san_pham',
                 'san_pham.giam_gia_san_pham',
+                'san_pham.phan_tram_giam_gia',
                 'hinh_anh.hinh_anh',
             )
             ->get();
@@ -79,6 +87,7 @@ class QLHoaDonController extends Controller
                 'san_pham.ten_san_pham',
                 'san_pham.gia_san_pham',
                 'san_pham.giam_gia_san_pham',
+                'san_pham.phan_tram_giam_gia',
                 'hinh_anh.hinh_anh',
             )
             ->get();
@@ -106,7 +115,6 @@ class QLHoaDonController extends Controller
     {
         $themHoaDon = $request->input('them_hoa_don');
         $SanPham = $request->input('SanPham');
-        $date = date('YmdHis');
         $now = Carbon::now();
         $date = $now->toDateString(); 
         $time = $now->toTimeString();
@@ -127,18 +135,19 @@ class QLHoaDonController extends Controller
         foreach ($SanPham as $san_pham) {
             $SanphamModel = SanphamModel::find($san_pham['id_SP']);
 
-            $tongtien = $san_pham['tong_so_luong'] * ($SanphamModel->gia_san_pham * (1 - $SanphamModel->giam_gia_san_pham / 100));
+            $tongtien = $san_pham['tong_so_luong'] * $SanphamModel->giam_gia_san_pham ;
             $tong_tien_tat_ca += $tongtien;
 
             HoadonchitietModel::create([
                 'ma_hoa_don' => $hoaDon->id,
                 'ma_san_pham' => $san_pham['id_SP'],
                 'tong_so_luong' => $san_pham['tong_so_luong'],
-                'tong_tien' => $tongtien * $san_pham['tong_so_luong'],
+                'tong_tien' => $tongtien ,
             ]);
         }
         $hoaDon->update(['tong_tien_tat_ca' => $tong_tien_tat_ca]);
 
+        // gửi mail
         $khachhang = KhachHangModel::where('id', $hoaDon->ma_khach_hang)->first();
         $hoa_don_chi_tiet = HoadonchitietModel::where('ma_hoa_don', $hoaDon->id)
             ->join('san_pham', 'hoa_don_chi_tiet.ma_san_pham', '=', 'san_pham.id')
@@ -151,6 +160,7 @@ class QLHoaDonController extends Controller
                 'san_pham.ten_san_pham',
                 'san_pham.gia_san_pham',
                 'san_pham.giam_gia_san_pham',
+                'san_pham.phan_tram_giam_gia',
             )
             ->get();
 
@@ -179,19 +189,19 @@ class QLHoaDonController extends Controller
         ]);
     }
 
-    public function ThemHoaDon(TaoHoaDonRequest $request)
-    {
-        $data = $request->all();
-        $data['tong_tien_tat_ca'] = 0;
-        $data['trang_thai_don'] = 0;
-        $data['trang_thai_thanh_toan'] = 0;
-        $data['ma_don_hang'] = Str::uuid();
-        HoadonModel::create($data);
-        return response()->json([
-            'status' => true,
-            'message' => 'Thêm Hoá Đơn thành công'
-        ]);
-    }
+    // public function ThemHoaDon(TaoHoaDonRequest $request)
+    // {
+    //     $data = $request->all();
+    //     $data['tong_tien_tat_ca'] = 0;
+    //     $data['trang_thai_don'] = 0;
+    //     $data['trang_thai_thanh_toan'] = 0;
+    //     $data['ma_don_hang'] = Str::uuid();
+    //     HoadonModel::create($data);
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => 'Thêm Hoá Đơn thành công'
+    //     ]);
+    // }. khong xoa
 
     public function CapNhatTTDonHang(Request $request)
     {
@@ -208,6 +218,7 @@ class QLHoaDonController extends Controller
                 'san_pham.ten_san_pham',
                 'san_pham.gia_san_pham',
                 'san_pham.giam_gia_san_pham',
+                'san_pham.phan_tram_giam_gia',
             )
             ->get();
 
@@ -274,11 +285,8 @@ class QLHoaDonController extends Controller
     public function ThemHoaDonChiTiet(Request $request)
     {
         $data = $request->all();
-        if ($data['giam_gia_san_pham'] == 0) {
-            $tong_tien = $data['tong_so_luong'] * $data['gia_san_pham'];
-        } else {
-            $tong_tien = $data['tong_so_luong'] * $data['gia_san_pham'] * (1 - $data['giam_gia_san_pham'] / 100);
-        }
+        $tong_tien = $data['tong_so_luong'] * $data['giam_gia_san_pham'];
+        
         $data['tong_tien'] = $tong_tien;
         $tong_tien_tat_ca = $data['tong_tien_tat_ca'] + $tong_tien;
         // dd($data);
@@ -298,13 +306,9 @@ class QLHoaDonController extends Controller
         $hoadonchitiet = HoadonchitietModel::find($id);
         $data_sanpham = SanphamModel::where('id', $hoadonchitiet->ma_san_pham)->first();
         $data_hoadon = HoadonModel::where('id', $hoadonchitiet->ma_hoa_don)->first();
-        $gia_sanpham = $data_sanpham->gia_san_pham;
-        $giamgia_sanpham = $data_sanpham->giam_gia_san_pham;
-        if ($giamgia_sanpham == 0) {
-            $tong_tien = $gia_sanpham * $hoadonchitiet->tong_so_luong;
-        } else {
-            $tong_tien = $gia_sanpham * $hoadonchitiet->tong_so_luong * (1 - $giamgia_sanpham / 100);
-        }
+
+        $tong_tien = $data_sanpham->giam_gia_san_pham * $hoadonchitiet->tong_so_luong;
+
         $tong_tien_tat_ca = $data_hoadon->tong_tien_tat_ca - $tong_tien;
 
         HoadonModel::where('id', $hoadonchitiet->ma_hoa_don)->update(

@@ -77,7 +77,10 @@
 			</a>
 			<ul class="dropdown-menu dropdown-menu-end">
 				<li>
-					<a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Hồ Sơ</span></a>
+					<a class="dropdown-item" href="{{asset('/admin/ho-so')}}"><i class="bx bx-user"></i><span>Hồ Sơ</span></a>
+				</li>
+				<li>
+					<a class="dropdown-item" href="{{asset('/admin/ho-so/cap-nhat-mat-khau')}}"><i class="bx bx-repost"></i><span>Đổi mật khẩu</span></a>
 				</li>
 				<li>
 					<a class="dropdown-item" href="{{asset('')}}"><i class='bx bx-home-circle'></i><span>Trang Chủ</span></a>

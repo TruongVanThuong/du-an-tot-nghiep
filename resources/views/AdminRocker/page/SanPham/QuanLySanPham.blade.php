@@ -4,10 +4,13 @@
 
   <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <button class="nav-link active" id="DanhSachTong" data-bs-toggle="tab" data-bs-target="#nav-DanhSachTong" type="button" role="tab" aria-controls="nav-DanhSachTong" aria-selected="true">Danh sách sản phẩm</button>
-      <button class="nav-link" id="TrangThai" data-bs-toggle="tab" data-bs-target="#nav-TrangThai" type="button" role="tab" aria-controls="nav-TrangThai" aria-selected="false">Trạng thái</button>
+      <button class="nav-link active" id="DanhSachTong" data-bs-toggle="tab" data-bs-target="#nav-DanhSachTong"
+        type="button" role="tab" aria-controls="nav-DanhSachTong" aria-selected="true">Danh sách sản phẩm</button>
+      <button class="nav-link" id="TrangThai" data-bs-toggle="tab" data-bs-target="#nav-TrangThai" type="button"
+        role="tab" aria-controls="nav-TrangThai" aria-selected="false">Trạng thái</button>
       <!-- <button class="nav-link" id="DanhMuc" data-bs-toggle="tab" data-bs-target="#nav-DanhMuc" type="button" role="tab" aria-controls="nav-DanhMuc" aria-selected="false">Danh mục</button> -->
-      <button class="nav-link" id="ThungRac" data-bs-toggle="tab" data-bs-target="#nav-ThungRac" type="button" role="tab" aria-controls="nav-ThungRac" aria-selected="false">Thùng rác</button>
+      <button class="nav-link" id="ThungRac" data-bs-toggle="tab" data-bs-target="#nav-ThungRac" type="button"
+        role="tab" aria-controls="nav-ThungRac" aria-selected="false">Thùng rác</button>
     </div>
   </nav>
 
@@ -19,12 +22,14 @@
     ///  =================================================================================== -->
 
 
-    <div class="tab-pane fade show active" id="nav-DanhSachTong" role="tabpanel" aria-labelledby="DanhSachTong" tabindex="0">
-      
+    <div class="tab-pane fade show active" id="nav-DanhSachTong" role="tabpanel" aria-labelledby="DanhSachTong"
+      tabindex="0">
+
       <div class="col-md-12 mb-3 mt-3">
         <div class="modal-category">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> Thêm Sản Phẩm
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> Thêm Sản
+            Phẩm
           </button>
 
           <!-- Modal -->
@@ -34,7 +39,8 @@
               <div class="modal-content">
                 <form id="sanphamForm" method="post" action="/admin/sanpham" enctype="multipart/form-data">@csrf
                   <div class="modal-header">
-                    <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300" id="exampleModalLabel">Thêm Sản Phẩm</h3>
+                    <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300" id="exampleModalLabel">Thêm Sản
+                      Phẩm</h3>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -62,7 +68,8 @@
                           <option value=""> _ _ _ Chon Mã Loại Sản Phẩm _ _ _</option>
                           @foreach($data_Loaisanpham as $Loaisanpham)
                           <option value="{{$Loaisanpham->id}}">
-                            {{$Loaisanpham->ten_loai}} - (Danh muc : @foreach($data_danhmuc as $danhmuc) @if($danhmuc->id ==
+                            {{$Loaisanpham->ten_loai}} - (Danh muc : @foreach($data_danhmuc as $danhmuc)
+                            @if($danhmuc->id ==
                             $Loaisanpham->ma_danh_muc) {{$danhmuc->ten_danh_muc}} @endif @endforeach)
                           </option>
                           @endforeach
@@ -88,7 +95,8 @@
                           <div class="input-group-addon">
                             <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                           </div>
-                          <input name="giam_gia_san_pham" type="number" class="form-control" placeholder="Nhập Giảm giá" min="1" max="100" >
+                          <input name="phan_tram_giam_gia" type="number" class="form-control"
+                            placeholder="Nhập Giảm giá" min="1" max="100">
                         </div>
                       </div>
                       <div class="col-md-12 p-1 form-group-item">
@@ -101,8 +109,8 @@
                       </div>
                       <div class="form-group col-md-12 p-1">
                         <label>Ảnh Sản Phẩm</label>
-                        <input id="hinh_anh" class="form-control" type="file" accept="image/*" name="hinh_anh[]" multiple
-                          required>
+                        <input id="hinh_anh" class="form-control" type="file" accept="image/*" name="hinh_anh[]"
+                          multiple required>
                       </div>
                     </div>
                   </div>
@@ -141,14 +149,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  
+
                   @if($sanPhamsWithInfo->isEmpty())
                   <tr>
                     <td class="align-middle text-center text-nowrap" colspan="11">Không có dữ liệu</td>
                   </tr>
                   @else
                   @php
-                    $shownProducts = []; // Mảng để theo dõi sản phẩm đã hiển thị
+                  $shownProducts = []; // Mảng để theo dõi sản phẩm đã hiển thị
                   @endphp
                   @foreach($sanPhamsWithInfo as $sanpham)
                   @if (!in_array($sanpham->id, $shownProducts))
@@ -161,7 +169,7 @@
                       {{$sanpham->ten_san_pham}}
                     </td>
                     <td class="align-middle text-center">
-                      {{$sanpham->gia_san_pham}}
+                      {{ $sanpham->gia_san_pham }}
                     </td>
                     <td class="align-middle text-center">
                       {{$sanpham->giam_gia_san_pham}}
@@ -169,7 +177,8 @@
                     <td class="align-middle text-center">
                       <!-- -- Kiểm tra xem sản phẩm có hình ảnh hay không -- -->
                       @if ($sanpham->hinh_anh)
-                      <img height="100" src="{{ asset('img/') }}/{{ $sanpham->hinh_anh }}" title="{{ $sanpham->hinh_anh }}">
+                      <img height="100" src="{{ asset('img/') }}/{{ $sanpham->hinh_anh }}"
+                        title="{{ $sanpham->hinh_anh }}">
                       @else
                       <p>Không có hình ảnh cho sản phẩm này.</p>
                       @endif
@@ -188,8 +197,9 @@
                     </td>
                     <td class="align-middle text-center">
                       <div class="form-check form-switch">
-                        <input class="form-check-input" onclick="toggleStatus(<?php echo $sanpham->id; ?>)" type="checkbox"
-                          @if($sanpham->trang_thai == 1) checked @endif role="switch" id="flexSwitchCheckDefault">
+                        <input class="form-check-input" onclick="toggleStatus(<?php echo $sanpham->id; ?>)"
+                          type="checkbox" @if($sanpham->trang_thai == 1) checked @endif role="switch"
+                        id="flexSwitchCheckDefault">
                       </div>
                     </td>
                     <td class="align-middle text-center text-nowrap">
@@ -216,8 +226,8 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                            <button type="button" class="btn btn-danger" onclick="kich_hoat_xoa_san_pham({{$sanpham->id}})"
-                              data-bs-dismiss="modal">Xoá</button>
+                            <button type="button" class="btn btn-danger"
+                              onclick="kich_hoat_xoa_san_pham({{$sanpham->id}})" data-bs-dismiss="modal">Xoá</button>
                           </div>
                         </div>
                       </div>
@@ -233,7 +243,8 @@
                           <form id="validate_update" method="post" action="capnhatsanpham/{{$sanpham->id}}"
                             enctype="multipart/form-data">@csrf
                             <div class="modal-header">
-                              <h3  class="text-lg font-semibold text-gray-600 dark:text-gray-300" id="exampleModalLabel_update">Cập Nhật Sản Phẩm</h3>
+                              <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300"
+                                id="exampleModalLabel_update">Cập Nhật Sản Phẩm</h3>
                               <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
@@ -242,14 +253,15 @@
                             <div class="card m-3">
 
                               <div class="card-header text-center">
-                                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Danh Sách Hình Ảnh</h3>
+                                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Danh Sách Hình Ảnh
+                                </h3>
                               </div>
 
                               <div class="card-body">
                                 <div class="row">
                                   @foreach($data_hinhanh as $hinhanh)
                                   @if($hinhanh->ma_san_pham == $sanpham->id)
-                                  <div class="col-md-3">
+                                  <div class="col-md-3" id="hinhanh_{{$hinhanh->id}}">
                                     <div>
                                       <img src="{{asset('img')}}/{{$hinhanh->hinh_anh}}" width="100" title="image">
                                     </div>
@@ -267,7 +279,8 @@
 
                             <div class="card m-3">
                               <div class="card-header text-center">
-                                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Thông Tin Sản Phẩm</h3>
+                                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Thông Tin Sản Phẩm
+                                </h3>
                               </div>
 
                               <div class="modal-body row">
@@ -281,7 +294,8 @@
 
                                   <div class="form-group col-md-12 p-1 form-group-item">
                                     <label>Mô Tả</label>
-                                    <textarea name="mo_ta" id="update_mo_ta" class="form-control ckeditor" cols="30" rows="10">
+                                    <textarea name="mo_ta" id="update_mo_ta" class="form-control ckeditor" cols="30"
+                                      rows="10">
                                       {{$sanpham->mo_ta}}
                                     </textarea>
                                   </div>
@@ -303,8 +317,8 @@
                                   </div>
                                   <div class="col-md-12 p-1 form-group-item">
                                     <label>Số Lượng</label>
-                                    <input name="so_luong" type="number" class="form-control" placeholder="Nhập Số Lượng"
-                                      value="{{$sanpham->so_luong}}" required>
+                                    <input name="so_luong" type="number" class="form-control"
+                                      placeholder="Nhập Số Lượng" value="{{$sanpham->so_luong}}" required>
                                   </div>
                                   <div class="col-md-12 p-1 form-group-item">
                                     <label>Giá Bán</label>
@@ -312,8 +326,8 @@
                                       <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-usd"></span>
                                       </div>
-                                      <input name="gia_san_pham" type="number" class="form-control" placeholder="Nhập Giá Bán"
-                                        value="{{$sanpham->gia_san_pham}}" required>
+                                      <input name="gia_san_pham" type="number" class="form-control"
+                                        placeholder="Nhập Giá Bán" value="{{$sanpham->gia_san_pham}}" required>
                                     </div>
                                   </div>
                                   <div class="col-md-12 p-1 form-group-item">
@@ -322,15 +336,17 @@
                                       <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                                       </div>
-                                      <input name="giam_gia_san_pham" type="number" class="form-control"
-                                        placeholder="Nhập Giảm giá" value="{{$sanpham->giam_gia_san_pham}}">
+                                      <input name="phan_tram_giam_gia" type="number" class="form-control"
+                                        placeholder="Nhập Giảm giá" value="{{$sanpham->phan_tram_giam_gia}}">
                                     </div>
                                   </div>
                                   <div class="col-md-12 p-1 form-group-item">
                                     <label>Đặt Biệt</label>
                                     <select name="dat_biet" class="form-control" required>
-                                      <option value="0" @if($sanpham->dat_biet == 0) selected="selected"; @endif>Khong</option>
-                                      <option value="1" @if($sanpham->dat_biet == 1) selected="selected"; @endif>Co</option>
+                                      <option value="0" @if($sanpham->dat_biet == 0) selected="selected"; @endif>Khong
+                                      </option>
+                                      <option value="1" @if($sanpham->dat_biet == 1) selected="selected"; @endif>Co
+                                      </option>
                                     </select>
                                   </div>
                                   <div class="form-group col-md-12 p-1">
@@ -357,9 +373,9 @@
                     <!-- end modal cap nhat -->
                   </tr>
 
-                    @php
-                      $shownProducts[] = $sanpham->id;
-                    @endphp
+                  @php
+                  $shownProducts[] = $sanpham->id;
+                  @endphp
                   @endif
                   @endforeach
                   @endif
@@ -369,7 +385,7 @@
               </table>
 
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -382,16 +398,17 @@
     ///  =================================================================================== -->
 
     <div class="tab-pane fade" id="nav-TrangThai" role="tabpanel" aria-labelledby="TrangThai" tabindex="0">
-    
+
       <div class="col-md-12">
         <div class="card">
           <div class="card-header text-center">
-            <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300"> Danh Sách Các Trạng Thái Sản Phẩm Đã Tắt</h3>
+            <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300"> Danh Sách Các Trạng Thái Sản Phẩm Đã Tắt
+            </h3>
           </div>
           <div class="card-body">
             <div class="table-responsive">
 
-              <table  class="table table-bordered">
+              <table class="table table-bordered">
                 <thead clas="bg-primary">
                   <tr>
                     <th class="text-center">ID</th>
@@ -436,7 +453,8 @@
                     <td class="align-middle text-center">
                       <!-- -- Kiểm tra xem sản phẩm có hình ảnh hay không -- -->
                       @if ($sanpham->hinh_anh)
-                      <img height="100" src="{{ asset('img/') }}/{{ $sanpham->hinh_anh }}" title="{{ $sanpham->hinh_anh }}">
+                      <img height="100" src="{{ asset('img/') }}/{{ $sanpham->hinh_anh }}"
+                        title="{{ $sanpham->hinh_anh }}">
                       @else
                       <p>Không có hình ảnh cho sản phẩm này.</p>
                       @endif
@@ -455,8 +473,8 @@
                     </td>
                     <td class="align-middle text-center">
                       <div class="form-check form-switch">
-                        <input class="form-check-input" onclick="toggleStatus(<?php echo $sanpham->id; ?>)" type="checkbox"
-                          @if($sanpham->trang_thai == 1) checked @endif role="switch" >
+                        <input class="form-check-input" onclick="toggleStatus(<?php echo $sanpham->id; ?>)"
+                          type="checkbox" @if($sanpham->trang_thai == 1) checked @endif role="switch" >
                       </div>
                     </td>
                     <td class="align-middle text-center text-nowrap">
@@ -483,8 +501,8 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                            <button type="button" class="btn btn-danger" onclick="kich_hoat_xoa_san_pham({{$sanpham->id}})"
-                              data-bs-dismiss="modal">Xoá</button>
+                            <button type="button" class="btn btn-danger"
+                              onclick="kich_hoat_xoa_san_pham({{$sanpham->id}})" data-bs-dismiss="modal">Xoá</button>
                           </div>
                         </div>
                       </div>
@@ -500,7 +518,8 @@
                           <form id="validate_update" method="post" action="capnhatsanpham/{{$sanpham->id}}"
                             enctype="multipart/form-data">@csrf
                             <div class="modal-header">
-                              <h3  class="text-lg font-semibold text-gray-600 dark:text-gray-300" id="exampleModalLabel_update">Cập Nhật Sản Phẩm</h3>
+                              <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300"
+                                id="exampleModalLabel_update">Cập Nhật Sản Phẩm</h3>
                               <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
@@ -509,7 +528,8 @@
                             <div class="card m-3">
 
                               <div class="card-header text-center">
-                                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Danh Sách Hình Ảnh</h3>
+                                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Danh Sách Hình Ảnh
+                                </h3>
                               </div>
 
                               <div class="card-body">
@@ -534,7 +554,8 @@
 
                             <div class="card m-3">
                               <div class="card-header text-center">
-                                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Thông Tin Sản Phẩm</h3>
+                                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Thông Tin Sản Phẩm
+                                </h3>
                               </div>
 
                               <div class="modal-body row">
@@ -548,7 +569,8 @@
 
                                   <div class="form-group col-md-12 p-1 form-group-item">
                                     <label>Mô Tả</label>
-                                    <textarea name="mo_ta" id="update_mo_ta" class="form-control ckeditor" cols="30" rows="10">
+                                    <textarea name="mo_ta" id="update_mo_ta" class="form-control ckeditor" cols="30"
+                                      rows="10">
                                       {{$sanpham->mo_ta}}
                                     </textarea>
                                   </div>
@@ -570,8 +592,8 @@
                                   </div>
                                   <div class="col-md-12 p-1 form-group-item">
                                     <label>Số Lượng</label>
-                                    <input name="so_luong" type="number" class="form-control" placeholder="Nhập Số Lượng"
-                                      value="{{$sanpham->so_luong}}" required>
+                                    <input name="so_luong" type="number" class="form-control"
+                                      placeholder="Nhập Số Lượng" value="{{$sanpham->so_luong}}" required>
                                   </div>
                                   <div class="col-md-12 p-1 form-group-item">
                                     <label>Giá Bán</label>
@@ -579,8 +601,8 @@
                                       <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-usd"></span>
                                       </div>
-                                      <input name="gia_san_pham" type="number" class="form-control" placeholder="Nhập Giá Bán"
-                                        value="{{$sanpham->gia_san_pham}}" required>
+                                      <input name="gia_san_pham" type="number" class="form-control"
+                                        placeholder="Nhập Giá Bán" value="{{$sanpham->gia_san_pham}}" required>
                                     </div>
                                   </div>
                                   <div class="col-md-12 p-1 form-group-item">
@@ -589,15 +611,17 @@
                                       <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                                       </div>
-                                      <input name="giam_gia_san_pham" type="number" class="form-control"
-                                        placeholder="Nhập Giảm giá" value="{{$sanpham->giam_gia_san_pham}}">
+                                      <input name="phan_tram_giam_gia" type="number" class="form-control"
+                                        placeholder="Nhập Giảm giá" value="{{$sanpham->phan_tram_giam_gia}}">
                                     </div>
                                   </div>
                                   <div class="col-md-12 p-1 form-group-item">
                                     <label>Đặt Biệt</label>
                                     <select name="dat_biet" class="form-control" required>
-                                      <option value="0" @if($sanpham->dat_biet == 0) selected="selected"; @endif>Khong</option>
-                                      <option value="1" @if($sanpham->dat_biet == 1) selected="selected"; @endif>Co</option>
+                                      <option value="0" @if($sanpham->dat_biet == 0) selected="selected"; @endif>Khong
+                                      </option>
+                                      <option value="1" @if($sanpham->dat_biet == 1) selected="selected"; @endif>Co
+                                      </option>
                                     </select>
                                   </div>
                                   <div class="form-group col-md-12 p-1">
@@ -637,27 +661,20 @@
               </table>
 
             </div>
-            
+
           </div>
         </div>
       </div>
 
     </div>
-  
 
-    <!-- ===================================================================================
-    ///  =============================== Danh Sách Danh Mục =============================================
-    ///  =================================================================================== -->
 
-  
-    <!-- <div class="tab-pane fade" id="nav-DanhMuc" role="tabpanel" aria-labelledby="DanhMuc" tabindex="0">3</div> -->
-    
 
     <!-- ===================================================================================
     ///  =============================== Danh Sách Thùng Rác =============================================
     ///  =================================================================================== -->
 
-    
+
     <div class="tab-pane fade" id="nav-ThungRac" role="tabpanel" aria-labelledby="ThungRac" tabindex="0">
 
 
@@ -669,7 +686,7 @@
           <div class="card-body">
             <div class="table-responsive">
               <button class="btn btn-info mb-3" style="float: right;" data-bs-toggle="modal"
-              data-bs-target="#onlyTrashedModal">Phục hồi tất cả</button>
+                data-bs-target="#onlyTrashedModal">Phục hồi tất cả</button>
               <table class="table table-bordered">
                 <thead clas="bg-primary">
                   <tr>
@@ -715,7 +732,8 @@
                     <td class="align-middle text-center">
                       <!-- -- Kiểm tra xem sản phẩm có hình ảnh hay không -- -->
                       @if ($sanpham->hinh_anh)
-                      <img height="100" src="{{ asset('img/') }}/{{ $sanpham->hinh_anh }}" title="{{ $sanpham->hinh_anh }}">
+                      <img height="100" src="{{ asset('img/') }}/{{ $sanpham->hinh_anh }}"
+                        title="{{ $sanpham->hinh_anh }}">
                       @else
                       <p>Không có hình ảnh cho sản phẩm này.</p>
                       @endif
@@ -734,8 +752,8 @@
                     </td>
                     <td class="align-middle text-center">
                       <div class="form-check form-switch">
-                        <input class="form-check-input" onclick="toggleStatus(<?php echo $sanpham->id; ?>)" type="checkbox"
-                          @if($sanpham->trang_thai == 1) checked @endif role="switch" >
+                        <input class="form-check-input" onclick="toggleStatus(<?php echo $sanpham->id; ?>)"
+                          type="checkbox" @if($sanpham->trang_thai == 1) checked @endif role="switch" >
                       </div>
                     </td>
                     <td class="align-middle text-center text-nowrap">
@@ -743,7 +761,8 @@
                       <button class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#ModalRecover{{$sanpham->id}}">Phục Hồi</button>
                       <button class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#DeleteTrashModal{{$sanpham->id}}" @if ($sanpham->disabled) disabled @endif ">Xóa</button>
+                        data-bs-target="#DeleteTrashModal{{$sanpham->id}}" @if ($sanpham->disabled) disabled @endif
+                        ">Xóa</button>
                     </td>
 
                     <!-- MODAL DELETE -->
@@ -762,7 +781,8 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                            <button type="button" class="btn btn-danger" onclick="kich_hoat_xoa_cung_san_pham({{$sanpham->id}})"
+                            <button type="button" class="btn btn-danger"
+                              onclick="kich_hoat_xoa_cung_san_pham({{$sanpham->id}})"
                               data-bs-dismiss="modal">Xoá</button>
                           </div>
                         </div>
@@ -794,8 +814,8 @@
 
 
                     <!-- MODAL PHUC HOI TAT CA DU LIEU DA XOA-->
-                    <div class="modal fade" id="onlyTrashedModal" tabindex="-1" role="dialog" aria-labelledby="RecoverModalLabel"
-                      aria-hidden="true">
+                    <div class="modal fade" id="onlyTrashedModal" tabindex="-1" role="dialog"
+                      aria-labelledby="RecoverModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -831,30 +851,30 @@
               <span class="text-danger">* Không thể xoá sản phẩm khi có dữ liệu liên quan tới hoá đơn</span>
 
             </div>
-            
+
           </div>
         </div>
       </div>
-    
+
 
 
     </div>
   </div>
 
 
-  
+
 
   <style>
     /* Màu đỏ khi có lỗi */
     .has-error {
-        color: #a94442;
-        border-color: #ebccd1;
+      color: #a94442;
+      border-color: #ebccd1;
     }
 
     /* Màu xanh khi không có lỗi */
     .has-success {
-        color: #3c763d;
-        border-color: #d6e9c6;
+      color: #3c763d;
+      border-color: #d6e9c6;
     }
   </style>
 </div>
@@ -864,11 +884,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-  <script>
-    $(document).ready(function () {
-      $('#table_id').DataTable();
-    });
-  </script>
+<script>
+  $(document).ready(function () {
+    $('#table_id').DataTable();
+  });
+</script>
 
 
 
@@ -958,10 +978,18 @@
       type: "get",
       data: { idImg: id },
       success: function () {
+        $("#hinhanh_" + id).hide();
         toastr.success("Xoá hình ảnh sản phẩm thành công!");
-        window.location.replace("./sanpham");
       }
     });
+  }
+
+  function formatCurrency(value) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    });
+    return formatter.format(value);
   }
 </script>
 
@@ -984,7 +1012,7 @@
         'gia_san_pham': {
           required: true,
         },
-        'giam_gia_san_pham': {
+        'phan_tram_giam_gia': {
           min: 1,
           max: 100,
         },
@@ -1002,7 +1030,7 @@
         'ten_san_pham': "Vui lòng không được bỏ trống tên sản phẩm.",
         'ma_loai': "Vui lòng không được bỏ trống mã loại.",
         'gia_san_pham': "Vui lòng không được bỏ trống giá sản phẩm.",
-        'giam_gia_san_pham': {
+        'phan_tram_giam_gia': {
           min: 'Vui lòng nhập giảm giá lớn hơn hoặc bằng 1.',
           max: 'Vui lòng nhập giảm giá nhỏ hơn hoặc bằng 100.'
         },

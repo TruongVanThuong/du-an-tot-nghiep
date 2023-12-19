@@ -55,7 +55,7 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
         Route::get('/tao-hoa-don', [QLHoaDonController::class, 'TrangTaoHoaDon']);
         Route::post('/tao-hoa-don', [QLHoaDonController::class, 'TaoHoaDon']);
         //////////////
-        Route::post('/them-hoa-don', [QLHoaDonController::class, 'ThemHoaDon']);
+        // Route::post('/them-hoa-don', [QLHoaDonController::class, 'ThemHoaDon']); khong xoa
         Route::post('/cap-nhat-trang-thai-don-hang', [QLHoaDonController::class, 'CapNhatTTDonHang']);
         Route::post('/cap-nhat-trang-thai-thanh-toan', [QLHoaDonController::class, 'CapNhatTTTT']);
       });
@@ -130,6 +130,7 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     // thong ke --------------
     Route::get('/', [ThongKeController::class, 'index']);
     Route::get('/du-lieu', [ThongKeController::class, 'DuLieuThongKe']);
+    Route::post('/du-lieu', [ThongKeController::class, 'CapNhatNgay']);
 
     // Lien He --------------
     Route::group(['prefix' => '/lien-he'], function () {
@@ -170,12 +171,21 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'name' => 'AdminRocke
     Route::get('xoa-binh-luan-san-pham/{id}', [QLBinhluanController::class, 'xoa_binh_luan_sanpham']);
   
   
+    Route::get('/ho-so', [TaiKhoanController::class, 'HoSo']);
+    Route::get('/ho-so/du-lieu', [TaiKhoanController::class, 'DuLieuHoSo']);
+    Route::post('/ho-so/cap-nhat', [TaiKhoanController::class, 'CapNhatHoSo']);
+    Route::get('/ho-so/cap-nhat-mat-khau', [TaiKhoanController::class, 'DoiMatKhau']);
+    Route::post('/ho-so/cap-nhat-mat-khau', [TaiKhoanController::class, 'DoiMatKhauHoSo']);
   });
 
   Route::get('/dang-nhap', [TaiKhoanController::class, 'DangNhap']);
   Route::post('/kich-hoat-dang-nhap', [TaiKhoanController::class, 'KichHoatDangNhap']);
   Route::get('/dang-xuat', [TaiKhoanController::class, 'DangXuat']);
-
+  // QUÊN MẠT KHẨU
+  Route::get('/ho-so/quen-mat-khau', [TaiKhoanController::class, 'QuenMatKhau']);
+  Route::post('/ho-so/quen-mat-khau', [TaiKhoanController::class, 'QuenMatKhauHoSo']);
+  Route::get('/ho-so/kich-hoat-mail-doi-mat-khau/{ma_bam_quen_mat_khau}', [TaiKhoanController::class, 'KichHoatMailDoiMatKhau']);
+  Route::post('/ho-so/doi-mat-khau', [TaiKhoanController::class, 'KichHoatDoiMatKhau']);
 });
 
 
