@@ -84,8 +84,15 @@
                             <span class="rating-count ms-2">(22)</span>
                         </div>
                         <div class="product-price-wrapper mb-4">
-                            <span class="product-price regular-price">{{$san_pham_chi_tiet->gia_san_pham}}</span>
-                            <del class="product-price compare-price ms-2">{{$san_pham_chi_tiet->giam_gia_san_pham}}</del>
+                            <span class="product-price regular-price">{{ number_format($san_pham_chi_tiet->giam_gia_san_pham, 0, '.', '.') }}
+                                ₫</span>
+                                @if ($san_pham_chi_tiet->giam_gia_san_pham == $san_pham_chi_tiet->gia_san_pham)
+                                    
+                                @else
+                                <del class="product-price compare-price ms-2">{{ number_format($san_pham_chi_tiet->gia_san_pham, 0, '.', '.') }}
+                                    ₫</del>
+                                @endif
+                            
                         </div>
                         <div class="product-sku product-meta mb-1">
                             <strong class="label">Mã Sản Phẩm:</strong> {{$san_pham_chi_tiet->id}}
