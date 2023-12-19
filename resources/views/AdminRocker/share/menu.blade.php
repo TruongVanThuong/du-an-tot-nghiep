@@ -159,21 +159,21 @@
             
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/binhluan')}}">
-                    <div class="parent-icon"><i class="bx bx-tag"></i>
+                    <div class="parent-icon"><i class="bx bx-comment"></i>
                     </div>
                     <div class="menu-title">Bình luận</div>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/magiamgia')}}">
-                    <div class="parent-icon"><i class="bx bx-tag"></i>
+                    <div class="parent-icon"><i class="bx bx-price-tag"></i>
                     </div>
                     <div class="menu-title">Mã Giảm Giá</div>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/banner')}}">
-                    <div class="parent-icon"><i class="bx bx-tag"></i>
+                    <div class="parent-icon"><i class="bx bx-outline-post-add"></i>
                     </div>
                     <div class="menu-title">Banner</div>
                 </a>

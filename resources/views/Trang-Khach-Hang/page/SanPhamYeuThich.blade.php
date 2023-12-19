@@ -121,12 +121,12 @@
                                     </div>
                                 </div>
                                 <div class="product-card-details">
-                                    <ul class="color-lists list-unstyled d-flex align-items-center">
+                                    <!-- <ul class="color-lists list-unstyled d-flex align-items-center">
                                         <li><a href="javascript:void(0)" class="color-swatch swatch-black active"></a></li>
                                         <li><a href="javascript:void(0)" class="color-swatch swatch-cyan"></a></li>
                                         <li><a href="javascript:void(0)" class="color-swatch swatch-purple"></a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                     <h3 class="product-card-title">
                                         <a
                                             :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' +
