@@ -99,14 +99,14 @@
                                                 </label>
                                                 <label class="block text-sm">
                                                     <label>số lượng</label>
-                                                    <input v-model="edit_ma_giam_gia.so_luong" type="text" class="form-control" placeholder="Nhập Vào  Mã giảm giá">
+                                                    <input v-model="edit_ma_giam_gia.so_luong" required type="text" class="form-control" placeholder="Nhập Vào  Mã giảm giá">
                                                     <div v-if="errors.so_luong" class="alert alert-warning">
                                                         @{{ errors.so_luong[0] }}
                                                     </div>
                                                 </label>
                                                 <label class="block text-sm">
                                                     <label>Mức Giảm Giá</label>
-                                                    <input v-model="edit_ma_giam_gia.tien_giam_gia" type="text" class="form-control" placeholder="Nhập Vào  Mã giảm giá">
+                                                    <input v-model="edit_ma_giam_gia.tien_giam_gia" required type="text" class="form-control" placeholder="Nhập Vào  Mã giảm giá">
                                                     <div v-if="errors.tien_giam_gia" class="alert alert-warning">
                                                         @{{ errors.tien_giam_gia[0] }}
                                                     </div>
@@ -175,8 +175,39 @@
             them_ma_giam_gia: {},
             data_ma_giam_gia: [],
             edit_ma_giam_gia: {},
-            errors: {},
+            errors: {
+                ma_giam_gia:'',
+                so_luong:'',
+                tien_giam_gia:'',
+            },
             xoa: {},
+        },
+        watch: {
+            'them_ma_giam_gia.ma_giam_gia': function (newVal) {
+            if (newVal) {
+                this.errors.ma_giam_gia = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+            }
+            },
+            'them_ma_giam_gia.so_luong': function (newVal) {
+            if (newVal) {
+                this.errors.so_luong = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+            }
+            },
+            'them_ma_giam_gia.tien_giam_gia': function (newVal) {
+            if (newVal) {
+                this.errors.tien_giam_gia = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+            }
+            },
+            'edit_ma_giam_gia.so_luong': function (newVal) {
+            if (newVal) {
+                this.errors.so_luong = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+            }
+            },
+            'edit_ma_giam_gia.tien_giam_gia': function (newVal) {
+            if (newVal) {
+                this.errors.tien_giam_gia = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+            }
+            },
         },
         created() {
             this.lay_ma_giam_gia();
@@ -199,7 +230,9 @@
                         if (res.data.status) {
                             toastr.success(res.data.message);
                             this.lay_ma_giam_gia();
-
+                            this.them_ma_giam_gia.ma_giam_gia ='';
+                            this.them_ma_giam_gia.so_luong ='';
+                            this.them_ma_giam_gia.tien_giam_gia ='';
 
                         } else {
                             toastr.error('Có lỗi không mong muốn! 1');
@@ -226,6 +259,8 @@
                         if (res.data.status) {
                             toastr.success(res.data.message);
                             this.lay_ma_giam_gia();
+                            this.edit_ma_giam_gia.so_luong ='';
+                            this.edit_ma_giam_gia.tien_giam_gia ='';
                             // Tắt modal xác nhận
                             $('#ModalEdit').modal('hide');
                         } else {

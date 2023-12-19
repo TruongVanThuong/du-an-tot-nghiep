@@ -10,10 +10,11 @@ class HoadonModel extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'hoa_don';
-    protected $primarykey = 'id';
+    protected $primaryKey  = 'id';
+    public $incrementing = false; // Đặt giá trị này thành false để ngăn chặn tự động tăng
     protected $fillable = [
+        "id",
         "ma_khach_hang",
-        "ma_don_hang",
         "ho_va_ten",
         "so_dien_thoai",
         "dia_chi",

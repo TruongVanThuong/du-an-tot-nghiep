@@ -25,20 +25,20 @@
                                             <th class="text-center">Họ và tên</th>
                                             <th class="text-center">Số điện thoại</th>
                                             <th class="text-center">Địa chỉ</th>
-                                            <th class="text-center">Tổng tiền tất cả</th>
+                                            <th class="text-center">Mã hóa đơn</th>
                                             <th class="text-center">Trạng thái đơn</th>
                                             <th class="text-center">Trạng thái thanh toán</th>
                                             <th class="text-center">Hủy đơn</th>
                                             <th class="text-center">Sản Phẩm Chi Tiết</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody> 
                                         <tr v-for="(value, key) in ds_du_lieu" :key="key"
                                             v-if="value && value.trang_thai_don == 0">
                                             <th class="align-middle text-center">@{{ value.ho_va_ten }}</th>
                                             <th class="align-middle text-center">@{{ value.so_dien_thoai }}</th>
                                             <th class="align-middle text-center">@{{ value.dia_chi }}</th>
-                                            <th class="align-middle text-center">@{{ formatCurrency(value.tong_tien_tat_ca) }}</th>
+                                            <th class="align-middle text-center">@{{ value.id }}</th>
                                             <th class="align-middle text-center">
                                                 <button v-if="value.trang_thai_don === -1" class="btn btn-danger">Hủy
                                                     đơn</button>
@@ -290,7 +290,7 @@
                                             style="width: 50px; height: 50px;">
                                     </th>
                                     <th class="align-middle text-center">
-                                        @{{ formatCurrency(value.gia_san_pham * (1- value.giam_gia_san_pham / 100) ) }}
+                                        @{{ formatCurrency(value.giam_gia_san_pham) }}
                                     </th>
 
                                     <th class="align-middle text-center">@{{ formatDate(value.created_at) }}</th>
@@ -325,9 +325,21 @@
                 huy_don: {},
                 @include('Trang-Khach-Hang.share.datavue')
             },
+            watch: {
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
+            },
             created() {
                 this.tai_gio_hang();
-                this.tai_san_pham_yeu_thich();
                 this.lich_su_mua_hang();
             },
             methods: {

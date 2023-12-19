@@ -1,6 +1,10 @@
 @extends('Trang-Khach-Hang.share.master')
 @section('noi-dung')
-    <main class="content-for-layout" style="margin-bottom: 100px"  v-cloak>
+    @php
+        $check = Auth::guard('khach_hang')->check();
+        $user = Auth::guard('khach_hang')->user();
+    @endphp
+    <main class="content-for-layout" style="margin-bottom: 100px" v-cloak>
         <div class="contact-page">
             <!-- contact box start -->
             <div class="contact-box mt-100">
@@ -76,41 +80,62 @@
                         <div class="contact-form--wrapper">
                             <div class="contact-form">
                                 <div class="row">
+                                    @if ($check)
+                                    <div class="col-md-6 col-12">
+                                        <fieldset>
+                                            <input value="{{$user->ho_va_ten}}" disabled type="text" placeholder="Họ và tên" />
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <fieldset>
+                                            <input value="{{$user->email}}" disabled type="email" placeholder="Mail của bạn" />
+                                        </fieldset>
+                                    </div>
+                                    @else
                                     <div class="col-md-6 col-12">
                                         <fieldset>
                                             <input v-model="lien_he.ho_va_ten" type="text" placeholder="Họ và tên" />
-                                <div v-if="errors.ho_va_ten" class="alert alert-warning">@{{ errors.ho_va_ten[0] }}</div>
+                                            <div v-if="errors.ho_va_ten" class="alert alert-warning">@{{ errors.ho_va_ten[0] }}
+                                            </div>
 
                                         </fieldset>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <fieldset>
                                             <input v-model="lien_he.email" type="email" placeholder="Mail của bạn" />
-                            <div v-if="errors.email" class="alert alert-warning">@{{ errors.email[0] }}</div>
+                                            <div v-if="errors.email" class="alert alert-warning">@{{ errors.email[0] }}
+                                            </div>
 
                                         </fieldset>
                                     </div>
+                                    @endif
+                                    
                                     <div class="col-md-6 col-12">
                                         <fieldset>
                                             <input v-model="lien_he.tieu_de" type="text" placeholder="Tiêu Đề" />
-                                    <div v-if="errors.tieu_de" class="alert alert-warning">@{{ errors.tieu_de[0] }}</div>
+                                            <div v-if="errors.tieu_de" class="alert alert-warning">@{{ errors.tieu_de[0] }}
+                                            </div>
 
                                         </fieldset>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <fieldset>
-                                            <input v-model="lien_he.so_dien_thoai" type="text" placeholder="Số điện thoại" />
-                            <div v-if="errors.so_dien_thoai" class="alert alert-warning">@{{ errors.so_dien_thoai[0] }}</div>
+                                            <input v-model="lien_he.so_dien_thoai" type="text"
+                                                placeholder="Số điện thoại" />
+                                            <div v-if="errors.so_dien_thoai" class="alert alert-warning">
+                                                @{{ errors.so_dien_thoai[0] }}</div>
 
                                         </fieldset>
                                     </div>
                                     <div class="col-md-12 col-12">
                                         <fieldset>
                                             <textarea v-model="lien_he.noi_dung" cols="20" rows="6" placeholder="Nội dung"></textarea>
-                                            <div v-if="errors.noi_dung" class="alert alert-warning">@{{ errors.noi_dung[0] }}</div>
+                                            <div v-if="errors.noi_dung" class="alert alert-warning">@{{ errors.noi_dung[0] }}
+                                            </div>
                                         </fieldset>
                                         <button type="submit"
-                                            class="position-relative review-submit-btn contact-submit-btn" v-on:click="gui_lien_he()">SEND
+                                            class="position-relative review-submit-btn contact-submit-btn"
+                                            v-on:click="gui_lien_he()">SEND
                                             MESSAGE</button>
                                     </div>
                                 </div>
@@ -129,8 +154,11 @@
             el: "#app",
             data: {
                 @include('Trang-Khach-Hang.share.datavue')
-                lien_he: {},
-                errors:{},
+                lien_he: {
+                    ho_va_ten: "{{$user ? $user->ho_va_ten : ''}}", // Giá trị mặc định nếu không có dữ liệu từ v-model
+                     email: "{{$user ? $user->email : ''}}"
+                },
+                errors: {},
             },
             watch: {
                 'lien_he.ho_va_ten': function(newVal) {
@@ -142,7 +170,7 @@
                     if (newVal) {
                         this.errors.email = '';
                     }
-                },               
+                },
                 'lien_he.so_dien_thoai': function(newVal) {
                     if (newVal) {
                         this.errors.so_dien_thoai = '';
@@ -153,19 +181,30 @@
                         this.errors.tieu_de = '';
                     }
                 },
-                 'lien_he.noi_dung': function(newVal) {
+                'lien_he.noi_dung': function(newVal) {
                     if (newVal) {
                         this.errors.noi_dung = '';
                     }
+                },
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
                 },
             },
             created() {
                 this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
             },
-            methods:{
+            methods: {
                 gui_lien_he() {
                     axios
-                    .post('/gui-lien-he', this.lien_he)
+                        .post('/gui-lien-he', this.lien_he)
                         .then((res) => {
                             if (res.data.status) {
                                 toastr.success(res.data.message);

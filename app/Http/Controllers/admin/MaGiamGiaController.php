@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MaGiamGiaModel;
 use App\Http\Requests\MaGiamGiaRequest;
+use App\Http\Requests\capnhatMagiamgiaRequest;
 class MaGiamGiaController extends Controller
 {
     public function index()
@@ -29,7 +30,7 @@ class MaGiamGiaController extends Controller
         ]);
     }
 
-    public function cap_nhat_ma_giam_gia(Request $request)
+    public function cap_nhat_ma_giam_gia(capnhatMagiamgiaRequest $request)
     {
         $data_ma_giam_gia = MaGiamGiaModel::where('id',$request->id)->first();
         $data_ma_giam_gia->so_luong =  $request->so_luong;

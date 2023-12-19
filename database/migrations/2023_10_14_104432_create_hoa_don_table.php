@@ -11,9 +11,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('hoa_don', function (Blueprint $table) {
-            $table->id();
+            $table->string('id', 191)->primary();
             $table->unsignedBigInteger('ma_khach_hang');
-            $table->text('ma_don_hang');
             $table->string('ho_va_ten');
             $table->string('so_dien_thoai');
             $table->string('dia_chi');

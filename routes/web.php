@@ -217,6 +217,9 @@ Route::group(['prefix' => '/khach-hang', 'middleware' => 'KhachHangDangNhap'], f
   Route::post('/them-so-luong/{id}', [GioHangController::class, 'ThemSoLuong']);
   Route::post('/tru-so-luong/{id}', [GioHangController::class, 'TruSoLuong']);
   Route::post('/xoa-san-pham-gio-hang/{id}', [GioHangController::class, 'XoaSanPhamGioHang']);
+  Route::post('/mua-hang-ngay/{id}', [GioHangController::class, 'MuaHangNgay']);
+
+
   // sản phẩm yêu thích
   Route::post('/quan-ly-san-pham-yeu-thich/{id}', [SanPhamYeuThichController::class, 'QuanLySanPhamYeuThich']);
 
@@ -246,7 +249,7 @@ Route::post('/gui-lien-he', [LienHeController::class, 'GuiLienHe']);
 Route::get('/san-pham', [TrangChuController::class, 'SanPhamTatCa']);
 Route::get('/san-pham/{ten_danh_muc_slug}', [TrangChuController::class, 'SanPhamDanhMuc']);
 Route::get('/san-pham/{ten_danh_muc_slug}/{ten_loai_slug}', [TrangChuController::class, 'SanPhamTheLoai']);
-Route::get('/san-pham/{ten_danh_muc_slug}/{ten_loai_slug}/{ten_san_pham_slug}{id}', [TrangChuController::class, 'SanPhamChiTiet']);
+Route::get('/san-pham/{ten_danh_muc_slug}/{ten_loai_slug}/{ten_san_pham_slug}/{id}', [TrangChuController::class, 'SanPhamChiTiet']);
 
 Route::get('/san-pham-nam', [TrangChuController::class, 'SanPhamNam']);
 Route::get('/san-pham-nu', [TrangChuController::class, 'SanPhamNu']);
@@ -264,5 +267,8 @@ Route::post('/them-binhluan-tintuc', [BinhluanTintucController::class, 'them_bin
 Route::get('/lay-binh-luan-san-pham', [BinhluanController::class, 'binhluan_sanpham']);
 Route::post('/them-binh-luan-san-pham', [BinhluanController::class, 'them_binhluan']);
 
-// Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemGet']);
-Route::post('/tim-kiem', [TrangChuController::class, 'TimKiemPost']);
+
+Route::get('/tim-kiem', [TrangChuController::class, 'TimKiemPost']);
+Route::post('/tim-kiem-nang-cao', [TrangChuController::class, 'TimKiemNangcao']);
+// 
+Route::post('/loc-san-pham', [TrangChuController::class, 'locSanPham']);

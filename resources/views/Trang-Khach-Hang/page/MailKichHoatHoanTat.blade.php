@@ -446,7 +446,7 @@
                                                                     <p
                                                                         style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;line-height:27px;color:#666666;font-size:18px">
                                                                         Xin chào bạn,<strong>{{ $du_lieu['ho_va_ten'] }}</strong> 
-                                                                        Đơn đặt hàng của bạn đã được hoàn tất. Quá trình này đã được xử lý thành công. Đơn hàng có mã số{{ $du_lieu['hoa_don_moi']->ma_hoa_don }}.
+                                                                        Đơn đặt hàng của bạn đã được hoàn tất. Quá trình này đã được xử lý thành công. Đơn hàng có mã số <p>{{ $du_lieu['hoa_don_moi']->id }}</p>.
                                                                         <br>
                                                                 </td>
                                                             </tr>
@@ -471,7 +471,7 @@
                                                                             <th class="align-middle text-center" style="border: 1px solid #000;">{{ $value->ten_san_pham }}</th>
 
                                                                             <th class="align-middle text-center" style="border: 1px solid #000;">
-                                                                                {{ number_format($value->giam_gia_san_pham ? $value->giam_gia_san_pham : $value->gia_san_pham) }} ₫
+                                                                                {{ number_format($value->giam_gia_san_pham) }} ₫
                                                                             </th>
                                                                             <th class="align-middle text-center" style="border: 1px solid #000;">{{ $value->created_at }}</th>
                                                                             <th class="align-middle text-center" style="border: 1px solid #000;">{{ $value->tong_so_luong }}</th>

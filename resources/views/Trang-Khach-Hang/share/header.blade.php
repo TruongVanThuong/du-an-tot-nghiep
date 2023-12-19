@@ -92,12 +92,13 @@
                 </div>
                 <div class="col-lg-6 d-lg-block d-none">
                     <div class="header-search">
-                        <form action="/tim-kiem" method="post" role="search"
+                        <form action="/tim-kiem" method="get" role="search"
                             class="search-form d-flex justify-content-center">
                             @csrf
                             <div class="field field-search">
-                                <input class="field-input input-reset" type="text" name="search" value=""
+                                <input class="field-input input-reset" v-model="tim_kiem" type="text" name="search"
                                     placeholder="Tìm kiếm sản phẩm" autocomplete="off">
+
                                 <button class="search-button btn-reset" type="submit">
                                     <svg class="icon icon-search" width="20" height="20" viewBox="0 0 20 20"
                                         fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,9 +108,52 @@
                                     </svg>
                                 </button>
                             </div>
+
                         </form>
+
+                        <div v-if="ds_tim_kiem && ds_tim_kiem.length > 0" v-cloak>
+                            <div  class="header-action-item ms-4 d-none d-lg-block">
+                                <ul class="submenu list-unstyled field-search"
+                                    style="box-shadow: 0 0 5px #55555545; position: absolute;
+                                    z-index: 1000; background-color: #fff; margin-left: 6px;">
+                                    <li v-for="(value, key) in ds_tim_kiem" :key="key" class="menu-list-item nav-item-sub">
+                                        <a class="nav-link-sub nav-text-sub d-flex" :href="'/san-pham/' + value.ten_danh_muc_slug + '/' + value.ten_loai_slug + '/' + value.ten_san_pham_slug + '/' + value.id">
+                                            <div style="border: 1px solid #999; width: 100px; margin-right: 10px">
+                                                <img  :src="'/img/' + value.hinh_anh" alt="product-img" width="100px">
+                                            </div>
+                                            <div>
+                                                <h6>@{{value.ten_san_pham}}</h6>
+                                                <div class="product-card-price">
+                                                    <span class="card-price-regular">@{{ formatCurrency(value.giam_gia_san_pham) }}</span>
+
+                                                    <span class="card-price-compare text-decoration-line-through"
+                                                        v-if="value.giam_gia_san_pham == value.gia_san_pham"></span>
+                                                    <span class="card-price-compare text-decoration-line-through"
+                                                        v-else>@{{ formatCurrency(value.gia_san_pham) }}</span>
+                                                </div>
+                                                 <span v-html="value.mo_ta.substring(0, 10)+ '...'"></span>
+                                                
+                                            </div>
+                                        </a>
+                                    </li>
+                                  <div v-if="ds_tim_kiem.length == 3" class="text-end">
+                                    <form action="/tim-kiem" method="post">
+                                        @csrf
+                                        <input type="hidden" :value="tim_kiem" name="search">
+                                        <button class="btn">Xem thêm ...</button>
+                                    </form>
+                                  </div>
+                                
+                                   
+                                </ul>
+                                
+                            </div>
+
+                            
+                        </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-3 col-md-8 col-8">
                     <div class="header-action d-flex align-items-center justify-content-end">
                         <a class="header-action-item header-search d-lg-none" href="javascript:void(0)">
@@ -142,7 +186,8 @@
                                                         Khẩu</a>
                                                 </li>
                                                 <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub" href="/khach-hang/lich-su-mua-hang">Lịch sử mua hàng</a>
+                                                    <a class="nav-link-sub nav-text-sub"
+                                                        href="/khach-hang/lich-su-mua-hang">Lịch sử mua hàng</a>
                                                 </li>
                                                 <li class="menu-list-item nav-item-sub">
                                                     <a class="nav-link-sub nav-text-sub" href="/dang-xuat">Đăng
@@ -268,35 +313,35 @@
                                 <div class="submenu-transform submenu-transform-desktop">
                                     <div class="container">
                                         <ul class="submenu megamenu-container list-unstyled">
-											@if ($danhMuc->count() > 0)
-											@foreach ($danhMuc as $danhmuc)
-												@if ($danhmuc->is_delete == 0)
-													<li class="menu-list-item nav-item-sub">
-														<div class="mega-menu-header">
-															<a class="nav-link-sub nav-text-sub megamenu-heading"
-																href="/san-pham/{{ $danhmuc->ten_danh_muc_slug }}">
-																{{ $danhmuc->ten_danh_muc }}
-															</a>
-														</div>
-														<div class="submenu-transform megamenu-transform">
-															<ul class="megamenu list-unstyled">
-																@foreach ($theLoai as $theloai)
-																	@if ($theloai->is_delete == 0 && $theloai->ma_danh_muc == $danhmuc->id)
-																		<li class="menu-list-item nav-item-sub">
-																			<a class="nav-link-sub nav-text-sub"
-																				href="/san-pham/{{ $danhmuc->ten_danh_muc_slug }}/{{ $theloai->ten_loai_slug }}">{{ $theloai->ten_loai }}</a>
-																		</li>
-																	@endif
-																@endforeach
-															</ul>
-														</div>
-													</li>
-												@endif
-											@endforeach
-										@else
-											<p style="color: red;">Danh mục sản phẩm không có</p>
-										@endif
-										
+                                            @if ($danhMuc->count() > 0)
+                                                @foreach ($danhMuc as $danhmuc)
+                                                    @if ($danhmuc->is_delete == 0)
+                                                        <li class="menu-list-item nav-item-sub">
+                                                            <div class="mega-menu-header">
+                                                                <a class="nav-link-sub nav-text-sub megamenu-heading"
+                                                                    href="/san-pham/{{ $danhmuc->ten_danh_muc_slug }}">
+                                                                    {{ $danhmuc->ten_danh_muc }}
+                                                                </a>
+                                                            </div>
+                                                            <div class="submenu-transform megamenu-transform">
+                                                                <ul class="megamenu list-unstyled">
+                                                                    @foreach ($theLoai as $theloai)
+                                                                        @if ($theloai->is_delete == 0 && $theloai->ma_danh_muc == $danhmuc->id)
+                                                                            <li class="menu-list-item nav-item-sub">
+                                                                                <a class="nav-link-sub nav-text-sub"
+                                                                                    href="/san-pham/{{ $danhmuc->ten_danh_muc_slug }}/{{ $theloai->ten_loai_slug }}">{{ $theloai->ten_loai }}</a>
+                                                                            </li>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                <p style="color: red;">Danh mục sản phẩm không có</p>
+                                            @endif
+
 
 
                                             <li class="menu-list-item nav-item-sub">
@@ -366,8 +411,8 @@
 </header>
 
 <button id="scrollup">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff"
-        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="18 15 12 9 6 15"></polyline>
     </svg>
 </button>
@@ -377,7 +422,8 @@
     <div class="offcanvas-wrapper">
         <div class="offcanvas-header border-btm-black">
             <h5 class="drawer-heading">Menu</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
         </div>
         <div class="offcanvas-body p-0 d-flex flex-column justify-content-between">
             <nav class="site-navigation">
@@ -398,9 +444,10 @@
                         <div class="submenu-transform submenu-transform-desktop">
                             <div class="offcanvas-header border-btm-black">
                                 <h5 class="drawer-heading btn-menu-back d-flex align-items-center">
-                                    <svg class="icon icon-menu-back" xmlns="http://www.w3.org/2000/svg" width="40"
-                                        height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg class="icon icon-menu-back" xmlns="http://www.w3.org/2000/svg"
+                                        width="40" height="40" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
                                         <polyline points="15 18 9 12 15 6"></polyline>
                                     </svg>
                                     <span class="menu-back-text">Home</span>
@@ -719,7 +766,8 @@
                                         Khẩu</a>
                                 </li>
                                 <li class="menu-list-item nav-item-sub">
-                                    <a class="nav-link-sub nav-text-sub" href="/khach-hang/lich-su-mua-hang">Lịch sử mua hàng</a>
+                                    <a class="nav-link-sub nav-text-sub" href="/khach-hang/lich-su-mua-hang">Lịch sử
+                                        mua hàng</a>
                                 </li>
                                 <li class="menu-list-item nav-item-sub">
                                     <a class="nav-link-sub nav-text-sub" href="/dang-xuat">Đăng
@@ -728,27 +776,27 @@
                             </ul>
                         </div>
                     @else
-                    <div class="submenu-transform submenu-transform-desktop">
-                        <div class="offcanvas-header border-btm-black">
-                            <h5 class="drawer-heading btn-menu-back d-flex align-items-center">
-                                <svg class="icon icon-menu-back" xmlns="http://www.w3.org/2000/svg"
-                                    width="40" height="40" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="15 18 9 12 15 6"></polyline>
-                                </svg>
+                        <div class="submenu-transform submenu-transform-desktop">
+                            <div class="offcanvas-header border-btm-black">
+                                <h5 class="drawer-heading btn-menu-back d-flex align-items-center">
+                                    <svg class="icon icon-menu-back" xmlns="http://www.w3.org/2000/svg"
+                                        width="40" height="40" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
 
-                            </h5>
+                                </h5>
+                            </div>
+                            <ul class="submenu list-unstyled">
+                                <li class="menu-list-item nav-item-sub">
+                                    <a class="nav-link-sub nav-text-sub" href="/dang-nhap">Đăng Nhập</a>
+                                </li>
+                                <li class="menu-list-item nav-item-sub">
+                                    <a class="nav-link-sub nav-text-sub" href="/dang-ky">Đăng Ký</a>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="submenu list-unstyled">
-                            <li class="menu-list-item nav-item-sub">
-                                <a class="nav-link-sub nav-text-sub" href="/dang-nhap">Đăng Nhập</a>
-                            </li>
-                            <li class="menu-list-item nav-item-sub">
-                                <a class="nav-link-sub nav-text-sub" href="/dang-ky">Đăng Ký</a>
-                            </li>
-                        </ul>
-                    </div>
                     @endif
 
                 </li>
