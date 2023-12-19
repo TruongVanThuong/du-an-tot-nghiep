@@ -132,7 +132,7 @@
                     </table>
 
                 </div>
-                <div>{{$data_binhluan_baiviet->links('AdminRocker.share.custom')}}</div>
+               
 
             </div>
         </div>

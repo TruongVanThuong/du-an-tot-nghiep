@@ -50,12 +50,21 @@
                                                 </fieldset>
                                             </div>
                                                                                                        
-                                            <div class="col-lg-6 col-md-12 col-12">
+                                            <div v-if="calculatedTotal >=10000" class="col-lg-6 col-md-12 col-12">
                                                 <fieldset>
                                                     <label class="label">Phương thức thanh toán</label>
                                                     <select name="trang_thai_thanh_toan"> 
                                                         <option value="0">Thanh toán khi nhận hàng</option>
                                                         <option value="1">Thanh toán online</option>
+                                                    </select>
+                                                </fieldset>
+                                            </div>
+                                            <div v-else class="col-lg-6 col-md-12 col-12">
+                                                <fieldset>
+                                                    <label class="label">Phương thức thanh toán</label>
+                                                    <select name="trang_thai_thanh_toan"> 
+                                                        <option value="0">Thanh toán khi nhận hàng</option>
+                                                       
                                                     </select>
                                                 </fieldset>
                                             </div>
@@ -168,10 +177,20 @@
             computed: {
                 calculatedTotal() {
                     if (this.tong_tien_tat_ca > 1000000) {
-                        return (this.tong_tien_tat_ca - this.giam_gia) * 1.005;
+                        if(((this.tong_tien_tat_ca - this.giam_gia) * 1.005)<=0){
+                            return 0;
+                        }else{
+                            return (this.tong_tien_tat_ca - this.giam_gia) * 1.005;
+                        }
+                        
                     } else {
+                        if(((this.tong_tien_tat_ca - this.giam_gia + 20000) * 1.005)<=0){
+                            return 0;
+                        }else{
+
                         // Hoặc trả về giá trị khác nếu điều kiện không đúng
                         return (this.tong_tien_tat_ca - this.giam_gia + 20000) * 1.005;
+                        }
                     }
                 },
             },

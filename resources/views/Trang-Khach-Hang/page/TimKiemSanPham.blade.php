@@ -347,7 +347,7 @@
                                         <p>Không có sản phẩm nào.</p>
                                     @endif
                                 </div>
-                                <div>{{ $ds_tim_kiem->links('Trang-Khach-Hang.page.custompagination') }}</div>
+                                
                             </div>
                         </div>
                     </div>

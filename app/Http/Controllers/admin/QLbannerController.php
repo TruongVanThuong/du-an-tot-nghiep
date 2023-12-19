@@ -14,7 +14,7 @@ class QLbannerController extends Controller
         $data_bai_viet = BaivietModel::orderBy('created_at', 'desc')->get();
         $data_banner = BannerModel::orderBy('created_at', 'desc')
         ->join('bai_viet', 'banner.ma_bai_viet', '=', 'bai_viet.id')
-        ->select('banner.*', 'bai_viet.ten_bai_viet')
+        ->select('banner.*', 'bai_viet.ten_bai_viet' )
         ->get();
         return view('AdminRocker.page.Banner.Banner',compact('data_bai_viet','data_banner'));
     }

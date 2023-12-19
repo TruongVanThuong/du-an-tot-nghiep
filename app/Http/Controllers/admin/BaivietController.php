@@ -20,7 +20,7 @@ class BaivietController extends Controller
         $data_baiviet = BaivietModel::orderBy('created_at', 'desc')
             ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
             ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')
-            ->paginate(9);
+            ->get();
 
         return view('AdminRocker.page.BaiViet.index', compact('data_baiviet'));
     }

@@ -159,7 +159,7 @@
                             <div class="comment-form-area">
                                 <div class="form-header">
                                     <h4 class="form-title">Thêm bình luận</h4>
-                                    <p class="form-subtitle">Các mục có dấu (*) cần bắt buột phải nhập</p>
+                                    <p class="form-subtitle">Các mục có dấu (*) cần bắt buộc phải nhập</p>
                                 </div>
                                 <div class="name-email-field d-flex justify-content-between">
                                     <div class="field-item name-field">

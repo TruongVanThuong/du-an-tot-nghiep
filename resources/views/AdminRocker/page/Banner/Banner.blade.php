@@ -130,7 +130,8 @@
                                         <div class="modal-body">
                                             <label class="block text-sm">
                                                 <label>Ảnh banner</label>
-                                                <img max-height="20px" width="100px" src="{{ asset('img/') }}/{{$banner->anh_banner}}" title="{{$banner->anh_banner}}">
+                                                <img class="justify-content-center" max-height="200px" width="400px" src="{{ asset('img/') }}/{{$banner->anh_banner}}" title="{{$banner->anh_banner}}">
+                                                <br>
                                                 <input id="anh_banner" class="form-control" type="file" accept="image/*" name="anh_banner" required>
                                             </label>
 

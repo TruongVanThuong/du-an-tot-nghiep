@@ -18,7 +18,7 @@ class QLBinhluanController extends Controller
             ->join('khach_hang', 'binh_luan_bai_viet.ma_khach_hang', '=', 'khach_hang.id')
             ->join('bai_viet', 'binh_luan_bai_viet.ma_bai_viet', '=', 'bai_viet.id')
             ->select('binh_luan_bai_viet.*', 'khach_hang.ho_va_ten', 'bai_viet.ten_bai_viet', 'bai_viet.hinh_anh')
-            ->paginate(5);
+            ->get();
         $data_binhluan_sanpham = BinhluanModel::orderBy('created_at', 'desc')
             ->join('khach_hang', 'binh_luan.ma_khach_hang', '=', 'khach_hang.id')
             ->join('san_pham', 'binh_luan.ma_san_pham', '=', 'san_pham.id')
@@ -27,7 +27,7 @@ class QLBinhluanController extends Controller
                     ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
             })
             ->select('binh_luan.*', 'khach_hang.ho_va_ten', 'san_pham.ten_san_pham', 'san_pham.deleted_at', 'hinh_anh.hinh_anh')
-            ->paginate(5);
+            ->get();
         return view('AdminRocker.page.BinhLuan.QLbinhluan', compact('data_binhluan_baiviet', 'data_binhluan_sanpham'));
     }
     public function binhluan_baiviet()

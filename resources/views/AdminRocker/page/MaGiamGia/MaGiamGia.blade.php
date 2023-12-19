@@ -123,37 +123,35 @@
                                     </div>
                                 </div>
 
-                                <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Xác Nhận Xoá Dữ Liệu</h5>
-              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Bạn có chắc muốn xoá dữ liệu này không?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-              <button type="button" class="btn btn-danger" v-on:click="xoa_ma_giam_gia()"
-                data-bs-dismiss="modal">Xoá</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-    </div>
+                                <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Xác Nhận Xoá Dữ Liệu</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Bạn có chắc muốn xoá dữ liệu này không?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                                                <button type="button" class="btn btn-danger" v-on:click="xoa_ma_giam_gia()" data-bs-dismiss="modal">Xoá</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            </tr>
-
-                        </tbody>
-                    </table>
                 </div>
+
+                </tr>
+
+                </tbody>
+                </table>
             </div>
         </div>
+    </div>
     </div>
 
 </main>
@@ -162,11 +160,11 @@
 @section('js')
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-  <script>
-    $(document).ready(function () {
-      $('#table_id').DataTable();
+<script>
+    $(document).ready(function() {
+        $('#table_id').DataTable();
     });
-  </script>
+</script>
 
 <script>
     new Vue({
@@ -176,37 +174,37 @@
             data_ma_giam_gia: [],
             edit_ma_giam_gia: {},
             errors: {
-                ma_giam_gia:'',
-                so_luong:'',
-                tien_giam_gia:'',
+                ma_giam_gia: '',
+                so_luong: '',
+                tien_giam_gia: '',
             },
             xoa: {},
         },
         watch: {
-            'them_ma_giam_gia.ma_giam_gia': function (newVal) {
-            if (newVal) {
-                this.errors.ma_giam_gia = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
-            }
+            'them_ma_giam_gia.ma_giam_gia': function(newVal) {
+                if (newVal) {
+                    this.errors.ma_giam_gia = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+                }
             },
-            'them_ma_giam_gia.so_luong': function (newVal) {
-            if (newVal) {
-                this.errors.so_luong = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
-            }
+            'them_ma_giam_gia.so_luong': function(newVal) {
+                if (newVal) {
+                    this.errors.so_luong = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+                }
             },
-            'them_ma_giam_gia.tien_giam_gia': function (newVal) {
-            if (newVal) {
-                this.errors.tien_giam_gia = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
-            }
+            'them_ma_giam_gia.tien_giam_gia': function(newVal) {
+                if (newVal) {
+                    this.errors.tien_giam_gia = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+                }
             },
-            'edit_ma_giam_gia.so_luong': function (newVal) {
-            if (newVal) {
-                this.errors.so_luong = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
-            }
+            'edit_ma_giam_gia.so_luong': function(newVal) {
+                if (newVal) {
+                    this.errors.so_luong = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+                }
             },
-            'edit_ma_giam_gia.tien_giam_gia': function (newVal) {
-            if (newVal) {
-                this.errors.tien_giam_gia = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
-            }
+            'edit_ma_giam_gia.tien_giam_gia': function(newVal) {
+                if (newVal) {
+                    this.errors.tien_giam_gia = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+                }
             },
         },
         created() {
@@ -230,9 +228,9 @@
                         if (res.data.status) {
                             toastr.success(res.data.message);
                             this.lay_ma_giam_gia();
-                            this.them_ma_giam_gia.ma_giam_gia ='';
-                            this.them_ma_giam_gia.so_luong ='';
-                            this.them_ma_giam_gia.tien_giam_gia ='';
+                            this.them_ma_giam_gia.ma_giam_gia = '';
+                            this.them_ma_giam_gia.so_luong = '';
+                            this.them_ma_giam_gia.tien_giam_gia = '';
 
                         } else {
                             toastr.error('Có lỗi không mong muốn! 1');
@@ -259,8 +257,8 @@
                         if (res.data.status) {
                             toastr.success(res.data.message);
                             this.lay_ma_giam_gia();
-                            this.edit_ma_giam_gia.so_luong ='';
-                            this.edit_ma_giam_gia.tien_giam_gia ='';
+                            this.edit_ma_giam_gia.so_luong = '';
+                            this.edit_ma_giam_gia.tien_giam_gia = '';
                             // Tắt modal xác nhận
                             $('#ModalEdit').modal('hide');
                         } else {
