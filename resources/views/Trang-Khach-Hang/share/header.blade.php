@@ -344,17 +344,16 @@
 
 
 
-                                            <!-- <li class="menu-list-item nav-item-sub">
+                                             <li class="menu-list-item nav-item-sub">
                                                 <div
                                                     class="mega-menu-header d-flex align-items-center justify-content-between">
                                                     <a class="mega-menu-img nav-link-sub nav-text-sub"
-                                                        href="collection-left-sidebar.html">
-                                                        <img class="menu-img" src="/assets_client/img/menu/1.jpg"
+                                                        href="/gioi-thieu">
+                                                        <img class="menu-img" src="https://th.bing.com/th?id=OSK.HEROYkb_xgamewall7oODLNvuTRaVrROfqFY0VOjSGnU_DE&w=472&h=280&c=1&rs=2&o=6&pid=SANGAM"
                                                             alt="img">
-                                                        <h2 class="img-menu-heading text_16 mt-2">Featured
-                                                            Collection</h2>
+                                                        <h2 class="img-menu-heading text_16 mt-2">GUCCI THƯƠNG HIỆU SANG TRỌNG</h2>
                                                         <div class="img-menu-action text_12 bg-transparent p-0">
-                                                            <span>DISCOVER NOW</span>
+                                                            <span>KHÁM PHÁ NGAY</span>
                                                             <span>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="30"
                                                                     height="18" fill="#000"
@@ -366,7 +365,7 @@
                                                         </div>
                                                     </a>
                                                 </div>
-                                            </li> -->
+                                            </li> 
                                         </ul>
                                     </div>
                                 </div>

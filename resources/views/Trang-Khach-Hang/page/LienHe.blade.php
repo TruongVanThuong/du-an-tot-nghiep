@@ -26,7 +26,7 @@
                                         <a class="contact-info"
                                             href="mailto:voxuannguyen311@gmail.com">voxuannguyen311@gmail.com</a>
                                         <a class="contact-info"
-                                            href="mailto:voxuannguyen311@gmail.com">voxuannguyen311@gmail.com</a>
+                                            href="mailto:voxuannguyen311@gmail.com">thuong@gmail.com</a>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="contact-details">
                                         <h2 class="contact-title">Địa điểm văn phòng</h2>
-                                        <p class="contact-info">2715 Ash Dr. San Jose, South Dakota 83475</p>
+                                        <p class="contact-info">33 Quách Xân, Hoà An, Cẩm Lệ, Đà Nẵng, Việt Nam</p>
                                     </div>
                                 </div>
                             </div>
@@ -57,9 +57,9 @@
                                         </svg>
                                     </div>
                                     <div class="contact-details">
-                                        <h2 class="contact-title">Số điện thoại shop</h2>
-                                        <a class="contact-info" href="tel:(201) 555-0124">(201) 555-0124</a>
-                                        <a class="contact-info" href="tel:(307) 555-0133">(307) 555-0133</a>
+                                        <h2 class="contact-title">Số điện thoại cửa hàng</h2>
+                                        <a class="contact-info" href="tel:(201) 555-0124">0905629569</a>
+                                        <a class="contact-info" href="tel:(307) 555-0133">0777155669</a>
                                     </div>
                                 </div>
                             </div>
@@ -135,8 +135,7 @@
                                         </fieldset>
                                         <button type="submit"
                                             class="position-relative review-submit-btn contact-submit-btn"
-                                            v-on:click="gui_lien_he()">SEND
-                                            MESSAGE</button>
+                                            v-on:click="gui_lien_he()">Gửi liên hệ</button>
                                     </div>
                                 </div>
                             </div>

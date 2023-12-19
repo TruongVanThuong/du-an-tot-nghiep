@@ -23,145 +23,142 @@
         ]
     }'>
                 <!-- <div class="slide-item position-relative overlay">
-                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
-                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
-                        alt="slide-1">
-                    <img class="slide-img d-md-none"
-                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
-                        alt="slide-1">
-                    <div class="content-absolute content-slide">
-                        <div class="container height-inherit d-flex align-items-center justify-content-start">
-                            <div class="content-box slide-content py-4">
-                                <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    Chinh phục thế giới thời trang với
-                                </p>
-                                <h2 class="slide-heading heading_72 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    Thiết Kế Độc Đáo tại Guci
-                                </h2>
-                                <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    Tiết kiệm ngay tới 56% cho mọi đơn hàng
-                                </p>
-                                <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
-                                    href="collection-left-sidebar.html"
-                                    data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
+                        <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
+                            src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                            alt="slide-1">
+                        <img class="slide-img d-md-none"
+                            src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                            alt="slide-1">
+                        <div class="content-absolute content-slide">
+                            <div class="container height-inherit d-flex align-items-center justify-content-start">
+                                <div class="content-box slide-content py-4">
+                                    <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
+                                        data-animation="animate__animated animate__fadeInUp">
+                                        Chinh phục thế giới thời trang với
+                                    </p>
+                                    <h2 class="slide-heading heading_72 text-white animate__animated animate__fadeInUp"
+                                        data-animation="animate__animated animate__fadeInUp">
+                                        Thiết Kế Độc Đáo tại Guci
+                                    </h2>
+                                    <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
+                                        data-animation="animate__animated animate__fadeInUp">
+                                        Tiết kiệm ngay tới 56% cho mọi đơn hàng
+                                    </p>
+                                    <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
+                                        href="collection-left-sidebar.html"
+                                        data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> -->
+                @if (count($data_banner) < 3)
+                    <div class="slide-item position-relative overlay">
+                        <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
+                            src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                            alt="slide-1">
+                        <img class="slide-img d-md-none"
+                            src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                            alt="slide-1">
+                        <div class="content-absolute content-slide">
+                            <div class="container height-inherit d-flex align-items-center justify-content-start">
+                                <div class="content-box slide-content py-4">
+                                    <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
+                                        data-animation="animate__animated animate__fadeInUp">
+                                        Chinh phục thế giới thời trang với
+                                    </p>
+                                    <h2 class="slide-heading heading_72 text-white animate__animated animate__fadeInUp"
+                                        data-animation="animate__animated animate__fadeInUp">
+                                        Thiết Kế Độc Đáo tại Guci
+                                    </h2>
+                                    <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
+                                        data-animation="animate__animated animate__fadeInUp">
+                                        Tiết kiệm ngay tới 56% cho mọi đơn hàng
+                                    </p>
+                                    <a class="btn-primary slide-btn animate__animated animate__fadeInUp" href="/gioi-thieu"
+                                        data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    @foreach ($data_banner as $banner)
+                        <div class="slide-item position-relative overlay">
+                            <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
+                                src="{{ asset('img/') }}/{{ $banner->anh_banner }}" alt="slide-1">
+                            <!-- <img class="slide-img d-md-none"
+                            src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                            alt="slide-1"> -->
+                            <div class="content-absolute content-slide">
+                                <div class="container height-inherit d-flex align-items-center justify-content-start">
+                                    <div class="content-box slide-content py-4">
+                                        @if ($banner->loai_tin == 1)
+                                            <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
+                                                data-animation="animate__animated animate__fadeInUp">
+                                                Tin Khuyến Mãi
+                                            </p>
+                                        @else
+                                            <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
+                                                data-animation="animate__animated animate__fadeInUp">
+                                                Tin Tức
+                                            </p>
+                                        @endif
+                                        <h2 class="slide-heading heading_48 text-white animate__animated animate__fadeInUp"
+                                            data-animation="animate__animated animate__fadeInUp">
+                                            {{ $banner->ten_bai_viet }}
+                                        </h2>
+                                        <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
+                                            data-animation="animate__animated animate__fadeInUp">
+                                            {{ $banner->mo_ta_ngan }}
+                                        </p>
+                                        <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
+                                            href="/tin-tuc-chi-tiet/{{ $banner->ma_bai_viet }}"
+                                            data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+                    @endforeach
+                @elseif(count($data_banner) == 3)
+                    @foreach ($data_banner as $banner)
+                        <div class="slide-item position-relative overlay">
+                            <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
+                                src="{{ asset('img/') }}/{{ $banner->anh_banner }}" alt="slide-1">
+                            <!-- <img class="slide-img d-md-none"
+                            src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
+                            alt="slide-1"> -->
+                            <div class="content-absolute content-slide">
+                                <div class="container height-inherit d-flex align-items-center justify-content-start">
+                                    <div class="content-box slide-content py-4">
+                                        @if ($banner->loai_tin == 1)
+                                            <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
+                                                data-animation="animate__animated animate__fadeInUp">
+                                                Tin Khuyến Mãi
+                                            </p>
+                                        @else
+                                            <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
+                                                data-animation="animate__animated animate__fadeInUp">
+                                                Tin Tức
+                                            </p>
+                                        @endif
+                                        <h2 class="slide-heading heading_48 text-white animate__animated animate__fadeInUp"
+                                            data-animation="animate__animated animate__fadeInUp">
+                                            {{ $banner->ten_bai_viet }}
+                                        </h2>
+                                        <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
+                                            data-animation="animate__animated animate__fadeInUp">
+                                            {{ $banner->mo_ta_ngan }}
+                                        </p>
+                                        <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
+                                            href="/tin-tuc-chi-tiet/{{ $banner->ma_bai_viet }}"
+                                            data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
+                                    </div>
+                                </div>
 
-                    </div>
-                </div> -->
-                @if( count($data_banner) < 3)
-                <div class="slide-item position-relative overlay">
-                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
-                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
-                        alt="slide-1">
-                    <img class="slide-img d-md-none"
-                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
-                        alt="slide-1">
-                    <div class="content-absolute content-slide">
-                        <div class="container height-inherit d-flex align-items-center justify-content-start">
-                            <div class="content-box slide-content py-4">
-                                <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    Chinh phục thế giới thời trang với
-                                </p>
-                                <h2 class="slide-heading heading_72 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    Thiết Kế Độc Đáo tại Guci
-                                </h2>
-                                <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    Tiết kiệm ngay tới 56% cho mọi đơn hàng
-                                </p>
-                                <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
-                                    href="/gioi-thieu"
-                                    data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
                             </div>
                         </div>
-
-                    </div>
-                </div>
-                @foreach($data_banner as $banner)
-                <div class="slide-item position-relative overlay">
-                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
-                        src="{{ asset('img/') }}/{{$banner->anh_banner}}"
-                        alt="slide-1">
-                    <!-- <img class="slide-img d-md-none"
-                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
-                        alt="slide-1"> -->
-                    <div class="content-absolute content-slide">
-                        <div class="container height-inherit d-flex align-items-center justify-content-start">
-                            <div class="content-box slide-content py-4">
-                                @if($banner->loai_tin==1)
-                                <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    Tin Khuyến Mãi
-                                </p>
-                                @else
-                                <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    Tin Tức
-                                </p>
-                                @endif
-                                <h2 class="slide-heading heading_48 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    {{$banner->ten_bai_viet }}
-                                </h2>
-                                <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    {{$banner->mo_ta_ngan }}
-                                </p>
-                                <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
-                                    href="/tin-tuc-chi-tiet/{{$banner->ma_bai_viet}}"
-                                    data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                @endforeach
-                @elseif( count($data_banner) == 3 )
-                @foreach($data_banner as $banner)
-                <div class="slide-item position-relative overlay">
-                    <img class="slide-img d-none d-md-block" style="height: 600px !important; width:100%"
-                        src="{{ asset('img/') }}/{{$banner->anh_banner}}"
-                        alt="slide-1">
-                    <!-- <img class="slide-img d-md-none"
-                        src="https://charleroi-duty-free.com/media/contentmanager/content/GucciBloomNDF_banner_1920x1080(2).jpg"
-                        alt="slide-1"> -->
-                    <div class="content-absolute content-slide">
-                        <div class="container height-inherit d-flex align-items-center justify-content-start">
-                            <div class="content-box slide-content py-4">
-                                @if($banner->loai_tin==1)
-                                <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    Tin Khuyến Mãi
-                                </p>
-                                @else
-                                <p class="slide-text heading_34 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    Tin Tức
-                                </p>
-                                @endif
-                                <h2 class="slide-heading heading_48 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    {{$banner->ten_bai_viet }}
-                                </h2>
-                                <p class="slide-subheading heading_18 text-white animate__animated animate__fadeInUp"
-                                    data-animation="animate__animated animate__fadeInUp">
-                                    {{$banner->mo_ta_ngan }}
-                                </p>
-                                <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
-                                    href="/tin-tuc-chi-tiet/{{$banner->ma_bai_viet}}"
-                                    data-animation="animate__animated animate__fadeInUp">KHÁM PHÁ NGAY</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                @endforeach
+                    @endforeach
                 @endif
 
             </div>
@@ -178,12 +175,14 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="trusted-badge bg-4 rounded">
                                 <div class="trusted-icon">
-                                    <img class="icon-trusted"  style="filter: brightness(0) invert(1);" src="https://img.icons8.com/ios-filled/452/delivery.png" alt="icon-1">
+                                    <img class="icon-trusted" style="filter: brightness(0) invert(1);"
+                                        src="https://img.icons8.com/ios-filled/452/delivery.png" alt="icon-1">
                                 </div>
                                 <div class="trusted-content">
                                     <h2 class="heading_18 trusted-heading text-white text-nowrap">Miễn phí vận chuyển & Trả
                                         hàng</h2>
-                                    <p class="text_16 trusted-subheading trusted-subheading-3 text-nowrap">trên đơn đặt hàng
+                                    <p class="text_16 trusted-subheading trusted-subheading-3 text-nowrap">trên đơn đặt
+                                        hàng
                                         từ 1.000.000 ₫ trở lên</p>
                                 </div>
                             </div>
@@ -191,7 +190,8 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="trusted-badge bg-4 rounded">
                                 <div class="trusted-icon">
-                                    <img class="icon-trusted" src="https://img.icons8.com/ios-filled/452/return.png"  style="filter: brightness(0) invert(1);" alt="icon-2">
+                                    <img class="icon-trusted" src="https://img.icons8.com/ios-filled/452/return.png"
+                                        style="filter: brightness(0) invert(1);" alt="icon-2">
                                 </div>
                                 <div class="trusted-content">
                                     <h2 class="heading_18 trusted-heading text-white">Hỗ trợ khách hàng 24/7</h2>
@@ -203,11 +203,13 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="trusted-badge bg-4 rounded">
                                 <div class="trusted-icon">
-                                    <img class="icon-trusted" src="https://img.icons8.com/ios/452/card-exchange.png" style="filter: brightness(0) invert(1);" alt="icon-3">
+                                    <img class="icon-trusted" src="https://img.icons8.com/ios/452/card-exchange.png"
+                                        style="filter: brightness(0) invert(1);" alt="icon-3">
                                 </div>
                                 <div class="trusted-content">
                                     <h2 class="heading_18 trusted-heading text-white">Thanh toán an toàn 100%</h2>
-                                    <p class="text_16 trusted-subheading trusted-subheading-3 text-nowrap">Chúng tôi đảm bảo
+                                    <p class="text_16 trusted-subheading trusted-subheading-3 text-nowrap">Chúng tôi đảm
+                                        bảo
                                         thanh toán an toàn!</p>
                                 </div>
                             </div>
@@ -325,17 +327,16 @@
                                                     </h3>
                                                     <div class="product-card-price">
                                                         <span
-                                                            class="card-price-regular">{{ number_format( $value->giam_gia_san_pham, 0, '.', '.' ) }}
+                                                            class="card-price-regular">{{ number_format($value->giam_gia_san_pham, 0, '.', '.') }}
                                                             ₫</span>
-                                                     @if ( $value->giam_gia_san_pham == $value->gia_san_pham)
-                                                         
-                                                     @else
-                                                     <span
-                                                     class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
+                                                        @if ($value->giam_gia_san_pham == $value->gia_san_pham)
+                                                        @else
+                                                            <span
+                                                                class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
 
-                                                     ₫</span>
-                                                     @endif
-                                                        
+                                                                ₫</span>
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -351,18 +352,18 @@
                                 @if ($danhmuc->deleted_at == null)
                                     <div class="row">
                                         @foreach ($san_pham_danh_muc[$danhmuc->id] as $sp)
-                                        @if ($sp->deleted_at == null && $sp->trang_thai==1)
-                                            <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up"
-                                                data-aos-duration="700">
-                                                <div class="product-card">
-                                                    <div class="product-card-img">
-                                                        <a class="hover-switch"
-                                                            href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}/{{$sp->ma_san_pham}}">
-                                                            <img class="secondary-img" src="/img/{{ $sp->hinh_anh }}"
-                                                                alt="product-img">
-                                                            <img class="primary-img" src="/img/{{ $sp->hinh_anh }}"
-                                                                alt="product-img">
-                                                        </a>
+                                            @if ($sp->deleted_at == null && $sp->trang_thai == 1)
+                                                <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up"
+                                                    data-aos-duration="700">
+                                                    <div class="product-card">
+                                                        <div class="product-card-img">
+                                                            <a class="hover-switch"
+                                                                href="/san-pham/{{ $sp->ten_danh_muc_slug }}/{{ $sp->ten_loai_slug }}/{{ $sp->ten_san_pham_slug }}/{{ $sp->ma_san_pham }}">
+                                                                <img class="secondary-img" src="/img/{{ $sp->hinh_anh }}"
+                                                                    alt="product-img">
+                                                                <img class="primary-img" src="/img/{{ $sp->hinh_anh }}"
+                                                                    alt="product-img">
+                                                            </a>
 
                                                             <div class="product-card-action product-card-action-2">
                                                                 @if ($check)
@@ -438,17 +439,16 @@
                                                             </h3>
                                                             <div class="product-card-price">
                                                                 <span
-                                                                    class="card-price-regular">{{ number_format( $value->giam_gia_san_pham, 0, '.', '.' ) }}
+                                                                    class="card-price-regular">{{ number_format($value->giam_gia_san_pham, 0, '.', '.') }}
                                                                     ₫</span>
-                                                             @if ( $value->giam_gia_san_pham == $value->gia_san_pham)
-                                                                 
-                                                             @else
-                                                             <span
-                                                             class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
-        
-                                                             ₫</span>
-                                                             @endif
-                                                                
+                                                                @if ($value->giam_gia_san_pham == $value->gia_san_pham)
+                                                                @else
+                                                                    <span
+                                                                        class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
+
+                                                                        ₫</span>
+                                                                @endif
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -514,16 +514,17 @@
                   }
                 ]
             }'>
-            @foreach ( $san_pham_moi as $key => $value)
-            <div class="product-grid-slideshow">
-                <div class="product-card">
-                    <div class="product-card-img">
-                        <a class="hover-switch" href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{$value->id}}">
-                            <img class="secondary-img" src="/img/{{$value->hinh_anh}}"
-                                alt="product-img">
-                            <img class="primary-img" src="/img/{{$value->hinh_anh}}"
-                                alt="product-img">
-                        </a>
+                                @foreach ($san_pham_moi as $key => $value)
+                                    <div class="product-grid-slideshow">
+                                        <div class="product-card">
+                                            <div class="product-card-img">
+                                                <a class="hover-switch"
+                                                    href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{ $value->id }}">
+                                                    <img class="secondary-img" src="/img/{{ $value->hinh_anh }}"
+                                                        alt="product-img">
+                                                    <img class="primary-img" src="/img/{{ $value->hinh_anh }}"
+                                                        alt="product-img">
+                                                </a>
 
                                                 <div class="product-card-action product-card-action-2">
                                                     @if ($check)
@@ -590,21 +591,20 @@
                                             </div>
                                             <div class="product-card-details text-center">
                                                 <h3 class="product-card-title"><a
-                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{$value->id}}">{{ $value->ten_san_pham }}</a>
+                                                        href="/san-pham/{{ $value->ten_danh_muc_slug }}/{{ $value->ten_loai_slug }}/{{ $value->ten_san_pham_slug }}/{{ $value->id }}">{{ $value->ten_san_pham }}</a>
                                                 </h3>
                                                 <div class="product-card-price">
                                                     <span
-                                                        class="card-price-regular">{{ number_format( $value->giam_gia_san_pham, 0, '.', '.' ) }}
+                                                        class="card-price-regular">{{ number_format($value->giam_gia_san_pham, 0, '.', '.') }}
                                                         ₫</span>
-                                                 @if ( $value->giam_gia_san_pham == $value->gia_san_pham)
-                                                     
-                                                 @else
-                                                 <span
-                                                 class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
+                                                    @if ($value->giam_gia_san_pham == $value->gia_san_pham)
+                                                    @else
+                                                        <span
+                                                            class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
 
-                                                 ₫</span>
-                                                 @endif
-                                                    
+                                                            ₫</span>
+                                                    @endif
+
                                                 </div>
                                             </div>
                                         </div>
@@ -653,8 +653,7 @@
                                                                 class="addtocart-btn btn-primary text-nowrap"style="margin: 0 auto; ">Thêm
                                                                 Vào Giỏ Hàng</a>
                                                         @else
-                                                            <form
-                                                                action="/khach-hang/them-so-luong/{{ $value->id }}"
+                                                            <form action="/khach-hang/them-so-luong/{{ $value->id }}"
                                                                 method="post"
                                                                 class="addtocart-btn btn-primary text-nowrap"
                                                                 style="margin: 0 auto;">
@@ -718,17 +717,16 @@
                                                     </h3>
                                                     <div class="product-card-price">
                                                         <span
-                                                            class="card-price-regular">{{ number_format( $value->giam_gia_san_pham, 0, '.', '.' ) }}
+                                                            class="card-price-regular">{{ number_format($value->giam_gia_san_pham, 0, '.', '.') }}
                                                             ₫</span>
-                                                     @if ( $value->giam_gia_san_pham == $value->gia_san_pham)
-                                                         
-                                                     @else
-                                                     <span
-                                                     class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
+                                                        @if ($value->giam_gia_san_pham == $value->gia_san_pham)
+                                                        @else
+                                                            <span
+                                                                class="card-price-compare text-decoration-line-through">{{ number_format($value->gia_san_pham, 0, '.', '.') }}
 
-                                                     ₫</span>
-                                                     @endif
-                                                        
+                                                                ₫</span>
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -739,15 +737,13 @@
 
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
         </div>
         <!-- collection tab end -->
 
-
-       
         <!-- video start -->
         <div class="video-section mt-100 overflow-hidden">
             <div class="overlay-tools section-spacing"
@@ -757,7 +753,7 @@
                         <div class="col-lg-5 col-md-4 col-12">
                             <div class="video-tools d-flex align-items-center">
                                 <div class="video-button-area">
-                                    <a class="video-button" href="#" data-bs-toggle="modal">
+                                    <a class="video-button" href="#video-modal" data-bs-toggle="modal">
                                         <svg width="22" height="26" viewBox="0 0 22 26" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -771,6 +767,7 @@
                         <div class="col-lg-7 col-md-8 col-12">
                             <div class="video-tools d-flex align-items-center">
                                 <div class="video-content">
+
                                     <h2 class="video-heading heading_48 text-white" data-aos="fade-up"
                                         data-aos-duration="700">
                                         Khám Phá Thế Giới của Gucci<br>
@@ -778,7 +775,7 @@
                                     <h4 class="text-white" data-aos="fade-up" data-aos-duration="700">Khám phá bộ sưu
                                         tập mới nhất từ Gucci, biểu tượng của sự sang trọng và phong cách. Đắm chìm trong
                                         nghệ thuật và sự khéo léo làm nên bản chất của Gucci.</h4>
-                                    {{-- <a class="btn-primary mt-4" href="#" data-aos="fade-up" data-aos-duration="1000">Mua Ngay</a> --}}
+                                    {{-- <a class="btn-primary mt-4" href="contact.html" data-aos="fade-up" data-aos-duration="1000">Mua Ngay</a> --}}
                                 </div>
                             </div>
                         </div>
@@ -809,8 +806,9 @@
         <!-- video end -->
 
 
-         <!-- latest blog start -->
-         <div class="latest-blog-section mt-100 overflow-hidden mb-5">
+
+        <!-- latest blog start -->
+        <div class="latest-blog-section mt-100 overflow-hidden mb-5">
             <div class="latest-blog-inner">
                 <div class="container">
                     <div class="section-header text-center">
@@ -819,23 +817,24 @@
                     <div class="article-card-container">
                         <div class="row justify-content-center">
                             @foreach ($data_tintuc as $tin_tuc)
-                            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
-                                <div class="article-card">
-                                    <a class="article-card-img-wrapper" href="/tin-tuc-chi-tiet/{{$tin_tuc->id}}">
-                                        <img src="{{ asset('img/') }}/{{$tin_tuc->hinh_anh}}" alt="img"
-                                            class="article-card-img rounded">
-                                    </a>
-                                    <p class="article-card-published text_12">{{$tin_tuc->created_at}}</p>
-                                    <h2 class="article-card-heading heading_18">
-                                        <a class="heading_18" href="article.html">
-                                           {{$tin_tuc->ten_bai_viet}}
+                                <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-duration="700">
+                                    <div class="article-card">
+                                        <a class="article-card-img-wrapper" href="/tin-tuc-chi-tiet/{{ $tin_tuc->id }}">
+                                            <img src="{{ asset('img/') }}/{{ $tin_tuc->hinh_anh }}" alt="img"
+                                                class="article-card-img rounded">
                                         </a>
-                                    </h2>
-                                    <a class="article-card-read-more text_14 link-underline" href="/tin-tuc-chi-tiet/{{$tin_tuc->id}}">Xem thêm</a>
+                                        <p class="article-card-published text_12">{{ $tin_tuc->created_at }}</p>
+                                        <h2 class="article-card-heading heading_18">
+                                            <a class="heading_18" href="article.html">
+                                                {{ $tin_tuc->ten_bai_viet }}
+                                            </a>
+                                        </h2>
+                                        <a class="article-card-read-more text_14 link-underline"
+                                            href="/tin-tuc-chi-tiet/{{ $tin_tuc->id }}">Xem thêm</a>
+                                    </div>
                                 </div>
-                            </div>
                             @endforeach
-                            
+
                         </div>
                     </div>
                 </div>
@@ -871,38 +870,38 @@
                 this.tai_san_pham_yeu_thich();
             },
             methods: {
-                
-    quan_ly_san_pham_yeu_thich(id) {
-        axios
-            .post('/khach-hang/quan-ly-san-pham-yeu-thich/' + id)
-            .then((res) => {
-                if (res.data.status) {
-                    toastr.success(res.data.message);
-                    this.tai_san_pham_yeu_thich();
-                } else {
-                    toastr.error('Có lỗi không mong muốn!');
-                }
-            });
-    },
 
-    tai_san_pham_yeu_thich() {
-        axios
-            .get('/hien-thi-san-pham-yeu-thich')
-            .then((res) => {
-                this.ds_sp_yeu_thich = res.data.du_lieu;
-            });
-    },
+                quan_ly_san_pham_yeu_thich(id) {
+                    axios
+                        .post('/khach-hang/quan-ly-san-pham-yeu-thich/' + id)
+                        .then((res) => {
+                            if (res.data.status) {
+                                toastr.success(res.data.message);
+                                this.tai_san_pham_yeu_thich();
+                            } else {
+                                toastr.error('Có lỗi không mong muốn!');
+                            }
+                        });
+                },
 
-    isFavorite(productId) {
-        if (this.ds_sp_yeu_thich === undefined) {
-            this.tai_san_pham_yeu_thich();
-        }
-        if (this.ds_sp_yeu_thich && this.ds_sp_yeu_thich.length > 0) {
-            const isFav = this.ds_sp_yeu_thich.some(favorite => favorite.ma_san_pham === productId);
-            return isFav;
-        }
-        return false;
-    },
+                tai_san_pham_yeu_thich() {
+                    axios
+                        .get('/hien-thi-san-pham-yeu-thich')
+                        .then((res) => {
+                            this.ds_sp_yeu_thich = res.data.du_lieu;
+                        });
+                },
+
+                isFavorite(productId) {
+                    if (this.ds_sp_yeu_thich === undefined) {
+                        this.tai_san_pham_yeu_thich();
+                    }
+                    if (this.ds_sp_yeu_thich && this.ds_sp_yeu_thich.length > 0) {
+                        const isFav = this.ds_sp_yeu_thich.some(favorite => favorite.ma_san_pham === productId);
+                        return isFav;
+                    }
+                    return false;
+                },
                 @include('Trang-Khach-Hang.share.vue')
             },
         });

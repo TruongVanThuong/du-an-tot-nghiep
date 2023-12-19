@@ -12,7 +12,7 @@
                     <div class="col-lg-9 col-md-12 col-12">
                         <div class="filter-sort-wrapper d-flex justify-content-between flex-wrap">
                             <div class="collection-title-wrap d-flex align-items-end">
-                                <h2 class="collection-title heading_24 mb-0">Tất Cả Sản Phẩm Trẻ Em</h2>
+                                <h2 class="collection-title heading_24 mb-0">Sản Phẩm</h2>
                                 <p class="collection-counter text_16 mb-0 ms-2">(237 items)</p>
                             </div>
 

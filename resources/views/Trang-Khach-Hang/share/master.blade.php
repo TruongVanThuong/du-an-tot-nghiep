@@ -14,7 +14,7 @@
             @include('Trang-Khach-Hang.share.header')
             <div class="offcanvas offcanvas-end" tabindex="-1" id="drawer-cart">
                 <div class="offcanvas-header border-btm-black">
-                    <h5 class="cart-drawer-heading text_16">Your Cart (@{{ tong_so_luong }})</h5>
+                    <h5 class="cart-drawer-heading text_16">Giỏ hàng (@{{ tong_so_luong }})</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
@@ -82,7 +82,7 @@
                                 <line x1="15" y1="9" x2="15.01" y2="9"></line>
                             </svg>
                         </div>
-                        <p class="cart-empty">You have no items in your cart</p>
+                        {{-- <p class="cart-empty">You have no items in your cart</p> --}}
                     </div>
                 </div>
             </div>
