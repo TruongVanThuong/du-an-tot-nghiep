@@ -59,7 +59,7 @@ class QLBinhluanController extends Controller
     {
         $xoa_binh_luan_baiviet = binh_luan_bai_viets::find($id);
         if ($xoa_binh_luan_baiviet == null) {
-            toastr()->success('Xoá Bình Luận Thành Công');
+            toastr()->error('Xoá Bình Luận Không Thành Công');
             return redirect('admin/binhluan');
         }else{
             $xoa_binh_luan_baiviet->delete();
@@ -72,7 +72,7 @@ class QLBinhluanController extends Controller
     {
         $xoa_binh_luan_sanpham = BinhluanModel::find($id);
         if ($xoa_binh_luan_sanpham == null) {
-            toastr()->success('Xoá Bình Luận Thành Công');
+            toastr()->error('Xoá Bình Luận Không Thành Công');
             return redirect('admin/binhluan');
         }else{
             $xoa_binh_luan_sanpham->delete();
