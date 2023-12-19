@@ -59,20 +59,26 @@ class QLBinhluanController extends Controller
     {
         $xoa_binh_luan_baiviet = binh_luan_bai_viets::find($id);
         if ($xoa_binh_luan_baiviet == null) {
-            return '<script type ="text/JavaScript">alert("Lỗi!");</script>';
+            toastr()->success('Xoá Bình Luận Thành Công');
+            return redirect('admin/binhluan');
+        }else{
+            $xoa_binh_luan_baiviet->delete();
+            toastr()->success('Xoá Bình Luận Thành Công');
+            return redirect('admin/binhluan');
         };
-        $xoa_binh_luan_baiviet->delete();
-        toastr()->success('Xoá Bình Luận Thành Công');
-        return redirect('admin/binhluan');
+        
     }
     public function xoa_binh_luan_sanpham($id)
     {
-        $xoa_binh_luan_sanpham = binh_luan_bai_viets::find($id);
+        $xoa_binh_luan_sanpham = BinhluanModel::find($id);
         if ($xoa_binh_luan_sanpham == null) {
-            return '<script type ="text/JavaScript">alert("Lỗi!");</script>';
+            toastr()->success('Xoá Bình Luận Thành Công');
+            return redirect('admin/binhluan');
+        }else{
+            $xoa_binh_luan_sanpham->delete();
+            toastr()->success('Xoá Bình Luận Thành Công');
+            return redirect('admin/binhluan');
         };
-        $xoa_binh_luan_sanpham->delete();
-        toastr()->success('Xoá Bình Luận Thành Công');
-        return redirect('admin/binhluan');
+        
     }
 }
