@@ -12,6 +12,7 @@ use App\Models\HinhanhModel;
 use App\Models\SanPhamYeuThich;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\BannerModel;
 
 class TrangChuController extends Controller
 {
@@ -82,8 +83,13 @@ class TrangChuController extends Controller
          ->paginate(8);
         // dd($san_pham_dac_biet);
 
-        return view('Trang-Khach-Hang.page.TrangChu', compact('san_pham_yeu_thich', 'san_pham_danh_muc', 'san_pham_moi', 'data_tintuc','san_pham_dac_biet'));
-    }
+        $data_banner=BannerModel::orderBy('created_at', 'desc')
+        ->join('bai_viet', 'banner.ma_bai_viet', '=', 'bai_viet.id')
+        ->select('banner.*', 'bai_viet.ten_bai_viet','bai_viet.mo_ta_ngan','bai_viet.loai_tin')
+        ->limit(3)->get();
+        return view('Trang-Khach-Hang.page.TrangChu', compact('san_pham_yeu_thich', 'san_pham_danh_muc', 'san_pham_moi', 'data_tintuc','san_pham_dac_biet', 'data_banner'));
+    
+        }
 
     public function SanPhamTatCa()
     {

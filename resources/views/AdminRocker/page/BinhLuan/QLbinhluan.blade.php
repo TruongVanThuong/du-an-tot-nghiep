@@ -132,7 +132,7 @@
                     </table>
 
                 </div>
-                <div>{{$data_binhluan_baiviet->links('AdminRocker.share.custom')}}</div>
+               
 
             </div>
         </div>
@@ -156,7 +156,19 @@
 
 
 <script>
-   
+   new Vue({
+        el: '#app',
+        data: {
+            
+        },
+        created() {
+            
+        },
+        methods: {
+            
+
+        },
+    });
 
     const delBtnEl = document.querySelectorAll("#btn_delete");
     delBtnEl.forEach(function(delBtn) {

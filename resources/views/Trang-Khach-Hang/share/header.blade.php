@@ -344,7 +344,7 @@
 
 
 
-                                            <li class="menu-list-item nav-item-sub">
+                                            <!-- <li class="menu-list-item nav-item-sub">
                                                 <div
                                                     class="mega-menu-header d-flex align-items-center justify-content-between">
                                                     <a class="mega-menu-img nav-link-sub nav-text-sub"
@@ -366,7 +366,7 @@
                                                         </div>
                                                     </a>
                                                 </div>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </div>
                                 </div>

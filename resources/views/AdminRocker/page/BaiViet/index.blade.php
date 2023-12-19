@@ -7,7 +7,7 @@
   <button @click="openModal" data-bs-toggle="modal" data-bs-target="#themModal" class="btn btn-primary">
     Thêm bài viết
   </button>
-
+<br>
   <!-- Modal -->
   @include('AdminRocker/page/BaiViet/thembaiviet')
 </div>
@@ -99,10 +99,8 @@
         @endforeach
       </tbody>
     </table>
-    <!-- <a  class="btn btn-danger btn_delete trigger-modal" href="baiviet/khoiphuc" aria-label="">
-      <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-        xoá
-      </svg>
+    <!-- <a  class="btn btn-primary" href="baiviet/khoiphuc" aria-label="">
+      Khôi Phục
     </a> -->
   </div>
 

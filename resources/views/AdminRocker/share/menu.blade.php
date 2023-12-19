@@ -96,6 +96,13 @@
                     <div class="menu-title">Mã Giảm Giá</div>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{asset('admin/banner')}}">
+                    <div class="parent-icon"><i class="bx bx-tag"></i>
+                    </div>
+                    <div class="menu-title">Banner</div>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

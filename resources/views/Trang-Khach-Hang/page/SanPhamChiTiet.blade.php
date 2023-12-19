@@ -265,7 +265,7 @@
                         </div>
 
                         <div class="share-area mt-4 d-flex align-items-center">
-                            <strong class="label mb-1 d-block">Chia sẽ:</strong>
+                            <strong class="label mb-1 d-block">Chia sẻ:</strong>
                             <ul class="list-unstyled share-list d-flex align-items-center mb-1 flex-wrap">
                                 <li class="share-item">
                                     <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
