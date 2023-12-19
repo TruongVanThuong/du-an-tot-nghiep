@@ -23,9 +23,17 @@
           <div class="card" style="height: 100%;">
             <div class="card-body">
               <div class="d-flex flex-column align-items-center text-center">
-                <div style="width: 100px; height: 100px; border-radius: 50%; box-shadow: 0 0 10px #000; align-content: center; display: grid; overflow: hidden;">
+                <div v-if="edit_user.hinh_anh" style="width: 100px; height: 100px; border-radius: 50%; box-shadow: 0 0 10px #000; align-content: center; display: grid; overflow: hidden;">
                   <img :src="edit_user.hinh_anh" alt="" style="width: 100px; ">
                 </div>
+                <i v-else class="bx bx-user user-img" style="font-size: 35px;
+                  background-color: #333;
+                  text-align: center;
+                  color: #fff;
+                  align-items: center;
+                  width: 70px;
+                  display: grid;
+                  height: 70px;"></i>
                 <div class="mt-3">
                   <h4>@{{ edit_user.ten_tai_khoan }}</h4>
                   <p class="text-secondary mb-1">@{{ edit_user.email }}</p>

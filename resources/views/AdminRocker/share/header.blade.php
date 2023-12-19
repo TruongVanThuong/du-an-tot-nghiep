@@ -60,12 +60,21 @@
 
 			</ul>
 		</div>
-		<div class="user-box dropdown">
+		<div class="user-box dropdown" style="padding-left: 20px">
 			<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button"
 				data-bs-toggle="dropdown" aria-expanded="false">
-				<div style="width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 0 10px #000; align-content: center; display: grid; overflow: hidden;">
-					<img src="{{$TaiKhoanDangNhap->hinh_anh}}" alt="" style="width: 50px; ">
+				@if($TaiKhoanDangNhap->hinh_anh)
+
+				<div style="width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 10px #000; align-content: center; display: grid; overflow: hidden;">
+					<img src="{{$TaiKhoanDangNhap->hinh_anh}}" alt="" style="width: 40px; ">
 				</div>
+				@else
+				<i class="bx bx-user user-img" style="font-size: 25px;
+                  background-color: #333;
+                  text-align: center;
+                  color: #fff;
+                  align-items: center;"></i>
+				@endif
 				<div class="user-info ps-3">
 					<p class="user-name mb-0"></p>
 					<p class="designattion mb-0"></p>

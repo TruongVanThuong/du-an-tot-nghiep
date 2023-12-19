@@ -385,6 +385,7 @@
               </table>
 
             </div>
+            <div>{{$sanPhamsWithInfo->links('AdminRocker.share.custom')}}</div>
 
           </div>
         </div>
@@ -661,7 +662,7 @@
               </table>
 
             </div>
-
+            <div>{{$StatusSanPhamsWithInfo->links('AdminRocker.share.custom')}}</div>
           </div>
         </div>
       </div>
@@ -851,7 +852,7 @@
               <span class="text-danger">* Không thể xoá sản phẩm khi có dữ liệu liên quan tới hoá đơn</span>
 
             </div>
-
+            <div>{{$TrashSanPhamsWithInfo->links('AdminRocker.share.custom')}}</div>
           </div>
         </div>
       </div>

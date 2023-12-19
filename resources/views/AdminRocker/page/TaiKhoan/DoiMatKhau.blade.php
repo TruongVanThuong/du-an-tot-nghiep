@@ -23,7 +23,10 @@
           <div class="card" style="height: 100%;">
             <div class="card-body">
               <div class="d-flex flex-column align-items-center text-center">
-                <i class="bx bx-user user-img" style="font-size: 35px;
+                <div v-if="edit_user.hinh_anh" style="width: 100px; height: 100px; border-radius: 50%; box-shadow: 0 0 10px #000; align-content: center; display: grid; overflow: hidden;">
+                  <img :src="edit_user.hinh_anh" alt="" style="width: 100px; ">
+                </div>
+                <i v-else class="bx bx-user user-img" style="font-size: 35px;
                   background-color: #333;
                   text-align: center;
                   color: #fff;
