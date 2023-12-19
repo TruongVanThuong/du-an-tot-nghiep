@@ -459,8 +459,7 @@
                                                                             href="{{ env('APP_URL') }}/kich-hoat-mail-doi-mat-khau/{{ $du_lieu['ma_bam_quen_mat_khau'] }}"
                                                                             class="es-button es-button-1"
                                                                             target="_blank"
-                                                                            style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;border-style:solid;border-color:#FFA73B;border-width:15px 30px;display:inline-block;background:#FFA73B;border-radius:2px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center">Kích
-                                                                            Hoạt Tài Khoản</a></span>
+                                                                            style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;border-style:solid;border-color:#FFA73B;border-width:15px 30px;display:inline-block;background:#FFA73B;border-radius:2px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center">Đổi mật khẩu</a></span>
                                                                 </td>
                                                             </tr>
                                                             <tr style="border-collapse:collapse">

@@ -35,6 +35,7 @@
                 errors: {
                     email: '', // Thêm trường này để theo dõi lỗi email
                 },
+                @include('Trang-Khach-Hang.share.datavue')
             },
             watch: {
                 'quen_mat_khau.email': function(newVal) {
@@ -42,8 +43,21 @@
                         this.errors.email = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
                     }
                 },
+
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
             },
             methods: {
+                @include('Trang-Khach-Hang.share.vue')
                 kich_hoat_quen_mat_khau() {
                     axios
                         .post('/kich-hoat-quen-mat-khau', this.quen_mat_khau)
@@ -63,7 +77,7 @@
                             }
                         })
                 },
-
+             
             }
         });
     </script>

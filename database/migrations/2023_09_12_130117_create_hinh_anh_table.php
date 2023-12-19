@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->string('hinh_anh');
             $table->unsignedBigInteger('ma_san_pham');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -116,7 +116,7 @@
                 <td class="align-middle text-center text-nowrap">
                   <!-- Button trigger modal -->
                   <a :class="'btn btn-primary' + (hoadon.trang_thai_don !== 0 ? ' disabled-link' : '')"
-                    :href="'{{ asset(" admin/hoa-don/hoa-don-chi-tiet") }}/' + hoadon.id">
+                    :href="'{{ asset("admin/hoa-don/hoa-don-chi-tiet") }}/' + hoadon.id">
                     Sửa
                   </a>
                   <button v-on:click="setHoaDon(hoadon)" class="btn btn-success" data-bs-toggle="modal"
@@ -163,7 +163,7 @@
                               alt="Hình ảnh sản phẩm">
                           </td>
                           <td class="align-middle text-center">
-                            @{{ formatCurrency(hdct.gia_san_pham * (1 - hdct.giam_gia_san_pham / 100)) }}
+                            @{{ formatCurrency(hdct.giam_gia_san_pham) }}
                           </td>
                           <td class="align-middle text-center">@{{ hdct.tong_so_luong }}</td>
                           <td class="align-middle text-center">@{{ hdct.ma_san_pham }}</td>

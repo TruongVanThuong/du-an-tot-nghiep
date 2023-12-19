@@ -96,8 +96,7 @@
                     ngay_sinh: '',
                     gioi_tinh: ''
                 },
-            @include('Trang-Khach-Hang.share.datavue')
-
+                @include('Trang-Khach-Hang.share.datavue')
             },
             watch: {
                 'dang_ky.ho_va_ten': function(newVal) {
@@ -139,9 +138,22 @@
                     if (newVal) {
                         this.errors.gioi_tinh = '';
                     }
-                }
+                },
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+                    
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
             },
             methods: {
+                @include('Trang-Khach-Hang.share.vue')
+                
                 kich_hoat_dang_ky() {
                     axios
                         .post('/kich-hoat-dang-ky', this.dang_ky)
@@ -164,7 +176,6 @@
                             }
                         })
                 },
-                @include('Trang-Khach-Hang.share.vue')
             }
         });
     </script>

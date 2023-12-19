@@ -48,8 +48,10 @@
                 },
                 quen_mat_khau:{
                     ma_bam_quen_mat_khau: "{{ $ma_bam_quen_mat_khau }}",
-                }
+                },
+                @include('Trang-Khach-Hang.share.datavue')
             },
+            
             watch: {
                 
                 'quen_mat_khau.password': function(newVal) {
@@ -62,8 +64,20 @@
                         this.errors.nhap_lai_password = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
                     }
                 },
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
             },
             methods: {
+                @include('Trang-Khach-Hang.share.vue')
                 KichHoatDoiMatKhau(){
                     axios
                         .post('/doi-mat-khau', this.quen_mat_khau)

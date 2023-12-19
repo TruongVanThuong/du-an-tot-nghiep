@@ -27,10 +27,27 @@ public function GuiLienHe(LienHe $request)
     // Kiểm tra xem người dùng đã đăng nhập chưa
     if (Auth::check()) {
         $du_lieu = $request->all();
-
+        dd($du_lieu);
+        $user = Auth::guard('khach_hang')->user();
         // Nếu không, tiếp tục tạo mới bản ghi
         LienheModel::create($du_lieu);
 
+        // Phân cụm này qua JOB
+        $du_lieu_Mail['ho_va_ten'] = $user->ho_va_ten;
+        $du_lieu_Mail['email']     = $user->email;
+        $du_lieu_Mail['tieu_de']   = $request->tieu_de;
+        $du_lieu_Mail['noi_dung']  = $request->noi_dung;
+
+        GuiMailLienHe::dispatch($du_lieu_Mail);
+
+        return response()->json([
+            'status'  => true,
+            'message' => 'Đã gửi liên hệ, chúng tôi sẽ phản hồi sớm!'
+        ]);
+    } else {
+        $du_lieu = $request->all();
+        // Nếu không, tiếp tục tạo mới bản ghi
+        LienheModel::create($du_lieu);
         // Phân cụm này qua JOB
         $du_lieu_Mail['ho_va_ten'] = $request->ho_va_ten;
         $du_lieu_Mail['email']     = $request->email;
@@ -42,12 +59,6 @@ public function GuiLienHe(LienHe $request)
         return response()->json([
             'status'  => true,
             'message' => 'Đã gửi liên hệ, chúng tôi sẽ phản hồi sớm!'
-        ]);
-    } else {
-        // Người dùng chưa đăng nhập, xử lý theo yêu cầu của bạn
-        return response()->json([
-            'status'  => false,
-            'message' => 'Bạn cần đăng nhập để gửi liên hệ.'
         ]);
     }
 }

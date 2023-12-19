@@ -19,7 +19,7 @@
                                             <path d="M7.5 0.59375C4.72888 0.59375 2.46875 2.85388 2.46875 5.625C2.46875 7.3573 3.35315 8.89587 4.69238 9.80274C2.12903 10.9033 0.3125 13.447 0.3125 16.4063H1.75C1.75 13.2224 4.31616 10.6563 7.5 10.6563C10.6838 10.6563 13.25 13.2224 13.25 16.4063H14.6875C14.6875 13.447 12.871 10.9033 10.3076 9.80274C11.6469 8.89587 12.5313 7.3573 12.5313 5.625C12.5313 2.85388 10.2711 0.59375 7.5 0.59375ZM7.5 2.03125C9.49341 2.03125 11.0938 3.63159 11.0938 5.625C11.0938 7.61841 9.49341 9.21875 7.5 9.21875C5.50659 9.21875 3.90625 7.61841 3.90625 5.625C3.90625 3.63159 5.50659 2.03125 7.5 2.03125Z" fill="#00234D" />
                                         </svg>
                                     </span>
-                                    <span class="ms-2">{{$baiviet->ma_khach_hang}}</span>
+                                    <span class="ms-2">{{$baiviet->ten_tai_khoan}}</span>
                                 </span>
                                 <span class="article-separator mx-3">
                                     <svg width="2" height="12" viewBox="0 0 2 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +32,7 @@
                                             <path d="M0.347656 0.5V15.5H7.53711L10.0977 18.0605L12.6582 15.5H19.8477V0.5H0.347656ZM1.84766 2H18.3477V14H12.0371L10.0977 15.9395L8.1582 14H1.84766V2ZM4.84766 4.25V5.75H15.3477V4.25H4.84766ZM4.84766 7.25V8.75H15.3477V7.25H4.84766ZM4.84766 10.25V11.75H12.3477V10.25H4.84766Z" fill="black" />
                                         </svg>
                                     </span>
-                                    <span class="ms-2"> Comments</span>
+                                    <span class="ms-2"> BÌNH LUẬN</span>
                                 </a>
                                 <span class="article-separator mx-3 d-none d-sm-block">
                                     <svg width="2" height="12" viewBox="0 0 2 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="share-area mt-5 d-flex align-items-center">
-                            <strong class="label mb-1 d-block">Share:</strong>
+                            <strong class="label mb-1 d-block">Chia sẽ:</strong>
                             <ul class="list-unstyled share-list d-flex align-items-center mb-1 flex-wrap">
                                 <li class="share-item">
                                     <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,22 +111,22 @@
                             </ul>
                         </div>
 
-                        <div class="next-prev-article mt-5 d-flex align-items-center justify-content-between">
+                        <!-- <div class="next-prev-article mt-5 d-flex align-items-center justify-content-between">
                             <a href="" class="article-btn prev-article-btn mt-2">PREV ARTICLE</a>
                             <a href="" class="article-btn next-article-btn active mt-2">NEXT ARTICLE</a>
-                        </div>
+                        </div> -->
 
                         <div id="binh_luan_bai_viet" class="comments-section mt-100 home-section overflow-hidden">
                             <div class="section-header">
-                                <h2 class="section-heading">Comments </h2>
+                                <h2 class="section-heading">Bình luận </h2>
 
 
                             </div>
                             <div class="comments-area">
                                 <div v-for="(value, key) in ds_binhluan" class="d-flex comments-item" v-if="value.ma_bai_viet == {{$baiviet->id}}">
-                                    <div class="comments-img">
-                                        <img src="/assets_client/img/people/1.jpg" alt="img">
-                                    </div>
+                                <div class="comments-img">
+                                    <img src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA0L3BmLWljb240LWppcjIwNjItcG9yLWwtam9iNzg4LnBuZw.png" alt="img">
+                                </div>
                                     <div class="comments-main">
                                         <div class="comments-main-content">
                                             <div class="comments-meta">
@@ -147,7 +147,7 @@
                                                         <path d="M5.14062 2.64062L1.14062 6.64062L0.796875 7L1.14062 7.35938L5.14062 11.3594L5.85938 10.6406L2.21875 7L5.85938 3.35938L5.14062 2.64062ZM7.64062 2.64062L3.64062 6.64062L3.29688 7L3.64062 7.35938L7.64062 11.3594L8.35938 10.6406L5.21875 7.5H11.5C12.8867 7.5 14 8.61328 14 10C14 11.3867 12.8867 12.5 11.5 12.5V13.5C13.4277 13.5 15 11.9277 15 10C15 8.07227 13.4277 6.5 11.5 6.5H5.21875L8.35938 3.35938L7.64062 2.64062Z" fill="black" />
                                                     </svg>
                                                 </span>
-                                                <span class="btn-reply-text">Reply</span>
+                                                <!-- <span class="btn-reply-text">Reply</span> -->
                                             </button>
                                         </div>
 
@@ -159,7 +159,7 @@
                             <div class="comment-form-area">
                                 <div class="form-header">
                                     <h4 class="form-title">Thêm bình luận</h4>
-                                    <p class="form-subtitle">All fields marked with an asterisk (*) are required</p>
+                                    <p class="form-subtitle">Các mục có dấu (*) cần bắt buộc phải nhập</p>
                                 </div>
                                 <div class="name-email-field d-flex justify-content-between">
                                     <div class="field-item name-field">
@@ -197,15 +197,19 @@
                                             <path d="M0.25 0.75V14.25H4V18.0586L8.76367 14.25H19.75V0.75H0.25ZM1.75 2.25H18.25V12.75H8.23633L5.5 14.9385V12.75H1.75V2.25ZM5.5 6C4.6709 6 4 6.6709 4 7.5C4 8.3291 4.6709 9 5.5 9C6.3291 9 7 8.3291 7 7.5C7 6.6709 6.3291 6 5.5 6ZM10 6C9.1709 6 8.5 6.6709 8.5 7.5C8.5 8.3291 9.1709 9 10 9C10.8291 9 11.5 8.3291 11.5 7.5C11.5 6.6709 10.8291 6 10 6ZM14.5 6C13.6709 6 13 6.6709 13 7.5C13 8.3291 13.6709 9 14.5 9C15.3291 9 16 8.3291 16 7.5C16 6.6709 15.3291 6 14.5 6Z" fill="#00234D" />
                                         </svg>
                                     </span>
-                                    <textarea v-model="them_binhluan.noi_dung" cols="20" rows="6" placeholder="viết nội dung đánh giá........"></textarea>
+                                    <textarea v-model="them_binhluan.noi_dung" cols="20" rows="6" required placeholder="viết nội dung đánh giá........"></textarea>
+                                        
                                 </div>
+                                <div v-if="errors.noi_dung" class="alert alert-warning">
+                                            @{{ errors.noi_dung[0] }}
+                                        </div>
                                 <!-- <div class="form-checkbox d-flex align-items-center mt-4">
                                     <input class="form-check-input mt-0" type="checkbox" />
                                     <label class="form-check-label ms-2">
                                         Save my information in this browser for the next time.
                                     </label>
                                 </div> -->
-                                <button v-on:click="them_binh_luan()" type="button" class="position-relative review-submit-btn mt-4">SUBMIT</button>
+                                <button v-on:click="them_binh_luan()" type="button" class="position-relative review-submit-btn mt-4">Bình luận</button>
 
                             </div>
                         </div>
@@ -219,8 +223,8 @@
                             <div class="blogger-img mb-3">
                                 <img class="rounded" src="/assets_client/img/people/blogger.jpg" alt="img">
                             </div>
-                            <h4 class="blogger-name heading_18 mb-1">Shakespeare D. Willaim</h4>
-                            <p class="blogger-designation mb-1">Bloger / Photographer</p>
+                            <h4 class="blogger-name heading_18 mb-1">{{$baiviet->ten_tai_khoan}}</h4>
+                            <p class="blogger-designation mb-1">Nhân viên cửa hàng</p>
                             <div class="product-rating d-flex align-items-center mb-3 justify-content-center">
                                 <span class="star-rating">
                                     <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -240,7 +244,7 @@
                                     </svg>
                                 </span>
                             </div>
-                            <p class="blogger-desc mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Veritatis distinctio, odio eligendi suscipit reprehenderit atque</p>
+                            <p class="blogger-desc mb-3">Nhân viên marketing cửa hàng</p>
                             <ul class="list-unstyled share-list d-flex align-items-center justify-content-center mb-1 flex-wrap">
                                 <li class="share-item ms-0">
                                     <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -271,7 +275,7 @@
                         </div>
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom">
-                                Categories
+                                Thể loại tin
                             </div>
                             <div class="accordion-collapse">
                                 <ul class="filter-lists list-unstyled mb-0">
@@ -295,7 +299,7 @@
                         </div>
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center border-bottom">
-                                Latest Post
+                                Bài đăng mới
                             </div>
                             <div class="filter-related">
                                 @foreach($data_lastpost as $lastpost)
@@ -325,9 +329,9 @@
                         </div>
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom">
-                                Popular Tags
+                                Tag phổ biến
                             </div>
-                            <ul class="filter-tags list-unstyled">
+                            <!-- <ul class="filter-tags list-unstyled">
                                 <li class="tag-item"><a href="#">Popular</a></li>
                                 <li class="tag-item"><a href="#">Agency</a></li>
                                 <li class="tag-item"><a href="#">Furniture</a></li>
@@ -338,13 +342,13 @@
                                 <li class="tag-item"><a href="#">web</a></li>
                                 <li class="tag-item"><a href="#">bag</a></li>
                                 <li class="tag-item"><a href="#">shoe</a></li>
-                            </ul>
+                            </ul> -->
                         </div>
-                        <div class="filter-widget">
+                        <!-- <div class="filter-widget">
                             <a href="#">
                                 <img class="rounded" src="/assets_client/img/banner/collection.jpg" alt="img">
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -357,19 +361,41 @@
     new Vue({
         el: '#app',
         data: {
-            them_binhluan: {},
+            them_binhluan: {
+                ma_bai_viet: {{$baiviet->id}},
+            },
             ds_binhluan: [],
+            errors: {
+                noi_dung: '',
+            },
             @include('Trang-Khach-Hang.share.datavue')
 
 
         },
+        watch: {
+            'them_binhluan.noi_dung': function (newVal) {
+            if (newVal) {
+                this.errors.noi_dung = ''; // Xóa thông báo lỗi khi người dùng bắt đầu nhập
+            }
+            },
+                tim_kiem: function(newVal) {
+                    // Clear previous timeout
+                    if (this.searchTimeout) {
+                        clearTimeout(this.searchTimeout);
+                    }
+
+                    // Set a new timeout to debounce the search
+                    this.searchTimeout = setTimeout(() => {
+                        this.gui_tim_kiem();
+                    }, 100); // Thời gian chờ là 300 milliseconds (tùy chỉnh theo nhu cầu)
+                },
+            },
         created() {
             this.tai_gio_hang(); // Gọi hàm này để tải dữ liệu khi component được tạo
             this.laybinhluan();
-            this.them_binhluan.ma_bai_viet = {{$baiviet -> id}};
+            
         },
         methods: {
-
             laybinhluan() {
                 axios
                     .get('/binh-luan-tin-tuc')
@@ -387,10 +413,18 @@
                         if (res.data.status) {
                             toastr.success(res.data.message);
                             this.laybinhluan();
+                            this.them_binhluan.noi_dung ='';
                         } else {
                             toastr.error(res.data.message);
                         }
-                    });
+                    })
+                    .catch((error) => {
+                        if (error && error.response.data && error.response.data.errors) {
+                            this.errors = error.response.data.errors;
+                        } else {
+                            toastr.error('Có lỗi không mong muốn! 2');
+                        }
+                    })
 
             },
 

@@ -27,7 +27,7 @@
             <label>Mô tả ngắn</label>
             <p></p>
             <div class="input-group form-group-item">
-              <textarea name="mo_ta_ngan" class="form-control" id="" cols="20" rows="3"> {{$baiviet->mo_ta_ngan}}</textarea>
+              <textarea name="mo_ta_ngan" class="form-control" id="" cols="20" rows="3"required> {{$baiviet->mo_ta_ngan}}</textarea>
             </div>
           </div>
           <div class="form-group mt-3">
@@ -39,7 +39,7 @@
           </div>
           <div class="form-group mt-3 form-group-item">
             <label>Nội dung</label>
-            <textarea name="noi_dung" id="noi_dung_cap_nhat" class="form-control ckeditor" cols="30" rows="10" required="required"> {!! $baiviet->noi_dung !!}</textarea>
+            <textarea name="noi_dung" id="noi_dung_cap_nhat" class="form-control ckeditor" cols="30" rows="10" required> {!! $baiviet->noi_dung !!}</textarea>
           </div>
         </div>
         <div class="modal-footer">

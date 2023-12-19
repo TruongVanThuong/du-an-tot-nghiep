@@ -17,6 +17,7 @@ class TaiKhoanModel extends Authenticatable
         'ten_tai_khoan',
         'password',
         'email',
+        'hinh_anh',
         'loai_tai_khoan',
         'so_dien_thoai',
         'dia_chi',

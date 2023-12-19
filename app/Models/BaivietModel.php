@@ -18,7 +18,7 @@ class BaivietModel extends Model
         "ten_bai_viet_slug",
         "loai_tin",
         "mo_ta_ngan",
-        "ma_khach_hang",
+        "ma_nhan_vien",
         "noi_dung",
         "hinh_anh",
         "rating",
