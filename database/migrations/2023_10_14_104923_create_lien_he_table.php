@@ -14,9 +14,8 @@ return new class extends Migration {
     {
         Schema::create('lien_he', function (Blueprint $table) {
             $table->id();
-            $table->string('ho_va_ten');
+            $table->string('ten_khach_hang');
             $table->string('email');
-            $table->string('tieu_de');
             $table->text('noi_dung');
             $table->string('so_dien_thoai');
             $table->integer('xu_ly')->default(0);

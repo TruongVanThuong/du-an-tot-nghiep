@@ -12,9 +12,10 @@ class NhanVienMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $check = Auth::guard('tai_khoan')->check();
-        if($check) {
+        if ($check) {
             $user = Auth::guard('tai_khoan')->user();
-            if($user->loai_tai_khoan <= 1) {
+            // tài khoản nhân viên bán hàng là : 2
+            if ($user->loai_tai_khoan <= 1 && $user->loai_tai_khoan === 3) {
                 toastr()->error('Tài khoản của bạn không đủ quyền truy cập!');
                 return redirect('./admin/dang-nhap');
             }

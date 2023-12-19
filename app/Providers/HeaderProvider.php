@@ -31,7 +31,8 @@ class HeaderProvider extends ServiceProvider
         View::composer('Trang-Khach-Hang.page.SanPhamTheLoai', headerComposer::class);
         View::composer('Trang-Khach-Hang.page.TrangChu', headerComposer::class);
         View::composer('AdminRocker.share.header', headerAdminComposer::class); 
-       
+        View::composer('AdminRocker.share.menu', headerAdminComposer::class); 
+        View::composer('AdminRocker.share.js', headerAdminComposer::class);        
 
     }
 }

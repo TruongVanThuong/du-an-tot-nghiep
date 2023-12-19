@@ -19,6 +19,7 @@ class SanphamModel extends Model
         "ten_san_pham_slug",
         "gia_san_pham",
         "giam_gia_san_pham",
+        "phan_tram_giam_gia",
         "ma_loai",
         "so_luong",
         "luot_xem",

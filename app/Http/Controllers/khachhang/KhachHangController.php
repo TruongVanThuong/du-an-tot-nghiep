@@ -142,6 +142,7 @@ class KhachHangController extends Controller
         $khach_hang = KhachHangModel::where('ma_bam_quen_mat_khau', $request->ma_bam_quen_mat_khau)->first();
         $khach_hang->ma_bam_quen_mat_khau = '';
         $khach_hang->password = bcrypt($request->password);
+        
         $khach_hang->save();
 
         return response()->json([

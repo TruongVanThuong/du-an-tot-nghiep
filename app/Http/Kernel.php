@@ -71,5 +71,7 @@ class Kernel extends HttpKernel
         // ...
         'CheckAdminAccess' => \App\Http\Middleware\CheckAdminAccess::class,
         'NhanVienMiddleware' => \App\Http\Middleware\NhanVienMiddleware::class,
+        'NhanVienDangBaiMiddleware' => \App\Http\Middleware\NhanVienDangBaiMiddleware::class,
+        'QuanLyMiddleware' => \App\Http\Middleware\QuanLyMiddleware::class,
     ];
 }
