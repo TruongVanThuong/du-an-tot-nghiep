@@ -137,7 +137,7 @@
                                         </a>
                                     </li>
                                   <div v-if="ds_tim_kiem.length == 3" class="text-end">
-                                    <form action="/tim-kiem" method="post">
+                                    <form action="/tim-kiem" method="get">
                                         @csrf
                                         <input type="hidden" :value="tim_kiem" name="search">
                                         <button class="btn">Xem thêm ...</button>
