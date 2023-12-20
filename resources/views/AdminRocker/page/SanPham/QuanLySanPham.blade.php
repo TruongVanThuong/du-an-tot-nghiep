@@ -763,7 +763,7 @@
                         data-bs-target="#ModalRecover{{$sanpham->id}}">Phục Hồi</button>
                       <button class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#DeleteTrashModal{{$sanpham->id}}" @if ($sanpham->disabled) disabled @endif
-                        ">Xóa</button>
+                        >Xóa</button>
                     </td>
 
                     <!-- MODAL DELETE -->
@@ -849,7 +849,7 @@
 
               </table>
 
-              <span class="text-danger">* Không thể xoá sản phẩm khi có dữ liệu liên quan tới hoá đơn</span>
+              <span class="text-danger">* Không thể xoá sản phẩm khi có dữ liệu liên quan tới hoá đơn, bình luận, ...</span>
 
             </div>
             <div>{{$TrashSanPhamsWithInfo->links('AdminRocker.share.custom')}}</div>

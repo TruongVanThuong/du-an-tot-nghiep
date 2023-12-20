@@ -93,18 +93,20 @@ class TrangChuController extends Controller
 
     public function SanPhamTatCa()
     {
-        $san_pham_tat_ca = DanhmucModel::orderBy('created_at', 'desc')
-            ->join('loai_san_pham', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
+        $san_pham_tat_ca = DanhmucModel::join('loai_san_pham', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
             ->join('san_pham', 'loai_san_pham.id', '=', 'san_pham.ma_loai')
             ->join('hinh_anh', function ($join) {
                 $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
                     ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
             })
+            ->where('san_pham.deleted_at', '=', null)
+            ->where('san_pham.trang_thai', '=', 1)
             ->select('san_pham.*', 'loai_san_pham.ten_loai as ten_loai_san_pham', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
+          
             ->paginate(9);
 
             // dd( $san_pham_tat_ca);
-        $tin_khuyen_mai = BaivietModel::orderBy('created_at', 'desc')
+         $tin_khuyen_mai = BaivietModel::orderBy('created_at', 'desc')
             ->where('loai_tin', '1')
             ->join('tai_khoan', 'bai_viet.ma_nhan_vien', '=', 'tai_khoan.id')
             ->select('bai_viet.*', 'tai_khoan.ten_tai_khoan')->limit(5)->get();
@@ -122,6 +124,8 @@ class TrangChuController extends Controller
                 $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
                     ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
             })
+            ->where('san_pham.deleted_at', '=', null)
+            ->where('san_pham.trang_thai', '=', 1)
             ->select('san_pham.*', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
             ->paginate(9);
         // dd($san_pham_danh_muc);
@@ -141,6 +145,8 @@ class TrangChuController extends Controller
                 $join->on('san_pham.id', '=', 'hinh_anh.ma_san_pham')
                     ->whereRaw('hinh_anh.id = (select min(id) from hinh_anh where hinh_anh.ma_san_pham = san_pham.id)');
             })
+            ->where('san_pham.deleted_at', '=', null)
+            ->where('san_pham.trang_thai', '=', 1)
             ->join('danh_muc', 'danh_muc.id', '=', 'loai_san_pham.ma_danh_muc')
             ->where('danh_muc.ten_danh_muc_slug', $ten_danh_muc_slug)
             ->select('san_pham.*', 'loai_san_pham.ten_loai_slug', 'hinh_anh.hinh_anh', 'danh_muc.ten_danh_muc_slug')
@@ -225,6 +231,8 @@ class TrangChuController extends Controller
         })
         ->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
         ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
+        ->where('san_pham.deleted_at', '=', null)
+        ->where('san_pham.trang_thai', '=', 1)
         ->select('san_pham.*','loai_san_pham.ten_loai_slug', 'danh_muc.ten_danh_muc_slug')
         ->paginate(9);
 

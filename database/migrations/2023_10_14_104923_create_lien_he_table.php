@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('ten_khach_hang');
             $table->string('email');
+            $table->text('tieu_de');
             $table->text('noi_dung');
             $table->string('so_dien_thoai');
             $table->integer('xu_ly')->default(0);

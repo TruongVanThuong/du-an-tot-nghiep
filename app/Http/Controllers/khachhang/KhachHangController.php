@@ -137,6 +137,7 @@ class KhachHangController extends Controller
             return redirect('/');
         }
     }
+    
     public function KichHoatDoiMatKhau(CapNhatQuenMatKhau $request)
     {
         $khach_hang = KhachHangModel::where('ma_bam_quen_mat_khau', $request->ma_bam_quen_mat_khau)->first();

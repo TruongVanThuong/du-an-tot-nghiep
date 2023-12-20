@@ -348,7 +348,6 @@
                                     @endif
                                 </div>
                                 <div>{{ $san_pham_tat_ca->links('Trang-Khach-Hang.page.custompagination') }}</div>
-
                             </div>
                         </div>
                     </div>

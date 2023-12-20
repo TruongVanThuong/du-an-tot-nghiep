@@ -94,8 +94,8 @@
                                     @else
                                     <div class="col-md-6 col-12">
                                         <fieldset>
-                                            <input v-model="lien_he.ho_va_ten" type="text" placeholder="Họ và tên" />
-                                            <div v-if="errors.ho_va_ten" class="alert alert-warning">@{{ errors.ho_va_ten[0] }}
+                                            <input v-model="lien_he.ten_khach_hang" type="text" placeholder="Họ và tên" />
+                                            <div v-if="errors.ten_khach_hang" class="alert alert-warning">@{{ errors.ten_khach_hang[0] }}
                                             </div>
 
                                         </fieldset>
@@ -154,7 +154,7 @@
             data: {
                 @include('Trang-Khach-Hang.share.datavue')
                 lien_he: {
-                    ho_va_ten: "{{$user ? $user->ho_va_ten : ''}}", // Giá trị mặc định nếu không có dữ liệu từ v-model
+                    ten_khach_hang : "{{$user ? $user->ho_va_ten : ''}}", // Giá trị mặc định nếu không có dữ liệu từ v-model
                      email: "{{$user ? $user->email : ''}}"
                 },
                 errors: {},

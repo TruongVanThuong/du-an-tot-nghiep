@@ -23,7 +23,7 @@
             <div class="card custom-column" style="height: 100%;">
               <h4 class="text-center">THÔNG TIN HOÁ ĐƠN</h4>
               <div class="form-group mt-3">
-                <strong>Mã hoá đơn : <span>@{{ hoa_don_moi_nhat.ma_hoa_don }}</span></strong>
+                <strong>Mã hoá đơn : <span>@{{ hoa_don_moi_nhat.id }}</span></strong>
               </div>
               <div class="form-group mt-3">
                 <label>Nhân viên báng hàng : </label>

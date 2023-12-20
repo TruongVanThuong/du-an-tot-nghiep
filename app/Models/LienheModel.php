@@ -12,7 +12,7 @@ class LienheModel extends Model
     protected $table = 'lien_he';
     protected $primarykey = 'id';
     protected $fillable = [
-        'ho_va_ten',
+        'ten_khach_hang',
         'email',
         'tieu_de',
         'noi_dung',

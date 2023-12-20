@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SanphamRequest;
+use App\Models\BinhluanModel;
 use App\Models\DanhmucModel;
 use App\Models\HinhanhModel;
 use App\Models\HoadonchitietModel;
@@ -23,6 +24,7 @@ class SanphamController extends Controller
 		$data_hinhanh = HinhanhModel::all();
 		$data_Loaisanpham = LoaisanphamModel::get();
 		$data_danhmuc = DanhmucModel::get();
+		$data_binhluan = BinhluanModel::get();
 
 		$sanPhamsWithInfo = SanphamModel::orderBy('id', 'desc')->join('loai_san_pham', 'san_pham.ma_loai', '=', 'loai_san_pham.id')
 		->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
@@ -45,7 +47,14 @@ class SanphamController extends Controller
 		->paginate(10);
 
 		foreach ($TrashSanPhamsWithInfo as $san_pham) {
-			$san_pham->disabled = $data_HDCT->where('ma_san_pham', $san_pham->id)->isNotEmpty();
+			if($data_HDCT->where('ma_san_pham', $san_pham->id)->isNotEmpty() 
+				|| $data_binhluan->where('ma_san_pham' ,$san_pham->id)->isNotEmpty() 
+				|| $data_hinhanh->where('ma_san_pham' ,$san_pham->id)->isNotEmpty() 
+			) {
+				$san_pham->disabled = true;
+			} else {
+				$san_pham->disabled = false;
+			}
 		}
 		
 		if ($sanPhamsWithInfo->isEmpty()) {

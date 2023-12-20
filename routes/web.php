@@ -220,7 +220,7 @@ Route::get('/quen-mat-khau', [KhachHangController::class, 'QuenMatKhau']);
 Route::post('/kich-hoat-quen-mat-khau', [KhachHangController::class, 'KichHoatQuenMatKhau']);
 Route::get('/kich-hoat-mail-doi-mat-khau/{ma_bam_quen_mat_khau}', [KhachHangController::class, 'KichHoatMailDoiMatKhau']);
 Route::post('/doi-mat-khau', [KhachHangController::class, 'KichHoatDoiMatKhau']);
-//HỒ SƠ, ĐĂNG XUẤT, ĐỔI MẬT KHẨU 
+//HỒ SƠ, ĐĂNG XUẤT, ĐỔI MẬT KHẨU  
 
 // Route::get('/lien-he', [LienHeController::class, 'LienHe']);
 

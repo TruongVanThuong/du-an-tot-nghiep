@@ -17,7 +17,7 @@ class LienHe extends FormRequest
     public function rules()
     {
         return [
-            'ho_va_ten'             =>  'required|min:6|max:50',
+            'ten_khach_hang'             =>  'required|min:6|max:50',
             'email'                 =>  'required|email',
             'so_dien_thoai'         =>  'required|digits:10',
             'tieu_de'               =>  'required|min:6|max:50',
@@ -28,9 +28,9 @@ class LienHe extends FormRequest
     public function messages()
     {
         return [
-            'ho_va_ten.required'            => 'Họ và tên không được để trống',
-            'ho_va_ten.min'                 => 'Họ và tên phải từ 6 ký tự trở lên',
-            'ho_va_ten.max'                 => 'Họ và tên không được vượt quá 50 ký tự',
+            'ten_khach_hang.required'            => 'Họ và tên không được để trống',
+            'ten_khach_hang.min'                 => 'Họ và tên phải từ 6 ký tự trở lên',
+            'ten_khach_hang.max'                 => 'Họ và tên không được vượt quá 50 ký tự',
             'email.required'                => 'Email không được để trống',
             'email.email'                   => 'Email không đúng định dạng',
             'so_dien_thoai.required'        => 'Số điện thoại không được để trống',

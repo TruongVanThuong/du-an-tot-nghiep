@@ -27,14 +27,21 @@ class QLHoaDonController extends Controller
     public function DuLieuHoaDon()
     {
         $now = Carbon::now();
-        $date = $now->toDateString(); 
+        $date = $now->toDateString();
         $time = $now->toTimeString();
         $dateWithoutSpecialChars = str_replace(['-', ':'], '', $date);
         $timeWithoutSpecialChars = str_replace(['-', ':'], '', $time);
 
         $hoa_don_moi_nhat = HoadonModel::orderBy('id', 'desc')->first();
-        $hoa_don_moi_nhat->ma_hoa_don = "TQ$dateWithoutSpecialChars$timeWithoutSpecialChars";
+        if ( $hoa_don_moi_nhat) {
+            $hoa_don_moi_nhat->id = "TQ$dateWithoutSpecialChars$timeWithoutSpecialChars";
+            // dd('co du lieu');
+        }else{
+            // dd('khong co du lieu');
 
+            $hoa_don_moi_nhat = new HoadonModel;
+            $hoa_don_moi_nhat->id = "TQ$dateWithoutSpecialChars$timeWithoutSpecialChars";
+        }
         $data_hoadon = HoadonModel::orderBy('id', 'desc')->get();
         $tai_khoan_dang_nhap = Auth::guard('tai_khoan')->user();
         $data_khachhang = KhachHangModel::all();
@@ -101,11 +108,11 @@ class QLHoaDonController extends Controller
             ->join('danh_muc', 'loai_san_pham.ma_danh_muc', '=', 'danh_muc.id')
             ->select('san_pham.*', 'loai_san_pham.ten_loai', 'danh_muc.ten_danh_muc', 'hinh_anh.hinh_anh')
             ->get();
-        
+
 
         return view('AdminRocker.page.HoaDon.QuanLyHDCT', compact('data_hdct', 'data_hoadon', 'data_sanpham'));
     }
-   
+
     public function TrangTaoHoaDon()
     {
         return view('AdminRocker.page.HoaDon.TaoHoaDon');
@@ -116,14 +123,14 @@ class QLHoaDonController extends Controller
         $themHoaDon = $request->input('them_hoa_don');
         $SanPham = $request->input('SanPham');
         $now = Carbon::now();
-        $date = $now->toDateString(); 
+        $date = $now->toDateString();
         $time = $now->toTimeString();
         $dateWithoutSpecialChars = str_replace(['-', ':'], '', $date);
         $timeWithoutSpecialChars = str_replace(['-', ':'], '', $time);
         $hoaDon = HoadonModel::create([
+            'id' => "TQ$dateWithoutSpecialChars$timeWithoutSpecialChars",
             'trang_thai_thanh_toan' => $themHoaDon['trang_thai_thanh_toan'],
             'trang_thai_don' => $themHoaDon['trang_thai_don'],
-            'ma_don_hang' => "TQ$dateWithoutSpecialChars$timeWithoutSpecialChars",
             'ma_khach_hang' => $themHoaDon['ma_khach_hang'],
             'ho_va_ten' => $themHoaDon['ho_va_ten'],
             'dia_chi' => $themHoaDon['dia_chi'],
@@ -135,14 +142,14 @@ class QLHoaDonController extends Controller
         foreach ($SanPham as $san_pham) {
             $SanphamModel = SanphamModel::find($san_pham['id_SP']);
 
-            $tongtien = $san_pham['tong_so_luong'] * $SanphamModel->giam_gia_san_pham ;
+            $tongtien = $san_pham['tong_so_luong'] * $SanphamModel->giam_gia_san_pham;
             $tong_tien_tat_ca += $tongtien;
 
             HoadonchitietModel::create([
                 'ma_hoa_don' => $hoaDon->id,
                 'ma_san_pham' => $san_pham['id_SP'],
                 'tong_so_luong' => $san_pham['tong_so_luong'],
-                'tong_tien' => $tongtien ,
+                'tong_tien' => $tongtien,
             ]);
         }
         $hoaDon->update(['tong_tien_tat_ca' => $tong_tien_tat_ca]);
@@ -285,11 +292,12 @@ class QLHoaDonController extends Controller
     public function ThemHoaDonChiTiet(Request $request)
     {
         $data = $request->all();
+   
         $tong_tien = $data['tong_so_luong'] * $data['giam_gia_san_pham'];
-        
+
         $data['tong_tien'] = $tong_tien;
         $tong_tien_tat_ca = $data['tong_tien_tat_ca'] + $tong_tien;
-        // dd($data);
+   
         HoadonchitietModel::create($data);
         HoadonModel::where('id', $request->ma_hoa_don)->update(
             [
